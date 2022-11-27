@@ -1,0 +1,216 @@
+{
+    "basic_info": {
+      "description_header": "Hi",
+      "description": "<p>Building and developing scalable systems that are built on React, C#, PHP, NodeJS and on cloud that can handle lakhs of hits per day.Leading an engineering team of 5+ members, motivating them and getting the task done on right time using agile Methodologies. Architecting the system from scratch and trying to be the bridge between management solutions and technical solutions.6+ Years of Experience in Developing Applications using React, C#, LAMP Stack and using using Popular frameworks like Yii, Zend, CodeIgniter etc. 2+ Year Experience in Mobile application Development on Andriod.</p>",
+      "section_name": {
+        "about": "Siddharth Deshpande",
+        "projects": "Projects",
+        "skills": "Skills",
+        "experience": "Experience"
+      }
+    },
+    "projects": [
+      {
+        "title": "Animal Shelter",
+        "startDate": "2020",
+        "description": "The most expanded application I had opportunity to work with. I've learned many technologies and my code was reviewed by awesome curator. Application handles all adoption processess and allows to store all evidence on adopting animals from animal shelter.",
+        "images": [
+          "images/portfolio/animal-shelter/p1.jpg",
+          "images/portfolio/animal-shelter/p2.jpg"
+        ],
+        "url": "",
+        "technologies": [
+          {
+            "class": "devicon-angularjs-plain",
+            "name": "Angular"
+          },
+          {
+            "class": "devicon-typescript-plain",
+            "name": "TypeScript"
+          },
+          {
+            "class": "devicon-csharp-plain",
+            "name": "C#"
+          }
+        ]
+      },
+      {
+        "title": "Photography",
+        "startDate": "2018",
+        "description": "Personal project for study subject. I was responsible for testing photography application that optimizes images with popular algorithms used by graphic editors like Pixlr or Adobe Photoshop. I've earned A grade :)",
+        "images": [
+          "images/portfolio/photography/p1.jpg",
+          "images/portfolio/photography/p2.jpg"
+        ],
+        "url": "https://github.com",
+        "technologies": [
+          {
+            "class": "devicon-react-original",
+            "name": "React"
+          },
+          {
+            "class": "devicon-javascript-plain",
+            "name": "JavaScript"
+          }
+        ]
+      },
+      {
+        "title": "3D Object Viewer",
+        "startDate": "2015",
+        "description": "One of the first apps I was working on my internship. I had to develop front-end implementation for app that shows 3D models of known buildings. This was also my first project in Angular framework. I've learned a lot!",
+        "images": [
+          "images/portfolio/adventure/p1.jpg",
+          "images/portfolio/adventure/p2.jpg"
+        ],
+        "url": "https://github.com",
+        "technologies": [
+          {
+            "class": "devicon-angularjs-plain",
+            "name": "Angular"
+          },
+          {
+            "class": "devicon-typescript-plain",
+            "name": "TypeScript"
+          },
+          {
+            "class": "devicon-csharp-plain",
+            "name": "C#"
+          }
+        ]
+      }
+    ],
+    "experience": [
+      {
+        "company": "Apra Labs",
+        "title": "Senior Software Engineer",
+        "years": "Aug 2019 - Present | ~ 3 Years",
+        "mainTech": [
+          "Building a team, Physical Security Industry"
+        ],
+        "technologies": [
+          "C#",
+          ".NET Core",
+          ".NET Framework",
+          "Service Bus",
+          "React",
+          "Entity Framework",
+          "Azure Functions 1.x - 4.x",
+          "Video Streaming",
+          "Java",
+          "Azure",
+          "MS Dev Ops",
+          "CI/CD"
+        ]
+      },
+      {
+        "company": "MildlyClassic Pvt LTD",
+        "title": "Engineering Team Lead",
+        "years": "May 2016 - July 2020 | 4 Years, 3 Months",
+        "mainTech": [
+          "Logistics ERP Platform from scratch having lakhs of hits per day"
+        ],
+        "technologies": [
+          "PHP",
+          "MySQL",
+          "JQuery",
+          "Linux",
+          "Apache",
+          "CodeIgniter",
+          "Node JS",
+          "Bootstrap",
+          "CSS 3.0",
+          "Docker",
+          "AWS Microservices",
+          "Ansible",
+          "LAMP Stack",
+          "CI/CD"
+        ]
+      },
+      {
+        "company": "UXgage",
+        "title": "Web Developer",
+        "years": "Oct 2015 - Apr 2016 | 7 Months",
+        "mainTech": [
+          "Started a UX Analytics, Seed Funded by Deshpande Foundation"
+        ],
+        "technologies": [
+          "PHP",
+          "MySQL",
+          "JQuery",
+          "Linux",
+          "Apache",
+          "CodeIgniter",
+          "Neo 4JS",
+          "Express JS",
+          "Socket IO",
+          "Node JS",
+          "Bootstrap",
+          "CSS 3.0",
+          "Redis"
+        ]
+      },
+      {
+        "company": "IdeaFlask",
+        "title": "Web Developer",
+        "years": "Sep 2014 - Sep 2015 | 1 Year",
+        "mainTech": [
+          "Android, PHP, jQuery, Java"
+        ],
+        "technologies": [
+          "PHP",
+          "MySQL",
+          "JQuery",
+          "Linux",
+          "Apache",
+          "Android - Java",
+          "CodeIgniter",
+          "Yii",
+          "Neo 4JS",
+          "Express JS",
+          "Socket IO",
+          "Node JS",
+          "Bootstrap",
+          "CSS 3.0"
+        ]
+      },
+      {
+        "company": "Samvit Learning",
+        "title": "Founder",
+        "years": "Apr 2011 - Apr 2016 | 5 years",
+        "mainTech": [
+          "Training Over 3000 students, Net Revenue > 30 L"
+        ],
+        "technologies": [
+          "PHP",
+          "MySQL",
+          "JQuery",
+          "Linux",
+          "Apache",
+          "Android - Java",
+          "CodeIgniter",
+          "Express JS",
+          "Socket IO",
+          "Node JS",
+          "Bootstrap",
+          "CSS 3.0"
+        ]
+      },
+      {
+        "company": "dotCORD IT Solutions",
+        "title": "Web Application Developer Intern",
+        "years": "Oct 2010 - July 2013 | 2 Years, 10 Months",
+        "mainTech": [
+          "LAMP Stack"
+        ],
+        "technologies": [
+          "PHP",
+          "MySQL",
+          "JQuery",
+          "Linux",
+          "Apache",
+          "Bootstrap",
+          "CSS 3.0"
+        ]
+      }
+    ]
+  }
