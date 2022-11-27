@@ -1,9 +1,9 @@
 {
     "basic_info": {
       "description_header": "Hi",
-      "description": "👋 I'm Davina Griss. Fictional person for preview purposes :) I'm working with newest front-end frameworks like Angular, React and Vue. What you are seeing now is portfolio template from Dorota1997. If you like this portfolio template, make sure to ⭐ the repository to make it more recognizable for other users. Thank you 💜",
+      "description": "<p>Building and developing scalable systems that are built on React, C#, PHP, NodeJS and on cloud that can handle lakhs of hits per day.Leading an engineering team of 5+ members, motivating them and getting the task done on right time using agile Methodologies. Architecting the system from scratch and trying to be the bridge between management solutions and technical solutions.6+ Years of Experience in Developing Applications using React, C#, LAMP Stack and using using Popular frameworks like Yii, Zend, CodeIgniter etc. 2+ Year Experience in Mobile application Development on Andriod.</p>",
       "section_name": {
-        "about": "Hi 👋, I am Sid",
+        "about": "Siddharth Deshpande",
         "projects": "Projects",
         "skills": "Skills",
         "experience": "Experience"
@@ -81,37 +81,135 @@
     ],
     "experience": [
       {
-        "company": "DefOpenSource",
-        "title": "Front-End Developer",
-        "years": "10.2019 - present",
+        "company": "Apra Labs",
+        "title": "Senior Software Engineer",
+        "years": "Aug 2019 - Present | ~ 3 Years",
         "mainTech": [
-          "Angular 8/9/10"
+          "Building a team, Physical Security Industry"
         ],
         "technologies": [
-          "REST API",
-          "RxJS",
-          "JavaScript",
-          "Bootstrap",
-          "MDBootstrap",
-          "EF Core",
+          "C#",
           ".NET Core",
-          "SignalR",
-          "Angular Material"
+          ".NET Framework",
+          "Service Bus",
+          "React",
+          "Entity Framework",
+          "Azure Functions 1.x - 4.x",
+          "Video Streaming",
+          "Java",
+          "Azure",
+          "MS Dev Ops",
+          "CI/CD"
         ]
       },
       {
-        "company": "Serros Solutions",
-        "title": "Intern",
-        "years": "01.2018 - 09.2019",
+        "company": "MildlyClassic Pvt LTD",
+        "title": "Engineering Team Lead",
+        "years": "May 2016 - July 2020 | 4 Years, 3 Months",
         "mainTech": [
-          "Angular 7/8"
+          "Logistics ERP Platform from scratch having lakhs of hits per day"
         ],
         "technologies": [
-          "RxJS",
-          "Django",
           "PHP",
-          "JavaScript",
-          "DHTMLX Gantt"
+          "MySQL",
+          "JQuery",
+          "Linux",
+          "Apache",
+          "CodeIgniter",
+          "Node JS",
+          "Bootstrap",
+          "CSS 3.0",
+          "Docker",
+          "AWS Microservices",
+          "Ansible",
+          "LAMP Stack",
+          "CI/CD"
+        ]
+      },
+      {
+        "company": "UXgage",
+        "title": "Web Developer",
+        "years": "Oct 2015 - Apr 2016 | 7 Months",
+        "mainTech": [
+          "Started a UX Analytics, Seed Funded by Deshpande Foundation"
+        ],
+        "technologies": [
+          "PHP",
+          "MySQL",
+          "JQuery",
+          "Linux",
+          "Apache",
+          "CodeIgniter",
+          "Neo 4JS",
+          "Express JS",
+          "Socket IO",
+          "Node JS",
+          "Bootstrap",
+          "CSS 3.0",
+          "Redis"
+        ]
+      },
+      {
+        "company": "IdeaFlask",
+        "title": "Web Developer",
+        "years": "Sep 2014 - Sep 2015 | 1 Year",
+        "mainTech": [
+          "Android, PHP, jQuery, Java"
+        ],
+        "technologies": [
+          "PHP",
+          "MySQL",
+          "JQuery",
+          "Linux",
+          "Apache",
+          "Android - Java",
+          "CodeIgniter",
+          "Yii",
+          "Neo 4JS",
+          "Express JS",
+          "Socket IO",
+          "Node JS",
+          "Bootstrap",
+          "CSS 3.0"
+        ]
+      },
+      {
+        "company": "Samvit Learning",
+        "title": "Founder",
+        "years": "Apr 2011 - Apr 2016 | 5 years",
+        "mainTech": [
+          "Training Over 3000 students, Net Revenue > 30 L"
+        ],
+        "technologies": [
+          "PHP",
+          "MySQL",
+          "JQuery",
+          "Linux",
+          "Apache",
+          "Android - Java",
+          "CodeIgniter",
+          "Express JS",
+          "Socket IO",
+          "Node JS",
+          "Bootstrap",
+          "CSS 3.0"
+        ]
+      },
+      {
+        "company": "dotCORD IT Solutions",
+        "title": "Web Application Developer Intern",
+        "years": "Oct 2010 - July 2013 | 2 Years, 10 Months",
+        "mainTech": [
+          "LAMP Stack"
+        ],
+        "technologies": [
+          "PHP",
+          "MySQL",
+          "JQuery",
+          "Linux",
+          "Apache",
+          "Bootstrap",
+          "CSS 3.0"
         ]
       }
     ]

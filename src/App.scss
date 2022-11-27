@@ -108,7 +108,7 @@ header h1 {
 }
 
 #about {
-	background: #fff;
+	background: #efe1bd;
 	overflow: hidden;
 }
 
@@ -171,7 +171,8 @@ header h1 {
 
 .polaroid img {
 	display: block;
-	max-width: 200px;
+	border-radius: 50%;
+	border: 1px solid #545454;
 }
 
 .polaroid span {
