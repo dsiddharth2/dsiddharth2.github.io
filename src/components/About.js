@@ -70,7 +70,7 @@ class About extends Component {
                   >
                     <br />
                     <div className="wave">
-                      Hola 👋, I am Siddharth
+                      Hello 👋, I am Siddharth
                     </div>
                     I am a Senior Full Stack Engineer who loves to explore new tech. In enjoy driving my car to new destinations (already done about 40K Kms since 2 years).
                     I am good at,
