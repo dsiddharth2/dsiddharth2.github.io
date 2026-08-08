@@ -1,0 +1,27 @@
+---
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="page-container pt-20" aria-labelledby="opensource-heading">
+  <SectionHeading title="Open Source" id="opensource-heading" icon="github" />
+  <div class="grid-2 grid grid-cols-2 gap-5">
+    {projects.map((project) => (
+      <div class="card">
+        {project.data.url ? (
+          <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="no-underline text-inherit block">
+            <h3 class="text-xl font-bold m-0 mb-1.5 text-ink hover:text-amber-dark">{project.data.title}</h3>
+          </a>
+        ) : (
+          <h3 class="text-xl font-bold m-0 mb-1.5 text-ink">{project.data.title}</h3>
+        )}
+        <p class="text-sm font-semibold text-amber m-0 mb-2.5">{project.data.subtitle}</p>
+        <p class="text-sm leading-relaxed m-0 text-muted">{project.data.description}</p>
+      </div>
+    ))}
+  </div>
+</section>

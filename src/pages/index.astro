@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Hero from '@/components/Hero.astro';
+import ImpactHighlights from '@/components/ImpactHighlights.astro';
+import CareerEvolution from '@/components/CareerEvolution.astro';
+import ExperienceSection from '@/components/ExperienceSection.astro';
+import ProductsSection from '@/components/ProductsSection.astro';
+import OpenSourceSection from '@/components/OpenSourceSection.astro';
+import AwardsSection from '@/components/AwardsSection.astro';
+import WritingSection from '@/components/WritingSection.astro';
+import ContactSection from '@/components/ContactSection.astro';
+---
+
+<BaseLayout>
+  <Nav />
+  <main id="main-content">
+    <Hero />
+    <ImpactHighlights />
+    <CareerEvolution />
+    <ExperienceSection />
+    <ProductsSection />
+    <OpenSourceSection />
+    <AwardsSection />
+    <WritingSection />
+    <ContactSection />
+  </main>
+</BaseLayout>

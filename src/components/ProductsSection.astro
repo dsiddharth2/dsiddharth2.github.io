@@ -1,0 +1,22 @@
+---
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { products } from '@/data/products';
+---
+
+<section class="page-container pt-20" aria-labelledby="products-heading">
+  <SectionHeading title="Products I've Built" id="products-heading" icon="check" />
+  <div class="grid-2 grid grid-cols-2 gap-5">
+    {products.map((product) => (
+      <div class="card">
+        <h3 class="text-xl font-bold m-0 mb-1.5 text-ink">{product.title}</h3>
+        <p class="text-sm font-semibold text-amber m-0 mb-2.5">{product.subtitle}</p>
+        <p class="text-sm leading-relaxed m-0 mb-3.5 text-muted">{product.description}</p>
+        <div class="flex flex-wrap gap-1.5">
+          {product.tags.map((tag) => (
+            <span class="tag-amber">{tag}</span>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

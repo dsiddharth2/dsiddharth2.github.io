@@ -1,0 +1,14 @@
+---
+import { highlights } from '@/data/highlights';
+---
+
+<div class="page-container mt-7">
+  <div class="impact-grid grid-5 grid grid-cols-5 gap-0 text-center">
+    {highlights.map((item, i) => (
+      <div class:list={['py-6 px-3 relative', i > 0 && 'border-l border-black/[0.06]']}>
+        <p class="text-[clamp(28px,3.5vw,36px)] font-bold m-0 text-amber leading-none">{item.value}</p>
+        <p class="text-xs font-semibold mt-1.5 m-0 text-muted leading-snug whitespace-pre-line">{item.label}</p>
+      </div>
+    ))}
+  </div>
+</div>

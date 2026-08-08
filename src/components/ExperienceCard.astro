@@ -1,0 +1,72 @@
+---
+import type { ExperienceEntry } from '@/data/experience';
+
+interface Props {
+  entry: ExperienceEntry;
+}
+
+const { entry } = Astro.props;
+---
+
+{entry.compact ? (
+  <div class="card card-sm">
+    <div class="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
+      <h3 class="text-lg font-bold m-0 text-ink">{entry.company}</h3>
+      <span class="text-xs font-semibold text-amber">{entry.period}</span>
+    </div>
+    <p class="text-[13px] font-semibold text-muted-light m-0 mb-2.5">
+      {entry.role}{entry.location ? ` · ${entry.location}` : ''}
+    </p>
+    <p class="text-sm leading-normal m-0 text-muted">{entry.summary}</p>
+  </div>
+) : (
+  <div class="card card-lg">
+    <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+      <div class="flex items-center gap-3 flex-wrap">
+        <h3 class="text-[22px] font-bold m-0 text-ink">{entry.company}</h3>
+        <span class="badge-role">{entry.role}</span>
+      </div>
+      <span class="text-[13px] font-semibold text-muted-light">{entry.period}</span>
+    </div>
+    <p class="text-[17px] font-bold leading-snug m-0 mb-2 text-ink">{entry.summary}</p>
+    {entry.tags && (
+      <div class="flex gap-2 flex-wrap mb-5">
+        {entry.tags.map((tag) => (
+          <span class="tag-dark">{tag}</span>
+        ))}
+      </div>
+    )}
+    {entry.columns && (
+      <div class="grid-2 grid grid-cols-2 gap-5">
+        {entry.columns.map((col) => (
+          <div>
+            <p class="text-[11px] font-bold text-amber m-0 mb-2 uppercase tracking-wide">{col.title}</p>
+            <ul class="m-0 pl-[18px] flex flex-col gap-1.5">
+              {col.items.map((item) => (
+                <li class="text-sm leading-normal text-muted">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    )}
+    {entry.extra && (
+      <div class="mt-6 border-t border-black/[0.06] pt-6">
+        <p class="text-[11px] font-bold text-amber m-0 mb-2.5 uppercase tracking-wide">{entry.extra.title}</p>
+        {entry.extra.description && (
+          <p class="text-sm leading-relaxed m-0 mb-3 text-muted">{entry.extra.description}</p>
+        )}
+        {entry.extra.items && (
+          <ul class="m-0 pl-[18px] flex flex-col gap-1.5">
+            {entry.extra.items.map((item) => (
+              <li class="text-sm leading-normal text-muted">{item}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    )}
+    {entry.detail && (
+      <p class="text-sm leading-relaxed m-0 text-muted">{entry.detail}</p>
+    )}
+  </div>
+)}
