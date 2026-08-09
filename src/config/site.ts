@@ -8,14 +8,9 @@ export const site = {
   github: 'https://github.com/dsiddharth2',
   linkedin: 'https://www.linkedin.com/in/dsiddharth2/',
   medium: 'https://medium.com/@siddharthanantdeshpande',
-  /** GitHub Pages user site URL */
+  /** Fallback GitHub Pages user site URL */
   baseUrl: 'https://dsiddharth2.github.io',
-  /**
-   * Custom domain — set when ready, e.g. 'https://siddharthd.dev'
-   * Then update astro.config.mjs: site + base: '/'
-   * Add public/CNAME with your domain and configure DNS.
-   */
-  customDomain: undefined as string | undefined,
+  customDomain: 'https://siddharthd.dev',
 };
 
 export function getSiteUrl(path = ''): string {
