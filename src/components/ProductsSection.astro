@@ -3,7 +3,7 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
 import { products } from '@/data/products';
 ---
 
-<section class="page-container pt-20" aria-labelledby="products-heading">
+<section class="page-container" aria-labelledby="products-heading">
   <SectionHeading title="Products I've Built" id="products-heading" icon="check" />
   <div class="grid-2 grid grid-cols-2 gap-5">
     {products.map((product) => (

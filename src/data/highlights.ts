@@ -11,16 +11,6 @@ export const highlights: Highlight[] = [
   { value: '10→55', label: 'team growth since\nearly days' },
 ];
 
-export const careerPath = [
-  'Web Development',
-  'Startup Founder',
-  'System Architecture',
-  'Distributed Systems',
-  'Data Platforms',
-  'AI Systems',
-  'Agentic Intelligence',
-];
-
 export interface HeroStat {
   value: string;
   label: string;
