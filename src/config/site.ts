@@ -10,7 +10,7 @@ export const site = {
   medium: 'https://medium.com/@siddharthanantdeshpande',
   /** Fallback GitHub Pages user site URL */
   baseUrl: 'https://dsiddharth2.github.io',
-  customDomain: 'https://siddharthd.dev',
+  customDomain: 'https://siddharthdeshpande.com',
 };
 
 export function getSiteUrl(path = ''): string {
