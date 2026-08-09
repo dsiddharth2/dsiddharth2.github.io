@@ -68,29 +68,22 @@ Your content here.
 
 ## GitHub Pages deployment
 
-This site is configured as a **GitHub Pages user site** at the root URL (`base: '/'`).
+**Repo:** [dsiddharth2/dsiddharth2.github.io](https://github.com/dsiddharth2/dsiddharth2.github.io)  
+**Live URL:** https://dsiddharth2.github.io/
 
-### First-time setup
+Pushes to `main` run `.github/workflows/deploy.yml`, which builds with `base: '/'` and deploys to the user site root.
 
-1. Create a new repo named **`dsiddharth2.github.io`** on GitHub (must match your username exactly)
-2. Push this project to it:
+### One-time setup
 
-   ```bash
-   git remote add pages git@github.com:dsiddharth2/dsiddharth2.github.io.git
-   git push -u pages main
-   ```
-
-3. In that repo go to **Settings → Pages → Build and deployment**
-4. Set **Source** to **GitHub Actions**
-5. The workflow at `.github/workflows/deploy.yml` builds and deploys on every push to `main`
+1. In **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**
+2. Push to `main` — deploy runs automatically
 
 If deploy fails with `Failed to create deployment (status: 404)`, Pages is not enabled or the source is still set to a branch. Switch it to **GitHub Actions** and re-run the workflow.
 
-**Live URL:** https://dsiddharth2.github.io/
+### Remotes
 
-### Optional: disable the old project site
-
-If you still have the `siddharthd.dev` repo publishing Pages, disable it under **Settings → Pages → Source: None** so only the root URL is active.
+- `origin` → `dsiddharth2.github.io` (production)
+- `legacy` → `siddharthd.dev` (old project site — disable Pages there if still active)
 
 ## Custom domain (when ready)
 
