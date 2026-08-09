@@ -2,11 +2,15 @@
 import { highlights } from '@/data/highlights';
 ---
 
-<div class="impact-grid">
-  {highlights.map((item) => (
-    <div class="impact-grid-item">
-      <p class="impact-grid-value">{item.value}</p>
-      <p class="impact-grid-label whitespace-pre-line">{item.label}</p>
+<section class="impact-strip" aria-label="Impact highlights">
+  <div class="page-container">
+    <div class="impact-grid">
+      {highlights.map((item) => (
+        <div class="impact-grid-item">
+          <p class="impact-grid-value">{item.value}</p>
+          <p class="impact-grid-label whitespace-pre-line">{item.label}</p>
+        </div>
+      ))}
     </div>
-  ))}
-</div>
+  </div>
+</section>

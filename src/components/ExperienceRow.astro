@@ -1,0 +1,72 @@
+---
+import type { ExperienceEntry } from '@/data/experience';
+
+interface Props {
+  entry: ExperienceEntry;
+}
+
+const { entry } = Astro.props;
+---
+
+<article class="experience-entry">
+  <div class="experience-row">
+    <div class="experience-sidebar">
+      <h3 class="experience-company">{entry.company}</h3>
+      {entry.role && <p class="experience-role">{entry.role}</p>}
+      <p class="experience-period">{entry.period}</p>
+      {entry.metrics && (
+        <div class="experience-metrics">
+          {entry.metrics.map((metric) => (
+            <div class="experience-metric">
+              <span class="experience-metric-value">{metric.value}</span>
+              <span class="experience-metric-label">{metric.label}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div class="experience-body">
+      {entry.earlierEntries ? (
+        <div>
+          {entry.earlierEntries.map((item) => (
+            <div class="experience-earlier-item">
+              <div class="experience-earlier-header">
+                <p class="experience-earlier-company">{item.company}</p>
+                <span class="experience-earlier-role">{item.role}</span>
+              </div>
+              <p class="experience-earlier-summary">{item.summary}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <>
+          <p class="experience-summary">{entry.summary}</p>
+          {entry.items && (
+            <ul class="experience-list">
+              {entry.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          )}
+          {entry.columns?.map((column) => (
+            <div>
+              <p class="experience-subheading">{column.title}</p>
+              <ul class="experience-list">
+                {column.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          {entry.extra && (
+            <div class="experience-callout">
+              <p class="experience-callout-title">{entry.extra.title}</p>
+              <p class="experience-callout-body">{entry.extra.description}</p>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  </div>
+</article>

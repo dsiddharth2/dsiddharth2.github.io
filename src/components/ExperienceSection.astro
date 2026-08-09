@@ -1,43 +1,15 @@
 ---
-import SectionHeading from '@/components/ui/SectionHeading.astro';
-import ExperienceCard from '@/components/ExperienceCard.astro';
+import ExperienceRow from '@/components/ExperienceRow.astro';
 import { experience } from '@/data/experience';
-
-const detailed = experience.filter((e) => !e.compact);
-const compact = experience.filter((e) => e.compact);
 ---
 
-<section id="experience" class="page-container" aria-labelledby="experience-heading">
-  <div class="experience-intro">
-    <SectionHeading title="Experience" id="experience-heading" icon="briefcase" />
+<section id="experience" class="experience-section" aria-labelledby="experience-heading">
+  <div class="page-container section-padding">
+    <p class="section-eyebrow">Experience</p>
+    <h2 id="experience-heading" class="section-title">Where I've made an impact</h2>
 
-    <div class="experience-pattern" aria-label="How I approach every role">
-      <span class="experience-pattern-step">Problem</span>
-      <svg class="experience-pattern-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2.5" aria-hidden="true">
-        <path d="M5 12h14M13 6l6 6-6 6"></path>
-      </svg>
-      <span class="experience-pattern-step">Ownership</span>
-      <svg class="experience-pattern-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2.5" aria-hidden="true">
-        <path d="M5 12h14M13 6l6 6-6 6"></path>
-      </svg>
-      <span class="experience-pattern-step">Technical Execution</span>
-      <svg class="experience-pattern-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2.5" aria-hidden="true">
-        <path d="M5 12h14M13 6l6 6-6 6"></path>
-      </svg>
-      <span class="experience-pattern-step">Business Outcome</span>
-    </div>
-
-    <p class="experience-pattern-note">Every role, the same pattern.</p>
-  </div>
-
-  <div class="flex flex-col gap-6">
-    {detailed.map((entry) => (
-      <ExperienceCard entry={entry} />
+    {experience.map((entry) => (
+      <ExperienceRow entry={entry} />
     ))}
-    <div class="grid-2 grid grid-cols-2 gap-5">
-      {compact.map((entry) => (
-        <ExperienceCard entry={entry} />
-      ))}
-    </div>
   </div>
 </section>

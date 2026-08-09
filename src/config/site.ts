@@ -3,7 +3,7 @@ export const site = {
   shortName: 'Siddharth',
   title: 'Siddharth Deshpande — Associate Architect · AI & Cloud Systems',
   description:
-    'I build AI systems and platforms that run businesses — from 0-to-1 products to enterprise platforms serving 300+ facilities.',
+    'From 0-to-1 products to enterprise platforms serving 300+ facilities — I take ambiguous problems, architect the system, hire the team, and ship.',
   email: 'siddharthanantdeshpande@gmail.com',
   github: 'https://github.com/dsiddharth2',
   linkedin: 'https://www.linkedin.com/in/dsiddharth2/',

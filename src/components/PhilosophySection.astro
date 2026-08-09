@@ -1,0 +1,27 @@
+---
+import { philosophyStats } from '@/data/philosophy';
+---
+
+<section class="philosophy-section" aria-labelledby="philosophy-heading">
+  <div class="page-container section-padding">
+    <div class="philosophy-inner">
+      <div class="philosophy-copy">
+        <p class="section-eyebrow philosophy-eyebrow">How I Work</p>
+        <h2 id="philosophy-heading" class="section-title philosophy-title">
+          I don't just write code.<br />I own the outcome.
+        </h2>
+        <p class="philosophy-body">
+          Every role follows the same pattern: find the problem nobody's solving, take ownership, architect the system, hire and mentor the team, ship to production. I've done this across logistics ERPs, AI platforms, and hardware — often running multiple products in parallel.
+        </p>
+      </div>
+      <div class="philosophy-stats">
+        {philosophyStats.map((stat) => (
+          <div class="philosophy-stat">
+            <p class="philosophy-stat-value">{stat.value}</p>
+            <p class="philosophy-stat-label">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

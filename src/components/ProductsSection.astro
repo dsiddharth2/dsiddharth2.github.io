@@ -1,22 +1,28 @@
 ---
-import SectionHeading from '@/components/ui/SectionHeading.astro';
+import ProductIcon from '@/components/ui/ProductIcon.astro';
 import { products } from '@/data/products';
 ---
 
-<section class="page-container" aria-labelledby="products-heading">
-  <SectionHeading title="Products I've Built" id="products-heading" icon="check" />
-  <div class="grid-2 grid grid-cols-2 gap-5">
-    {products.map((product) => (
-      <div class="card">
-        <h3 class="text-xl font-bold m-0 mb-1.5 text-ink">{product.title}</h3>
-        <p class="text-sm font-semibold text-amber m-0 mb-2.5">{product.subtitle}</p>
-        <p class="text-sm leading-relaxed m-0 mb-3.5 text-muted">{product.description}</p>
-        <div class="flex flex-wrap gap-1.5">
-          {product.tags.map((tag) => (
-            <span class="tag-amber">{tag}</span>
-          ))}
-        </div>
-      </div>
-    ))}
+<section id="products" class="products-section" aria-labelledby="products-heading">
+  <div class="page-container section-padding">
+    <p class="section-eyebrow">Products</p>
+    <h2 id="products-heading" class="section-title section-title--light">
+      Systems I've architected and shipped
+    </h2>
+    <div class="products-grid">
+      {products.map((product) => (
+        <article class="product-card">
+          <ProductIcon icon={product.icon} />
+          <h3 class="product-title">{product.title}</h3>
+          <p class="product-subtitle">{product.subtitle}</p>
+          <p class="product-description">{product.description}</p>
+          <div class="product-tags">
+            {product.tags.map((tag) => (
+              <span class="product-tag">{tag}</span>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
   </div>
 </section>

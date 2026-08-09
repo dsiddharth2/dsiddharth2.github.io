@@ -3,28 +3,24 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Hero from '@/components/Hero.astro';
 import ImpactHighlights from '@/components/ImpactHighlights.astro';
+import PhilosophySection from '@/components/PhilosophySection.astro';
 import ExperienceSection from '@/components/ExperienceSection.astro';
 import ProductsSection from '@/components/ProductsSection.astro';
 import OpenSourceSection from '@/components/OpenSourceSection.astro';
-import AwardsSection from '@/components/AwardsSection.astro';
-import WritingSection from '@/components/WritingSection.astro';
+import RecognitionSection from '@/components/RecognitionSection.astro';
 import ContactSection from '@/components/ContactSection.astro';
 ---
 
 <BaseLayout>
   <Nav />
-  <main id="main-content" class="site-sections">
-    <div class="hero-zone">
-      <Hero />
-      <div class="page-container">
-        <ImpactHighlights />
-      </div>
-    </div>
+  <main id="main-content">
+    <Hero />
+    <ImpactHighlights />
+    <PhilosophySection />
     <ExperienceSection />
     <ProductsSection />
     <OpenSourceSection />
-    <AwardsSection />
-    <WritingSection />
+    <RecognitionSection />
     <ContactSection />
   </main>
 </BaseLayout>

@@ -1,0 +1,45 @@
+---
+import { awards } from '@/data/awards';
+import { site } from '@/config/site';
+---
+
+<section class="recognition-section" aria-labelledby="recognition-heading">
+  <div class="page-container section-padding">
+    <div class="recognition-inner">
+      <div class="flex-1">
+        <p class="section-eyebrow">Recognition</p>
+        <h2 id="recognition-heading" class="section-title section-title--sm">Awards & acknowledgements</h2>
+        <div class="recognition-list">
+          {awards.map((award) => (
+            <div class="award-item">
+              <div class:list={['award-icon', award.featured ? 'award-icon--featured' : 'award-icon--default']}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={award.featured ? '#fff' : '#F5A623'} stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"></path>
+                </svg>
+              </div>
+              <div>
+                <p class="award-title">{award.title}</p>
+                <p class="award-description">{award.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="writing-panel">
+        <p class="section-eyebrow">Writing</p>
+        <h2 class="section-title section-title--sm">On Medium</h2>
+        <a href={site.medium} target="_blank" rel="noopener noreferrer" class="writing-card">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="#1a1a1a" aria-hidden="true">
+            <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"></path>
+          </svg>
+          <div>
+            <p class="writing-handle">@siddharthanantdeshpande</p>
+            <p class="writing-blurb">Writing about AI systems, architecture patterns, and engineering leadership →</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
