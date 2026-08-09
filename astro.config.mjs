@@ -7,6 +7,12 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   site: 'https://siddharthdeshpande.com',
   base: '/',
-  integrations: [tailwind(), sitemap(), mdx()],
+  integrations: [
+    tailwind(),
+    sitemap({
+      filter: (page) => !page.includes('/draft'),
+    }),
+    mdx(),
+  ],
   output: 'static',
 });

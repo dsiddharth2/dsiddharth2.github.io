@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://siddharthdeshpande.com/sitemap.xml
 Sitemap: https://siddharthdeshpande.com/sitemap-index.xml
