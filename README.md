@@ -68,9 +68,13 @@ Your content here.
 
 ## GitHub Pages deployment
 
-1. Push to the `main` branch of `dsiddharth2/siddharthd.dev`
-2. In repo **Settings → Pages**, set source to **GitHub Actions**
-3. The workflow at `.github/workflows/deploy.yml` builds and deploys on every push
+1. In the repo go to **Settings → Pages → Build and deployment**
+2. Set **Source** to **GitHub Actions** (not “Deploy from a branch”)
+3. Push to `main` — the workflow at `.github/workflows/deploy.yml` builds and deploys automatically
+
+If deploy fails with `Failed to create deployment (status: 404)`, Pages is not enabled or the source is still set to a branch. Switch it to **GitHub Actions** and re-run the workflow.
+
+**Live URL:** https://dsiddharth2.github.io/siddharthd.dev/
 
 ## Custom domain (when ready)
 
