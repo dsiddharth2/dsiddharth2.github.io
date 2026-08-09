@@ -2,7 +2,7 @@
 
 Static personal portfolio built with [Astro](https://astro.build), TypeScript, and Tailwind CSS. Deployed to GitHub Pages.
 
-**Live URL:** https://dsiddharth2.github.io/siddharthd.dev/
+**Live URL:** https://dsiddharth2.github.io/
 
 ## Development
 
@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:4321/siddharthd.dev/
+Open http://localhost:4321/
 
 ## Build
 
@@ -68,13 +68,29 @@ Your content here.
 
 ## GitHub Pages deployment
 
-1. In the repo go to **Settings → Pages → Build and deployment**
-2. Set **Source** to **GitHub Actions** (not “Deploy from a branch”)
-3. Push to `main` — the workflow at `.github/workflows/deploy.yml` builds and deploys automatically
+This site is configured as a **GitHub Pages user site** at the root URL (`base: '/'`).
+
+### First-time setup
+
+1. Create a new repo named **`dsiddharth2.github.io`** on GitHub (must match your username exactly)
+2. Push this project to it:
+
+   ```bash
+   git remote add pages git@github.com:dsiddharth2/dsiddharth2.github.io.git
+   git push -u pages main
+   ```
+
+3. In that repo go to **Settings → Pages → Build and deployment**
+4. Set **Source** to **GitHub Actions**
+5. The workflow at `.github/workflows/deploy.yml` builds and deploys on every push to `main`
 
 If deploy fails with `Failed to create deployment (status: 404)`, Pages is not enabled or the source is still set to a branch. Switch it to **GitHub Actions** and re-run the workflow.
 
-**Live URL:** https://dsiddharth2.github.io/siddharthd.dev/
+**Live URL:** https://dsiddharth2.github.io/
+
+### Optional: disable the old project site
+
+If you still have the `siddharthd.dev` repo publishing Pages, disable it under **Settings → Pages → Source: None** so only the root URL is active.
 
 ## Custom domain (when ready)
 

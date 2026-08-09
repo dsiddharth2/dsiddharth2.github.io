@@ -8,8 +8,8 @@ export const site = {
   github: 'https://github.com/dsiddharth2',
   linkedin: 'https://www.linkedin.com/in/dsiddharth2/',
   medium: 'https://medium.com/@siddharthanantdeshpande',
-  /** GitHub Pages project site URL */
-  baseUrl: 'https://dsiddharth2.github.io/siddharthd.dev',
+  /** GitHub Pages user site URL */
+  baseUrl: 'https://dsiddharth2.github.io',
   /**
    * Custom domain — set when ready, e.g. 'https://siddharthd.dev'
    * Then update astro.config.mjs: site + base: '/'
