@@ -4,7 +4,7 @@ export const site = {
   title: 'Siddharth Deshpande — Associate Architect · AI & Cloud Systems',
   description:
     'From 0-to-1 products to enterprise platforms serving 300+ facilities — I take ambiguous problems, architect the system, hire the team, and ship.',
-  email: 'siddharthanantdeshpande@gmail.com',
+  email: 'dsiddharth2@gmail.com',
   github: 'https://github.com/dsiddharth2',
   linkedin: 'https://www.linkedin.com/in/dsiddharth2/',
   medium: 'https://medium.com/@siddharthanantdeshpande',
