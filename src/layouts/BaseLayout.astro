@@ -4,6 +4,8 @@ interface Props {
   description?: string;
   image?: string;
   canonicalPath?: string;
+  ogType?: 'website' | 'article' | 'profile';
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 import { site, getSiteUrl } from '@/config/site';
@@ -16,9 +18,12 @@ const {
   description = site.description,
   image = getSiteUrl('/images/profile.jpg'),
   canonicalPath = '',
+  ogType = 'website',
+  jsonLd,
 } = Astro.props;
 
 const canonicalUrl = getSiteUrl(canonicalPath);
+const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
 <!doctype html>
@@ -27,24 +32,35 @@ const canonicalUrl = getSiteUrl(canonicalPath);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="author" content={site.name} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#F5A623" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href={assetUrl('favicon.svg')} />
     <link rel="canonical" href={canonicalUrl} />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={image} />
+    <meta property="og:image:alt" content={site.name} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={site.name} />
 
     <title>{title}</title>
+
+    {jsonLdBlocks.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>

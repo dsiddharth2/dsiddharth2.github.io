@@ -5,11 +5,11 @@ import { experience } from '@/data/experience';
 
 <section id="experience" class="experience-section" aria-labelledby="experience-heading">
   <div class="page-container section-padding">
-    <p class="section-eyebrow">Experience</p>
-    <h2 id="experience-heading" class="section-title">Where I've made an impact</h2>
+    <p class="section-eyebrow" data-reveal>Experience</p>
+    <h2 id="experience-heading" class="section-title" data-reveal data-reveal-delay="1">Where I've made an impact</h2>
 
     {experience.map((entry) => (
-      <ExperienceRow entry={entry} />
+      <ExperienceRow entry={entry} reveal />
     ))}
   </div>
 </section>

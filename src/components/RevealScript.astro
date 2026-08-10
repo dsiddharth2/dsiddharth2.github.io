@@ -1,0 +1,29 @@
+<script is:inline>
+  (function initReveal() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+    );
+
+    function observe() {
+      document.querySelectorAll('[data-reveal]:not(.revealed)').forEach((el) => {
+        observer.observe(el);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => setTimeout(observe, 100));
+    } else {
+      setTimeout(observe, 100);
+    }
+
+    document.addEventListener('astro:page-load', () => setTimeout(observe, 50));
+  })();
+</script>

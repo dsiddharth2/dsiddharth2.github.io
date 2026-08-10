@@ -4,11 +4,11 @@ import { openSourceProjects } from '@/data/opensource';
 
 <section class="opensource-section" aria-labelledby="opensource-heading">
   <div class="page-container section-padding">
-    <p class="section-eyebrow">Open Source</p>
-    <h2 id="opensource-heading" class="section-title">Giving back to the community</h2>
+    <p class="section-eyebrow" data-reveal>Open Source</p>
+    <h2 id="opensource-heading" class="section-title" data-reveal data-reveal-delay="1">Giving back to the community</h2>
     <div class="opensource-grid">
-      {openSourceProjects.map((project) => (
-        <article class="opensource-card">
+      {openSourceProjects.map((project, index) => (
+        <article class="opensource-card" data-reveal data-reveal-delay={String(Math.min(index + 1, 3))}>
           <h3 class="opensource-title">{project.title}</h3>
           <p class="opensource-subtitle">{project.subtitle}</p>
           <p class="opensource-description">{project.description}</p>
