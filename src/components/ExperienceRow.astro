@@ -3,12 +3,13 @@ import type { ExperienceEntry } from '@/data/experience';
 
 interface Props {
   entry: ExperienceEntry;
+  reveal?: boolean;
 }
 
-const { entry } = Astro.props;
+const { entry, reveal = false } = Astro.props;
 ---
 
-<article class="experience-entry">
+<article class="experience-entry" data-reveal={reveal || undefined}>
   <div class="experience-row">
     <div class="experience-sidebar">
       <h3 class="experience-company">{entry.company}</h3>

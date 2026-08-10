@@ -5,13 +5,13 @@ import { products } from '@/data/products';
 
 <section id="products" class="products-section" aria-labelledby="products-heading">
   <div class="page-container section-padding">
-    <p class="section-eyebrow">Products</p>
-    <h2 id="products-heading" class="section-title section-title--light">
+    <p class="section-eyebrow" data-reveal>Products</p>
+    <h2 id="products-heading" class="section-title section-title--light" data-reveal data-reveal-delay="1">
       Systems I've architected and shipped
     </h2>
     <div class="products-grid">
-      {products.map((product) => (
-        <article class="product-card">
+      {products.map((product, index) => (
+        <article class="product-card" data-reveal data-reveal-delay={String((index % 2) + 1)}>
           <ProductIcon icon={product.icon} />
           <h3 class="product-title">{product.title}</h3>
           <p class="product-subtitle">{product.subtitle}</p>
@@ -20,6 +20,15 @@ import { products } from '@/data/products';
             {product.tags.map((tag) => (
               <span class="product-tag">{tag}</span>
             ))}
+          </div>
+          <div class="product-card-footer">
+            <a href={`/projects/${product.slug}`} class="product-view-more">
+              View More
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </a>
           </div>
         </article>
       ))}

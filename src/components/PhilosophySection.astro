@@ -6,15 +6,18 @@ import { philosophyStats } from '@/data/philosophy';
   <div class="page-container section-padding">
     <div class="philosophy-inner">
       <div class="philosophy-copy">
-        <p class="section-eyebrow philosophy-eyebrow">How I Work</p>
-        <h2 id="philosophy-heading" class="section-title philosophy-title">
+        <p class="section-eyebrow philosophy-eyebrow" data-reveal>How I Work</p>
+        <h2 id="philosophy-heading" class="section-title philosophy-title" data-reveal data-reveal-delay="1">
           I don't just write code.<br />I own the outcome.
         </h2>
-        <p class="philosophy-body">
+        <p class="philosophy-body" data-reveal data-reveal-delay="2">
           Every role follows the same pattern: find the problem nobody's solving, take ownership, architect the system, hire and mentor the team, ship to production. I've done this across logistics ERPs, AI platforms, and hardware — often running multiple products in parallel.
         </p>
+        <div class="philosophy-actions" data-reveal data-reveal-delay="3">
+          <a href="/about" class="btn-hero-primary">About Me →</a>
+        </div>
       </div>
-      <div class="philosophy-stats">
+      <div class="philosophy-stats" data-reveal data-reveal-delay="2">
         {philosophyStats.map((stat) => (
           <div class="philosophy-stat">
             <p class="philosophy-stat-value">{stat.value}</p>

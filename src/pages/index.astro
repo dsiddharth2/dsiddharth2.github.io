@@ -9,9 +9,15 @@ import ProductsSection from '@/components/ProductsSection.astro';
 import OpenSourceSection from '@/components/OpenSourceSection.astro';
 import RecognitionSection from '@/components/RecognitionSection.astro';
 import ContactSection from '@/components/ContactSection.astro';
+import RevealScript from '@/components/RevealScript.astro';
+import { personJsonLd, websiteJsonLd } from '@/utils/seo';
 ---
 
-<BaseLayout>
+<BaseLayout
+  canonicalPath="/"
+  ogType="profile"
+  jsonLd={[websiteJsonLd(), personJsonLd()]}
+>
   <Nav />
   <main id="main-content">
     <Hero />
@@ -23,4 +29,5 @@ import ContactSection from '@/components/ContactSection.astro';
     <RecognitionSection />
     <ContactSection />
   </main>
+  <RevealScript />
 </BaseLayout>

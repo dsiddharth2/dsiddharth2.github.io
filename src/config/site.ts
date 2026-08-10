@@ -1,6 +1,6 @@
 export const site = {
   name: 'Siddharth Deshpande',
-  shortName: 'Siddharth',
+  shortName: 'Siddharth Deshpande',
   title: 'Siddharth Deshpande — Associate Architect · AI & Cloud Systems',
   description:
     'From 0-to-1 products to enterprise platforms serving 300+ facilities — I take ambiguous problems, architect the system, hire the team, and ship.',
