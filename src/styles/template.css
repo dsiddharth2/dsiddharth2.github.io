@@ -447,9 +447,17 @@
   background: #fffbf2;
 }
 
+.experience-title {
+  margin: 0 0 15px;
+}
+
 .experience-entry {
-  padding: 40px 0;
+  padding: 28px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.experience-entry:first-of-type {
+  padding-top: 8px;
 }
 
 .experience-entry:last-child {
@@ -1032,19 +1040,26 @@
   }
 
   .impact-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .impact-grid-item:nth-child(n + 2) {
+  .impact-grid-item,
+  .impact-grid-item + .impact-grid-item {
     border-left: none;
+    border-top: none;
   }
 
-  .impact-grid-item:nth-child(n + 2):not(:nth-child(3n + 1)) {
+  .impact-grid-item:nth-child(even) {
     border-left: 1px solid rgba(255, 255, 255, 0.2);
   }
 
-  .impact-grid-item:nth-child(n + 4) {
+  .impact-grid-item:nth-child(n + 3) {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .impact-grid-item:last-child {
+    grid-column: 1 / -1;
+    border-left: none;
   }
 
   .philosophy-inner,
@@ -1065,6 +1080,18 @@
 
   .experience-sidebar {
     width: 100%;
+  }
+
+  .experience-metrics {
+    margin-top: 14px;
+  }
+
+  .experience-metric + .experience-metric {
+    margin-top: 8px;
+  }
+
+  .experience-body {
+    margin-top: 4px;
   }
 
   .products-grid,
@@ -1113,8 +1140,10 @@
     grid-template-columns: repeat(2, 1fr) !important;
   }
 
-  .project-impact-item:nth-child(n + 2) {
+  .project-impact-item,
+  .project-impact-item + .project-impact-item {
     border-left: none;
+    border-top: none;
   }
 
   .project-impact-item:nth-child(even) {
@@ -1123,6 +1152,11 @@
 
   .project-impact-item:nth-child(n + 3) {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .project-impact-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    border-left: none;
   }
 }
 
