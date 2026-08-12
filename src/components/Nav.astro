@@ -18,7 +18,18 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
       </div>
       <span class="nav-name">{site.name}</span>
     </a>
-    <div class="nav-links">
+    <button
+      type="button"
+      class="nav-toggle"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="nav-menu"
+    >
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <div class="nav-links" id="nav-menu">
       {
         isAbout ? (
           <span class="nav-link nav-link--active" aria-current="page">About</span>
@@ -28,7 +39,47 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
       }
       <a href={sectionHref('experience')} class="nav-link">Experience</a>
       <a href={sectionHref('products')} class="nav-link">Products</a>
+      <a
+        href={site.medium}
+        class="nav-link nav-link--external"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Blog
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+        <span class="sr-only">(opens Medium in a new tab)</span>
+      </a>
       <a href={sectionHref('contact')} class="nav-cta">Get in Touch</a>
     </div>
   </div>
 </nav>
+
+<script>
+  const nav = document.querySelector('.site-nav');
+  const toggle = document.querySelector('.nav-toggle');
+  const menu = document.getElementById('nav-menu');
+
+  if (nav && toggle && menu) {
+    const setOpen = (open: boolean) => {
+      nav.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(!nav.classList.contains('is-open'));
+    });
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setOpen(false));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+  }
+</script>
