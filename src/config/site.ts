@@ -8,6 +8,8 @@ export const site = {
   github: 'https://github.com/dsiddharth2',
   linkedin: 'https://www.linkedin.com/in/dsiddharth2/',
   medium: 'https://medium.com/@siddharthanantdeshpande',
+  /** Google Analytics measurement ID */
+  gtagId: 'G-NZ7CSERJHB',
   /** Fallback GitHub Pages user site URL */
   baseUrl: 'https://dsiddharth2.github.io',
   customDomain: 'https://siddharthdeshpande.com',
