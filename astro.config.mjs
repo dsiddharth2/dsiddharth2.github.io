@@ -15,4 +15,13 @@ export default defineConfig({
     mdx(),
   ],
   output: 'static',
+  vite: {
+    server: {
+      watch: {
+        // Cursor/agent edits can miss native FS events on macOS; polling keeps HMR reliable.
+        usePolling: true,
+        interval: 300,
+      },
+    },
+  },
 });
