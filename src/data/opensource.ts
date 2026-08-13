@@ -7,10 +7,10 @@ export interface OpenSourceProject {
 
 export const openSourceProjects: OpenSourceProject[] = [
   {
-    title: 'PlugVault',
-    subtitle: 'Reusable AI coding skills registry',
+    title: 'Plug',
+    subtitle: 'Package manager for Claude Code skills',
     description:
-      'Ecosystem for packaging, sharing, and distributing reusable AI coding skills for Claude Code.',
+      'Package manager for Claude Code — install reusable skills, commands, and agents from GitHub-hosted registries.',
     url: 'https://github.com/dsiddharth2/plug',
   },
   {
@@ -22,7 +22,7 @@ export const openSourceProjects: OpenSourceProject[] = [
   },
   {
     title: 'PHP ZXing',
-    subtitle: '4K+ downloads · 50+ stars',
+    subtitle: '277K+ installs · 133 stars',
     description:
       'Wrapper for ZXing barcode library. Featured on the primary ZXing GitHub repository page.',
     url: 'https://github.com/dsiddharth2/php-zxing',

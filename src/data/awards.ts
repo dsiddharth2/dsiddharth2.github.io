@@ -21,6 +21,6 @@ export const awards: Award[] = [
   },
   {
     title: 'Best Boy Award',
-    description: 'Govindram Seksaria College · May 2010',
+    description: 'Govindram Seksaria Science College · May 2010',
   },
 ];

@@ -1,7 +1,7 @@
 ---
 title: Plug
-subtitle: Open-source registry for reusable AI coding skills
-description: Ecosystem for packaging, sharing, and distributing reusable AI coding skills for Claude Code.
+subtitle: Package manager for Claude Code skills
+description: Package manager for Claude Code — install reusable skills, commands, and agents from GitHub-hosted registries.
 url: https://github.com/dsiddharth2/plug
 featured: true
 order: 1
