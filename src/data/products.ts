@@ -34,12 +34,12 @@ export const products: Product[] = [
     description:
       'Full GraphRAG pipeline — ingests documents, builds knowledge graphs with entities, relationships, topics, and communities via vector similarity. 17 activity classes, 14 prompt templates.',
     fullDescription:
-      'Built a production-grade GraphRAG pipeline that ingests 1.5 lakh support case documents and constructs a knowledge graph with entities, relationships, topics, and community structures. The system uses vector similarity (FAISS) to connect related concepts and surfaces accurate answers through a two-tier retrieval strategy — combining graph traversal with dense vector search for context-rich responses.',
+      'Built a production-grade GraphRAG pipeline that ingests 150K support case documents and constructs a knowledge graph with entities, relationships, topics, and community structures. The system uses vector similarity (FAISS) to connect related concepts and surfaces accurate answers through a two-tier retrieval strategy — combining graph traversal with dense vector search for context-rich responses.',
     tags: ['Python', 'Durable Functions', 'Cosmos DB', 'FAISS'],
     icon: 'graph',
     company: 'Apra Labs',
     impact: [
-      { metric: '1.5L', label: 'documents ingested' },
+      { metric: '150K', label: 'documents ingested' },
       { metric: '17', label: 'activity classes' },
       { metric: '14', label: 'prompt templates' },
       { metric: '2-tier', label: 'RAG retrieval' },
@@ -162,10 +162,10 @@ export const products: Product[] = [
     title: 'Search Index Sync Engine',
     subtitle: 'Real-time & bulk search indexing',
     description:
-      'Synchronizing records into Azure Cognitive Search. Bulk indexing via Durable Functions, real-time incremental sync via Service Bus.',
+      'Synchronizing records into Azure AI Search. Bulk indexing via Durable Functions, real-time incremental sync via Service Bus.',
     fullDescription:
-      'Built a dual-mode search synchronization engine that keeps Azure Cognitive Search indices in sync with the primary database. Bulk mode uses Durable Functions to orchestrate full re-indexing of large datasets with retry and checkpoint logic. Real-time mode uses Service Bus to process incremental changes within seconds of the source update. The system handles schema evolution, field mapping transformations, and index versioning.',
-    tags: ['C# / .NET 8', 'Cognitive Search', 'Service Bus'],
+      'Built a dual-mode search synchronization engine that keeps Azure AI Search indices in sync with the primary database. Bulk mode uses Durable Functions to orchestrate full re-indexing of large datasets with retry and checkpoint logic. Real-time mode uses Service Bus to process incremental changes within seconds of the source update. The system handles schema evolution, field mapping transformations, and index versioning.',
+    tags: ['C# / .NET 8', 'Azure AI Search', 'Service Bus'],
     icon: 'search',
     company: 'Apra Labs',
     impact: [
@@ -216,14 +216,14 @@ export const products: Product[] = [
     description:
       'Capturing clicks, mouse movements, text input, navigation and URL transitions to reconstruct actual user workflows. Built the entire stack from scratch.',
     fullDescription:
-      'Co-founded and built a behavioral analytics platform that captures granular user interactions — clicks, mouse movements, text input, scroll patterns, navigation transitions — and reconstructs complete user workflows. The JS instrumentation engine runs asynchronously with minimal performance overhead. Data is stored in Cassandra for high write throughput and queried through Neo4j for workflow graph analysis. Secured ₹5L seed funding from Sandbox Startups.',
-    tags: ['PHP', 'Neo4J', 'Cassandra', 'JavaScript'],
+      'Co-founded and built a behavioral analytics platform that captures granular user interactions — clicks, mouse movements, text input, scroll patterns, navigation transitions — and reconstructs complete user workflows. The JS instrumentation engine runs asynchronously with minimal performance overhead. Data is stored in Cassandra for high write throughput and queried through Neo4j for workflow graph analysis. Won a ₹5L cash prize from Sandbox Startups within 6 months, with office space and Azure infrastructure granted separately.',
+    tags: ['PHP', 'Neo4j', 'Cassandra', 'JavaScript'],
     icon: 'analytics',
     company: 'UXgage (Co-founder)',
     impact: [
-      { metric: '₹5L', label: 'seed funding' },
+      { metric: '₹5L', label: 'cash prize won' },
       { metric: '0→1', label: 'from idea to product' },
-      { metric: '6 mo', label: 'to funded MVP' },
+      { metric: '6 mo', label: 'to shipped MVP' },
       { metric: '~3', label: 'engineers hired' },
     ],
     architecture: [

@@ -36,7 +36,7 @@ export function aboutPageJsonLd() {
     name: `About — ${site.name}`,
     url: getSiteUrl('/about'),
     description:
-      '14 years of turning ambiguous problems into production systems — ERPs, AI platforms, multi-agent pipelines — across startups and enterprise.',
+      '12 years of turning ambiguous problems into production systems — ERPs, AI platforms, multi-agent pipelines — across startups and enterprise.',
     mainEntity: personJsonLd(),
   };
 }

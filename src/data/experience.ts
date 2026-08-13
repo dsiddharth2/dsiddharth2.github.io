@@ -34,7 +34,7 @@ export const experience: ExperienceEntry[] = [
   {
     id: 'apra-labs',
     company: 'Apra Labs',
-    role: 'Associate Architect',
+    role: 'Associate Architect · previously Senior Software Engineer',
     period: 'Aug 2019 – Present',
     summary:
       'Built the AI and data platform layer for a unified facility management product serving 300+ US facilities.',
@@ -47,16 +47,17 @@ export const experience: ExperienceEntry[] = [
       'Virtual Credentials — facility entry/exit across 300+ US buildings',
       'Reporting platform — 1000s of reports per hour across 300+ tenants',
       'Analytics platform from scratch — facility operations monitoring',
-      'GraphRAG pipeline — 1.5L support case documents, accurate answers',
+      'GraphRAG pipeline — 150K support case documents, accurate answers',
       'Interactive chat system over 4 TB database',
       'Cloud Cost Agent — real-time Azure analysis, 30% cost reduction',
+      'Infrastructure Performance Agent — health scoring and regression detection',
     ],
     columns: [
       {
         title: 'Leadership & Impact',
         items: [
           'Managing 3 clients with technical expertise, helping the team build and ship products',
-          'Lead a team of 4 as technical mentor across multiple projects',
+          'Leading a team of 4 as technical mentor across multiple projects',
           'Architected all systems end-to-end',
           'Led 10 community meetups on Saturdays',
           'Campus hiring lead for 4 years — IIIT Dharwad & GIT Belgaum',
@@ -69,7 +70,7 @@ export const experience: ExperienceEntry[] = [
     id: 'mildlyclassic',
     company: 'MildlyClassic',
     role: 'Engineering Team Lead',
-    period: 'May 2016 – May 2023',
+    period: 'May 2016 – May 2019',
     summary:
       'Built and scaled a mission-critical logistics ERP from scratch to 2,500 daily users handling 70K dockets/month.',
     metrics: [
@@ -78,9 +79,9 @@ export const experience: ExperienceEntry[] = [
       { value: '7', label: 'engineers hired' },
     ],
     items: [
-      'End-to-end ERP — Finance, Ops, Booking App, Hub Management for PAN India secure logistics',
+      'End-to-end ERP — Finance, Ops, Booking, Hub Management, CRM, Route Planning for PAN India secure logistics',
       'Clients: large jewellery manufacturers shipping daily from manufacturing to retail',
-      'Bulk Docket creation via upload, 70K deliveries/month',
+      'Bulk docket creation via upload, 70K dockets/month',
       'Scaled from 100s to 2,500 daily users with zero downtime',
       'Migrated DigitalOcean → AWS in 3 months after security incident',
     ],
@@ -88,7 +89,7 @@ export const experience: ExperienceEntry[] = [
       {
         title: 'Leadership & Process',
         items: [
-          'Hired 7 developers, led the team through the full product lifecycle',
+          'Hired 7 engineers, led the team through the full product lifecycle',
           'Direct client interface — requirements to modules',
           'Established 4-week release cycle — build, test, deploy monthly',
           'System served entire company (Ops + Finance) all day, every day',
@@ -96,9 +97,9 @@ export const experience: ExperienceEntry[] = [
       },
     ],
     extra: {
-      title: 'Meanwhile — Sister Company · Affordable Wi-Fi → YC W17',
+      title: 'Meanwhile — Sister Company · Wifi Dabba → YC W17',
       description:
-        'Pre-Jio era — built byte-counting and usage sync software on Wi-Fi hardware for a sister company selling data at ₹2/100 MB. Built the Google NBU analytics platform for Hubli. Hired 4-5 members post-funding.',
+        'Pre-Jio era — built byte-counting and usage sync software on Wi-Fi hardware for Wifi Dabba, selling data at ₹2/100 MB. Built the Google NBU analytics platform for Hubballi. Hired 4-5 members post-funding.',
     },
   },
   {
@@ -107,10 +108,10 @@ export const experience: ExperienceEntry[] = [
     role: 'Co-Founder & CTO',
     period: 'Oct 2015 – Apr 2016',
     summary:
-      'Took an idea from zero to a funded product in 6 months — ₹5L seed from Sandbox Startups, plus office space and Azure infrastructure.',
+      'Took an idea from zero to a shipped product in 6 months — won a ₹5L cash prize from Sandbox Startups, with office space and Azure infrastructure granted separately.',
     metrics: [
       { value: '0→1', label: 'product shipped' },
-      { value: '₹5L', label: 'seed funding' },
+      { value: '₹5L', label: 'cash prize won' },
     ],
     items: [
       'Core product architecture — PHP, Neo4j, Cassandra',
@@ -132,7 +133,7 @@ export const experience: ExperienceEntry[] = [
     id: 'earlier',
     company: 'Earlier',
     role: '',
-    period: '2010 – 2015',
+    period: '2010 – 2016',
     summary: '',
     earlierEntries: [
       {
