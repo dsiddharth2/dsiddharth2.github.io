@@ -69,6 +69,34 @@ export function projectJsonLd(product: {
   };
 }
 
+export function openSourceJsonLd(project: {
+  slug: string;
+  title: string;
+  subtitle: string;
+  fullDescription: string;
+  tags: string[];
+  url: string;
+  language: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareSourceCode',
+    name: project.title,
+    alternateName: project.subtitle,
+    description: project.fullDescription,
+    url: getSiteUrl(`/opensource/${project.slug}`),
+    codeRepository: project.url,
+    programmingLanguage: project.language,
+    keywords: project.tags.join(', '),
+    license: 'https://opensource.org/licenses/MIT',
+    creator: {
+      '@type': 'Person',
+      name: site.name,
+      url: getSiteUrl('/'),
+    },
+  };
+}
+
 export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
   return {
     '@context': 'https://schema.org',
