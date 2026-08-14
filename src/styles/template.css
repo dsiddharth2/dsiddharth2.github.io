@@ -1521,7 +1521,7 @@
 }
 
 .about-section {
-  padding: 72px 0;
+  padding: 40px 0;
 }
 
 .about-section--white {
@@ -1553,6 +1553,9 @@
   line-height: 1.8;
   color: #444;
   margin: 0 0 20px;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 
 .about-capabilities {
@@ -1651,8 +1654,8 @@
 
 .about-cta-inner {
   text-align: center;
-  padding-top: 72px;
-  padding-bottom: 72px;
+  padding-top: 48px;
+  padding-bottom: 48px;
 }
 
 .about-cta-title {
