@@ -1,0 +1,40 @@
+---
+import type { OpenSourceIcon as OpenSourceIconName } from '@/data/opensource';
+
+interface Props {
+  icon: OpenSourceIconName;
+}
+
+const { icon } = Astro.props;
+---
+
+<div class="opensource-icon" aria-hidden="true">
+  {icon === 'plug' && (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22v-5"></path>
+      <path d="M9 8V2"></path>
+      <path d="M15 8V2"></path>
+      <path d="M18 8v5a6 6 0 0 1-12 0V8z"></path>
+    </svg>
+  )}
+  {icon === 'hawk' && (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="3"></circle>
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+      <path d="m4.93 4.93 2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"></path>
+    </svg>
+  )}
+  {icon === 'barcode' && (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 7v10M8 7v10M11 7v10M14 7v10M18 7v10M21 7v10"></path>
+    </svg>
+  )}
+  {icon === 'grid' && (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="8" height="10" rx="1"></rect>
+      <rect x="13" y="3" width="8" height="6" rx="1"></rect>
+      <rect x="13" y="11" width="8" height="10" rx="1"></rect>
+      <rect x="3" y="15" width="8" height="6" rx="1"></rect>
+    </svg>
+  )}
+</div>

@@ -1,0 +1,164 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import RevealScript from '@/components/RevealScript.astro';
+import {
+  experience,
+  getExperienceById,
+  experienceTitle,
+  experienceDescription,
+} from '@/data/experience';
+import { site } from '@/config/site';
+import { breadcrumbJsonLd, experienceJsonLd } from '@/utils/seo';
+
+export function getStaticPaths() {
+  return experience.map((entry) => ({
+    params: { slug: entry.id },
+  }));
+}
+
+const { slug } = Astro.params;
+const entry = getExperienceById(slug!);
+
+if (!entry) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const pagePath = `/experience/${entry.id}`;
+const title = experienceTitle(entry);
+const fullDescription = experienceDescription(entry);
+const description =
+  fullDescription.length > 160 ? `${fullDescription.slice(0, 157).trimEnd()}...` : fullDescription;
+const metricCount = entry.metrics?.length ?? 0;
+---
+
+<BaseLayout
+  title={`${title} — ${site.name}`}
+  description={description}
+  canonicalPath={pagePath}
+  markdownPath={`${pagePath}.md`}
+  ogType="article"
+  jsonLd={[
+    experienceJsonLd(entry),
+    breadcrumbJsonLd([
+      { name: 'Home', path: '/' },
+      { name: 'Experience', path: '/experience' },
+      { name: entry.company, path: pagePath },
+    ]),
+  ]}
+>
+  <Nav />
+  <main id="main-content" class="oss-detail">
+    <div class="oss-detail-bar">
+      <div class="oss-detail-bar-inner">
+        <a href="/experience" class="oss-back-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 12H5"></path>
+            <path d="M12 19l-7-7 7-7"></path>
+          </svg>
+          Back to Experience
+        </a>
+        <span class="oss-detail-lang">{entry.period}</span>
+      </div>
+    </div>
+
+    <section class="oss-detail-hero">
+      <div class="page-container oss-detail-hero-inner">
+        <p class="section-eyebrow" data-reveal>Experience</p>
+        <h1 class="oss-detail-title" data-reveal data-reveal-delay="1">{entry.company}</h1>
+        {entry.role && (
+          <p class="oss-detail-subtitle" data-reveal data-reveal-delay="2">{entry.role}</p>
+        )}
+        {entry.summary && (
+          <p class="oss-detail-lede" data-reveal data-reveal-delay="3">{entry.summary}</p>
+        )}
+      </div>
+    </section>
+
+    {entry.metrics && entry.metrics.length > 0 && (
+      <section class="oss-detail-impact" aria-label="Impact metrics">
+        <div class="page-container">
+          <div class="oss-impact-grid" style={`--impact-cols: ${metricCount}`}>
+            {entry.metrics.map((item, index) => (
+              <div class="oss-impact-item" data-reveal data-reveal-delay={String(Math.min(index, 3))}>
+                <p class="oss-impact-metric">{item.value}</p>
+                <p class="oss-impact-label">{item.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="oss-detail-body">
+      <div class="page-container oss-detail-body-inner">
+        <div class="oss-detail-main" data-reveal>
+          {entry.earlierEntries ? (
+            <>
+              <p class="section-eyebrow">Earlier roles</p>
+              <h2 class="oss-detail-heading">What I built</h2>
+              <div class="oss-highlight-list">
+                {entry.earlierEntries.map((item, index) => (
+                  <div class="oss-highlight-item">
+                    <span class="oss-highlight-index">{String(index + 1).padStart(2, '0')}</span>
+                    <div>
+                      <p class="experience-earlier-company">{item.company}</p>
+                      <p class="experience-earlier-role">{item.role}</p>
+                      <p class="experience-earlier-summary">{item.summary}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              {entry.items && (
+                <>
+                  <p class="section-eyebrow">Work</p>
+                  <h2 class="oss-detail-heading">What I shipped</h2>
+                  <div class="oss-highlight-list">
+                    {entry.items.map((item, index) => (
+                      <div class="oss-highlight-item">
+                        <span class="oss-highlight-index">{String(index + 1).padStart(2, '0')}</span>
+                        <p>{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+              {entry.columns?.map((column) => (
+                <div class="experience-detail-column">
+                  <p class="section-eyebrow">{column.title}</p>
+                  <div class="oss-highlight-list">
+                    {column.items.map((item, index) => (
+                      <div class="oss-highlight-item">
+                        <span class="oss-highlight-index">{String(index + 1).padStart(2, '0')}</span>
+                        <p>{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              {entry.extra && (
+                <div class="experience-callout experience-detail-callout">
+                  <p class="experience-callout-title">{entry.extra.title}</p>
+                  <p class="experience-callout-body">{entry.extra.description}</p>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+
+        <aside class="oss-detail-sidebar" data-reveal data-reveal-delay="1">
+          <p class="section-eyebrow">Role</p>
+          <div class="oss-stack-list">
+            <div class="oss-stack-item">{entry.company}</div>
+            {entry.role && <div class="oss-stack-item">{entry.role}</div>}
+            <div class="oss-stack-item">{entry.period}</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <RevealScript />
+</BaseLayout>

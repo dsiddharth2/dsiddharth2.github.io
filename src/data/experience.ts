@@ -157,3 +157,19 @@ export const experience: ExperienceEntry[] = [
     ],
   },
 ];
+
+export function getExperienceById(id: string): ExperienceEntry | undefined {
+  return experience.find((entry) => entry.id === id);
+}
+
+export function experienceTitle(entry: ExperienceEntry): string {
+  return entry.role ? `${entry.role} · ${entry.company}` : entry.company;
+}
+
+export function experienceDescription(entry: ExperienceEntry): string {
+  if (entry.summary) return entry.summary;
+  if (entry.earlierEntries?.length) {
+    return entry.earlierEntries.map((item) => `${item.company}: ${item.summary}`).join(' ');
+  }
+  return `${entry.company} · ${entry.period}`;
+}

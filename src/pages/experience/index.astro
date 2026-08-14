@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import ExperienceSection from '@/components/ExperienceSection.astro';
+import RevealScript from '@/components/RevealScript.astro';
+import { experience, experienceTitle } from '@/data/experience';
+import { site } from '@/config/site';
+import { breadcrumbJsonLd, collectionPageJsonLd } from '@/utils/seo';
+
+const description =
+  '12 years shipping production systems — from a training institute and 0-to-1 products through logistics ERP and an AI platform serving 300+ facilities.';
+---
+
+<BaseLayout
+  title={`Experience — ${site.name}`}
+  description={description}
+  canonicalPath="/experience"
+  markdownPath="/experience.md"
+  jsonLd={[
+    collectionPageJsonLd({
+      name: `Experience — ${site.name}`,
+      path: '/experience',
+      description,
+      items: experience.map((entry) => ({
+        name: experienceTitle(entry),
+        path: `/experience/${entry.id}`,
+      })),
+    }),
+    breadcrumbJsonLd([
+      { name: 'Home', path: '/' },
+      { name: 'Experience', path: '/experience' },
+    ]),
+  ]}
+>
+  <Nav />
+  <main id="main-content">
+    <section class="about-hero about-hero--cream">
+      <div class="about-hero-inner">
+        <div class="about-hero-copy">
+          <p class="hero-kicker" data-reveal>Experience</p>
+          <h1 class="about-hero-title" data-reveal data-reveal-delay="1">
+            Where I've made an impact
+          </h1>
+          <p class="about-hero-lede" data-reveal data-reveal-delay="2">
+            {description}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <ExperienceSection hideIntro />
+
+    <section class="about-cta">
+      <div class="about-narrow about-cta-inner">
+        <h2 class="about-cta-title" data-reveal>Let's build something great.</h2>
+        <p class="about-cta-lede" data-reveal data-reveal-delay="1">
+          Always open to interesting problems and collaborations.
+        </p>
+        <div class="about-cta-actions" data-reveal data-reveal-delay="2">
+          <a href={`mailto:${site.email}`} class="btn-hero-primary">Get in Touch →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <RevealScript />
+</BaseLayout>

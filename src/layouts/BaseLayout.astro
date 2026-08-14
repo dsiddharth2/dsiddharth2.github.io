@@ -4,6 +4,7 @@ interface Props {
   description?: string;
   image?: string;
   canonicalPath?: string;
+  markdownPath?: string;
   ogType?: 'website' | 'article' | 'profile';
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
@@ -18,11 +19,13 @@ const {
   description = site.description,
   image = getSiteUrl('/images/profile.jpg'),
   canonicalPath = '',
+  markdownPath,
   ogType = 'website',
   jsonLd,
 } = Astro.props;
 
 const canonicalUrl = getSiteUrl(canonicalPath);
+const markdownUrl = markdownPath ? getSiteUrl(markdownPath) : undefined;
 const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
@@ -49,6 +52,7 @@ const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href={assetUrl('favicon.svg')} />
     <link rel="canonical" href={canonicalUrl} />
+    {markdownUrl && <link rel="alternate" type="text/markdown" href={markdownUrl} />}
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />

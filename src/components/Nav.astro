@@ -2,15 +2,18 @@
 import { site } from '@/config/site';
 
 const pathname = Astro.url.pathname;
-const isHome = pathname === '/';
+const isHome = pathname === '/' || pathname === '';
 const isAbout = pathname.startsWith('/about');
+const isExperience = pathname.startsWith('/experience');
+const isProducts = pathname.startsWith('/projects');
+const isOpenSource = pathname.startsWith('/opensource');
 
 const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
 ---
 
 <nav class="site-nav" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="/" class="nav-brand">
+    <a href="/" class="nav-brand" aria-label="Home">
       <div class="nav-logo" aria-hidden="true">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="m13 2-2 14h5L9 22l2-14H6z"></path>
@@ -31,14 +34,52 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
     </button>
     <div class="nav-links" id="nav-menu">
       {
+        isHome ? (
+          <span class="nav-home nav-home--active" aria-current="page" aria-label="Home">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span class="nav-home-label">Home</span>
+          </span>
+        ) : (
+          <a href="/" class="nav-home" aria-label="Home">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span class="nav-home-label">Home</span>
+          </a>
+        )
+      }
+      {
         isAbout ? (
           <span class="nav-link nav-link--active" aria-current="page">About</span>
         ) : (
           <a href="/about" class="nav-link">About</a>
         )
       }
-      <a href={sectionHref('experience')} class="nav-link">Experience</a>
-      <a href={sectionHref('products')} class="nav-link">Products</a>
+      {
+        isExperience ? (
+          <span class="nav-link nav-link--active" aria-current="page">Experience</span>
+        ) : (
+          <a href="/experience" class="nav-link">Experience</a>
+        )
+      }
+      {
+        isProducts ? (
+          <span class="nav-link nav-link--active" aria-current="page">Products</span>
+        ) : (
+          <a href="/projects" class="nav-link">Products</a>
+        )
+      }
+      {
+        isOpenSource ? (
+          <span class="nav-link nav-link--active" aria-current="page">Open Source</span>
+        ) : (
+          <a href="/opensource" class="nav-link">Open Source</a>
+        )
+      }
       <a
         href={site.medium}
         class="nav-link nav-link--external"
