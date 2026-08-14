@@ -1,4 +1,5 @@
 import { site, getSiteUrl } from '@/config/site';
+import { experienceDescription } from '@/data/experience';
 
 export function personJsonLd() {
   return {
@@ -93,6 +94,71 @@ export function openSourceJsonLd(project: {
       '@type': 'Person',
       name: site.name,
       url: getSiteUrl('/'),
+    },
+  };
+}
+
+export function experienceJsonLd(entry: {
+  id: string;
+  company: string;
+  role: string;
+  period: string;
+  summary: string;
+}) {
+  const isEarlier = entry.company === 'Earlier';
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: entry.role ? `${entry.role} · ${entry.company}` : entry.company,
+    description: experienceDescription(entry),
+    url: getSiteUrl(`/experience/${entry.id}`),
+    about: {
+      '@type': 'Organization',
+      name: entry.company,
+    },
+    mainEntity: {
+      '@type': 'Person',
+      name: site.name,
+      url: getSiteUrl('/'),
+      ...(entry.role ? { jobTitle: entry.role } : {}),
+      ...(!isEarlier
+        ? {
+            worksFor: {
+              '@type': 'Organization',
+              name: entry.company,
+            },
+          }
+        : {}),
+    },
+  };
+}
+
+export function collectionPageJsonLd(options: {
+  name: string;
+  path: string;
+  description: string;
+  items: { name: string; path: string }[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: options.name,
+    url: getSiteUrl(options.path),
+    description: options.description,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: site.name,
+      url: getSiteUrl('/'),
+    },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: options.items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        url: getSiteUrl(item.path),
+      })),
     },
   };
 }

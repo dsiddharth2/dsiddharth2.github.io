@@ -1,14 +1,29 @@
 ---
 import OpenSourceIcon from '@/components/ui/OpenSourceIcon.astro';
 import { openSourceProjects } from '@/data/opensource';
+
+interface Props {
+  hideIntro?: boolean;
+}
+
+const { hideIntro = false } = Astro.props;
 ---
 
-<section id="opensource" class="opensource-section" aria-labelledby="opensource-heading">
+<section
+  id="opensource"
+  class:list={['opensource-section', hideIntro && 'opensource-section--page']}
+  aria-label={hideIntro ? 'Open source' : undefined}
+  aria-labelledby={hideIntro ? undefined : 'opensource-heading'}
+>
   <div class="page-container section-padding">
-    <p class="section-eyebrow" data-reveal>Open Source</p>
-    <h2 id="opensource-heading" class="section-title" data-reveal data-reveal-delay="1">
-      Giving back to the community
-    </h2>
+    {!hideIntro && (
+      <>
+        <p class="section-eyebrow" data-reveal>Open Source</p>
+        <h2 id="opensource-heading" class="section-title" data-reveal data-reveal-delay="1">
+          Giving back to the community
+        </h2>
+      </>
+    )}
     <div class="opensource-grid">
       {openSourceProjects.map((project, index) => (
         <article class="opensource-card" data-reveal data-reveal-delay={String((index % 2) + 1)}>

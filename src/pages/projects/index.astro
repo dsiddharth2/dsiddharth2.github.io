@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import ProductsSection from '@/components/ProductsSection.astro';
+import RevealScript from '@/components/RevealScript.astro';
+import { products } from '@/data/products';
+import { site } from '@/config/site';
+import { breadcrumbJsonLd, collectionPageJsonLd } from '@/utils/seo';
+
+const description =
+  'Production systems across knowledge graphs, multi-agent AI, FinOps, search, logistics, and analytics — from 0-to-1 through enterprise scale.';
+---
+
+<BaseLayout
+  title={`Products — ${site.name}`}
+  description={description}
+  canonicalPath="/projects"
+  markdownPath="/projects.md"
+  jsonLd={[
+    collectionPageJsonLd({
+      name: `Products — ${site.name}`,
+      path: '/projects',
+      description,
+      items: products.map((product) => ({
+        name: product.title,
+        path: `/projects/${product.slug}`,
+      })),
+    }),
+    breadcrumbJsonLd([
+      { name: 'Home', path: '/' },
+      { name: 'Products', path: '/projects' },
+    ]),
+  ]}
+>
+  <Nav />
+  <main id="main-content">
+    <section class="about-hero">
+      <div class="about-hero-inner">
+        <div class="about-hero-copy">
+          <p class="hero-kicker" data-reveal>Products</p>
+          <h1 class="about-hero-title" data-reveal data-reveal-delay="1">
+            Systems I've architected and shipped
+          </h1>
+          <p class="about-hero-lede" data-reveal data-reveal-delay="2">
+            {description}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <ProductsSection hideIntro />
+
+    <section class="about-cta">
+      <div class="about-narrow about-cta-inner">
+        <h2 class="about-cta-title" data-reveal>Let's build something great.</h2>
+        <p class="about-cta-lede" data-reveal data-reveal-delay="1">
+          Always open to interesting problems and collaborations.
+        </p>
+        <div class="about-cta-actions" data-reveal data-reveal-delay="2">
+          <a href={`mailto:${site.email}`} class="btn-hero-primary">Get in Touch →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <RevealScript />
+</BaseLayout>

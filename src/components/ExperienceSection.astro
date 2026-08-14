@@ -1,12 +1,29 @@
 ---
 import ExperienceRow from '@/components/ExperienceRow.astro';
 import { experience } from '@/data/experience';
+
+interface Props {
+  hideIntro?: boolean;
+}
+
+const { hideIntro = false } = Astro.props;
 ---
 
-<section id="experience" class="experience-section" aria-labelledby="experience-heading">
+<section
+  id="experience"
+  class:list={['experience-section', hideIntro && 'experience-section--page']}
+  aria-label={hideIntro ? 'Experience' : undefined}
+  aria-labelledby={hideIntro ? undefined : 'experience-heading'}
+>
   <div class="page-container section-padding">
-    <p class="section-eyebrow" data-reveal>Experience</p>
-    <h2 id="experience-heading" class="section-title experience-title" data-reveal data-reveal-delay="1">Where I've made an impact</h2>
+    {!hideIntro && (
+      <>
+        <p class="section-eyebrow" data-reveal>Experience</p>
+        <h2 id="experience-heading" class="section-title experience-title" data-reveal data-reveal-delay="1">
+          Where I've made an impact
+        </h2>
+      </>
+    )}
 
     {experience.map((entry) => (
       <ExperienceRow entry={entry} reveal />

@@ -10,7 +10,8 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sitemap({
-      filter: (page) => !page.includes('/draft'),
+      filter: (page) =>
+        !page.includes('/draft') && !page.endsWith('.md') && !page.endsWith('.txt'),
     }),
     mdx(),
   ],

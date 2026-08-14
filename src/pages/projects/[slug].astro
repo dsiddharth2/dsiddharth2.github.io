@@ -31,10 +31,13 @@ const description =
   title={`${product.title} — ${site.name}`}
   description={description}
   canonicalPath={projectPath}
+  markdownPath={`${projectPath}.md`}
+  ogType="article"
   jsonLd={[
     projectJsonLd(product),
     breadcrumbJsonLd([
       { name: 'Home', path: '/' },
+      { name: 'Products', path: '/projects' },
       { name: product.title, path: projectPath },
     ]),
   ]}
@@ -43,7 +46,7 @@ const description =
   <main id="main-content" class="project-detail">
     <div class="project-detail-bar">
       <div class="project-detail-bar-inner">
-        <a href="/#products" class="project-back-link">
+        <a href="/projects" class="project-back-link">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M19 12H5"></path>
             <path d="M12 19l-7-7 7-7"></path>

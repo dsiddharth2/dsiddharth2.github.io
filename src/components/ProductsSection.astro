@@ -1,14 +1,29 @@
 ---
 import ProductIcon from '@/components/ui/ProductIcon.astro';
 import { products } from '@/data/products';
+
+interface Props {
+  hideIntro?: boolean;
+}
+
+const { hideIntro = false } = Astro.props;
 ---
 
-<section id="products" class="products-section" aria-labelledby="products-heading">
+<section
+  id="products"
+  class:list={['products-section', hideIntro && 'products-section--page']}
+  aria-label={hideIntro ? 'Products' : undefined}
+  aria-labelledby={hideIntro ? undefined : 'products-heading'}
+>
   <div class="page-container section-padding">
-    <p class="section-eyebrow" data-reveal>Products</p>
-    <h2 id="products-heading" class="section-title section-title--light" data-reveal data-reveal-delay="1">
-      Systems I've architected and shipped
-    </h2>
+    {!hideIntro && (
+      <>
+        <p class="section-eyebrow" data-reveal>Products</p>
+        <h2 id="products-heading" class="section-title section-title--light" data-reveal data-reveal-delay="1">
+          Systems I've architected and shipped
+        </h2>
+      </>
+    )}
     <div class="products-grid">
       {products.map((product, index) => (
         <article class="product-card" data-reveal data-reveal-delay={String((index % 2) + 1)}>
