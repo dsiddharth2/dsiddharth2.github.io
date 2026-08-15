@@ -23,7 +23,10 @@ const description = openSourceSeoDescription(project);
 const links = [
   { label: 'GitHub', href: project.url },
   ...(project.packagist ? [{ label: 'Packagist', href: project.packagist }] : []),
+  ...(project.npmUrl ? [{ label: 'npm', href: project.npmUrl }] : []),
+  ...(project.vaultUrl ? [{ label: 'Vault', href: project.vaultUrl }] : []),
   ...(project.dockerHub ? [{ label: 'Docker Hub', href: project.dockerHub }] : []),
+  ...(project.demoUrl ? [{ label: 'Demos', href: project.demoUrl }] : []),
 ];
 ---
 

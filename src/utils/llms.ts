@@ -74,7 +74,10 @@ export function openSourceMarkdown(project: OpenSourceProject): string {
     .join('\n');
   const reflections = project.reflections.map((item) => `- **${item.title}** — ${item.detail}`).join('\n');
   const packagist = project.packagist ? `\n- **Packagist:** ${project.packagist}` : '';
+  const npm = project.npmUrl ? `\n- **npm:** ${project.npmUrl}` : '';
+  const vault = project.vaultUrl ? `\n- **Official vault:** ${project.vaultUrl}` : '';
   const dockerHub = project.dockerHub ? `\n- **Docker Hub:** ${project.dockerHub}` : '';
+  const demo = project.demoUrl ? `\n- **Demos:** ${project.demoUrl}` : '';
   const evaluation = project.evaluation ? `\n## Evaluation\n\n${project.evaluation}\n` : '';
 
   return `# ${project.title}
@@ -84,7 +87,7 @@ export function openSourceMarkdown(project: OpenSourceProject): string {
 ${project.tagline}
 
 - **Page:** ${url}
-- **Repository:** ${project.url}${packagist}${dockerHub}
+- **Repository:** ${project.url}${packagist}${npm}${vault}${dockerHub}${demo}
 - **Language:** ${project.language}
 - **Tech stack:** ${project.tags.join(', ')}
 

@@ -46,6 +46,9 @@ export interface OpenSourceProject {
   evaluation?: string;
   packagist?: string;
   dockerHub?: string;
+  demoUrl?: string;
+  npmUrl?: string;
+  vaultUrl?: string;
 }
 
 export const openSourceProjects: OpenSourceProject[] = [
@@ -53,94 +56,124 @@ export const openSourceProjects: OpenSourceProject[] = [
     slug: 'plug',
     title: 'Plug',
     subtitle: 'Package manager for Claude Code skills',
-    tagline: 'Discover, install, and manage Claude Code skills like npm packages.',
+    tagline: 'Sharing Claude Code extensions across a team without emailing Markdown files around.',
     description:
       'Discover, install, and manage reusable Skills, Commands, and Agents from GitHub-hosted registries — through an interactive TUI or the CLI.',
     url: 'https://github.com/dsiddharth2/plug',
-    tags: ['TypeScript', 'Node.js', 'TUI', 'Claude Code'],
+    vaultUrl: 'https://github.com/dsiddharth2/plugvault',
+    npmUrl: 'https://www.npmjs.com/package/plugvault',
+    tags: ['TypeScript', 'Node.js', 'Ink', 'Claude Code'],
     icon: 'plug',
     language: 'TypeScript',
     stats: [
-      { metric: 'npm', label: 'plugvault on npm' },
-      { metric: 'TUI', label: 'interactive browser' },
-      { metric: 'Vaults', label: 'GitHub registries' },
+      { metric: '14', label: 'official packages' },
+      { metric: '2', label: 'clients, one contract' },
+      { metric: 'npm', label: 'plugvault' },
       { metric: 'MIT', label: 'open source' },
     ],
     overview: {
       problem: [
-        'Claude Code skills copied around as Markdown files',
-        'No versioning or dependency tracking for agents',
-        'Teams share standards by pasting files in Slack',
-        'Discovery limited to random GitHub repositories',
-        'Updates require a manual re-copy every time',
-        'Local versus global install is entirely ad hoc',
+        'Claude Code extensions are Markdown files in a .claude/ folder',
+        'That works for one person on one repo, not for a team',
+        'Good commands spread by Slack paste and then drift',
+        'Four projects end up with four slightly different copies',
+        'No way to hand out shared security rules to every engineer',
+        'No way to update those rules once they change',
       ],
       solution: [
-        'Interactive TUI plus a full CLI for power users',
-        'GitHub-hosted vaults acting as package registries',
-        'DFS dependency resolution across packages',
-        'Install locally to .claude/ or globally to ~/.claude/',
-        'Public PlugVault plus custom private team vaults',
-        'Offline registry cache for fast repeated lookups',
+        'Interactive TUI plus a /plug skill inside Claude Code',
+        'Any GitHub repo is a package source — public or private',
+        'Official vault: 14 packages, 7 always-on skills, 7 commands',
+        'Install per project or per machine against a tracked manifest',
+        'Vaults resolve in a user-defined order, first match wins',
+        'Published on npm as plugvault, CI on every push',
       ],
       outcome: [
-        'Published as plugvault on npm for one-command install',
-        'Community packages installable in seconds',
-        'Teams share coding standards without copy-paste',
-        'Smart removal with orphan pruning included',
-        'Multi-file packages tracked and cleaned correctly',
+        'Teams share extensions without emailing Markdown around',
+        'Private company vaults use existing GitHub access controls',
+        'A reviewer reads the actual skill text in the pull request',
+        'What lands in .claude/ is byte-identical to GitHub',
+        'Update and remove operate on the manifest, not a directory scan',
         'MIT licensed and fully public',
       ],
     },
+    architectureSvg: 'images/architecture/plug-architecture.svg',
     howItWorks: [
       {
         stage: 'Discover',
         detail:
-          'The TUI browses GitHub-hosted vaults — public PlugVault or a private team registry — and lists Skills, Commands, and Agents with versions and descriptions.',
+          'The client pulls the index from every registered vault and caches it for an hour. The terminal UI is a full-screen browser with tabs for what is available, what is installed, and which vaults are configured.',
       },
       {
         stage: 'Resolve',
         detail:
-          'DFS dependency resolution walks the graph before install. Missing packages are pulled automatically; conflicts surface before anything is written to disk.',
+          'A requested name is matched against the merged index in vault order. First match wins, so an internal vault can shadow a public package of the same name. A vault-qualified form exists when you need to be explicit.',
       },
       {
         stage: 'Install',
         detail:
-          'Packages land locally in .claude/ or globally in ~/.claude/. Multi-file packages are tracked so later updates and removals stay consistent.',
+          'Files are fetched and written where Claude actually reads them: a skill at .claude/skills/<name>/SKILL.md, a command at .claude/commands/<name>.md, under the project or ~/.claude/ depending on scope.',
       },
       {
-        stage: 'Maintain',
+        stage: 'Track',
         detail:
-          'Update and remove commands prune orphans, refresh the offline cache, and keep the lock of installed extensions in sync with the vault.',
+          'The manifest records package name, version, and which vault it came from. Update, remove, and list operate on that record, not the directory listing, so multi-file packages and hand-written files stay distinct.',
+      },
+      {
+        stage: 'Publish',
+        detail:
+          'Adding a package means creating a folder with meta.json and an entry file, adding one index row, and opening a pull request. Every package in the official vault went in through that path.',
       },
     ],
     decisions: [
       {
-        title: 'GitHub vaults instead of a custom registry server',
+        title: 'GitHub repositories are the registry. There is no package server.',
         detail:
-          'Teams already live on GitHub. Treating a repo as a registry meant zero new infrastructure, private vaults for free, and a contribution model people already understand.',
+          'A registry is a JSON index committed to a repo. A hosted API would have needed its own accounts and something to keep running. Using repos means private distribution comes free from GitHub access controls. What I gave up: no download counts, no central moderation, no way to yank a bad package.',
       },
       {
-        title: 'TUI first, CLI always available',
+        title: 'A package is a folder you can read in a pull request',
         detail:
-          'Discovery is visual — browsing skills is closer to an app store than to npm search. The TUI is the default path; every action still has a scriptable CLI equivalent.',
+          'Each package is registry/<name>/ holding meta.json and a Markdown entry file. Inlining into one large manifest would have been simpler to fetch and horrible to review. The file that lands in .claude/ is byte-identical to the one on GitHub.',
       },
       {
-        title: 'Local and global scopes, like npm',
+        title: 'Two clients, one contract',
         detail:
-          'A personal agent should not collide with a repo-level skill. Matching npm’s local vs global model made the mental model free for anyone who has used Node.',
+          'The terminal UI is Node and Ink. The Claude Code skill runs inside the conversation with no Node runtime at all. Both perform resolve, fetch, write, record in the same order, which is the only reason it is safe to have two of them.',
+      },
+      {
+        title: 'Vaults resolve in a user-defined order, first match wins',
+        detail:
+          'An organisation registers its internal vault ahead of the public one, and its version of a package shadows the community version by the same name. Unqualified installs can silently resolve somewhere you did not expect.',
+      },
+      {
+        title: 'The manifest is the source of truth, not the file tree',
+        detail:
+          'Scanning .claude/ and inferring what is installed falls apart the moment a package spans more than one file, and it cannot tell a Plug-managed file from one you wrote yourself. The trade-off is drift: hand-edit the folder and the manifest is quietly wrong.',
       },
     ],
+    evaluation:
+      "There's no evaluation harness yet, and that's the honest gap. CI unit tests catch regressions in resolution and path routing, but they don't test whether a package installs correctly from a fresh machine, into both scopes, and whether removing it leaves nothing behind. Dogfooding covers the common path. Private vault authentication, multi-file packages, and removal with dependents are verified by hand. An install matrix in a clean container per case would replace all of that manual checking.",
     reflections: [
       {
-        title: 'A lockfile and signed packages earlier',
+        title: 'Version the registry format from the first commit',
         detail:
-          'Install reproducibility and supply-chain trust should have been first-class from day one, not a follow-up.',
+          'The index schema has changed as the tool grew and there is no version field, so an older client hitting a newer vault fails confusingly. One integer at the top of the file, added on day one, costs nothing.',
       },
       {
-        title: 'Clearer conflict UX when two vaults ship the same skill',
+        title: 'Pin content to a commit, not a branch',
         detail:
-          'Name collisions across public and private vaults are rare until they are not. A dedicated resolver UI would have saved support questions.',
+          'Packages are fetched from the default branch. What you installed on Monday and what a colleague installs on Friday can silently differ. Recording the commit SHA in the manifest belonged in the first version of the install path.',
+      },
+      {
+        title: 'Generate the index instead of maintaining it by hand',
+        detail:
+          'Every package already has meta.json, and then it has to be copied into the root index by hand. Two places, one truth — walking the registry folder in CI and writing the index out would remove the step people forget.',
+      },
+      {
+        title: 'Keep the docs generated from one source',
+        detail:
+          "The README and the architecture doc drifted apart on how installation handles dependencies, and CLI flags in the vault README don't match the tool's. Anything a reader can check against the code should come from the code.",
       },
     ],
   },
@@ -358,84 +391,103 @@ export const openSourceProjects: OpenSourceProject[] = [
     slug: 'moo-pin',
     title: 'MooPin',
     subtitle: 'Pinterest-style column grid for MooTools',
-    tagline: 'Pinterest-style column packing for MooTools, including infinite-scroll galleries.',
+    tagline: 'A MooTools plugin that packs tiles of different heights into even columns, the way Pinterest does.',
     description:
       'Small MooTools plugin that packs tiles into a Pinterest-style column grid — including infinite-scroll galleries. Inspired by Wookmark for jQuery.',
     url: 'https://github.com/dsiddharth2/moo-pin',
+    demoUrl: 'https://github.com/dsiddharth2/moo-pin/tree/master/demos',
     tags: ['JavaScript', 'MooTools', 'Layout', 'Infinite scroll'],
     icon: 'grid',
     language: 'JavaScript',
     stats: [
-      { metric: 'Pinterest', label: 'column layout' },
-      { metric: 'Infinite', label: 'scroll ready' },
-      { metric: 'Events', label: 'resize & render' },
-      { metric: 'MIT', label: 'open source' },
+      { metric: '~120', label: 'lines of source' },
+      { metric: '1', label: 'public method' },
+      { metric: '2', label: 'events' },
+      { metric: '4', label: 'options' },
     ],
     overview: {
       problem: [
-        'MooTools had no Pinterest-style masonry plugin',
-        'jQuery’s Wookmark did not port to MooTools apps',
-        'Infinite-scroll galleries reflowed poorly on load',
-        'Window resize left gaps and overlapping tiles',
-        'Layout logic was copied into every project',
-        'No events to hook custom render after packing',
+        'Every column-grid plugin in 2014 required jQuery',
+        'Masonry, Isotope, and Wookmark were all jQuery',
+        'MooTools apps had to load a second framework for a layout',
+        'Or position tiles by hand and redo the math on resize',
+        'Round-robin columns look wrong the moment two tall images land together',
+        'Wanted the Pinterest look without pulling in jQuery',
       ],
       solution: [
-        'Small MooTools plugin with a one-line constructor',
-        'Column packing from a container of tiles',
-        'Designed for infinite-scroll galleries as items arrive',
-        'onWindowResize and onRender events for layout hooks',
-        'Inspired by Wookmark, built for the MooTools ecosystem',
-        'Tested on Chrome and Firefox of that era',
+        '~120 lines on MooTools core, nothing else required',
+        'Greedy placement: next tile goes in the shortest column',
+        'Idempotent full re-layout via a single render() call',
+        'One public method, two events, four options',
+        'Infinite scroll is append markup, then render() again',
+        'Static grid and infinite-scroll demos shipped with it',
       ],
       outcome: [
-        'Drop-in masonry for existing MooTools codebases',
-        'Galleries that keep packing as new tiles stream in',
-        'Resize no longer required a full page reload',
-        'Simple API: new MooPin({ container: "main" })',
+        'Column packing without a second JavaScript framework',
+        'Bottom edge of the grid comes out roughly level',
+        'Infinite-scroll host code is about six lines',
+        'Verified in Chrome 37+ and Firefox 32+',
         'MIT licensed for production use',
         'Filled a real gap in the MooTools plugin landscape',
       ],
     },
+    architectureSvg: 'images/architecture/moopin-architecture.svg',
     howItWorks: [
       {
-        stage: 'Pack',
+        stage: 'Initialise',
         detail:
-          'Pass a container of tiles. MooPin measures items and places them into the shortest column, producing a Pinterest-style masonry grid.',
+          'new MooPin({ container }) measures the container, counts columns from the first tile width, and keeps a running height per column.',
       },
       {
-        stage: 'Reflow',
+        stage: 'Layout pass',
         detail:
-          'onWindowResize recomputes column count and positions. Infinite-scroll galleries call render again as new items arrive.',
+          'Each tile is placed in whichever column is currently shortest, then absolutely positioned. That greedy choice is what keeps the bottom edge roughly even.',
       },
       {
-        stage: 'Hook',
+        stage: 'Re-entry',
         detail:
-          'onRender fires after each pack so the host page can lazy-load images, attach listeners, or measure the new height.',
+          'onWindowResize re-runs the whole pass. Infinite scroll appends markup and calls render() again — no incremental state to keep in sync.',
       },
     ],
     decisions: [
       {
-        title: 'MooTools, not another jQuery port sitting unused',
+        title: 'Greedy shortest-column, not round-robin',
         detail:
-          'The sites that needed this were already on MooTools. A native plugin beat asking those teams to pull in jQuery for one layout.',
+          'Dealing tiles across columns in order is simpler to write and looks wrong the moment two tall images land in the same column. Putting the next tile wherever the total is currently smallest is the whole idea.',
       },
       {
-        title: 'Events instead of a closed black box',
+        title: 'Re-run the layout whole, don\'t track incremental state',
         detail:
-          'Infinite scroll and lazy images need to know when packing finished. onRender and onWindowResize made the plugin composable.',
+          'The layout pass is idempotent. That is why the infinite-scroll demo is six lines of host code: append the new markup, call render() again. It costs a full re-layout on every trigger, which was fine at demo sizes.',
+      },
+      {
+        title: 'MooTools native, not a jQuery dependency',
+        detail:
+          'The sites that needed this were already on MooTools. A native plugin beat asking those teams to pull in jQuery for one layout effect.',
       },
     ],
+    evaluation:
+      'There is no test suite; correctness was two browsers and my eyes. Reading it now, the resize handler fires on every resize event with no throttle, three loop variables leak to the global scope, column width is read off the first tile and assumed for the rest, and tiles have to carry explicit image dimensions — measure before decode and every height comes back zero.',
     reflections: [
       {
-        title: 'Today this would be CSS grid and container queries',
+        title: 'Throttle the resize handler',
         detail:
-          'The layout problem is mostly solved in CSS now. The plugin made sense for the MooTools era; I would not rewrite it as JS today.',
+          'Dragging a window corner re-lays out the grid dozens of times a second. A short debounce would have been the obvious fix and never shipped.',
       },
       {
-        title: 'Image-load reflow should have been built in',
+        title: 'Don\'t assume the first tile\'s width',
         detail:
-          'Tiles with unset heights jumped after images loaded. Observing image load and re-packing automatically would have saved a common integration bug.',
+          'Column width is read off the first tile and applied to the rest. Mixed-width tiles would have broken the grid immediately.',
+      },
+      {
+        title: 'Observe image load instead of requiring width and height',
+        detail:
+          'Tiles have to carry explicit image dimensions because measuring before decode returns zero. A load observer and re-pack would have saved the most common integration bug.',
+      },
+      {
+        title: 'Today this would be CSS grid',
+        detail:
+          'The layout problem is mostly solved in CSS now. The plugin made sense for the MooTools era; I would not rewrite it as JavaScript today.',
       },
     ],
   },
