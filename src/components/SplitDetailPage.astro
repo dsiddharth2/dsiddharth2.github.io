@@ -1,0 +1,362 @@
+---
+import Nav from '@/components/Nav.astro';
+import { assetUrl } from '@/utils/assets';
+
+interface OverviewBucket {
+  problem: string[];
+  solution: string[];
+  outcome: string[];
+}
+
+interface Stage {
+  stage: string;
+  detail: string;
+}
+
+interface Decision {
+  title: string;
+  detail: string;
+}
+
+interface Reflection {
+  title: string;
+}
+
+interface Metric {
+  metric: string;
+  label: string;
+}
+
+interface SpecLink {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  backHref: string;
+  title: string;
+  subtitle: string;
+  tagline: string;
+  stack: string[];
+  note?: string;
+  noteItalic?: boolean;
+  links?: SpecLink[];
+  overview: OverviewBucket;
+  metrics: Metric[];
+  architectureSvg?: string;
+  architectureAlt?: string;
+  howItWorks: Stage[];
+  decisions: Decision[];
+  evaluation?: string;
+  reflections: Reflection[];
+}
+
+const {
+  backHref,
+  title,
+  subtitle,
+  tagline,
+  stack,
+  note,
+  noteItalic = false,
+  links = [],
+  overview,
+  metrics,
+  architectureSvg,
+  architectureAlt,
+  howItWorks,
+  decisions,
+  evaluation,
+  reflections,
+} = Astro.props;
+
+const hasArchitecture = Boolean(architectureSvg || howItWorks.length || decisions.length);
+const hasNotes = Boolean(evaluation || reflections.length);
+const overviewSections = [
+  { key: 'problem', label: 'Problem', items: overview.problem },
+  { key: 'solution', label: 'Solution', items: overview.solution },
+  { key: 'outcome', label: 'Outcome', items: overview.outcome },
+] as const;
+---
+
+<Nav />
+<main id="main-content" class="project-page">
+  <aside class="project-spec">
+    <div class="project-spec-identity">
+      <div class="project-spec-top">
+        <a href={backHref} class="project-spec-back">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 12H5"></path>
+            <path d="M12 19l-7-7 7-7"></path>
+          </svg>
+          Back
+        </a>
+      </div>
+
+      <h1 class="project-spec-title">{title}</h1>
+      <p class="project-spec-subtitle">{subtitle}</p>
+      <p class="project-spec-tagline">{tagline}</p>
+    </div>
+
+    <div class="project-spec-meta">
+      <nav class="project-spec-nav" aria-label="Page sections">
+        <a href="#overview" class="project-spec-nav-item is-active">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <path d="M3 9h18"></path>
+            <path d="M9 21V9"></path>
+          </svg>
+          <span>
+            <span class="project-spec-nav-label">Project Overview</span>
+            <span class="project-spec-nav-hint">Problem · Solution · Outcome</span>
+          </span>
+        </a>
+        {hasArchitecture && (
+          <a href="#architecture" class="project-spec-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M12 2v4m0 12v4M2 12h4m12 0h4"></path>
+            </svg>
+            <span>
+              <span class="project-spec-nav-label">Architecture Review</span>
+              <span class="project-spec-nav-hint">System design · Decisions · Deep dive</span>
+            </span>
+          </a>
+        )}
+      </nav>
+
+      <div class="project-spec-stack">
+        <p class="project-spec-kicker">Stack</p>
+        <div class="project-spec-tags">
+          {stack.map((tag) => (
+            <span class="project-spec-tag">{tag}</span>
+          ))}
+        </div>
+      </div>
+
+      {links.length > 0 && (
+        <div class="project-spec-actions">
+          {links.map((link) => (
+            <a href={link.href} class="project-spec-cta" target="_blank" rel="noopener noreferrer">
+              {link.label}
+              <span class="sr-only">(opens in a new tab)</span>
+            </a>
+          ))}
+        </div>
+      )}
+
+      {note && (
+        <p class:list={['project-spec-company', noteItalic && 'project-spec-company--note']}>
+          {note}
+        </p>
+      )}
+    </div>
+  </aside>
+
+  <div class="project-flow">
+    <section id="overview" class="project-overview" aria-label="Project overview">
+      <div class="project-overview-grid">
+        {overviewSections.map((section) => (
+          <div class={`project-overview-col project-overview-col--${section.key}`}>
+            <div class="project-overview-heading">
+              <div class="project-overview-icon" aria-hidden="true">
+                {section.key === 'problem' && (
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                )}
+                {section.key === 'solution' && (
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                  </svg>
+                )}
+                {section.key === 'outcome' && (
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                )}
+              </div>
+              <p>{section.label}</p>
+            </div>
+            <ul class="project-overview-list">
+              {section.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="project-metrics" aria-label="Impact metrics">
+      <div class="project-metrics-grid" style={`--impact-cols: ${metrics.length}`}>
+        {metrics.map((item) => (
+          <div class="project-metrics-item">
+            <p class="project-metrics-value">{item.metric}</p>
+            <p class="project-metrics-label">{item.label}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {hasArchitecture && (
+      <section id="architecture" class="project-architecture" aria-labelledby="architecture-heading">
+        <div class="project-architecture-header">
+          <div class="project-architecture-badge" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M12 2v4m0 12v4M2 12h4m12 0h4"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 id="architecture-heading" class="project-architecture-title">Architecture Review</h2>
+            <p class="project-architecture-lede">System design · Pipeline · Decisions</p>
+          </div>
+        </div>
+
+        <div class:list={['project-architecture-body', architectureSvg && 'project-architecture-body--diagram']}>
+          {architectureSvg && (
+            <div class="project-architecture-diagram">
+              <button type="button" class="project-architecture-expand" data-diagram-open aria-haspopup="dialog">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <polyline points="9 21 3 21 3 15"></polyline>
+                  <line x1="21" y1="3" x2="14" y2="10"></line>
+                  <line x1="3" y1="21" x2="10" y2="14"></line>
+                </svg>
+                Open fullscreen
+              </button>
+              <button type="button" class="project-architecture-preview" data-diagram-open>
+                <img src={assetUrl(architectureSvg)} alt={architectureAlt || `${title} architecture`} />
+              </button>
+            </div>
+          )}
+
+          <div class="project-architecture-copy">
+            {howItWorks.length > 0 && (
+              <div>
+                <p class="project-architecture-kicker">How It Works</p>
+                <ol class="project-stage-list">
+                  {howItWorks.map((step, index) => (
+                    <li class="project-stage">
+                      <div class:list={['project-stage-index', index === 0 && 'project-stage-index--accent']}>
+                        {index + 1}
+                      </div>
+                      <div>
+                        <p class="project-stage-title">{step.stage}</p>
+                        <p class="project-stage-detail">{step.detail}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
+            {decisions.length > 0 && (
+              <div>
+                <p class="project-architecture-kicker">Key Decisions</p>
+                <div class="project-decision-list">
+                  {decisions.map((decision) => (
+                    <article class="project-decision">
+                      <h3 class="project-decision-title">{decision.title}</h3>
+                      <p class="project-decision-detail">{decision.detail}</p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    )}
+
+    {architectureSvg && (
+      <dialog class="project-diagram-dialog" aria-label={`${title} architecture, fullscreen`}>
+        <div class="project-diagram-dialog-bar">
+          <p class="project-diagram-dialog-title">{title} — Architecture</p>
+          <button type="button" class="project-diagram-dialog-close" data-diagram-close>
+            Close
+          </button>
+        </div>
+        <div class="project-diagram-dialog-body">
+          <img src={assetUrl(architectureSvg)} alt={architectureAlt || `${title} architecture`} />
+        </div>
+      </dialog>
+    )}
+
+    {hasNotes && (
+      <section class="project-notes" aria-label="Evaluation and reflections">
+        {evaluation && (
+          <div class="project-eval">
+            <p class="project-notes-kicker">Evaluation</p>
+            <p class="project-eval-body">{evaluation}</p>
+          </div>
+        )}
+        {reflections.length > 0 && (
+          <div class="project-reflections">
+            <p class="project-notes-kicker">What I'd Change</p>
+            <ul class="project-reflection-list">
+              {reflections.slice(0, 4).map((item) => (
+                <li>{item.title}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </section>
+    )}
+  </div>
+</main>
+
+<script is:inline>
+  (function () {
+    const navItems = document.querySelectorAll('.project-spec-nav-item');
+    const sections = Array.from(document.querySelectorAll('.project-flow section[id]'));
+    if (navItems.length && sections.length) {
+      const setActive = (id) => {
+        navItems.forEach((item) => {
+          item.classList.toggle('is-active', item.getAttribute('href') === '#' + id);
+        });
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (visible && visible.target.id) setActive(visible.target.id);
+        },
+        { rootMargin: '-20% 0px -55% 0px', threshold: [0.1, 0.25, 0.5] },
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    }
+
+    const dialog = document.querySelector('.project-diagram-dialog');
+    if (!dialog || typeof dialog.showModal !== 'function') return;
+
+    const open = () => {
+      dialog.showModal();
+      document.body.style.overflow = 'hidden';
+    };
+    const close = () => {
+      dialog.close();
+      document.body.style.overflow = '';
+    };
+
+    document.querySelectorAll('[data-diagram-open]').forEach((el) => {
+      el.addEventListener('click', open);
+    });
+    document.querySelectorAll('[data-diagram-close]').forEach((el) => {
+      el.addEventListener('click', close);
+    });
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) close();
+    });
+    dialog.addEventListener('close', () => {
+      document.body.style.overflow = '';
+    });
+  })();
+</script>

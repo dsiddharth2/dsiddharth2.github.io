@@ -1,9 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Nav from '@/components/Nav.astro';
-import ProductIcon from '@/components/ui/ProductIcon.astro';
-import RevealScript from '@/components/RevealScript.astro';
-import { products, getProductBySlug } from '@/data/products';
+import SplitDetailPage from '@/components/SplitDetailPage.astro';
+import { products, getProductBySlug, productSeoDescription } from '@/data/products';
 import { site } from '@/config/site';
 import { breadcrumbJsonLd, projectJsonLd } from '@/utils/seo';
 
@@ -21,10 +19,7 @@ if (!product) {
 }
 
 const projectPath = `/projects/${product.slug}`;
-const description =
-  product.fullDescription.length > 160
-    ? `${product.fullDescription.slice(0, 157).trimEnd()}...`
-    : product.fullDescription;
+const description = productSeoDescription(product);
 ---
 
 <BaseLayout
@@ -42,74 +37,21 @@ const description =
     ]),
   ]}
 >
-  <Nav />
-  <main id="main-content" class="project-detail">
-    <div class="project-detail-bar">
-      <div class="project-detail-bar-inner">
-        <a href="/projects" class="project-back-link">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M19 12H5"></path>
-            <path d="M12 19l-7-7 7-7"></path>
-          </svg>
-          Back to Products
-        </a>
-        <span class="project-detail-company">{product.company}</span>
-      </div>
-    </div>
-
-    <section class="project-detail-hero">
-      <div class="page-container project-detail-hero-inner">
-        <div class="project-detail-icon" data-reveal>
-          <ProductIcon icon={product.icon} />
-        </div>
-        <h1 class="project-detail-title" data-reveal data-reveal-delay="1">{product.title}</h1>
-        <p class="project-detail-subtitle" data-reveal data-reveal-delay="2">{product.subtitle}</p>
-        <p class="project-detail-lede" data-reveal data-reveal-delay="3">{product.fullDescription}</p>
-      </div>
-    </section>
-
-    <section class="project-detail-impact" aria-label="Impact metrics">
-      <div class="page-container">
-        <div class="project-impact-grid" style={`--impact-cols: ${product.impact.length}`}>
-          {product.impact.map((item, index) => (
-            <div class="project-impact-item" data-reveal data-reveal-delay={String(Math.min(index, 3))}>
-              <p class="project-impact-metric">{item.metric}</p>
-              <p class="project-impact-label">{item.label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="project-detail-body">
-      <div class="page-container project-detail-body-inner">
-        <div class="project-detail-main" data-reveal>
-          <p class="section-eyebrow">Architecture & Implementation</p>
-          <h2 class="project-detail-heading">How it's built</h2>
-          <div class="project-architecture-list">
-            {product.architecture.map((item, index) => (
-              <div class="project-architecture-item">
-                <span class="project-architecture-index">{String(index + 1).padStart(2, '0')}</span>
-                <p>{item}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <aside class="project-detail-sidebar" data-reveal data-reveal-delay="1">
-          <p class="section-eyebrow">Tech Stack</p>
-          <div class="project-stack-list">
-            {product.tags.map((tag) => (
-              <div class="project-stack-item">{tag}</div>
-            ))}
-          </div>
-          <div class="project-built-at">
-            <p class="project-built-at-label">Built at</p>
-            <p class="project-built-at-company">{product.company}</p>
-          </div>
-        </aside>
-      </div>
-    </section>
-  </main>
-  <RevealScript />
+  <SplitDetailPage
+    backHref="/projects"
+    title={product.title}
+    subtitle={product.subtitle}
+    tagline={product.tagline}
+    stack={product.stack}
+    note={product.confidentialNote || `Built at ${product.company}`}
+    noteItalic={Boolean(product.confidentialNote)}
+    overview={product.overview}
+    metrics={product.impact}
+    architectureSvg={product.architectureSvg}
+    architectureAlt={`${product.title} architecture`}
+    howItWorks={product.howItWorks}
+    decisions={product.decisions}
+    evaluation={product.evaluation}
+    reflections={product.reflections}
+  />
 </BaseLayout>

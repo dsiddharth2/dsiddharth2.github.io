@@ -1,0 +1,271 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 1180" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" role="img" aria-label="GraphRAG Knowledge Engine system architecture diagram">
+  <title>GraphRAG Knowledge Engine — System Architecture</title>
+  <desc>Four-stage pipeline: ingestion from Data Lake through Service Bus into a Python RAG pipeline, baseline chunking, deep RAG entity extraction and community detection, persistence to Cosmos DB and SQL Server, then a retrieval path with three parallel vector searches, graph expansion, and LLM answer generation.</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#F5A623"/>
+    </marker>
+    <style>
+      .band-label { font-size: 11px; font-weight: 700; fill: #F5A623; letter-spacing: 1.8px; }
+      .band-sub { font-size: 10px; font-weight: 500; fill: #94a3b8; letter-spacing: 0.5px; }
+      .box-title { font-size: 13px; font-weight: 600; fill: #1e293b; }
+      .box-sub { font-size: 11px; fill: #64748b; }
+      .storage-title { font-size: 12px; font-weight: 700; fill: #1e293b; letter-spacing: 0.3px; }
+      .storage-item { font-size: 11px; fill: #475569; }
+      .storage-hdr { font-size: 10px; font-weight: 600; fill: #64748b; letter-spacing: 1px; }
+      .title { font-size: 20px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-size: 12px; fill: #64748b; }
+      .flow-arrow { stroke: #94a3b8; stroke-width: 1.5; fill: none; }
+      .flow-arrow-accent { stroke: #F5A623; stroke-width: 1.5; fill: none; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.2; }
+      .box-accent { fill: #FEF3E2; stroke: #F5A623; stroke-width: 1.2; }
+      .band-bg { fill: #f8fafc; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="620" y="34" text-anchor="middle" class="title">GraphRAG Knowledge Engine — System Architecture</text>
+  <text x="620" y="54" text-anchor="middle" class="subtitle">Two-stage ingestion pipeline · graph + vector storage · three-way retrieval fusion</text>
+
+  <!-- ==================== BAND 1: INGESTION ==================== -->
+  <rect x="20" y="90" width="1200" height="110" rx="8" class="band-bg"/>
+  <text x="36" y="112" class="band-label">1 · INGESTION</text>
+  <text x="36" y="128" class="band-sub">Data Lake → Service Bus → Python pipeline</text>
+
+  <!-- Boxes -->
+  <g>
+    <rect x="180" y="130" width="180" height="52" rx="6" class="box"/>
+    <text x="270" y="152" text-anchor="middle" class="box-title">Data Lake</text>
+    <text x="270" y="170" text-anchor="middle" class="box-sub">~20K support docs · 6 formats</text>
+
+    <rect x="410" y="130" width="180" height="52" rx="6" class="box"/>
+    <text x="500" y="152" text-anchor="middle" class="box-title">C# Function App</text>
+    <text x="500" y="170" text-anchor="middle" class="box-sub">file watcher</text>
+
+    <rect x="640" y="130" width="180" height="52" rx="6" class="box"/>
+    <text x="730" y="152" text-anchor="middle" class="box-title">Azure Service Bus</text>
+    <text x="730" y="170" text-anchor="middle" class="box-sub">file URL + metadata</text>
+
+    <rect x="870" y="130" width="180" height="52" rx="6" class="box"/>
+    <text x="960" y="152" text-anchor="middle" class="box-title">Python Function App</text>
+    <text x="960" y="170" text-anchor="middle" class="box-sub">RagPipeline entrypoint</text>
+  </g>
+
+  <!-- Arrows -->
+  <line x1="360" y1="156" x2="405" y2="156" class="flow-arrow" marker-end="url(#arrow)"/>
+  <line x1="590" y1="156" x2="635" y2="156" class="flow-arrow" marker-end="url(#arrow)"/>
+  <line x1="820" y1="156" x2="865" y2="156" class="flow-arrow" marker-end="url(#arrow)"/>
+
+  <!-- Connector down -->
+  <line x1="960" y1="182" x2="960" y2="230" class="flow-arrow" marker-end="url(#arrow)"/>
+
+  <!-- ==================== BAND 2: BASELINE RAG ==================== -->
+  <rect x="20" y="230" width="1200" height="110" rx="8" class="band-bg"/>
+  <text x="36" y="252" class="band-label">2 · BASELINE RAG</text>
+  <text x="36" y="268" class="band-sub">seconds · document is searchable immediately</text>
+
+  <g>
+    <rect x="180" y="270" width="180" height="52" rx="6" class="box"/>
+    <text x="270" y="292" text-anchor="middle" class="box-title">FileReader</text>
+    <text x="270" y="310" text-anchor="middle" class="box-sub">PDF · DOCX · CSV · TXT · JSON · MD</text>
+
+    <rect x="410" y="270" width="180" height="52" rx="6" class="box"/>
+    <text x="500" y="292" text-anchor="middle" class="box-title">SmartChunkingUtil</text>
+    <text x="500" y="310" text-anchor="middle" class="box-sub">URL-preserving · sentence-aware</text>
+
+    <rect x="640" y="270" width="180" height="52" rx="6" class="box"/>
+    <text x="730" y="292" text-anchor="middle" class="box-title">text_units_collection</text>
+    <text x="730" y="310" text-anchor="middle" class="box-sub">chunks persisted → searchable</text>
+
+    <rect x="870" y="270" width="180" height="52" rx="6" class="box-accent"/>
+    <text x="960" y="292" text-anchor="middle" class="box-title">Trigger Deep RAG</text>
+    <text x="960" y="310" text-anchor="middle" class="box-sub">Service Bus fan-out</text>
+  </g>
+
+  <!-- flow from ingestion down into baseline -->
+  <path d="M 960,230 L 960,258 L 270,258 L 270,268" class="flow-arrow" marker-end="url(#arrow)"/>
+  <line x1="360" y1="296" x2="405" y2="296" class="flow-arrow" marker-end="url(#arrow)"/>
+  <line x1="590" y1="296" x2="635" y2="296" class="flow-arrow" marker-end="url(#arrow)"/>
+  <line x1="820" y1="296" x2="865" y2="296" class="flow-arrow" marker-end="url(#arrow)"/>
+
+  <!-- Connector down (accent, async) -->
+  <line x1="960" y1="322" x2="960" y2="370" class="flow-arrow-accent" marker-end="url(#arrow-accent)" stroke-dasharray="4 3"/>
+  <text x="975" y="352" class="box-sub" font-style="italic">async</text>
+
+  <!-- ==================== BAND 3: DEEP RAG ==================== -->
+  <rect x="20" y="370" width="1200" height="240" rx="8" class="band-bg"/>
+  <text x="36" y="392" class="band-label">3 · DEEP RAG</text>
+  <text x="36" y="408" class="band-sub">10–60+ min · graph enrichment in the background</text>
+
+  <!-- Row A -->
+  <g>
+    <rect x="180" y="418" width="200" height="60" rx="6" class="box"/>
+    <text x="280" y="440" text-anchor="middle" class="box-title">Entity &amp; Relationship</text>
+    <text x="280" y="456" text-anchor="middle" class="box-title">Extraction</text>
+    <text x="280" y="472" text-anchor="middle" class="box-sub">gpt-4o-mini · structured output</text>
+
+    <rect x="430" y="418" width="200" height="60" rx="6" class="box"/>
+    <text x="530" y="448" text-anchor="middle" class="box-title">Topic Extraction</text>
+    <text x="530" y="466" text-anchor="middle" class="box-sub">LLM groups chunks → topics</text>
+
+    <rect x="680" y="418" width="200" height="60" rx="6" class="box"/>
+    <text x="780" y="440" text-anchor="middle" class="box-title">Vector Embeddings</text>
+    <text x="780" y="458" text-anchor="middle" class="box-sub">text-embedding-3-small</text>
+    <text x="780" y="472" text-anchor="middle" class="box-sub">per entity</text>
+
+    <rect x="930" y="418" width="200" height="60" rx="6" class="box"/>
+    <text x="1030" y="440" text-anchor="middle" class="box-title">FAISS kNN</text>
+    <text x="1030" y="458" text-anchor="middle" class="box-sub">similarity graph</text>
+    <text x="1030" y="472" text-anchor="middle" class="box-sub">offline batch</text>
+  </g>
+
+  <line x1="380" y1="448" x2="425" y2="448" class="flow-arrow" marker-end="url(#arrow)"/>
+  <line x1="630" y1="448" x2="675" y2="448" class="flow-arrow" marker-end="url(#arrow)"/>
+  <line x1="880" y1="448" x2="925" y2="448" class="flow-arrow" marker-end="url(#arrow)"/>
+
+  <!-- wrap arrow: from FAISS down and left -->
+  <path d="M 1030,478 L 1030,502 L 280,502 L 280,520" class="flow-arrow" marker-end="url(#arrow)"/>
+
+  <!-- Row B -->
+  <g>
+    <rect x="180" y="520" width="200" height="60" rx="6" class="box"/>
+    <text x="280" y="542" text-anchor="middle" class="box-title">Community Detection</text>
+    <text x="280" y="560" text-anchor="middle" class="box-sub">hierarchical · recursive clustering</text>
+
+    <rect x="430" y="520" width="200" height="60" rx="6" class="box"/>
+    <text x="530" y="542" text-anchor="middle" class="box-title">Community Reports</text>
+    <text x="530" y="560" text-anchor="middle" class="box-sub">LLM narrative per cluster</text>
+
+    <rect x="680" y="520" width="200" height="60" rx="6" class="box-accent"/>
+    <text x="780" y="542" text-anchor="middle" class="box-title">Pre-generated Q&amp;A</text>
+    <text x="780" y="560" text-anchor="middle" class="box-sub">fast-path answer cache</text>
+
+    <rect x="930" y="520" width="200" height="60" rx="6" class="box"/>
+    <text x="1030" y="542" text-anchor="middle" class="box-title">Persist Artifacts</text>
+    <text x="1030" y="560" text-anchor="middle" class="box-sub">→ storage layer</text>
+  </g>
+
+  <line x1="380" y1="550" x2="425" y2="550" class="flow-arrow" marker-end="url(#arrow)"/>
+  <line x1="630" y1="550" x2="675" y2="550" class="flow-arrow" marker-end="url(#arrow)"/>
+  <line x1="880" y1="550" x2="925" y2="550" class="flow-arrow" marker-end="url(#arrow)"/>
+
+  <!-- Connector from Deep RAG down to Storage -->
+  <line x1="1030" y1="580" x2="1030" y2="638" class="flow-arrow" marker-end="url(#arrow)"/>
+
+  <!-- ==================== STORAGE LAYER ==================== -->
+  <rect x="20" y="638" width="1200" height="180" rx="8" fill="#fef9f2" stroke="#F5A623" stroke-width="1.2" stroke-dasharray="0"/>
+  <text x="36" y="662" class="band-label">STORAGE LAYER</text>
+  <text x="36" y="678" class="band-sub">graph artifacts + operational status</text>
+
+  <!-- Cosmos DB -->
+  <g>
+    <rect x="180" y="695" width="620" height="110" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="200" y="718" class="storage-title">Cosmos DB · 11 collections (vector-indexed)</text>
+    <text x="200" y="736" class="storage-hdr">GRAPH NODES</text>
+    <text x="200" y="754" class="storage-item">entity_collection · topics_collection · communities_collection</text>
+    <text x="200" y="770" class="storage-hdr">EDGES &amp; NARRATIVE</text>
+    <text x="200" y="788" class="storage-item">relationships · community_reports · questions_collection · text_units_collection</text>
+  </g>
+
+  <!-- SQL Server -->
+  <g>
+    <rect x="820" y="695" width="230" height="110" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="840" y="718" class="storage-title">SQL Server</text>
+    <text x="840" y="736" class="storage-hdr">STATUS TRACKING</text>
+    <text x="840" y="754" class="storage-item">DataLakeFiles.IsRagged</text>
+    <text x="840" y="770" class="storage-item">sDataLakeRagStatusId</text>
+  </g>
+
+  <!-- ==================== BAND 4: RETRIEVAL ==================== -->
+  <rect x="20" y="848" width="1200" height="310" rx="8" class="band-bg"/>
+  <text x="36" y="870" class="band-label">4 · RETRIEVAL</text>
+  <text x="36" y="886" class="band-sub">query time · three-way vector search + graph expansion</text>
+
+  <!-- Query input -->
+  <rect x="60" y="905" width="150" height="52" rx="6" class="box-accent"/>
+  <text x="135" y="927" text-anchor="middle" class="box-title">User Query</text>
+  <text x="135" y="945" text-anchor="middle" class="box-sub">natural language</text>
+
+  <rect x="240" y="905" width="150" height="52" rx="6" class="box"/>
+  <text x="315" y="927" text-anchor="middle" class="box-title">Embed</text>
+  <text x="315" y="945" text-anchor="middle" class="box-sub">text-embedding-3-small</text>
+
+  <line x1="210" y1="931" x2="235" y2="931" class="flow-arrow" marker-end="url(#arrow)"/>
+
+  <!-- Fan-out to 3 parallel searches -->
+  <text x="450" y="898" class="band-sub">3 PARALLEL VectorDistance() SEARCHES</text>
+  <rect x="420" y="905" width="180" height="42" rx="6" class="box"/>
+  <text x="510" y="931" text-anchor="middle" class="box-title">entity_collection</text>
+
+  <rect x="420" y="955" width="180" height="42" rx="6" class="box"/>
+  <text x="510" y="981" text-anchor="middle" class="box-title">topics_collection</text>
+
+  <rect x="420" y="1005" width="180" height="42" rx="6" class="box-accent"/>
+  <text x="510" y="1027" text-anchor="middle" class="box-title">questions_collection</text>
+  <text x="510" y="1041" text-anchor="middle" class="box-sub">fast path</text>
+
+  <!-- fan-out arrows from Embed -->
+  <path d="M 390,931 L 405,931 L 405,926 L 415,926" class="flow-arrow" marker-end="url(#arrow)"/>
+  <path d="M 390,931 L 405,931 L 405,976 L 415,976" class="flow-arrow" marker-end="url(#arrow)"/>
+  <path d="M 390,931 L 405,931 L 405,1026 L 415,1026" class="flow-arrow" marker-end="url(#arrow)"/>
+
+  <!-- Merge & rank -->
+  <rect x="640" y="955" width="150" height="52" rx="6" class="box"/>
+  <text x="715" y="977" text-anchor="middle" class="box-title">Merge &amp; Rank</text>
+  <text x="715" y="995" text-anchor="middle" class="box-sub">top-N by similarity</text>
+
+  <!-- converge arrows -->
+  <path d="M 600,926 L 625,926 L 625,976 L 635,976" class="flow-arrow" marker-end="url(#arrow)"/>
+  <line x1="600" y1="976" x2="635" y2="976" class="flow-arrow" marker-end="url(#arrow)"/>
+  <path d="M 600,1026 L 625,1026 L 625,976 L 635,976" class="flow-arrow" marker-end="url(#arrow)"/>
+
+  <!-- Graph expansion -->
+  <rect x="820" y="905" width="180" height="102" rx="6" class="box"/>
+  <text x="910" y="928" text-anchor="middle" class="box-title">Graph Expansion</text>
+  <text x="910" y="950" text-anchor="middle" class="box-sub">for each entity:</text>
+  <text x="910" y="965" text-anchor="middle" class="box-sub">relationships + community</text>
+  <text x="910" y="982" text-anchor="middle" class="box-sub">for each topic:</text>
+  <text x="910" y="997" text-anchor="middle" class="box-sub">source text chunks</text>
+
+  <line x1="790" y1="981" x2="815" y2="981" class="flow-arrow" marker-end="url(#arrow)"/>
+
+  <!-- Context assembly + LLM + Answer (stacked right column) -->
+  <rect x="1030" y="905" width="180" height="52" rx="6" class="box"/>
+  <text x="1120" y="927" text-anchor="middle" class="box-title">Context Tables</text>
+  <text x="1120" y="945" text-anchor="middle" class="box-sub">entities · relations · reports</text>
+
+  <rect x="1030" y="975" width="180" height="52" rx="6" class="box"/>
+  <text x="1120" y="997" text-anchor="middle" class="box-title">gpt-4o-mini</text>
+  <text x="1120" y="1015" text-anchor="middle" class="box-sub">local_search_system_prompt</text>
+
+  <rect x="1030" y="1045" width="180" height="52" rx="6" class="box-accent"/>
+  <text x="1120" y="1067" text-anchor="middle" class="box-title">Grounded Answer</text>
+  <text x="1120" y="1085" text-anchor="middle" class="box-sub">with [Data: entities (1,3,5)]</text>
+
+  <line x1="1000" y1="956" x2="1025" y2="931" class="flow-arrow" marker-end="url(#arrow)"/>
+  <line x1="1120" y1="957" x2="1120" y2="972" class="flow-arrow" marker-end="url(#arrow)"/>
+  <line x1="1120" y1="1027" x2="1120" y2="1042" class="flow-arrow" marker-end="url(#arrow)"/>
+
+  <!-- READ arrows from Storage into the 3 parallel searches (upward) -->
+  <path d="M 490,815 L 490,830 L 510,830 L 510,905" class="flow-arrow-accent" marker-end="url(#arrow-accent)" stroke-dasharray="4 3" opacity="0.7"/>
+  <text x="500" y="828" class="box-sub" fill="#F5A623" font-style="italic" text-anchor="end">reads</text>
+
+  <!-- Graph expansion also reads from storage -->
+  <path d="M 910,815 L 910,905" class="flow-arrow-accent" marker-end="url(#arrow-accent)" stroke-dasharray="4 3" opacity="0.7"/>
+
+  <!-- Legend -->
+  <g transform="translate(20, 1130)">
+    <line x1="0" y1="0" x2="30" y2="0" class="flow-arrow"/>
+    <text x="38" y="4" class="box-sub">synchronous flow</text>
+
+    <line x1="180" y1="0" x2="210" y2="0" class="flow-arrow-accent" stroke-dasharray="4 3"/>
+    <text x="218" y="4" class="box-sub">async / read from storage</text>
+
+    <rect x="410" y="-8" width="14" height="14" rx="3" class="box-accent"/>
+    <text x="432" y="4" class="box-sub">key decision point</text>
+  </g>
+</svg>

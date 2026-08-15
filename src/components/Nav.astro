@@ -1,12 +1,14 @@
 ---
 import { site } from '@/config/site';
 
-const pathname = Astro.url.pathname;
-const isHome = pathname === '/' || pathname === '';
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isHome = pathname === '/';
 const isAbout = pathname.startsWith('/about');
 const isExperience = pathname.startsWith('/experience');
 const isProducts = pathname.startsWith('/projects');
 const isOpenSource = pathname.startsWith('/opensource');
+const isProductsIndex = pathname === '/projects';
+const isOpenSourceIndex = pathname === '/opensource';
 
 const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
 ---
@@ -67,15 +69,19 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
         )
       }
       {
-        isProducts ? (
+        isProductsIndex ? (
           <span class="nav-link nav-link--active" aria-current="page">Products</span>
+        ) : isProducts ? (
+          <a href="/projects" class="nav-link nav-link--active">Products</a>
         ) : (
           <a href="/projects" class="nav-link">Products</a>
         )
       }
       {
-        isOpenSource ? (
+        isOpenSourceIndex ? (
           <span class="nav-link nav-link--active" aria-current="page">Open Source</span>
+        ) : isOpenSource ? (
+          <a href="/opensource" class="nav-link nav-link--active">Open Source</a>
         ) : (
           <a href="/opensource" class="nav-link">Open Source</a>
         )

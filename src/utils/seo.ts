@@ -46,7 +46,7 @@ export function projectJsonLd(product: {
   slug: string;
   title: string;
   subtitle: string;
-  fullDescription: string;
+  tagline: string;
   tags: string[];
   company: string;
 }) {
@@ -55,7 +55,7 @@ export function projectJsonLd(product: {
     '@type': 'CreativeWork',
     name: product.title,
     alternateName: product.subtitle,
-    description: product.fullDescription,
+    description: product.tagline,
     url: getSiteUrl(`/projects/${product.slug}`),
     keywords: product.tags.join(', '),
     creator: {
@@ -74,7 +74,7 @@ export function openSourceJsonLd(project: {
   slug: string;
   title: string;
   subtitle: string;
-  fullDescription: string;
+  tagline: string;
   tags: string[];
   url: string;
   language: string;
@@ -84,7 +84,7 @@ export function openSourceJsonLd(project: {
     '@type': 'SoftwareSourceCode',
     name: project.title,
     alternateName: project.subtitle,
-    description: project.fullDescription,
+    description: project.tagline,
     url: getSiteUrl(`/opensource/${project.slug}`),
     codeRepository: project.url,
     programmingLanguage: project.language,
