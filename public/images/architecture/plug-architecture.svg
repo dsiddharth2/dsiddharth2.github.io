@@ -1,0 +1,166 @@
+<svg viewBox="0 0 1000 840" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Plug architecture: two clients share one resolve, install and track contract over GitHub-hosted vaults, with the official vault's contents shown">
+  <title>Plug — how an extension gets from a GitHub vault into a project</title>
+  <style>
+    /* ---- palette: change --accent to match the site ---- */
+    svg { --accent: #C2571E; --ink: #17212B; --sub: #5C6875; --line: #C9D2DC; --band: #F6F8FA; --bandline: #E3E8EE; --label: #8B96A5; }
+    .band   { fill: var(--band); stroke: var(--bandline); stroke-width: 1; }
+    .box    { fill: #FFFFFF; stroke: var(--line); stroke-width: 1.2; }
+    .box-k  { fill: #FFFFFF; stroke: var(--accent); stroke-width: 1.8; }
+    .chip   { fill: #FFFFFF; stroke: var(--line); stroke-width: 1; }
+    text    { font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .h      { font-size: 15px; font-weight: 650; fill: var(--ink); }
+    .bl     { font-size: 10.5px; font-weight: 650; fill: var(--label); letter-spacing: 0.13em; }
+    .t      { font-size: 13px; font-weight: 620; fill: var(--ink); }
+    .s      { font-size: 11px; fill: var(--sub); }
+    .m      { font-size: 11px; fill: var(--sub); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .ms     { font-size: 9.5px; fill: var(--sub); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .cm     { font-size: 10px; fill: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .lbl    { font-size: 10.5px; fill: var(--sub); }
+    .net    { font-size: 10px; fill: var(--accent); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .flow   { fill: none; stroke: #58636F; stroke-width: 1.6; }
+    .dash   { fill: none; stroke: #58636F; stroke-width: 1.4; stroke-dasharray: 5 4; }
+    .netline{ fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 5 4; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#58636F"/>
+    </marker>
+    <marker id="aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#C2571E"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="40" y="32">Plug — how an extension gets from a GitHub vault into a project</text>
+
+  <!-- ============ CLIENTS ============ -->
+  <rect class="band" x="40" y="54" width="920" height="112" rx="10"/>
+  <text class="bl" x="58" y="76">CLIENTS</text>
+
+  <rect class="box" x="72" y="88" width="400" height="64" rx="7"/>
+  <text class="t" x="90" y="114">Terminal UI</text>
+  <text class="m" x="176" y="114">plug</text>
+  <text class="s" x="90" y="134">Node.js 18+ and Ink · browse, search, select, install</text>
+
+  <rect class="box" x="528" y="88" width="400" height="64" rx="7"/>
+  <text class="t" x="546" y="114">Claude Code skill</text>
+  <text class="m" x="676" y="114">/plug</text>
+  <text class="s" x="546" y="134">runs in-conversation on native Bash / Read / Write</text>
+
+  <path class="flow" d="M272,152 L272,180"/>
+  <path class="flow" d="M728,152 L728,180"/>
+  <path class="flow" d="M272,180 L728,180"/>
+  <path class="flow" d="M330,180 L330,204" marker-end="url(#a)"/>
+
+  <!-- ============ CORE ============ -->
+  <rect class="band" x="40" y="206" width="580" height="214" rx="10"/>
+  <text class="bl" x="58" y="228">ONE RESOLVE → INSTALL → TRACK CONTRACT</text>
+
+  <rect class="box-k" x="68" y="244" width="254" height="72" rx="7"/>
+  <text class="t" x="86" y="270">Vault resolver</text>
+  <text class="s" x="86" y="290">walks vaults in configured order;</text>
+  <text class="s" x="86" y="305">first match wins, internal beats public</text>
+
+  <rect class="box" x="338" y="244" width="254" height="72" rx="7"/>
+  <text class="t" x="356" y="270">Registry client</text>
+  <text class="s" x="356" y="290">reads the package index,</text>
+  <text class="s" x="356" y="305">caches it locally for an hour</text>
+
+  <rect class="box-k" x="68" y="336" width="254" height="72" rx="7"/>
+  <text class="t" x="86" y="362">Installer</text>
+  <text class="s" x="86" y="382">routes by package type into</text>
+  <text class="m" x="86" y="398">skills/ · commands/ · agents/</text>
+
+  <rect class="box" x="338" y="336" width="254" height="72" rx="7"/>
+  <text class="t" x="356" y="362">State writer</text>
+  <text class="s" x="356" y="382">records name, version and</text>
+  <text class="s" x="356" y="398">source vault for every install</text>
+
+  <!-- ============ VAULTS ============ -->
+  <rect class="band" x="720" y="206" width="240" height="214" rx="10"/>
+  <text class="bl" x="736" y="228">VAULTS — ANY GITHUB REPO</text>
+
+  <rect class="box-k" x="736" y="244" width="208" height="64" rx="7"/>
+  <text class="t" x="752" y="266">Official vault</text>
+  <text class="s" x="752" y="284">7 skills · 7 commands</text>
+  <text class="ms" x="752" y="300">registry/&lt;name&gt;/ + meta.json</text>
+
+  <rect class="box" x="736" y="316" width="208" height="44" rx="7"/>
+  <text class="t" x="752" y="338">Corporate vault</text>
+  <text class="s" x="752" y="354">private repo · GitHub PAT</text>
+
+  <rect class="box" x="736" y="368" width="208" height="44" rx="7"/>
+  <text class="t" x="752" y="390">Personal vault</text>
+  <text class="s" x="752" y="406">same folder shape, no server</text>
+
+  <text class="net" x="656" y="246" text-anchor="middle">registry.json</text>
+  <text class="net" x="656" y="259" text-anchor="middle">over HTTPS</text>
+  <path class="netline" d="M594,274 L716,274" marker-end="url(#aa)"/>
+  <path class="netline" d="M716,296 L594,296" marker-end="url(#aa)"/>
+
+  <!-- ============ FLOWS DOWN ============ -->
+  <path class="flow" d="M195,410 L195,458" marker-end="url(#a)"/>
+  <text class="lbl" x="206" y="438">writes the entry file + metadata</text>
+
+  <path class="flow" d="M465,410 L465,426 L783,426 L783,458" marker-end="url(#a)"/>
+  <text class="lbl" x="612" y="420" text-anchor="middle">records the install</text>
+
+  <path class="dash" d="M812,458 L812,448 L500,448 L500,410" marker-end="url(#a)"/>
+  <text class="lbl" x="654" y="443" text-anchor="middle">reads vaults, order and state on start</text>
+
+  <!-- ============ LOCAL FILES ============ -->
+  <rect class="band" x="40" y="460" width="920" height="140" rx="10"/>
+  <text class="bl" x="58" y="482">LOCAL FILES</text>
+
+  <rect class="box" x="68" y="496" width="290" height="88" rx="7"/>
+  <text class="t" x="86" y="522">Project scope</text>
+  <text class="m" x="86" y="542">.claude/skills/&lt;name&gt;/SKILL.md</text>
+  <text class="m" x="86" y="558">.claude/commands/&lt;name&gt;.md</text>
+  <text class="m" x="86" y="574">.claude/agents/</text>
+
+  <rect class="box" x="378" y="496" width="230" height="88" rx="7"/>
+  <text class="t" x="396" y="522">Global scope</text>
+  <text class="m" x="396" y="542">~/.claude/</text>
+  <text class="s" x="396" y="562">same layout, one level up;</text>
+  <text class="s" x="396" y="577">chosen with the -g flag</text>
+
+  <rect class="box" x="628" y="496" width="310" height="88" rx="7"/>
+  <text class="t" x="646" y="522">Config and state</text>
+  <text class="m" x="646" y="542">~/.plugvault/config.json</text>
+  <text class="s" x="646" y="558">vaults, resolve order, tokens</text>
+  <text class="m" x="646" y="577">installed.json</text>
+
+  <!-- ============ VAULT CONTENTS ============ -->
+  <rect class="band" x="40" y="626" width="920" height="158" rx="10"/>
+  <text class="bl" x="58" y="648">WHAT SHIPS IN THE OFFICIAL VAULT — 14 PACKAGES</text>
+
+  <text class="ms" x="68" y="678">skills → always active in .claude/skills/</text>
+  <g>
+    <rect class="chip" x="68"  y="686" width="88"  height="26" rx="13"/><text class="cm" x="112" y="703" text-anchor="middle">api-patterns</text>
+    <rect class="chip" x="166" y="686" width="100" height="26" rx="13"/><text class="cm" x="216" y="703" text-anchor="middle">security-rules</text>
+    <rect class="chip" x="276" y="686" width="118" height="26" rx="13"/><text class="cm" x="335" y="703" text-anchor="middle">testing-standards</text>
+    <rect class="chip" x="404" y="686" width="106" height="26" rx="13"/><text class="cm" x="457" y="703" text-anchor="middle">git-conventions</text>
+    <rect class="chip" x="520" y="686" width="100" height="26" rx="13"/><text class="cm" x="570" y="703" text-anchor="middle">react-patterns</text>
+    <rect class="chip" x="630" y="686" width="100" height="26" rx="13"/><text class="cm" x="680" y="703" text-anchor="middle">error-handling</text>
+    <rect class="chip" x="740" y="686" width="76"  height="26" rx="13"/><text class="cm" x="778" y="703" text-anchor="middle">code-style</text>
+  </g>
+
+  <text class="ms" x="68" y="742">commands → invoked on demand from .claude/commands/</text>
+  <g>
+    <rect class="chip" x="68"  y="750" width="82"  height="26" rx="13"/><text class="cm" x="109" y="767" text-anchor="middle">code-review</text>
+    <rect class="chip" x="160" y="750" width="70"  height="26" rx="13"/><text class="cm" x="195" y="767" text-anchor="middle">gen-tests</text>
+    <rect class="chip" x="240" y="750" width="64"  height="26" rx="13"/><text class="cm" x="272" y="767" text-anchor="middle">refactor</text>
+    <rect class="chip" x="314" y="750" width="112" height="26" rx="13"/><text class="cm" x="370" y="767" text-anchor="middle">explain-codebase</text>
+    <rect class="chip" x="436" y="750" width="64"  height="26" rx="13"/><text class="cm" x="468" y="767" text-anchor="middle">gen-docs</text>
+    <rect class="chip" x="510" y="750" width="100" height="26" rx="13"/><text class="cm" x="560" y="767" text-anchor="middle">pr-description</text>
+    <rect class="chip" x="620" y="750" width="76"  height="26" rx="13"/><text class="cm" x="658" y="767" text-anchor="middle">debug-help</text>
+  </g>
+
+  <!-- ============ LEGEND ============ -->
+  <path class="flow" d="M40,808 L74,808" marker-end="url(#a)"/>
+  <text class="lbl" x="82" y="812">write path</text>
+  <path class="netline" d="M180,808 L214,808" marker-end="url(#aa)"/>
+  <text class="lbl" x="222" y="812">network fetch</text>
+  <rect class="box-k" x="336" y="800" width="16" height="16" rx="3"/>
+  <text class="lbl" x="360" y="812">decision point worth arguing about</text>
+  <text class="lbl" x="960" y="812" text-anchor="end">No package server anywhere in this picture.</text>
+</svg>

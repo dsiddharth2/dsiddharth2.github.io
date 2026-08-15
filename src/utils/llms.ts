@@ -11,44 +11,83 @@ import {
 export function productMarkdown(product: Product): string {
   const url = getSiteUrl(`/projects/${product.slug}`);
   const impact = product.impact.map((item) => `- **${item.metric}** — ${item.label}`).join('\n');
-  const architecture = product.architecture
-    .map((item, index) => `${index + 1}. ${item}`)
+  const list = (items: string[]) => items.map((item) => `- ${item}`).join('\n');
+  const howItWorks = product.howItWorks
+    .map((step, index) => `${index + 1}. **${step.stage}** — ${step.detail}`)
     .join('\n');
+  const decisions = product.decisions
+    .map((item) => `- **${item.title}** — ${item.detail}`)
+    .join('\n');
+  const reflections = product.reflections.map((item) => `- **${item.title}** — ${item.detail}`).join('\n');
+  const evaluation = product.evaluation ? `\n## Evaluation\n\n${product.evaluation}\n` : '';
+  const note = product.confidentialNote ? `\n- **Note:** ${product.confidentialNote}` : '';
 
   return `# ${product.title}
 
 > ${product.subtitle}
 
-${product.fullDescription}
+${product.tagline}
 
 - **Page:** ${url}
-- **Built at:** ${product.company}
-- **Tech stack:** ${product.tags.join(', ')}
+- **Built at:** ${product.company}${note}
+- **Tech stack:** ${product.stack.join(', ')}
 
 ## Impact
 
 ${impact}
 
-## Architecture & implementation
+## Problem
 
-${architecture}
+${list(product.overview.problem)}
+
+## Solution
+
+${list(product.overview.solution)}
+
+## Outcome
+
+${list(product.overview.outcome)}
+
+## How it works
+
+${howItWorks}
+
+## Key decisions
+
+${decisions}
+${evaluation}
+## What I'd change
+
+${reflections}
 `;
 }
 
 export function openSourceMarkdown(project: OpenSourceProject): string {
   const url = getSiteUrl(`/opensource/${project.slug}`);
   const stats = project.stats.map((item) => `- **${item.metric}** — ${item.label}`).join('\n');
-  const highlights = project.highlights.map((item, index) => `${index + 1}. ${item}`).join('\n');
+  const list = (items: string[]) => items.map((item) => `- ${item}`).join('\n');
+  const howItWorks = project.howItWorks
+    .map((step, index) => `${index + 1}. **${step.stage}** — ${step.detail}`)
+    .join('\n');
+  const decisions = project.decisions
+    .map((item) => `- **${item.title}** — ${item.detail}`)
+    .join('\n');
+  const reflections = project.reflections.map((item) => `- **${item.title}** — ${item.detail}`).join('\n');
   const packagist = project.packagist ? `\n- **Packagist:** ${project.packagist}` : '';
+  const npm = project.npmUrl ? `\n- **npm:** ${project.npmUrl}` : '';
+  const vault = project.vaultUrl ? `\n- **Official vault:** ${project.vaultUrl}` : '';
+  const dockerHub = project.dockerHub ? `\n- **Docker Hub:** ${project.dockerHub}` : '';
+  const demo = project.demoUrl ? `\n- **Demos:** ${project.demoUrl}` : '';
+  const evaluation = project.evaluation ? `\n## Evaluation\n\n${project.evaluation}\n` : '';
 
   return `# ${project.title}
 
 > ${project.subtitle}
 
-${project.fullDescription}
+${project.tagline}
 
 - **Page:** ${url}
-- **Repository:** ${project.url}${packagist}
+- **Repository:** ${project.url}${packagist}${npm}${vault}${dockerHub}${demo}
 - **Language:** ${project.language}
 - **Tech stack:** ${project.tags.join(', ')}
 
@@ -56,9 +95,29 @@ ${project.fullDescription}
 
 ${stats}
 
-## What's inside
+## Problem
 
-${highlights}
+${list(project.overview.problem)}
+
+## Solution
+
+${list(project.overview.solution)}
+
+## Outcome
+
+${list(project.overview.outcome)}
+
+## How it works
+
+${howItWorks}
+
+## Key decisions
+
+${decisions}
+${evaluation}
+## What I'd change
+
+${reflections}
 `;
 }
 
