@@ -782,13 +782,61 @@
   color: #f5a623;
 }
 
-/* Open Source — light catalog, distinct from product grid */
+/* Open Source — light catalog on the homepage, dark on the listing page */
 .opensource-section {
   background: #fff;
 }
 
+.opensource-section--page {
+  background: #1a1a1a;
+}
+
 .opensource-section--page .section-padding {
   padding-top: 8px;
+}
+
+.opensource-section--page .opensource-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.opensource-section--page .opensource-card:hover {
+  border-color: #f5a623;
+}
+
+.opensource-section--page .opensource-title,
+.opensource-section--page .opensource-view-more,
+.opensource-section--page .opensource-github {
+  color: #fff;
+}
+
+.opensource-section--page .opensource-description {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.opensource-section--page .opensource-lang {
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.opensource-section--page .opensource-tag {
+  color: #f5a623;
+}
+
+.opensource-section--page .opensource-card-footer {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.opensource-section--page .opensource-github {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.opensource-section--page .opensource-view-more:hover,
+.opensource-section--page .opensource-view-more:focus-visible,
+.opensource-section--page .opensource-github:hover,
+.opensource-section--page .opensource-github:focus-visible {
+  color: #f5a623;
 }
 
 .opensource-grid {
