@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 690" width="1240" height="690" font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Helvetica Neue', sans-serif" role="img" aria-label="Architecture of a daily Azure cost and performance agent: sources feed a three-phase collection pipeline that writes JSON to disk, analysis splits into a deterministic report writer and an LLM doer-reviewer loop, results merge and are emailed.">
+
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7b8794"/>
+    </marker>
+    <marker id="arAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#10646a"/>
+    </marker>
+  </defs>
+
+  <rect width="1240" height="690" fill="#ffffff"/>
+
+  <!-- ============ BANDS ============ -->
+  <rect x="20"  y="40" width="200" height="350" rx="10" fill="#f6f8fa"/>
+  <rect x="240" y="40" width="400" height="350" rx="10" fill="#f6f8fa"/>
+  <rect x="660" y="40" width="300" height="350" rx="10" fill="#f6f8fa"/>
+  <rect x="980" y="40" width="240" height="350" rx="10" fill="#f6f8fa"/>
+
+  <g font-size="10.5" font-weight="600" letter-spacing="1.6" fill="#8b97a3">
+    <text x="36"  y="66">SOURCES</text>
+    <text x="256" y="66">COLLECT</text>
+    <text x="676" y="66">ANALYZE</text>
+    <text x="996" y="66">DELIVER</text>
+  </g>
+
+  <!-- ============ SOURCES ============ -->
+  <rect x="35" y="90" width="170" height="190" rx="7" fill="#ffffff" stroke="#d3dbe3"/>
+  <text x="50" y="112" font-size="11.5" font-weight="600" fill="#17212b">Read-only, nightly</text>
+  <g font-size="10.5" fill="#475569">
+    <text x="50" y="136">Cost Management API</text>
+    <text x="50" y="158">Resource Graph</text>
+    <text x="50" y="180">Advisor</text>
+    <text x="50" y="202">Monitor metrics</text>
+    <text x="50" y="224">Reservations API</text>
+    <text x="50" y="246">SQL DMVs + Query Store</text>
+    <text x="50" y="268">Application database</text>
+  </g>
+
+  <!-- ============ COLLECT: PHASE 1 ============ -->
+  <rect x="255" y="95" width="175" height="190" rx="7" fill="#ffffff" stroke="#d3dbe3"/>
+  <text x="267" y="120" font-size="11.5" font-weight="600" fill="#17212b">Phase 1 — Collect</text>
+  <text x="267" y="137" font-size="9.5" fill="#7b8794">12 collectors · parallel</text>
+  <g font-size="9.5" fill="#475569">
+    <rect x="267" y="150" width="151" height="26" rx="4" fill="#f0f4f7"/>
+    <text x="277" y="167">cost + 30-day trends</text>
+    <rect x="267" y="181" width="151" height="26" rx="4" fill="#f0f4f7"/>
+    <text x="277" y="198">resource inventory, orphans</text>
+    <rect x="267" y="212" width="151" height="26" rx="4" fill="#f0f4f7"/>
+    <text x="277" y="229">DB telemetry (15s samples)</text>
+    <rect x="267" y="243" width="151" height="26" rx="4" fill="#f0f4f7"/>
+    <text x="277" y="260">advisor + reservations</text>
+  </g>
+
+  <!-- ============ COLLECT: PHASE 2 ============ -->
+  <rect x="455" y="95" width="170" height="190" rx="7" fill="#ffffff" stroke="#d3dbe3"/>
+  <text x="467" y="120" font-size="11.5" font-weight="600" fill="#17212b">Phase 2 — Cross-reference</text>
+  <text x="467" y="137" font-size="9.5" fill="#7b8794">5 collectors · reads Phase 1</text>
+  <g font-size="9.5" fill="#475569">
+    <rect x="467" y="150" width="146" height="26" rx="4" fill="#f0f4f7"/>
+    <text x="477" y="167">query cost attribution</text>
+    <rect x="467" y="181" width="146" height="26" rx="4" fill="#f0f4f7"/>
+    <text x="477" y="198">4-tier breach detection</text>
+    <rect x="467" y="212" width="146" height="26" rx="4" fill="#f0f4f7"/>
+    <text x="477" y="229">13 anomaly checks</text>
+    <rect x="467" y="243" width="146" height="26" rx="4" fill="#f0f4f7"/>
+    <text x="477" y="260">unit economics</text>
+  </g>
+
+  <!-- ============ ANALYZE: DETERMINISTIC ============ -->
+  <rect x="672" y="95" width="276" height="75" rx="7" fill="#ffffff" stroke="#d3dbe3"/>
+  <text x="686" y="120" font-size="11.5" font-weight="600" fill="#17212b">Deterministic report writer</text>
+  <text x="686" y="139" font-size="10" fill="#475569">20+ answers computed from collected data</text>
+  <text x="686" y="156" font-size="10" fill="#7b8794">no model involved</text>
+
+  <!-- ============ ANALYZE: LLM LOOP ============ -->
+  <rect x="672" y="195" width="276" height="160" rx="7" fill="#ffffff" stroke="#d3dbe3"/>
+  <text x="686" y="217" font-size="11.5" font-weight="600" fill="#17212b">LLM loop — reasoning questions only</text>
+
+  <rect x="692" y="228" width="236" height="38" rx="5" fill="#f0f4f7" stroke="#dde4ea"/>
+  <text x="704" y="252" font-size="10" fill="#475569">Doer — writes report + findings</text>
+
+  <rect x="692" y="296" width="236" height="38" rx="5" fill="#f0f4f7" stroke="#dde4ea"/>
+  <text x="704" y="320" font-size="10" fill="#475569">Reviewer — checks claims vs raw data</text>
+
+  <line x1="726" y1="268" x2="726" y2="292" stroke="#7b8794" stroke-width="1.4" marker-end="url(#ar)"/>
+  <text x="734" y="285" font-size="8.5" fill="#7b8794">report</text>
+  <line x1="898" y1="294" x2="898" y2="270" stroke="#10646a" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#arAccent)"/>
+  <text x="890" y="285" font-size="8.5" fill="#10646a" text-anchor="end">feedback</text>
+
+  <text x="686" y="348" font-size="9.5" fill="#7b8794">max 2 rounds · approved / revise / filtered</text>
+
+  <!-- ============ DELIVER ============ -->
+  <rect x="995" y="105" width="210" height="85" rx="7" fill="#ffffff" stroke="#10646a" stroke-width="1.6"/>
+  <text x="1009" y="130" font-size="11.5" font-weight="600" fill="#10646a">Merge</text>
+  <text x="1009" y="150" font-size="10" fill="#475569">deterministic answers take</text>
+  <text x="1009" y="166" font-size="10" fill="#475569">precedence over generated ones</text>
+  <text x="1009" y="182" font-size="9.5" fill="#7b8794">→ one report</text>
+
+  <rect x="995" y="230" width="210" height="115" rx="7" fill="#ffffff" stroke="#d3dbe3"/>
+  <text x="1009" y="254" font-size="11.5" font-weight="600" fill="#17212b">Existing mail path</text>
+  <text x="1009" y="276" font-size="10" fill="#475569">attachment record written,</text>
+  <text x="1009" y="292" font-size="10" fill="#475569">message queued on the topic</text>
+  <text x="1009" y="308" font-size="10" fill="#475569">the platform's mail worker</text>
+  <text x="1009" y="324" font-size="10" fill="#475569">already consumes</text>
+  <text x="1009" y="340" font-size="9.5" font-weight="600" fill="#10646a">daily report email</text>
+
+  <!-- ============ STORAGE LANE ============ -->
+  <rect x="240" y="420" width="720" height="170" rx="10" fill="#eef2f5"/>
+  <text x="256" y="443" font-size="10.5" font-weight="600" letter-spacing="1.6" fill="#8b97a3">STORAGE</text>
+
+  <rect x="262" y="455" width="676" height="58" rx="7" fill="#ffffff" stroke="#d3dbe3"/>
+  <rect x="262" y="455" width="4" height="58" rx="2" fill="#10646a"/>
+  <text x="280" y="478" font-size="11.5" font-weight="600" fill="#17212b">Run directory — JSON per stage</text>
+  <text x="280" y="498" font-size="10" fill="#475569">written by every collector, read by the next phase · the stage-to-stage contract, and why any stage runs standalone</text>
+
+  <rect x="262" y="528" width="676" height="48" rx="7" fill="#ffffff" stroke="#d3dbe3"/>
+  <text x="280" y="548" font-size="11.5" font-weight="600" fill="#17212b">SQL tables</text>
+  <text x="280" y="566" font-size="10" fill="#475569">breach results + telemetry history · 365-day retention</text>
+
+  <!-- ============ ARROWS ============ -->
+  <!-- sources -> phase 1 -->
+  <line x1="207" y1="187" x2="251" y2="187" stroke="#7b8794" stroke-width="1.4" marker-end="url(#ar)"/>
+
+  <!-- phase 1 writes down to run dir -->
+  <line x1="330" y1="287" x2="330" y2="451" stroke="#7b8794" stroke-width="1.4" marker-end="url(#ar)"/>
+  <text x="338" y="370" font-size="9.5" fill="#7b8794">writes</text>
+
+  <!-- run dir read up into phase 2 -->
+  <line x1="530" y1="451" x2="530" y2="289" stroke="#7b8794" stroke-width="1.4" stroke-dasharray="4 4" marker-end="url(#ar)"/>
+  <text x="538" y="370" font-size="9.5" fill="#7b8794">reads</text>
+
+  <!-- run dir read up into analyze -->
+  <line x1="810" y1="451" x2="810" y2="359" stroke="#7b8794" stroke-width="1.4" stroke-dasharray="4 4" marker-end="url(#ar)"/>
+  <text x="818" y="410" font-size="9.5" fill="#7b8794">reads</text>
+
+  <!-- phase 3: run dir -> sql -->
+  <line x1="600" y1="515" x2="600" y2="524" stroke="#7b8794" stroke-width="1.4" marker-end="url(#ar)"/>
+  <text x="614" y="524" font-size="9.5" fill="#7b8794">Phase 3 — persist + purge</text>
+
+  <!-- deterministic -> merge -->
+  <line x1="950" y1="132" x2="991" y2="132" stroke="#7b8794" stroke-width="1.4" marker-end="url(#ar)"/>
+
+  <!-- llm -> merge -->
+  <path d="M950,275 H970 V150 H991" fill="none" stroke="#7b8794" stroke-width="1.4" marker-end="url(#ar)"/>
+
+  <!-- merge -> mail -->
+  <line x1="1100" y1="192" x2="1100" y2="226" stroke="#7b8794" stroke-width="1.4" marker-end="url(#ar)"/>
+
+  <!-- ============ LEGEND ============ -->
+  <g font-size="9.5" fill="#7b8794">
+    <line x1="36" y1="626" x2="72" y2="626" stroke="#7b8794" stroke-width="1.4" marker-end="url(#ar)"/>
+    <text x="80" y="630">pipeline flow</text>
+
+    <line x1="196" y1="626" x2="232" y2="626" stroke="#7b8794" stroke-width="1.4" stroke-dasharray="4 4" marker-end="url(#ar)"/>
+    <text x="240" y="630">read from disk</text>
+
+    <rect x="360" y="619" width="14" height="14" rx="3" fill="#ffffff" stroke="#10646a" stroke-width="1.6"/>
+    <text x="382" y="630">key design decision</text>
+  </g>
+
+  <text x="36" y="664" font-size="9" fill="#a8b2bd">Built in a production environment; employer and product names withheld under confidentiality.</text>
+
+</svg>

@@ -189,89 +189,137 @@ export const products: Product[] = [
     slug: 'multi-agent',
     title: 'Multi-Agent Conversational AI',
     subtitle: 'Supervisor-pattern agent orchestration',
-    tagline: 'Natural language interface to a 4 TB enterprise database, routed by five specialized agents.',
+    tagline:
+      'Ask a building a question in plain English — five specialist agents over a 4 TB operations database, instead of five admin screens.',
     description:
-      'Supervisor pattern routing to 5 specialized agents — Reporting, Admin, System Setup, Knowledge, and Support Tickets. Registry-driven tools, two-tier RAG.',
+      'Supervisor pattern routing to 5 specialized agents — Reporting, Admin, System Setup, Knowledge, and Support Tickets — across ~30 registry-driven tools. Natural-language SQL with permission rewrite, seven-collection RAG, 100+ report types, SignalR streaming of the reasoning trace.',
     tags: ['Python', 'LangChain', 'LangGraph', 'SignalR'],
-    stack: ['Python', 'LangChain', 'LangGraph', 'SignalR', 'Azure OpenAI'],
+    stack: [
+      'Python',
+      'LangChain',
+      'LangGraph',
+      'GPT-4o / GPT-4o-mini / GPT-5',
+      'Azure SQL',
+      'Cosmos DB',
+      'Azure SignalR',
+      'React + Redux',
+    ],
     icon: 'chat',
     company: 'Apra Labs',
     impact: [
       { metric: '5', label: 'specialized agents' },
       { metric: '4 TB', label: 'database queried' },
-      { metric: 'Real-time', label: 'streaming via SignalR' },
+      { metric: '~30', label: 'registry-driven tools' },
       { metric: '300+', label: 'facilities served' },
     ],
     overview: {
       problem: [
-        '4 TB database with no usable interface',
-        "Users can't query without SQL expertise",
-        'Multiple disconnected systems to search across',
-        'No natural language access layer exists',
-        'Data locked behind technical gatekeepers',
+        '4 TB database with no usable natural-language interface',
+        "Users can't query without SQL expertise or five admin screens",
+        'Answers split across the ops database, a docs archive, and 100+ report types',
+        'New operators took weeks to learn where anything lived',
+        'Experienced engineers spent the day as a human router between systems',
         'Manual report generation taking days',
       ],
       solution: [
-        'Supervisor agent routes to 5 specialized agents',
-        'Registry-driven dynamic tool system built',
-        'SignalR real-time response streaming enabled',
-        'Two-tier RAG for structured knowledge access',
-        'Parallel agent execution for complex queries',
-        'Auto-generated SQL with safety validation',
+        'Supervisor agent routes to 5 specialized agents — never answers itself',
+        'Registry-driven tool system: ~30 tools, decorator-registered, prompt generated at startup',
+        'SignalR streaming of routing, plan, tool calls, observations, and citations',
+        'Seven-collection graph and vector retrieval searched concurrently',
+        'Auto-generated SQL with read-only validation and post-generation permission rewrite',
+        '100+ report types via twenty dedicated tools plus a generic fallback',
       ],
       outcome: [
-        'Natural language queries fully operational',
-        '300+ facilities served with daily queries',
-        'Real-time streaming responses shipped to users',
-        'Five specialized agents running in production',
+        'Natural language queries fully operational across 300+ facilities',
         'Non-technical staff querying data independently',
+        'Real-time streaming of the answer, citations, and reasoning trace',
+        'Five specialized agents running in production',
         'Report generation reduced from days to seconds',
+        'Live reasoning trace made misroutes obvious before the final answer landed',
       ],
     },
+    architectureSvg: 'images/architecture/multi-agent-architecture.svg',
     howItWorks: [
       {
-        stage: 'Intent Classification',
+        stage: 'Dispatch',
         detail:
-          'User query enters the supervisor agent, which classifies intent and routes to one of 5 specialized agents: Reporting, Admin, System Setup, Knowledge, or Support Tickets.',
+          'The web tier authenticates the caller, resolves which sites and tenants they can see, writes a cancellation row, then posts the question and that permission set into the agent tier and drops the connection. Dispatch and response are separate transactions — a deep question chaining four or five tool calls runs well past a normal HTTP timeout, and a page refresh should not kill work already in flight. Results stream back over SignalR on two channels: answer text and citations.',
       },
       {
-        stage: 'Agent Execution',
+        stage: 'Context & routing',
         detail:
-          'The selected agent pulls its tool registry and context window. It plans and executes tool calls against the database, using two-tier RAG when knowledge retrieval is needed.',
+          'Prior turns and a rolling conversation summary are fetched in parallel and packed newest-first into a token budget, so a long conversation degrades by dropping the oldest turns rather than by failing. Greetings short-circuit on a keyword check. Everything else goes through three parallel classifiers — depth, cost tier, and owning agent — which resolve to a concrete model (a cheap small model for a device lookup, a frontier model for multi-step troubleshooting) and one of five specialists: Reporting, Admin, System Setup, Knowledge, or Support Tickets. The supervisor never answers anything itself.',
       },
       {
-        stage: 'Response Streaming',
+        stage: 'Agent loop',
         detail:
-          "Results stream back via SignalR in real-time. Multi-turn conversation state is maintained with context windowing. Fallback chains activate when the primary agent can't resolve.",
+          "The chosen agent pulls its tool registry and runs a reason-act loop: call the model, decide whether to continue, run tools, repeat. Query tools generate SQL from a schema description — a validator rejects anything that isn't a read, then a permission service rewrites the query with the WHERE clauses that user's scope allows. Retrieval tools hit all seven collections concurrently (chunks, entities, relationships, topics, community summaries, historical Q&A, document metadata), merge and rank, then synthesise with a source manifest. Report tools parse dates and filters out of the question, call the reporting service, and summarise the returned file.",
+      },
+      {
+        stage: 'Finalise & stream',
+        detail:
+          "History is saved, the conversation summary is regenerated incrementally, and the client commits the message once both streams close. Multi-turn state is maintained with context windowing. Fallback chains activate when the primary agent can't resolve. The streamed reasoning trace — routing choice, plan, tool calls, observations and citations — is visible while the answer is still forming.",
       },
     ],
     decisions: [
       {
         title: 'Supervisor pattern, not a single monolithic agent',
         detail:
-          "A single agent couldn't handle the breadth — reporting, admin operations, system setup, knowledge retrieval, and ticket management all have different tool sets and context needs.",
+          "A single agent with every tool attached picked the wrong tool constantly — thirty tool descriptions in one prompt give the model almost no signal to separate them. Reporting, admin operations, system setup, knowledge retrieval, and ticket management all have different tool sets and context needs. Narrower agents with about five tools each fixed it. The router classifies depth, cost tier, and owner, then hands off. The cost is one extra model round trip before any real work starts.",
       },
       {
-        title: 'Registry-driven tool system',
+        title: 'Dispatch and response are separate transactions',
         detail:
-          'Each agent declares its capabilities in a registry rather than hardcoding tool access. Adding new tools or agents is straightforward without touching routing logic.',
+          'The web tier validates a request, hands it to the agent tier, and returns immediately. Everything after that streams back over a socket channel. A page refresh does not kill work already in flight. The cost is two failure surfaces instead of one, plus a client that has to commit a message it never got a direct HTTP response for.',
       },
       {
-        title: 'SignalR for real-time streaming',
+        title: 'Authorisation is applied after generation, never requested in the prompt',
         detail:
-          'LLM responses over a 4 TB database take time. SignalR streaming shows users partial results as they are generated, keeping the experience responsive.',
+          "The model drafts SQL from a schema description. Before execution, a validator rejects anything that isn't a read, and a permission service rewrites the query with the WHERE clauses that user's scope allows. Asking the prompt to respect a tenant boundary would work most of the time — and most of the time is how you leak one site's access records into another's answer.",
+      },
+      {
+        title: 'Registries instead of a hand-maintained routing prompt',
+        detail:
+          "Each agent declares its capabilities in a registry rather than hardcoding tool access. Agents and tools register themselves with a decorator, and the supervisor's routing prompt is generated from that registry at startup. The hand-edited list drifted from reality within two weeks of the first new tool shipping, and the failure was silent: routing just quietly got worse.",
+      },
+      {
+        title: 'Answer text and citations stream on separate SignalR channels',
+        detail:
+          'LLM responses over a 4 TB database take time. SignalR streaming shows users partial results as they are generated. Sources resolve on a different clock from the prose, and interleaving them into one stream meant a citation could land against a sentence that had already scrolled past. The message commits only when both finish.',
       },
     ],
+    evaluation:
+      "This shipped without a formal evaluation harness, and that's the biggest gap in the project. What existed instead: a fixed set of known-answer questions per agent, re-run by hand after any prompt or schema change, and manual review of generated SQL against the tables I expected it to touch. The streamed reasoning trace helped more than I expected — because routing, plan and tool calls are all visible, a misroute is obvious in a way it never is when you only see the final answer. If I rebuilt this I'd measure routing accuracy against a labelled question set first, then query correctness, retrieval relevance, and cost per resolved question broken down by tier.",
     reflections: [
+      {
+        title: 'Build the evaluation harness before the second agent',
+        detail:
+          'Every other item below is downstream of not measuring. A labelled set of a few hundred real questions with expected agent, expected tables and expected answer would have taken a week and paid for itself immediately.',
+      },
+      {
+        title: 'Generate SQL for the tail, not the head',
+        detail:
+          'The same twenty questions account for most traffic, and free-form generation over a wide schema is a fragile way to answer them. Parameterised query templates the model selects between would be faster, cheaper and verifiable. Keep generation for the genuinely open-ended remainder.',
+      },
       {
         title: 'Better agent handoff protocol',
         detail:
           'When a query spans two agents, handoff is clunky. A cleaner multi-agent coordination protocol would handle compound requests more naturally.',
       },
       {
-        title: 'Adaptive context window management',
+        title: 'Cancellation deserved a real primitive',
         detail:
-          'Fixed window sizes per agent type. Adaptive windowing based on query complexity would improve accuracy on longer sessions.',
+          'A flag row polled at checkpoints works, but a request can only die where I remembered to check, and I did not always remember. Long tool calls could run several seconds past a user hitting stop.',
+      },
+      {
+        title: 'Two chat clients was one too many',
+        detail:
+          'An embedded widget and a full-page experience shipped separately and duplicated the streaming logic. Every protocol change then needed doing twice, and the second copy was usually the one with the bug.',
+      },
+      {
+        title: 'Adaptive context windows — and versioned rolling summaries',
+        detail:
+          'Fixed window sizes per agent type. Adaptive windowing based on query complexity would improve accuracy on longer sessions. Rolling summaries were one file per conversation, rewritten every turn, with last write winning — cheap until two tabs were open on the same conversation.',
       },
     ],
   },
@@ -364,84 +412,148 @@ export const products: Product[] = [
     slug: 'cloud-cost',
     title: 'Cloud Cost Intelligence Agent',
     subtitle: 'Automated FinOps analysis',
-    tagline: 'Automated cloud cost analysis that found 30% savings across the Azure estate.',
+    tagline:
+      'Finding out why the cloud bill moved — every night, before anyone has to ask. Identified 30% savings across the Azure estate.',
     description:
-      '18 data collectors, 3 phases, 13 anomaly detectors. Identified unused resources and optimization opportunities, reducing cloud costs by 30%.',
+      'Nightly FinOps agent: 19 collectors across 3 phases, 13 anomaly detectors, 4-tier breach thresholds. 20+ standing questions answered deterministically; an LLM handles only the reasoning. Unused resources, query cost attribution, and rightsizing — 30% cost reduction.',
     tags: ['TypeScript', 'Azure Cost Mgmt', 'LLM'],
-    stack: ['TypeScript', 'Azure Cost Mgmt', 'LLM', 'Azure Functions'],
+    stack: [
+      'TypeScript',
+      'Node 22 / tsx',
+      'Azure Cost Management',
+      'Azure Resource Graph',
+      'Azure Advisor',
+      'Azure Monitor',
+      'Azure SQL',
+      'Claude Sonnet',
+      'Azure Service Bus',
+    ],
     icon: 'cloud',
     company: 'Apra Labs',
     impact: [
       { metric: '30%', label: 'cost reduction' },
-      { metric: '18', label: 'data collectors' },
+      { metric: '19', label: 'data collectors' },
       { metric: '13', label: 'anomaly detectors' },
       { metric: '3', label: 'analysis phases' },
     ],
     overview: {
       problem: [
         'Cloud spend growing unchecked month over month',
-        'No visibility into wasted or idle resources',
-        'Quarterly manual audits far too slow',
-        'Waste compounding silently for months',
-        'Teams unaware of their cost footprint',
-        'No automated anomaly detection in place',
+        'The billing portal shows the total went up, not why',
+        'A schema change can make one query eat a third of database CPU',
+        'Detached disks and idle resources still being paid for months later',
+        'Answering "why" meant stitching cost, telemetry, and inventory by hand',
+        'Quarterly manual audits far too slow — waste compounding silently',
       ],
       solution: [
-        '18 data collectors spanning all Azure services',
-        '13 anomaly detectors deployed and tuned',
-        'Three-phase analysis pipeline with scoring',
-        'Pattern-based spending analysis across accounts',
-        'Automated rightsizing recommendations generated',
-        'Cost attribution mapped to teams and projects',
+        '19 collectors across 3 dependency phases — six Azure APIs, SQL DMVs, and the app database',
+        '13 deterministic anomaly checks and 4-tier breach thresholds',
+        '20+ standing questions answered from collected data; LLM only for reasoning',
+        'Doer–reviewer loop: an analyst writes, a second agent checks claims against raw files',
+        'Query cost attribution splits the database bill across top queries by CPU share',
+        'Rightsizing, reservation, and unused-resource recommendations, emailed through the existing platform mail path',
       ],
       outcome: [
         '30% cloud cost reduction achieved in months',
         'Unused resources automatically flagged for cleanup',
-        'Prioritized optimization recommendations delivered',
-        'Real-time cost anomaly detection operational',
+        'Prioritized optimization recommendations delivered nightly',
         'Teams now own and track their spend',
+        'Anomaly detection over 15-second telemetry samples, reported every night',
         'Millions saved across the organization annually',
       ],
     },
+    architectureSvg: 'images/architecture/cloud-cost-architecture.svg',
     howItWorks: [
       {
-        stage: 'Collection',
+        stage: 'Collect',
         detail:
-          '18 data collectors pull metrics from compute, storage, networking, and PaaS services across the Azure estate. Data is normalized into a common cost model.',
+          'Twelve independent collectors pull cost breakdowns, 30-day trends, resource inventory, orphaned disks and NICs, reservation utilization, Advisor recommendations, seven-day peak metrics, and database telemetry sampled at 15-second intervals. No cross-dependencies, so they parallelize freely. Data is normalized into a common cost model and written as JSON into a per-run directory.',
       },
       {
-        stage: 'Analysis',
+        stage: 'Cross-reference',
         detail:
-          '13 anomaly detection algorithms identify unused resources, over-provisioned services, and spending pattern anomalies against historical baselines.',
+          'Five more collectors read that output back off disk and join it. Query cost attribution splits the database bill across the top queries by CPU share. Breach detection compares each resource against 4-tier configured thresholds. The anomaly detector runs 13 checks: cost spikes above the 30-day average, sustained CPU saturation, a table gaining 500MB overnight, a single query dominating database cost, a reservation about to expire.',
       },
       {
-        stage: 'Recommendations',
+        stage: 'Persist',
         detail:
-          'The agent generates prioritized optimization recommendations — right-sizing, scheduling, reservation purchases — with estimated monthly savings per action.',
+          'Breach results and telemetry history land in eight SQL tables. A retention pass trims everything past 365 days on each run.',
+      },
+      {
+        stage: 'Analyze',
+        detail:
+          'The deterministic report writer and the LLM loop run in parallel. Arithmetic — day-over-day deltas, threshold breaches, cost per building, which query burned the most CPU — is computed straight from the collected JSON. The LLM gets only the open-ended questions: optimization suggestions, risk assessment, the executive summary. A reviewer agent re-reads the raw files and checks the claims, capped at two rounds. Where both produce an answer, the deterministic one wins.',
+      },
+      {
+        stage: 'Deliver',
+        detail:
+          "The merged report goes out by email through the existing platform delivery path — an attachment record and a Service Bus message the platform's mail worker already listens on. Recommendations are prioritized: right-sizing, scheduling, reservation purchases, unused-resource cleanup — with estimated monthly savings per action. Cost attribution is mapped back to teams and projects.",
       },
     ],
     decisions: [
       {
-        title: 'Three-phase pipeline, not a single analysis pass',
+        title: 'Deterministic answers first, LLM only where reasoning is required',
         detail:
-          'Collection, analysis, and recommendation generation as separate phases. Each runs independently at different frequencies — collection daily, deep analysis weekly, recommendations on-demand.',
+          'Most of what the report needs is arithmetic: day-over-day deltas, threshold breaches, cost per building, which query burned the most CPU. Handing those to a model buys nothing and introduces a way to be quietly wrong. The report writer computes them straight from the collected JSON. The LLM gets only the open-ended questions — optimization suggestions, risk assessment, the executive summary. Where both produce an answer, the deterministic one wins.',
       },
       {
-        title: 'Anomaly detection over static thresholds',
+        title: 'Three-phase pipeline, communicating through files on disk',
         detail:
-          'Static cost thresholds trigger false alarms when the business grows. Anomaly detectors learn spending patterns and flag deviations, catching real waste without crying wolf.',
+          "Collection, cross-reference, and persist as separate phases — collection nightly, deep analysis on the same run, recommendations in the merged report. Each phase writes JSON into a per-run directory, and the next phase reads those files. Any collector can be run standalone against yesterday's data, a failed run can be inspected after the fact, and the parallel execution mode reuses the exact same CLIs without a separate code path.",
+      },
+      {
+        title: 'A doer–reviewer loop instead of one LLM pass',
+        detail:
+          'An analyst agent writes the report; a second agent re-reads the raw data files and checks the claims against them, returning approved, revision-needed, or filtered. Capped at two rounds. This was the cheapest thing I found that caught confident numeric claims the data did not support — which is the failure mode that would have killed trust in the report fastest.',
+      },
+      {
+        title: 'Anomaly detection against 30-day patterns, not a static bill alert',
+        detail:
+          'Static cost thresholds trigger false alarms when the business grows. Thirteen anomaly checks learn spending patterns — spikes above the 30-day average, a query dominating database cost, sustained CPU saturation — and flag deviations, catching real waste without crying wolf. Configured 4-tier breach thresholds sit alongside that for resources that do have a known ceiling.',
+      },
+      {
+        title: "Reused the platform's existing email path rather than sending directly",
+        detail:
+          "The report is inserted as an attachment record and a message is published to the topic the platform's existing mail worker already listens on. That meant matching an older .NET binary serialization format on the wire, which is ugly. The alternative was a second delivery mechanism with its own credentials, retry behaviour, and failure modes to operate.",
+      },
+      {
+        title: 'Two execution modes over one set of collectors',
+        detail:
+          'The sequential orchestrator is the simple path. A multi-agent runner layers batched parallelism and a live progress dashboard on top, and dispatches each LLM question as its own agent call instead of a sequential subprocess. It calls the same collector, analysis, and alert CLIs, so it is a scheduling layer, not a fork.',
       },
     ],
+    evaluation:
+      'There is no formal evaluation harness, and that is the real gap. What exists instead is a correctness guard rather than a measurement: the reviewer agent validates the analyst\'s claims against the raw data files, and any question that can be computed exactly is computed exactly rather than generated. That bounds how wrong the report can be. It does not tell me how useful it is. The 30% cost reduction came from acting on unused-resource flags, query improvements, and rightsizing — validated by the bill moving, not by an eval set.',
     reflections: [
       {
         title: 'Automated remediation for low-risk items',
         detail:
-          "Currently generates recommendations but doesn't act. Auto-deleting clearly unused dev resources or auto-scaling idle services would compound savings without human intervention.",
+          'Currently generates recommendations but does not act. Auto-deleting clearly unused dev resources or auto-scaling idle services would compound savings without human intervention.',
       },
       {
         title: 'Multi-cloud from the start',
         detail:
-          "Built specifically for Azure. The collection layer abstractions weren't clean enough to easily add AWS or GCP. The cost model should have been cloud-agnostic from day one.",
+          'Built specifically for Azure. The collection layer abstractions were not clean enough to easily add AWS or GCP. The cost model should have been cloud-agnostic from day one.',
+      },
+      {
+        title: 'Thresholds should have been learned, not configured',
+        detail:
+          "Breach detection reads per-resource thresholds from a seeded table, which means someone has to know the right number in advance and remember to update it. A rolling baseline computed from the resource's own history would have needed no seeding and would have adapted as the platform grew.",
+      },
+      {
+        title: 'Anomaly checks needed a feedback path from day one',
+        detail:
+          'Thirteen checks fire into a report and nothing captures whether a given alert was worth reading. Without that signal there is no principled way to tune the thresholds, so tuning stayed guesswork.',
+      },
+      {
+        title: 'Per-run output directories made trend queries harder than they should be',
+        detail:
+          "Writing each run's JSON into its own timestamped directory was right for debuggability and wrong for anything that spans runs. Comparisons that should have been a SQL query became file walks.",
+      },
+      {
+        title: 'The two execution modes drifted',
+        detail:
+          'Sharing the CLIs kept the logic in one place, but the sequential and parallel paths still ended up with different failure and retry behaviour. One mode with a parallelism flag would have been less to keep in sync.',
       },
     ],
   },
@@ -449,11 +561,19 @@ export const products: Product[] = [
     slug: 'infra-perf',
     title: 'Infrastructure Performance Agent',
     subtitle: 'Health scoring & regression detection',
-    tagline: 'Catching service degradation before users notice it.',
+    tagline: 'Catching service degradation before users notice it — nightly analysis of Azure Monitor metrics and SQL telemetry.',
     description:
-      'Composite health score (0–100) per service. Rolling 30-day baselines for regression detection, surfacing degradation before impact.',
+      'Composite health score (0–100) per service. Rolling 30-day baselines for regression detection. Nightly collection of Azure Monitor metrics and SQL DMV telemetry sampled at 15-second intervals, 13 anomaly checks, 4-tier breach thresholds — surfacing degradation before impact.',
     tags: ['TypeScript', 'Azure Monitor', 'Service Bus'],
-    stack: ['TypeScript', 'Azure Monitor', 'Service Bus', 'Statistics'],
+    stack: [
+      'TypeScript',
+      'Node 22 / tsx',
+      'Azure Monitor',
+      'Azure SQL DMVs',
+      'Query Store',
+      'Azure Service Bus',
+      'Statistics',
+    ],
     icon: 'performance',
     company: 'Apra Labs',
     impact: [
@@ -466,18 +586,18 @@ export const products: Product[] = [
       problem: [
         'Users reporting issues before ops team aware',
         'Slow performance regressions going undetected',
+        'A schema change can make one query eat a third of database CPU',
         'Metric-based alerts causing severe alert fatigue',
         'No composite health visibility across services',
-        'Root cause analysis done manually each time',
-        'SLA breaches discovered only after the fact',
+        'Root cause analysis done manually each time — SLA breaches discovered after the fact',
       ],
       solution: [
-        'Composite 0-100 health scoring per service',
-        '30-day rolling baseline anomaly detection',
-        'Four-dimension service evaluation framework',
-        'Automated root-cause analysis pipeline built',
-        'Trend analysis predicting degradation early',
-        'Custom alerting thresholds per service tier',
+        'Composite 0–100 health scoring per service across four dimensions',
+        '30-day rolling baseline anomaly detection with outlier exclusion',
+        'Database telemetry sampled at 15-second intervals from SQL DMVs and Query Store',
+        '13 anomaly checks: CPU saturation, table growth, query cost dominance, peak metrics',
+        '4-tier breach thresholds plus automated root-cause analysis',
+        'Nightly report through the existing platform mail path, with live progress in parallel mode',
       ],
       outcome: [
         'Pre-impact regression detection running live',
@@ -488,21 +608,22 @@ export const products: Product[] = [
         'SLA compliance tracking now fully automated',
       ],
     },
+    architectureSvg: 'images/architecture/infra-perf-architecture.svg',
     howItWorks: [
       {
         stage: 'Telemetry',
         detail:
-          'Azure Monitor data feeds into the scoring engine. Four dimensions — response time, error rate, throughput, resource utilization — are computed per service.',
+          'Azure Monitor data and SQL dynamic management views feed the scoring engine every night. Database telemetry is sampled at 15-second intervals from sys.dm_db_resource_stats, sys.dm_db_partition_stats, and Query Store. Four dimensions — response time, error rate, throughput, resource utilization — are computed per service, alongside seven-day peak metrics and Advisor recommendations.',
       },
       {
         stage: 'Scoring',
         detail:
-          'A composite health score (0–100) is calculated per service using weighted dimensions. Scores are compared against 30-day rolling baselines with outlier exclusion.',
+          'A composite health score (0–100) is calculated per service using weighted dimensions. Scores are compared against 30-day rolling baselines with outlier exclusion, so a service that is always slow on Mondays does not fire false alarms every Monday. Query cost attribution splits database CPU across the top queries, making a single runaway statement visible in the score rather than buried in a total.',
       },
       {
         stage: 'Detection',
         detail:
-          'Statistical deviation beyond configurable thresholds triggers regression alerts. Root-cause analysis pinpoints which metric dimension drove the degradation.',
+          'Statistical deviation beyond configurable 4-tier thresholds triggers regression alerts. Thirteen anomaly checks run on the same pass: sustained CPU saturation, a table gaining 500MB overnight, a single query dominating database cost, cost and utilization spikes above the 30-day average. Root-cause analysis pinpoints which metric dimension drove the degradation. Breach results persist to SQL with 365-day retention, and the merged report goes out by email through the existing platform delivery path.',
       },
     ],
     decisions: [
@@ -514,9 +635,21 @@ export const products: Product[] = [
       {
         title: 'Rolling baselines over fixed thresholds',
         detail:
-          "30-day rolling baselines with outlier exclusion adapt to the service's natural patterns. A service that's always slow on Mondays doesn't fire false alarms every Monday.",
+          "30-day rolling baselines with outlier exclusion adapt to the service's natural patterns. A service that's always slow on Mondays doesn't fire false alarms every Monday. Configured 4-tier breach thresholds sit alongside that for resources that do have a known ceiling.",
+      },
+      {
+        title: 'SQL telemetry in the same pipeline as Monitor metrics',
+        detail:
+          'Azure Monitor tells you a database is hot. sys.dm_db_resource_stats and Query Store tell you which query made it hot, sampled every 15 seconds. Stitching those in the same nightly run is what turns "CPU is high" into "this schema change three weeks ago is eating a third of the bill."',
+      },
+      {
+        title: 'Deterministic checks first, LLM only for the write-up',
+        detail:
+          'The 13 anomaly checks and 4-tier breaches are arithmetic over collected JSON. Handing those to a model buys nothing and introduces a way to be quietly wrong. The LLM is reserved for the reasoning layer of the report — what to do about a regression, not whether one occurred.',
       },
     ],
+    evaluation:
+      'There is no formal evaluation harness. What exists instead is a correctness guard: anomaly checks and health scores are computed from collected telemetry rather than generated, and a reviewer pass checks any LLM write-up against the raw files. That bounds how wrong a finding can be. It does not tell me how often a flagged regression was the one operators actually cared about — there is no feedback path from "was this alert worth reading."',
     reflections: [
       {
         title: 'Cross-service correlation',
@@ -527,6 +660,16 @@ export const products: Product[] = [
         title: 'Predictive scoring',
         detail:
           'The rolling baseline detects regressions after they start. Trend-based prediction could flag services heading toward degradation before they cross the threshold.',
+      },
+      {
+        title: 'Anomaly checks needed a feedback path from day one',
+        detail:
+          'Thirteen checks fire into a report and nothing captures whether a given alert was worth reading. Without that signal there is no principled way to tune weights and thresholds, so tuning stayed guesswork.',
+      },
+      {
+        title: 'Breach thresholds should have been learned, not seeded',
+        detail:
+          "Where a resource does not have a known ceiling, a seeded threshold table means someone has to know the right number in advance. The 30-day rolling baseline already does this for health scores; extending that to every breach check would have needed no seeding and would have adapted as the platform grew.",
       },
     ],
   },
