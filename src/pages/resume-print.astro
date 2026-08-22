@@ -1,0 +1,572 @@
+---
+import { site } from '@/config/site';
+
+const phoneTel = '+917847896052';
+const phoneLabel = '+91 78478 96052';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <base target="_blank" />
+    <title>{site.name} — Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Archivo:wght@400;500;600;700&display=swap"
+    />
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        background: #fff;
+      }
+
+      body {
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .sheet {
+        font-family: Archivo, sans-serif;
+        color: #1b1d21;
+        font-size: 7.4pt;
+        line-height: 1.38;
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto;
+        padding: 7mm 11mm 3mm;
+        background: #fff;
+        box-sizing: border-box;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-color: #1d5bbf;
+        text-decoration-thickness: 0.6px;
+        text-underline-offset: 1.5px;
+      }
+
+      a:hover {
+        color: #1d5bbf;
+      }
+
+      p,
+      li {
+        text-align: justify;
+        text-justify: inter-word;
+        hyphens: auto;
+      }
+
+      ul {
+        margin: 0 0 0 3px;
+        padding-left: 12px;
+        list-style-position: outside;
+      }
+
+      li::marker {
+        color: #9a9ea5;
+      }
+
+      li {
+        margin: 0;
+      }
+
+      .ext {
+        color: #1d5bbf;
+        font-size: 0.8em;
+        vertical-align: 0.15em;
+        margin-left: 1px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16px;
+      }
+
+      h1 {
+        font-family: Newsreader, Georgia, serif;
+        font-weight: 500;
+        font-size: 25pt;
+        line-height: 1;
+      }
+
+      .role {
+        font-size: 7.6pt;
+        font-weight: 600;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: #9a6a0c;
+        margin-top: 6px;
+      }
+
+      .contact {
+        font-size: 7pt;
+        text-align: right;
+        line-height: 1.7;
+        color: #4b4f56;
+        white-space: nowrap;
+      }
+
+      .contact b {
+        color: #1b1d21;
+      }
+
+      .rule {
+        border-top: 2px solid #1b1d21;
+        margin-top: 8px;
+      }
+
+      .lede {
+        margin: 7px 0 0;
+        font-family: Newsreader, Georgia, serif;
+        font-size: 8.9pt;
+        line-height: 1.34;
+        color: #2a2d33;
+        text-wrap: pretty;
+      }
+
+      .gold {
+        color: #9a6a0c;
+      }
+
+      .columns {
+        display: grid;
+        grid-template-columns: 1.24fr 1fr;
+        column-gap: 20px;
+        margin-top: 7px;
+      }
+
+      .hd {
+        font-size: 7.4pt;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #9a6a0c;
+        border-bottom: 1px solid #1b1d21;
+        padding-bottom: 3px;
+      }
+
+      .systems {
+        display: grid;
+        gap: 2px;
+        margin-top: 4px;
+      }
+
+      .sys-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 8px;
+      }
+
+      .sys-name {
+        font-family: Newsreader, Georgia, serif;
+        font-size: 10.4pt;
+        font-weight: 600;
+        line-height: 1.15;
+      }
+
+      .sys-sub {
+        font-size: 7pt;
+        color: #5f646b;
+        font-style: italic;
+        white-space: nowrap;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2.5px;
+        margin-top: 2px;
+      }
+
+      .chip {
+        display: inline-block;
+        font-size: 6.5pt;
+        letter-spacing: 0.03em;
+        color: #4b4f56;
+        background: #f5f2ea;
+        border: 0.4px solid #ddd6c6;
+        border-radius: 2px;
+        padding: 0 3.5px;
+      }
+
+      .sys ul {
+        display: grid;
+        gap: 0;
+        margin-top: 2px;
+        color: #2a2d33;
+      }
+
+      .sys .out {
+        color: #4b4f56;
+      }
+
+      .jobs {
+        display: grid;
+        gap: 6px;
+        margin-top: 7px;
+      }
+
+      .job-name {
+        font-family: Newsreader, Georgia, serif;
+        font-size: 10pt;
+        font-weight: 600;
+        line-height: 1.15;
+      }
+
+      .job-role {
+        font-size: 7pt;
+        font-weight: 600;
+        color: #2a2d33;
+        margin-top: 1px;
+      }
+
+      .job-dates {
+        font-size: 7pt;
+        color: #5f646b;
+        margin-top: 1px;
+      }
+
+      .job p {
+        margin: 3px 0 0;
+        color: #2a2d33;
+      }
+
+      .job .note {
+        color: #4b4f56;
+      }
+
+      .stack {
+        display: grid;
+        gap: 3px;
+        margin-top: 6px;
+      }
+
+      .stack > div {
+        text-align: justify;
+        hyphens: auto;
+      }
+
+      .stack + .hd {
+        margin-top: 7px;
+      }
+
+      .jobs + .hd {
+        margin-top: 7px;
+      }
+
+      .muted {
+        color: #4b4f56;
+      }
+
+      html.in-iframe {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 100%;
+        scrollbar-width: thin;
+        scrollbar-color: #ccc transparent;
+      }
+
+      html.in-iframe::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      html.in-iframe::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+      }
+
+      html.in-iframe .sheet {
+        min-height: 0;
+      }
+
+      @media print {
+        html,
+        body {
+          background: #fff;
+        }
+
+        .sheet {
+          width: 210mm;
+          min-height: 297mm;
+          margin: 0;
+          zoom: 1 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sheet">
+      <header class="header">
+        <div>
+          <h1>{site.name}</h1>
+          <div class="role">Software Architect &nbsp;|&nbsp; AI Systems &nbsp;|&nbsp; Engineering Leader</div>
+        </div>
+        <div class="contact">
+          <b><a href={`tel:${phoneTel}`}>{phoneLabel}</a> &nbsp;·&nbsp; <a href={`mailto:${site.email}`}>{site.email}</a></b><br />
+          <a href={site.customDomain}>siddharthdeshpande.com</a> &nbsp;·&nbsp; <a href={site.github}>github.com/dsiddharth2</a><br />
+          <a href={site.linkedin}>linkedin.com/in/dsiddharth2</a>
+        </div>
+      </header>
+
+      <div class="rule"></div>
+
+      <p class="lede">
+        <b>12 years</b> of turning ambiguous problems into production systems — ERPs, AI platforms, multi-agent
+        pipelines — across startups and enterprise. I don't just write code; <b>I own the outcome end to end</b>. At
+        <b>Apra Labs</b> I built the AI and data platform layer serving <b class="gold">300+ US facilities</b>:
+        <b>7 AI agents</b> and <b>5 production AI systems</b>, a GraphRAG engine over <b>150K documents</b>, conversational
+        AI across a <b>4 TB database</b>, and a FinOps agent that cut cloud spend <b class="gold">30%</b> — while hiring
+        and mentoring <b>20+ engineers</b> and growing with the company <b class="gold">from 10 to 55</b>. Before that, a
+        logistics ERP built from scratch to <b>2,500 daily users</b>, <b>70K dockets/month</b> and <b>100K hits a day</b>,
+        at <b>MildlyClassic</b>, where our team also built the software that got <b class="gold">Wifi Dabba into YC W17</b>.
+        Separately, I co-founded <b>UXgage</b>, a behavioral analytics startup <b class="gold">₹5L funded by Deshpande Startups, Hubli</b>.
+      </p>
+
+      <div class="columns">
+        <div>
+          <h2 class="hd">Systems I've architected and shipped</h2>
+          <div class="systems">
+            <article class="sys">
+              <div class="sys-top">
+                <div class="sys-name">GraphRAG Knowledge Engine</div>
+                <div class="sys-sub">Enterprise knowledge graph pipeline</div>
+              </div>
+              <div class="chips">
+                <span class="chip">Python</span><span class="chip">Azure Durable Functions</span><span class="chip">Cosmos DB</span><span class="chip">FAISS</span><span class="chip">gpt-4o-mini</span>
+              </div>
+              <ul>
+                <li>Builds <b>knowledge graphs</b> with <b>entities, relationships, topics and communities</b> via <b>vector similarity</b></li>
+                <li><b>Two-stage ingest</b>: <b>seconds-to-searchable indexing</b>, then <b>graph enrichment</b> in the background</li>
+                <li><b>90K entities</b> and <b>150K+ relationships</b> across <b>11 Cosmos collections</b></li>
+                <li class="out"><b class="gold">Outcome</b> — <b>Support knowledge reusable at scale</b>; duplicate ticket resolution dramatically reduced</li>
+              </ul>
+            </article>
+
+            <article class="sys">
+              <div class="sys-top">
+                <div class="sys-name">Multi-Agent Conversational AI</div>
+                <div class="sys-sub">Supervisor-pattern agent orchestration</div>
+              </div>
+              <div class="chips">
+                <span class="chip">Python</span><span class="chip">LangChain</span><span class="chip">LangGraph</span><span class="chip">Azure SQL</span><span class="chip">Azure SignalR</span><span class="chip">React</span>
+              </div>
+              <ul>
+                <li>Supervisor pattern routing to <b>5 specialized agents</b> across <b>~30 registry-driven tools</b></li>
+                <li>Natural-language SQL with <b>permission rewrite</b>, seven-collection RAG, <b>100+ report types</b> over a <b>4 TB</b> database, SignalR streaming of the reasoning trace</li>
+                <li class="out"><b class="gold">Outcome</b> — Report generation reduced from <b class="gold">days to seconds</b>; non-technical staff querying data independently</li>
+              </ul>
+            </article>
+
+            <article class="sys">
+              <div class="sys-top">
+                <div class="sys-name">Cloud Cost Intelligence Agent</div>
+                <div class="sys-sub">Automated FinOps analysis</div>
+              </div>
+              <div class="chips">
+                <span class="chip">TypeScript</span><span class="chip">Azure Cost Management</span><span class="chip">Resource Graph</span><span class="chip">Claude Sonnet</span>
+              </div>
+              <ul>
+                <li><b>Nightly FinOps agent</b>: <b>19 collectors</b> across 3 phases, <b>13 anomaly detectors</b>, 4-tier breach thresholds</li>
+                <li><b>20+ standing questions</b> answered deterministically; the LLM handles only reasoning, with a <b>doer–reviewer loop</b> checking claims against raw files</li>
+                <li class="out"><b class="gold">Outcome</b> — <b class="gold">30% cloud cost reduction</b>; prioritized recommendations delivered nightly, teams now own their spend</li>
+              </ul>
+            </article>
+
+            <article class="sys">
+              <div class="sys-top">
+                <div class="sys-name">Infrastructure Performance Agent</div>
+                <div class="sys-sub">Health scoring &amp; regression detection</div>
+              </div>
+              <div class="chips">
+                <span class="chip">TypeScript</span><span class="chip">Azure Monitor</span><span class="chip">SQL DMVs</span><span class="chip">Query Store</span><span class="chip">Service Bus</span>
+              </div>
+              <ul>
+                <li>Composite <b>0–100 health score</b> per service, with <b>rolling 30-day baselines</b> for <b>regression detection</b></li>
+                <li>Azure Monitor metrics and SQL DMV telemetry sampled at <b>15-second intervals</b>, <b>13 anomaly checks</b>, 4-tier breach thresholds</li>
+                <li class="out"><b class="gold">Outcome</b> — Degradation surfaced <b>before user impact</b>; <b>alert fatigue significantly reduced</b></li>
+              </ul>
+            </article>
+
+            <article class="sys">
+              <div class="sys-top">
+                <div class="sys-name">Secure Logistics ERP</div>
+                <div class="sys-sub">PAN India logistics platform</div>
+              </div>
+              <div class="chips">
+                <span class="chip">PHP</span><span class="chip">AWS</span><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">MySQL</span>
+              </div>
+              <ul>
+                <li><b>End-to-end ERP built from scratch</b> — <b>Finance, Operations, Booking, Hub Management, CRM, Route Planning</b></li>
+                <li><b>2,500 daily users</b>, <b>70K dockets/month</b>, <b>100K daily hits</b>, zero downtime through scaling</li>
+                <li class="out"><b class="gold">Outcome</b> — <b>End-to-end shipment visibility</b> for all clients; <b>manual processes reduced by over 80%</b></li>
+              </ul>
+            </article>
+
+            <article class="sys">
+              <div class="sys-top">
+                <div class="sys-name">AI Code Review Pipeline</div>
+                <div class="sys-sub">CI/CD-integrated automated reviews</div>
+              </div>
+              <div class="chips">
+                <span class="chip">Python</span><span class="chip">Azure DevOps</span><span class="chip">GPT</span><span class="chip">REST APIs</span>
+              </div>
+              <ul>
+                <li>Reviews pull requests with <b>inline comments and star ratings</b>. <b>10+ languages</b>, <b>penalty-based scoring</b>, <b>fix verification mode</b></li>
+                <li class="out"><b class="gold">Outcome</b> — <b>Review bottleneck for senior engineers eliminated</b>; consistent scoring across all repos</li>
+              </ul>
+            </article>
+
+            <article class="sys">
+              <div class="sys-top">
+                <div class="sys-name">Search Index Sync Engine</div>
+                <div class="sys-sub">Real-time &amp; bulk search indexing</div>
+              </div>
+              <div class="chips">
+                <span class="chip">C# / .NET 8</span><span class="chip">Azure AI Search</span><span class="chip">Service Bus</span><span class="chip">Durable Functions</span>
+              </div>
+              <ul>
+                <li><b>Bulk indexing</b> via Durable Functions and <b>real-time incremental sync</b> via Service Bus, with <b>index versioning</b> and a <b>dead letter queue</b></li>
+                <li class="out"><b class="gold">Outcome</b> — <b>Entity search across 7 people-data entity types</b> made near-instant; search freshness <b>under 5 seconds</b>, zero-downtime schema migrations</li>
+              </ul>
+            </article>
+
+            <article class="sys">
+              <div class="sys-top">
+                <div class="sys-name">UXgage — Behavioral Analytics</div>
+                <div class="sys-sub">Enterprise usability platform</div>
+              </div>
+              <div class="chips">
+                <span class="chip">PHP</span><span class="chip">Neo4j</span><span class="chip">Cassandra</span><span class="chip">JavaScript</span>
+              </div>
+              <ul>
+                <li>Captures clicks, mouse movements, text input and URL transitions to <b>reconstruct actual user workflows</b>. <b>Built the entire stack from scratch</b></li>
+                <li class="out"><b class="gold">Outcome</b> — <b class="gold">₹5L seed funding</b>; idea to funded product in under 6 months</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="hd">Experience</h2>
+          <div class="jobs">
+            <article class="job">
+              <div class="job-name">Apra Labs</div>
+              <div class="job-role">Associate Architect · previously Senior Software Engineer</div>
+              <div class="job-dates">Aug 2019 – Present</div>
+              <p>
+                Built the <b>AI and data platform layer</b> for a unified facility management product serving
+                <b class="gold">300+ US facilities</b>. Managing <b>3 clients</b>, mentoring a <b>team of 4</b>,
+                <b>architected all systems end-to-end</b>. <b>Campus hiring lead for 4 years</b>; grew with the company
+                <b class="gold">from 10 to 55</b>.
+              </p>
+            </article>
+            <article class="job">
+              <div class="job-name">MildlyClassic</div>
+              <div class="job-role">Engineering Team Lead</div>
+              <div class="job-dates">May 2016 – May 2019</div>
+              <p>
+                Built and scaled a <b>logistics ERP from scratch</b> to <b>2,500 daily users</b> handling
+                <b>70K dockets/month</b> for PAN India secure jewellery logistics. <b>Hired 7 engineers</b>, established a
+                <b>4-week release cycle</b>, migrated <b>DigitalOcean → AWS in 3 months</b>.
+              </p>
+              <p class="note">
+                <i>Sister company · <b class="gold">Wifi Dabba → YC W17</b>:</i> built <b>byte-counting and usage sync software</b> on Wi-Fi hardware, and the <b>Google NBU analytics platform</b>.
+              </p>
+            </article>
+            <article class="job">
+              <div class="job-name">UXgage</div>
+              <div class="job-role">Co-Founder &amp; CTO</div>
+              <div class="job-dates">Oct 2015 – Apr 2016</div>
+              <p>
+                Took an idea <b>from zero to a shipped product in 6 months</b> — won a <b class="gold">₹5L cash prize</b> from Deshpande Startups, Hubli, with office space and Azure infrastructure granted separately.
+              </p>
+            </article>
+            <article class="job">
+              <div class="job-name">Earlier</div>
+              <div class="job-dates">2010 – 2016</div>
+              <p>
+                <b>Samvit Learning</b>, Founder — software training institute founded during MCA; trained <b>250+ students</b>.
+                <b>Firaa.me</b>, side project at IdeaFlask — travel blogging platform, <b>500+ organic users</b>.
+                <b>dotCORD IT Solutions</b>, Intern — <b>3 years</b> at GIT Incubation Center.
+              </p>
+            </article>
+          </div>
+
+          <h2 class="hd">Open Source</h2>
+          <div class="stack">
+            <div>
+              <b><a href="https://github.com/dsiddharth2/plug">Plug<span class="ext">↗</span></a></b> — package manager for Claude Code skills; install and manage reusable Skills, Commands and Agents from GitHub-hosted registries. <b>14 packages</b>, on npm as <i>plugvault</i>.
+            </div>
+            <div>
+              <b><a href="https://github.com/dsiddharth2/codehawk">CodeHawk<span class="ext">↗</span></a></b> — AI pull request review pipeline. Runs in CI, scores code quality and posts inline comments. <b>16 language rule sets</b>, <b>394 unit tests</b>.
+            </div>
+            <div>
+              <b><a href="https://github.com/dsiddharth2/php-zxing">PHP ZXing<span class="ext">↗</span></a></b> — PHP wrapper for the ZXing barcode library. <b class="gold">277K+ Packagist installs</b>, <b>133 GitHub stars</b>, featured on the upstream ZXing repo.
+            </div>
+            <div>
+              <b><a href="https://github.com/dsiddharth2/MooPin">MooPin<span class="ext">↗</span></a></b> — Pinterest-style column grid for MooTools, incl. infinite scroll. <b>~120 lines</b>.
+            </div>
+          </div>
+
+          <h2 class="hd">Technical Expertise</h2>
+          <div class="stack">
+            <div><b>Languages &amp; Frameworks</b> — Python · TypeScript · C# / .NET 8 · PHP · React · Node.js · LangChain · LangGraph</div>
+            <div><b>AI &amp; Data</b> — GPT / LLM integration · FAISS · Vector search · GraphRAG · Multi-agent systems</div>
+            <div><b>Infrastructure</b> — Azure (Durable Functions, Service Bus, Cosmos DB) · AWS · Neo4j · Cassandra</div>
+            <div><b>Practices</b> — System design · CI/CD · DevOps · FinOps · Hiring &amp; mentorship</div>
+          </div>
+
+          <h2 class="hd">Education &amp; Recognition</h2>
+          <div class="stack">
+            <div><b>Master of Computer Applications (MCA)</b> — Gogte Institute of Technology, Belgaum</div>
+            <div class="muted"><b>Leadership Excellence</b>, Apra Labs (Nov 2024) · <b>Customer Appreciation</b>, Apra Labs (Apr 2023) · <b>Guiding Vision</b>, Pravega X Fest</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script is:inline>
+      if (window !== window.top) {
+        document.documentElement.classList.add('in-iframe');
+        var sheet = document.querySelector('.sheet');
+        var PAGE_WIDTH_PX = (210 / 25.4) * 96;
+        function fitZoom() {
+          var scale = window.innerWidth / PAGE_WIDTH_PX;
+          sheet.style.zoom = String(scale);
+        }
+        fitZoom();
+        window.addEventListener('resize', fitZoom);
+        window.addEventListener('beforeprint', function () {
+          sheet.style.zoom = '1';
+        });
+        window.addEventListener('afterprint', fitZoom);
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(fitZoom);
+        }
+      }
+    </script>
+  </body>
+</html>

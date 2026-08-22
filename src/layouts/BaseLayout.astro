@@ -11,6 +11,7 @@ interface Props {
 
 import { site, getSiteUrl } from '@/config/site';
 import { assetUrl } from '@/utils/assets';
+import ResumeDialog from '@/components/ResumeDialog.astro';
 import '@/styles/global.css';
 import '@/styles/template.css';
 
@@ -27,6 +28,7 @@ const {
 const canonicalUrl = getSiteUrl(canonicalPath);
 const markdownUrl = markdownPath ? getSiteUrl(markdownPath) : undefined;
 const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const isResumePage = (canonicalPath || Astro.url.pathname).replace(/\/$/, '') === '/resume';
 ---
 
 <!doctype html>
@@ -77,8 +79,11 @@ const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
       <script type="application/ld+json" set:html={JSON.stringify(block)} />
     ))}
   </head>
-  <body>
-    <a href="#main-content" class="skip-link">Skip to content</a>
+  <body class:list={[isResumePage && 'resume-page']}>
+    {!isResumePage && (
+      <a href="#main-content" class="skip-link">Skip to content</a>
+    )}
     <slot />
+    <ResumeDialog standalone={isResumePage} />
   </body>
 </html>

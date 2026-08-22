@@ -1,0 +1,155 @@
+---
+import { site } from '@/config/site';
+import { assetUrl } from '@/utils/assets';
+
+interface Props {
+  standalone?: boolean;
+}
+
+const { standalone = false } = Astro.props;
+const resumeUrl = assetUrl(site.resumePath);
+const resumeViewUrl = assetUrl(site.resumeViewPath);
+---
+
+<div
+  class:list={['resume-modal', standalone && 'resume-modal--page']}
+  id="resume-modal"
+  data-resume-src={resumeViewUrl}
+  data-resume-standalone={standalone ? 'true' : 'false'}
+  aria-hidden={standalone ? 'false' : 'true'}
+  role="dialog"
+  aria-label="Resume"
+>
+  <div class="resume-modal-overlay" data-resume-close></div>
+  <div class="resume-modal-content">
+    <div class="resume-modal-header">
+      {
+        standalone ? (
+          <a href="/" class="resume-modal-title">siddharthdeshpande.com</a>
+        ) : (
+          <p class="resume-modal-title">Resume</p>
+        )
+      }
+      <div class="resume-modal-actions">
+        <a
+          href={resumeUrl}
+          class="resume-modal-btn"
+          download={site.resumeFileName}
+          title="Download PDF"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span class="sr-only">Download PDF</span>
+        </a>
+        <button type="button" class="resume-modal-btn" data-resume-print title="Print">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          <span class="sr-only">Print</span>
+        </button>
+        {
+          standalone ? (
+            <a href="/" class="resume-modal-btn" title="Close">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <path d="M18 6L6 18M6 6l12 12"></path>
+              </svg>
+              <span class="sr-only">Close</span>
+            </a>
+          ) : (
+            <button type="button" class="resume-modal-btn" data-resume-close title="Close">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <path d="M18 6L6 18M6 6l12 12"></path>
+              </svg>
+              <span class="sr-only">Close</span>
+            </button>
+          )
+        }
+      </div>
+    </div>
+    <div class="resume-modal-loader" data-resume-loader>
+      <div class="resume-spinner"></div>
+    </div>
+    <iframe
+      class="resume-modal-iframe"
+      data-resume-frame
+      src={standalone ? resumeViewUrl : undefined}
+      title={`${site.name} resume`}
+    ></iframe>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var modal = document.getElementById('resume-modal');
+    if (!modal) return;
+
+    var resumeSrc = modal.getAttribute('data-resume-src') || '';
+    var standalone = modal.getAttribute('data-resume-standalone') === 'true';
+    var iframe = modal.querySelector('[data-resume-frame]');
+    var loader = modal.querySelector('[data-resume-loader]');
+    var printBtn = modal.querySelector('[data-resume-print]');
+    var iframeLoaded = false;
+    var savedScrollY = 0;
+
+    iframe.addEventListener('load', function () {
+      if (!iframe.getAttribute('src')) return;
+      iframeLoaded = true;
+      if (loader) loader.classList.add('is-loaded');
+    });
+
+    function openModal() {
+      if (!iframe.getAttribute('src')) {
+        iframeLoaded = false;
+        if (loader) loader.classList.remove('is-loaded');
+        iframe.setAttribute('src', resumeSrc);
+      } else if (iframeLoaded && loader) {
+        loader.classList.add('is-loaded');
+      }
+      savedScrollY = window.scrollY;
+      document.body.style.top = -savedScrollY + 'px';
+      document.body.classList.add('resume-modal-open');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeModal() {
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('resume-modal-open');
+      document.body.style.top = '';
+      window.scrollTo(0, savedScrollY);
+    }
+
+    if (!standalone) {
+      document.querySelectorAll('[data-resume-modal]').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          event.preventDefault();
+          openModal();
+        });
+      });
+
+      modal.querySelectorAll('[data-resume-close]').forEach(function (el) {
+        el.addEventListener('click', closeModal);
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+          closeModal();
+        }
+      });
+    }
+
+    if (printBtn) {
+      printBtn.addEventListener('click', function () {
+        try {
+          iframe.contentWindow.print();
+        } catch (err) {
+          window.open(resumeSrc, '_blank', 'noopener');
+        }
+      });
+    }
+  })();
+</script>

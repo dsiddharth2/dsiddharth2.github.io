@@ -11,7 +11,10 @@ export default defineConfig({
     tailwind(),
     sitemap({
       filter: (page) =>
-        !page.includes('/draft') && !page.endsWith('.md') && !page.endsWith('.txt'),
+        !page.includes('/draft') &&
+        !page.endsWith('.md') &&
+        !page.endsWith('.txt') &&
+        !page.includes('/resume-print'),
     }),
     mdx(),
   ],
