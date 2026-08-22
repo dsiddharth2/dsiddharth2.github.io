@@ -9,6 +9,7 @@ const isProducts = pathname.startsWith('/projects');
 const isOpenSource = pathname.startsWith('/opensource');
 const isProductsIndex = pathname === '/projects';
 const isOpenSourceIndex = pathname === '/opensource';
+const isResume = pathname === '/resume';
 
 const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
 ---
@@ -84,6 +85,13 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
           <a href="/opensource" class="nav-link nav-link--active">Open Source</a>
         ) : (
           <a href="/opensource" class="nav-link">Open Source</a>
+        )
+      }
+      {
+        isResume ? (
+          <span class="nav-link nav-link--active" aria-current="page">Resume</span>
+        ) : (
+          <a href="/resume" class="nav-link" data-resume-modal>Resume</a>
         )
       }
       <a

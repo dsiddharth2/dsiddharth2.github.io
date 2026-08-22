@@ -1,0 +1,32 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { site, getSiteUrl } from '@/config/site';
+import { breadcrumbJsonLd } from '@/utils/seo';
+
+const description = `Resume of ${site.name} — Associate Architect · AI & Cloud Systems.`;
+---
+
+<BaseLayout
+  title={`Resume — ${site.name}`}
+  description={description}
+  canonicalPath="/resume"
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: `Resume — ${site.name}`,
+      url: getSiteUrl('/resume'),
+      description,
+      associatedMedia: {
+        '@type': 'DigitalDocument',
+        name: site.resumeFileName,
+        encodingFormat: 'application/pdf',
+        url: getSiteUrl(`/${site.resumePath}`),
+      },
+    },
+    breadcrumbJsonLd([
+      { name: 'Home', path: '/' },
+      { name: 'Resume', path: '/resume' },
+    ]),
+  ]}
+/>
