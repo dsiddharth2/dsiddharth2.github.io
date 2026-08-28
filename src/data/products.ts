@@ -83,13 +83,13 @@ export const products: Product[] = [
     confidentialNote:
       'Built in a production environment; employer and product names withheld under confidentiality.',
     context:
-      'The corpus was 20K support tickets written by different people over years, with no clean schema and terminology that varied by author. Keyword search already existed and already failed — the same problem was being solved from scratch every time because nobody could find the ticket where it had been solved before. There was no ground truth to evaluate retrieval against, so quality had to be established before it could be improved.',
+      'The corpus was 20K support tickets written by different people over years, with no clean schema and terminology that varied by author. Keyword search already existed and already failed, so the same problem was being solved from scratch every time because nobody could find the ticket where it had been solved before. There was no ground truth to evaluate retrieval against, so quality had to be established before it could be improved.',
     constraints: [
-      'No usable schema — free-text tickets with author-dependent vocabulary for the same concepts',
+      'No usable schema: free-text tickets with author-dependent vocabulary for the same concepts',
       'No labelled evaluation set existed; retrieval quality had to be measured before it could be tuned',
       'Graph enrichment is far too slow to sit in the upload path, but documents had to be searchable immediately',
       'LLM cost across 20K documents made a single frontier model per chunk uneconomic',
-      'Confidential environment — the pipeline had to run entirely inside the client tenancy',
+      'Confidential environment: the pipeline had to run entirely inside the client tenancy',
     ],
     impact: [
       { metric: '20K', label: 'support documents' },
@@ -220,9 +220,9 @@ export const products: Product[] = [
     icon: 'chat',
     company: 'Apra Labs',
     context:
-      'A 4 TB operations database behind a product serving 300+ facilities, with answers split across that database, a documents archive, and 100+ report types. Non-technical operators could not query any of it without SQL or five separate admin screens, so experienced engineers were spending the day as a human router between systems. The hard part was never generating SQL — it was doing so without letting a generated query read across a tenant boundary.',
+      'A 4 TB operations database behind a product serving 300+ facilities, with answers split across that database, a documents archive, and 100+ report types. Non-technical operators could not query any of it without SQL or five separate admin screens, so experienced engineers were spending the day as a human router between systems. Generating SQL was never the hard part. Doing it without letting a generated query read across a tenant boundary was.',
     constraints: [
-      'Generated SQL runs against live production data — read-only validation and post-generation permission rewrite are non-negotiable',
+      'Generated SQL runs against live production data, so read-only validation and post-generation permission rewrite are non-negotiable',
       'Per-tenant access rules already existed and could not be bypassed or re-implemented in the agent layer',
       '4 TB across the operations database means query shape decides whether an answer takes seconds or never returns',
       'Answers must carry citations — an unsourced answer about a building is worse than no answer',
@@ -454,9 +454,9 @@ export const products: Product[] = [
     icon: 'cloud',
     company: 'Apra Labs',
     context:
-      'Cloud spend was growing month over month and the billing portal could only say that the total had moved, never why. Answering "why" meant stitching cost data, telemetry and resource inventory together by hand, so it happened quarterly at best — far too slow while waste compounded silently. A schema change could hand a third of database CPU to one query and nobody would notice for a quarter.',
+      'Cloud spend was growing month over month and the billing portal could only say that the total had moved, never why. Answering "why" meant stitching cost data, telemetry and resource inventory together by hand, so it happened quarterly at best, far too slow while waste compounded silently. A schema change could hand a third of database CPU to one query and nobody would notice for a quarter.',
     constraints: [
-      'Attribution has to be defensible — a wrong cost claim sends an engineer down a multi-day dead end',
+      'Attribution has to be defensible: a wrong cost claim sends an engineer down a multi-day dead end',
       'Six Azure APIs, SQL DMVs and the app database all had to agree before a number could be reported',
       'The analysis itself runs nightly and cannot cost a meaningful fraction of what it saves',
       'An LLM cannot be trusted to compute the numbers, only to reason about them once computed',
@@ -802,9 +802,9 @@ export const products: Product[] = [
     icon: 'truck',
     company: 'MildlyClassic',
     context:
-      'A secure jewellery logistics business running PAN India on spreadsheets and phone calls, with nothing connected end to end. Requirements came from sitting with the operations and finance teams rather than from a spec, and the system had to be adopted by hub staff who had never used software for this. Partway through, a security incident forced a full platform migration off DigitalOcean while the business kept running on it.',
+      'A secure jewellery logistics business running PAN India on spreadsheets and phone calls, with nothing connected end to end. Requirements came from sitting with the operations and finance teams, and the system had to be adopted by hub staff who had never used software for this. Partway through, a security incident forced a full platform migration off DigitalOcean while the business kept running on it.',
     constraints: [
-      'The system served the entire company — Operations and Finance — all day, every day; downtime meant shipments stopped',
+      'The system served the entire company, Operations and Finance, all day every day; downtime meant shipments stopped',
       'Hub staff with no prior software workflow had to adopt it, so bulk CSV entry mattered more than elegant UX',
       'Scaling from hundreds to 2,500 daily users happened on live infrastructure with no maintenance window',
       'A security incident forced a DigitalOcean to AWS migration inside 3 months, mid-operation',

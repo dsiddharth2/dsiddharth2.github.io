@@ -15,31 +15,31 @@ export interface PipelineStage {
 export const pipeline: PipelineStage[] = [
   {
     stage: 'Problem',
-    meaning: 'Start from what is going wrong for someone, not from a ticket.',
+    meaning: 'Start from what is going wrong for someone.',
     instance:
       'Cloud spend was climbing and the billing portal could only say the total moved, never why.',
   },
   {
     stage: 'Understand',
-    meaning: 'Sit with the people doing the work until the real constraint surfaces.',
+    meaning: 'Sit with the people doing the work until the constraint surfaces.',
     instance:
-      'Requirements for the logistics ERP came from the operations and finance teams directly — there was no spec.',
+      'Requirements for the logistics ERP came from the operations and finance teams directly. There was no spec.',
   },
   {
     stage: 'Explore',
-    meaning: 'Find where the difficulty actually is before committing to a shape.',
+    meaning: 'Find where the difficulty is before committing to a shape.',
     instance:
       'Blending everything into one vector index looked obvious, until the reranker could not tell why a chunk matched.',
   },
   {
     stage: 'Prototype',
-    meaning: 'Build the smallest thing that proves the approach survives real data.',
+    meaning: 'Build the smallest thing that proves the approach holds on production data.',
     instance:
       'The GraphRAG evaluation harness went in early, so retrieval quality could be measured before it was tuned.',
   },
   {
     stage: 'Build',
-    meaning: 'Take it to production quality — the access model, the failure paths, the seams.',
+    meaning: 'Take it to production quality: the access model, the failure paths, the seams.',
     instance:
       'Generated SQL gets read-only validation and a post-generation permission rewrite before it touches live data.',
   },

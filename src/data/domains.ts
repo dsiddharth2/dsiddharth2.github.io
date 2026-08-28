@@ -31,14 +31,14 @@ export const domains: Domain[] = [
   {
     title: 'Production Systems',
     problem:
-      'Something has to work every day for people whose job depends on it — and keep working while it scales underneath them.',
+      'A system the whole company runs on, all day, where an hour of downtime means shipments stop.',
     work: 'Cloud architecture, distributed systems, APIs, data pipelines, and the observability to know when they degrade.',
     evidence: { label: 'Secure Logistics ERP', href: '/projects/logistics-erp' },
   },
   {
     title: 'Secure AI',
     problem:
-      'An AI system that can read the database can read the wrong tenant’s data — unless the access model is designed in, not bolted on.',
+      'An AI system that can read the database can read the wrong tenant’s data. The access model has to be part of the design.',
     work: 'Permission-aware generation, post-generation query rewriting, read-only validation, and enterprise access control.',
     evidence: { label: 'Permission rewrite on generated SQL', href: '/projects/multi-agent' },
   },

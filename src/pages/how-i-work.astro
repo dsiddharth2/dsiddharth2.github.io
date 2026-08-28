@@ -9,7 +9,7 @@ import { site } from '@/config/site';
 import { breadcrumbJsonLd } from '@/utils/seo';
 
 const description =
-  'The loop I run on every system — problem, understand, explore, prototype, build, deploy, measure, iterate — and three systems it produced.';
+  'The loop I run on every system: problem, understand, explore, prototype, build, deploy, measure, iterate. Plus three systems it produced.';
 
 const studies = resolvedCaseStudies();
 
@@ -17,27 +17,27 @@ const intersections = [
   {
     title: 'Customer / user problem',
     detail:
-      'What is actually going wrong for the person doing the job, stated without the solution baked in.',
+      'What is going wrong for the person doing the job, stated without the solution baked in.',
   },
   {
     title: 'Product',
     detail:
-      'What is worth building, what can wait, and what the business will still need in two years.',
+      'What is worth building now and what can wait, when one platform serves 300+ tenants with different priorities.',
   },
   {
     title: 'Engineering',
     detail:
-      'What survives production — the access model, the failure paths, the cost of the thing running every night.',
+      'What it costs to run every night, and what happens when a dependency it does not own goes down.',
   },
   {
     title: 'AI',
     detail:
-      'Where a model genuinely helps, and where a deterministic answer is cheaper, faster and more defensible.',
+      'Where a model helps, and where a deterministic answer is cheaper, faster and more defensible.',
   },
 ];
 
 const constraints = [
-  'Confidential client environments — employer and product names withheld under NDA.',
+  'Confidential client environments, with employer and product names withheld under NDA.',
   'Multi-tenant permission rewriting applied to generated SQL, so a natural-language query can never read across a tenant boundary.',
   'A 4 TB production operations database queried live, with read-only validation on everything generated.',
   'A DigitalOcean to AWS migration completed in 3 months, following a security incident, while the business kept running.',
@@ -78,8 +78,7 @@ const constraints = [
       <div class="fieldwork-container">
         <h2 class="about-heading" data-reveal>Where I like to work</h2>
         <p class="intersection-lede" data-reveal data-reveal-delay="1">
-          The problems I find most interesting sit where all four of these overlap. Miss any one of
-          them and you get a system that demos well and does not survive contact with the business.
+          The problems I find most interesting sit where all four of these overlap.
         </p>
         <div class="intersection-grid" data-reveal data-reveal-delay="2">
           {intersections.map((item, index) => (
