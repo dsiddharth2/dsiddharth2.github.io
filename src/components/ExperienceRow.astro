@@ -4,11 +4,18 @@ import type { ExperienceEntry } from '@/data/experience';
 interface Props {
   entry: ExperienceEntry;
   reveal?: boolean;
-  /** Timeline mode — drop the bullet lists and callout, keep the headline facts. */
+  /**
+   * Timeline mode. Keeps the headline facts and the top three things shipped,
+   * drops the leadership columns and the callout. The sidebar carries identity
+   * only and the metrics move into the body, so the two columns stay balanced.
+   */
   compact?: boolean;
 }
 
 const { entry, reveal = false, compact = false } = Astro.props;
+
+const shownItems = compact ? entry.items?.slice(0, 3) : entry.items;
+const hiddenItemCount = compact && entry.items ? entry.items.length - (shownItems?.length ?? 0) : 0;
 ---
 
 <article class:list={['experience-entry', compact && 'experience-entry--compact']} data-reveal={reveal || undefined}>
@@ -17,7 +24,7 @@ const { entry, reveal = false, compact = false } = Astro.props;
       <h3 class="experience-company">{entry.company}</h3>
       {entry.role && <p class="experience-role">{entry.role}</p>}
       <p class="experience-period">{entry.period}</p>
-      {entry.metrics && (
+      {!compact && entry.metrics && (
         <div class="experience-metrics">
           {entry.metrics.map((metric) => (
             <div class="experience-metric">
@@ -45,12 +52,22 @@ const { entry, reveal = false, compact = false } = Astro.props;
       ) : (
         <>
           <p class="experience-summary">{entry.summary}</p>
-          {!compact && entry.items && (
+          {shownItems && shownItems.length > 0 && (
             <ul class="experience-list">
-              {entry.items.map((item) => (
+              {shownItems.map((item) => (
                 <li>{item}</li>
               ))}
             </ul>
+          )}
+          {compact && entry.metrics && (
+            <div class="experience-metrics experience-metrics--inline">
+              {entry.metrics.map((metric) => (
+                <div class="experience-metric">
+                  <span class="experience-metric-value">{metric.value}</span>
+                  <span class="experience-metric-label">{metric.label}</span>
+                </div>
+              ))}
+            </div>
           )}
           {!compact && entry.columns?.map((column) => (
             <div>
@@ -71,7 +88,7 @@ const { entry, reveal = false, compact = false } = Astro.props;
         </>
       )}
       <a href={`/experience/${entry.id}`} class="experience-view-more">
-        View More
+        {hiddenItemCount > 0 ? `${hiddenItemCount} more, and the leadership work` : 'View More'}
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M5 12h14"></path>
           <path d="M12 5l7 7-7 7"></path>

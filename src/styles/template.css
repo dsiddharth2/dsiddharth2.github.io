@@ -541,28 +541,37 @@ button.btn-hero-secondary {
   border-bottom: none;
 }
 
-/* Timeline mode on the homepage — headline facts only, metrics laid out inline */
+/* Timeline mode on the homepage — identity on the left, substance on the right */
 .experience-entry--compact {
-  padding: 22px 0;
-}
-
-.experience-entry--compact .experience-metrics {
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 14px;
-}
-
-.experience-entry--compact .experience-metric + .experience-metric {
-  margin-top: 0;
-}
-
-.experience-entry--compact .experience-metric-value {
-  font-size: 18px;
+  padding: 26px 0;
 }
 
 .experience-entry--compact .experience-summary {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+/* Metrics move into the body in compact mode and run as one horizontal strip */
+.experience-metrics.experience-metrics--inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.experience-metrics.experience-metrics--inline .experience-metric + .experience-metric {
+  margin-top: 0;
+}
+
+.experience-metrics.experience-metrics--inline .experience-metric-value {
+  font-size: 20px;
+}
+
+.experience-entry--compact .experience-list {
+  gap: 6px;
+  font-size: 15px;
+  color: #444;
 }
 
 .experience-more {
