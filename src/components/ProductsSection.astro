@@ -4,9 +4,18 @@ import { products } from '@/data/products';
 
 interface Props {
   hideIntro?: boolean;
+  /** Show only the first N products and link out to the full listing. */
+  limit?: number;
+  /** Slugs to leave out — used on the homepage so featured deployments aren't repeated. */
+  exclude?: string[];
 }
 
-const { hideIntro = false } = Astro.props;
+const { hideIntro = false, limit, exclude = [] } = Astro.props;
+const available = exclude.length
+  ? products.filter((product) => !exclude.includes(product.slug))
+  : products;
+const shown = limit ? available.slice(0, limit) : available;
+const hasMore = shown.length < products.length;
 ---
 
 <section
@@ -25,7 +34,7 @@ const { hideIntro = false } = Astro.props;
       </>
     )}
     <div class="products-grid">
-      {products.map((product, index) => (
+      {shown.map((product, index) => (
         <article class="product-card" data-reveal data-reveal-delay={String((index % 2) + 1)}>
           <ProductIcon icon={product.icon} />
           <h3 class="product-title">{product.title}</h3>
@@ -48,5 +57,24 @@ const { hideIntro = false } = Astro.props;
         </article>
       ))}
     </div>
+
+    {hasMore && (
+      <div class="products-more-row" data-reveal>
+        <a href="/projects" class="products-more">
+          View all {products.length} products
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        <a href="/opensource" class="products-more">
+          Open source I maintain
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    )}
   </div>
 </section>

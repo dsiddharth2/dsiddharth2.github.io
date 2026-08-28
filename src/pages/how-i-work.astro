@@ -1,0 +1,164 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import ContactSection from '@/components/ContactSection.astro';
+import RevealScript from '@/components/RevealScript.astro';
+import { resolvedDeployments } from '@/data/deployments';
+import { site } from '@/config/site';
+import { breadcrumbJsonLd } from '@/utils/seo';
+
+const description =
+  'How I run a customer engagement — find the problem nobody is solving, architect the system, hire and mentor the team, ship to production, hand it off.';
+
+const items = resolvedDeployments();
+
+const pattern = [
+  {
+    step: 'Sit with the customer',
+    detail:
+      'Requirements come from the people doing the work, not a spec handed down. Direct client interface since 2016 — requirements through delivery. Three clients concurrently today.',
+  },
+  {
+    step: 'Architect the system',
+    detail:
+      'Every system on this site was architected end-to-end, not inherited. Logistics ERP, GraphRAG pipeline, multi-agent orchestration, FinOps agent.',
+  },
+  {
+    step: 'Hire and mentor the team',
+    detail:
+      '20+ engineers hired and mentored — 7 at MildlyClassic, ~3 at UXgage, a 4-person team at Apra Labs. Campus hiring lead for 4 years.',
+  },
+  {
+    step: 'Ship to production',
+    detail:
+      'A 4-week release cycle at MildlyClassic — build, test, deploy, monthly. Scaled 100s to 2,500 daily users with zero downtime.',
+  },
+  {
+    step: 'Hand off and enable',
+    detail:
+      'Ten community meetups run on Saturdays. Non-technical staff querying a 4 TB database themselves. Teams now own and track their own cloud spend.',
+  },
+];
+
+const constraints = [
+  'Confidential client environments — employer and product names withheld under NDA.',
+  'Multi-tenant permission rewriting applied to generated SQL, so natural-language queries can never read across a tenant boundary.',
+  'A 4 TB production operations database queried live, with read-only validation on everything generated.',
+  'A DigitalOcean to AWS migration completed in 3 months, following a security incident.',
+  'Zero-downtime scaling from hundreds to 2,500 daily users on a system finance and operations depended on all day.',
+  '20K unstructured support documents with no clean schema and author-dependent terminology.',
+];
+---
+
+<BaseLayout
+  title={`How I Work — ${site.name}`}
+  description={description}
+  canonicalPath="/how-i-work"
+  jsonLd={breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'How I Work', path: '/how-i-work' },
+  ])}
+>
+  <Nav />
+  <main id="main-content">
+    <section class="about-hero about-hero--cream">
+      <div class="about-hero-inner">
+        <div class="about-hero-copy">
+          <p class="hero-kicker" data-reveal>How I Work</p>
+          <h1 class="about-hero-title" data-reveal data-reveal-delay="1">
+            How I work with customers
+          </h1>
+          <p class="about-hero-lede" data-reveal data-reveal-delay="2">
+            {description}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section about-section--white">
+      <div class="fieldwork-container">
+        <h2 class="about-heading" data-reveal>The pattern</h2>
+        <ol class="pattern-list">
+          {pattern.map((item, index) => (
+            <li class="pattern-item" data-reveal data-reveal-delay={String(Math.min(index, 3))}>
+              <span class="pattern-index">{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <p class="pattern-step">{item.step}</p>
+                <p class="pattern-detail">{item.detail}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="about-section about-section--cream">
+      <div class="fieldwork-container">
+        <h2 class="about-heading" data-reveal>Three deployments</h2>
+
+        {items.map((item) => (
+          <article class="fieldwork" data-reveal>
+            <header class="fieldwork-header">
+              <p class="fieldwork-flavour">{item.flavour}</p>
+              <h3 class="fieldwork-title">{item.product.title}</h3>
+              <p class="fieldwork-tagline">{item.product.tagline}</p>
+              {item.product.confidentialNote && (
+                <p class="fieldwork-note">{item.product.confidentialNote}</p>
+              )}
+            </header>
+
+            <div class="fieldwork-metrics">
+              {item.product.impact.map((metric) => (
+                <div class="fieldwork-metric">
+                  <span class="fieldwork-metric-value">{metric.metric}</span>
+                  <span class="fieldwork-metric-label">{metric.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <div class="fieldwork-cols">
+              <div>
+                <p class="fieldwork-subheading">The problem on the ground</p>
+                <ul class="fieldwork-list">
+                  {item.product.overview.problem.map((line) => <li>{line}</li>)}
+                </ul>
+              </div>
+              <div>
+                <p class="fieldwork-subheading">What I built</p>
+                <ul class="fieldwork-list">
+                  {item.product.overview.solution.map((line) => <li>{line}</li>)}
+                </ul>
+              </div>
+              <div>
+                <p class="fieldwork-subheading">What changed</p>
+                <ul class="fieldwork-list">
+                  {item.product.overview.outcome.map((line) => <li>{line}</li>)}
+                </ul>
+              </div>
+            </div>
+
+            <a href={item.href} class="fieldwork-link">
+              Architecture and decisions
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="about-section about-section--white">
+      <div class="fieldwork-container">
+        <h2 class="about-heading" data-reveal>Constraints I've worked under</h2>
+        <ul class="constraint-list" data-reveal data-reveal-delay="1">
+          {constraints.map((line) => <li>{line}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <ContactSection />
+  </main>
+  <RevealScript />
+</BaseLayout>

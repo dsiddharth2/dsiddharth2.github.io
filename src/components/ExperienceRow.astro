@@ -4,12 +4,14 @@ import type { ExperienceEntry } from '@/data/experience';
 interface Props {
   entry: ExperienceEntry;
   reveal?: boolean;
+  /** Timeline mode — drop the bullet lists and callout, keep the headline facts. */
+  compact?: boolean;
 }
 
-const { entry, reveal = false } = Astro.props;
+const { entry, reveal = false, compact = false } = Astro.props;
 ---
 
-<article class="experience-entry" data-reveal={reveal || undefined}>
+<article class:list={['experience-entry', compact && 'experience-entry--compact']} data-reveal={reveal || undefined}>
   <div class="experience-row">
     <div class="experience-sidebar">
       <h3 class="experience-company">{entry.company}</h3>
@@ -43,14 +45,14 @@ const { entry, reveal = false } = Astro.props;
       ) : (
         <>
           <p class="experience-summary">{entry.summary}</p>
-          {entry.items && (
+          {!compact && entry.items && (
             <ul class="experience-list">
               {entry.items.map((item) => (
                 <li>{item}</li>
               ))}
             </ul>
           )}
-          {entry.columns?.map((column) => (
+          {!compact && entry.columns?.map((column) => (
             <div>
               <p class="experience-subheading">{column.title}</p>
               <ul class="experience-list">
@@ -60,7 +62,7 @@ const { entry, reveal = false } = Astro.props;
               </ul>
             </div>
           ))}
-          {entry.extra && (
+          {!compact && entry.extra && (
             <div class="experience-callout">
               <p class="experience-callout-title">{entry.extra.title}</p>
               <p class="experience-callout-body">{entry.extra.description}</p>

@@ -3,14 +3,16 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Hero from '@/components/Hero.astro';
 import ImpactHighlights from '@/components/ImpactHighlights.astro';
-import PhilosophySection from '@/components/PhilosophySection.astro';
+import DeploymentsSection from '@/components/DeploymentsSection.astro';
 import ExperienceSection from '@/components/ExperienceSection.astro';
 import ProductsSection from '@/components/ProductsSection.astro';
-import OpenSourceSection from '@/components/OpenSourceSection.astro';
-import RecognitionSection from '@/components/RecognitionSection.astro';
 import ContactSection from '@/components/ContactSection.astro';
 import RevealScript from '@/components/RevealScript.astro';
+import { deployments } from '@/data/deployments';
 import { personJsonLd, websiteJsonLd } from '@/utils/seo';
+
+/** Featured above as deployments — don't repeat them in the products grid. */
+const featuredSlugs = deployments.map((deployment) => deployment.slug);
 ---
 
 <BaseLayout
@@ -22,11 +24,9 @@ import { personJsonLd, websiteJsonLd } from '@/utils/seo';
   <main id="main-content">
     <Hero />
     <ImpactHighlights />
-    <PhilosophySection />
-    <ExperienceSection />
-    <ProductsSection />
-    <OpenSourceSection />
-    <RecognitionSection />
+    <DeploymentsSection />
+    <ProductsSection limit={4} exclude={featuredSlugs} />
+    <ExperienceSection compact limit={3} />
     <ContactSection />
   </main>
   <RevealScript />
