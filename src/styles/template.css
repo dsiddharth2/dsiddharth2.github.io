@@ -839,33 +839,12 @@ button.btn-hero-secondary {
 
 /* Case studies — problem, constraint, approach, decision, outcome */
 .case-section {
-  background: #fff;
+  background: #1a1a1a;
 }
 
 .case-title {
+  color: #fff;
   margin-bottom: 28px;
-}
-
-.case-quote {
-  margin: 0 0 40px;
-  padding: 16px 0 16px 20px;
-  border-left: 3px solid #f5a623;
-  max-width: 640px;
-}
-
-.case-quote p {
-  margin: 0 0 6px;
-  font-size: 16px;
-  line-height: 1.55;
-  font-style: italic;
-  color: #1a1a1a;
-}
-
-.case-quote cite {
-  font-size: 12px;
-  font-weight: 600;
-  font-style: normal;
-  color: #666;
 }
 
 .case-grid {
@@ -877,8 +856,8 @@ button.btn-hero-secondary {
 .case-card {
   display: flex;
   flex-direction: column;
-  background: #fffbf2;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 28px;
   transition: border-color 0.2s;
@@ -902,7 +881,7 @@ button.btn-hero-secondary {
   font-size: 19px;
   font-weight: 700;
   margin: 0 0 18px;
-  color: #1a1a1a;
+  color: #fff;
   line-height: 1.25;
 }
 
@@ -914,7 +893,7 @@ button.btn-hero-secondary {
 .case-facts dt {
   font-size: 11px;
   font-weight: 700;
-  color: #999;
+  color: rgba(255, 255, 255, 0.45);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: 4px;
@@ -924,13 +903,13 @@ button.btn-hero-secondary {
   margin: 0 0 16px;
   font-size: 14px;
   line-height: 1.55;
-  color: #444;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .case-tagline {
   font-size: 14px;
   line-height: 1.55;
-  color: #444;
+  color: rgba(255, 255, 255, 0.55);
   margin: 0 0 18px;
 }
 
@@ -938,20 +917,20 @@ button.btn-hero-secondary {
 .case-decision {
   margin: 4px 0 0;
   padding: 14px 16px;
-  background: rgba(245, 166, 35, 0.09);
+  background: rgba(245, 166, 35, 0.13);
   border-left: 2px solid #f5a623;
   border-radius: 0 6px 6px 0;
   font-size: 13.5px;
   line-height: 1.55;
   font-weight: 600;
-  color: #1a1a1a;
+  color: #fff;
 }
 
 .case-decision-label {
   display: block;
   font-size: 10px;
   font-weight: 700;
-  color: #b06e0a;
+  color: #f5a623;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 5px;
@@ -960,7 +939,7 @@ button.btn-hero-secondary {
 .case-card-footer {
   margin-top: 18px;
   padding-top: 18px;
-  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .case-outcome {
@@ -974,14 +953,14 @@ button.btn-hero-secondary {
   font-family: 'Space Grotesk', system-ui, sans-serif;
   font-size: 26px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #fff;
   line-height: 1;
 }
 
 .case-outcome-label {
   font-size: 12px;
   font-weight: 600;
-  color: #666;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .case-view-more,
@@ -991,7 +970,7 @@ button.btn-hero-secondary {
   gap: 6px;
   font-size: 13px;
   font-weight: 600;
-  color: #666;
+  color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -999,14 +978,14 @@ button.btn-hero-secondary {
 .case-more {
   margin-top: 32px;
   font-size: 14px;
-  color: #1a1a1a;
+  color: #fff;
 }
 
 .case-view-more:hover,
 .case-view-more:focus-visible,
 .case-more:hover,
 .case-more:focus-visible {
-  color: #b06e0a;
+  color: #f5a623;
 }
 
 .products-section {
