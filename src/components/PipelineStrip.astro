@@ -1,0 +1,53 @@
+---
+import { pipeline } from '@/data/pipeline';
+
+interface Props {
+  /** Full mode adds the practical meaning and a real instance under each stage. */
+  detailed?: boolean;
+  hideIntro?: boolean;
+}
+
+const { detailed = false, hideIntro = false } = Astro.props;
+---
+
+<section
+  class:list={['pipeline-section', detailed && 'pipeline-section--detailed']}
+  aria-labelledby={hideIntro ? undefined : 'pipeline-heading'}
+  aria-label={hideIntro ? 'How I work' : undefined}
+>
+  <div class="page-container section-padding">
+    {!hideIntro && (
+      <>
+        <p class="section-eyebrow" data-reveal>How I Work</p>
+        <h2 id="pipeline-heading" class="section-title pipeline-title" data-reveal data-reveal-delay="1">
+          The same loop, every time.
+        </h2>
+      </>
+    )}
+
+    <ol class="pipeline-flow" data-reveal>
+      {pipeline.map((step, index) => (
+        <li class="pipeline-step">
+          <span class="pipeline-index">{String(index + 1).padStart(2, '0')}</span>
+          <p class="pipeline-stage">{step.stage}</p>
+          {detailed && (
+            <>
+              <p class="pipeline-meaning">{step.meaning}</p>
+              <p class="pipeline-instance">{step.instance}</p>
+            </>
+          )}
+        </li>
+      ))}
+    </ol>
+
+    {!detailed && (
+      <a href="/how-i-work" class="pipeline-more" data-reveal>
+        What each step means in practice
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"></path>
+          <path d="M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    )}
+  </div>
+</section>

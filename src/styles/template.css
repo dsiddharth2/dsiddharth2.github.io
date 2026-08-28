@@ -255,7 +255,7 @@
 }
 
 .hero-content {
-  max-width: 640px;
+  max-width: 700px;
   min-width: 0;
 }
 
@@ -270,8 +270,9 @@
 
 .hero-title {
   font-family: 'Space Grotesk', system-ui, sans-serif;
-  font-size: clamp(48px, 6vw, 72px);
-  line-height: 1.05;
+  /* Sized so the three forced lines each hold on one row at 700px */
+  font-size: clamp(40px, 5vw, 62px);
+  line-height: 1.06;
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.03em;
@@ -291,6 +292,29 @@
   gap: 12px;
   margin-top: 40px;
   align-items: center;
+}
+
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 22px;
+}
+
+.hero-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.hero-link:hover,
+.hero-link:focus-visible {
+  color: #f5a623;
 }
 
 .btn-hero-primary {
@@ -735,23 +759,197 @@ button.btn-hero-secondary {
 }
 
 /* Products — dark */
-/* Selected work — problem, constraint, approach, outcome */
-.deployments-section {
+/* How I Work — the eight-stage loop, compact on the homepage, annotated on /how-i-work */
+.pipeline-section {
+  background: #1a1a1a;
+}
+
+.pipeline-title {
+  color: #fff;
+  margin-bottom: 40px;
+}
+
+.pipeline-flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0;
+}
+
+.pipeline-step {
+  position: relative;
+  padding: 0 16px 0 0;
+}
+
+/* Connector arrow between stages */
+.pipeline-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  width: 6px;
+  height: 6px;
+  border-top: 1.5px solid rgba(245, 166, 35, 0.55);
+  border-right: 1.5px solid rgba(245, 166, 35, 0.55);
+  transform: rotate(45deg);
+}
+
+.pipeline-index {
+  display: block;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #f5a623;
+  letter-spacing: 0.06em;
+}
+
+.pipeline-stage {
+  margin: 6px 0 0;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.pipeline-section--detailed .pipeline-flow {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px 24px;
+}
+
+.pipeline-section--detailed .pipeline-step {
+  padding: 0;
+}
+
+.pipeline-section--detailed .pipeline-step::after {
+  display: none;
+}
+
+.pipeline-section--detailed .pipeline-stage {
+  font-size: 17px;
+}
+
+.pipeline-meaning {
+  margin: 8px 0 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.pipeline-instance {
+  margin: 10px 0 0;
+  padding-left: 10px;
+  border-left: 2px solid rgba(245, 166, 35, 0.5);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.pipeline-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 32px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.pipeline-more:hover,
+.pipeline-more:focus-visible {
+  color: #f5a623;
+}
+
+/* What I Build — classes of problem, each linked to the system that proves it */
+.build-section {
+  background: #fffbf2;
+}
+
+.build-title {
+  margin-bottom: 40px;
+}
+
+.build-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.build-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 16px;
+  padding: 30px;
+  transition: border-color 0.2s;
+}
+
+.build-card:hover {
+  border-color: #f5a623;
+}
+
+.build-card-title {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  color: #1a1a1a;
+}
+
+.build-problem {
+  margin: 0 0 14px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.build-work {
+  margin: 0 0 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+  flex: 1;
+}
+
+.build-evidence {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #b06e0a;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.build-evidence:hover,
+.build-evidence:focus-visible {
+  color: #1a1a1a;
+}
+
+/* Case studies — problem, constraint, approach, decision, outcome */
+.case-section {
   background: #fff;
 }
 
-.deployments-title {
+.case-title {
   margin-bottom: 28px;
 }
 
-.deployments-quote {
+.case-quote {
   margin: 0 0 40px;
   padding: 16px 0 16px 20px;
   border-left: 3px solid #f5a623;
   max-width: 640px;
 }
 
-.deployments-quote p {
+.case-quote p {
   margin: 0 0 6px;
   font-size: 16px;
   line-height: 1.55;
@@ -759,20 +957,20 @@ button.btn-hero-secondary {
   color: #1a1a1a;
 }
 
-.deployments-quote cite {
+.case-quote cite {
   font-size: 12px;
   font-weight: 600;
   font-style: normal;
   color: #666;
 }
 
-.deployments-grid {
+.case-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
-.deployment-card {
+.case-card {
   display: flex;
   flex-direction: column;
   background: #fffbf2;
@@ -782,11 +980,11 @@ button.btn-hero-secondary {
   transition: border-color 0.2s;
 }
 
-.deployment-card:hover {
+.case-card:hover {
   border-color: #f5a623;
 }
 
-.deployment-flavour {
+.case-domain {
   font-size: 11px;
   font-weight: 700;
   color: #f5a623;
@@ -795,7 +993,7 @@ button.btn-hero-secondary {
   letter-spacing: 0.08em;
 }
 
-.deployment-title {
+.case-card-title {
   font-family: 'Space Grotesk', system-ui, sans-serif;
   font-size: 19px;
   font-weight: 700;
@@ -804,12 +1002,12 @@ button.btn-hero-secondary {
   line-height: 1.25;
 }
 
-.deployment-facts {
+.case-facts {
   margin: 0;
   flex: 1;
 }
 
-.deployment-facts dt {
+.case-facts dt {
   font-size: 11px;
   font-weight: 700;
   color: #999;
@@ -818,27 +1016,57 @@ button.btn-hero-secondary {
   margin-bottom: 4px;
 }
 
-.deployment-facts dd {
+.case-facts dd {
   margin: 0 0 16px;
   font-size: 14px;
   line-height: 1.55;
   color: #444;
 }
 
-.deployment-card-footer {
-  margin-top: 8px;
+.case-tagline {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #444;
+  margin: 0 0 18px;
+}
+
+/* The reasoning signal — nothing else above the fold shows how decisions get made */
+.case-decision {
+  margin: 4px 0 0;
+  padding: 14px 16px;
+  background: rgba(245, 166, 35, 0.09);
+  border-left: 2px solid #f5a623;
+  border-radius: 0 6px 6px 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.case-decision-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #b06e0a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 5px;
+}
+
+.case-card-footer {
+  margin-top: 18px;
   padding-top: 18px;
   border-top: 1px solid rgba(0, 0, 0, 0.07);
 }
 
-.deployment-outcome {
+.case-outcome {
   display: flex;
   align-items: baseline;
   gap: 8px;
   margin: 0 0 14px;
 }
 
-.deployment-outcome-metric {
+.case-outcome-metric {
   font-family: 'Space Grotesk', system-ui, sans-serif;
   font-size: 26px;
   font-weight: 700;
@@ -846,14 +1074,14 @@ button.btn-hero-secondary {
   line-height: 1;
 }
 
-.deployment-outcome-label {
+.case-outcome-label {
   font-size: 12px;
   font-weight: 600;
   color: #666;
 }
 
-.deployment-view-more,
-.deployments-more {
+.case-view-more,
+.case-more {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -864,16 +1092,16 @@ button.btn-hero-secondary {
   transition: color 0.2s;
 }
 
-.deployments-more {
+.case-more {
   margin-top: 32px;
   font-size: 14px;
   color: #1a1a1a;
 }
 
-.deployment-view-more:hover,
-.deployment-view-more:focus-visible,
-.deployments-more:hover,
-.deployments-more:focus-visible {
+.case-view-more:hover,
+.case-view-more:focus-visible,
+.case-more:hover,
+.case-more:focus-visible {
   color: #b06e0a;
 }
 
@@ -1419,13 +1647,39 @@ button.btn-hero-secondary {
     gap: 18px;
   }
 
-  .deployments-grid {
+  .case-grid {
     grid-template-columns: 1fr;
   }
 
   .fieldwork-cols {
     grid-template-columns: 1fr;
     gap: 22px;
+  }
+
+  .pipeline-flow {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px 0;
+  }
+
+  .pipeline-section--detailed .pipeline-flow {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .build-grid,
+  .intersection-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pipeline-flow,
+  .pipeline-section--detailed .pipeline-flow {
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 12px;
+  }
+
+  .pipeline-step:not(:last-child)::after {
+    display: none;
   }
 }
 
@@ -2109,6 +2363,67 @@ button.btn-hero-secondary {
   color: #b06e0a;
 }
 
+.fieldwork-context {
+  margin: 18px 0 0;
+  padding: 16px 18px;
+  background: #fff;
+  border-left: 3px solid #f5a623;
+  border-radius: 0 8px 8px 0;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: #2a2d33;
+  max-width: 860px;
+}
+
+.fieldwork-constraints {
+  margin-top: 26px;
+}
+
+.intersection-lede {
+  margin: 0 0 28px;
+  max-width: 760px;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #444;
+}
+
+.intersection-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 32px;
+  max-width: 900px;
+}
+
+.intersection-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.intersection-mark {
+  flex: none;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #f5a623;
+  line-height: 1.3;
+  width: 18px;
+}
+
+.intersection-title {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.intersection-detail {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #666;
+}
+
 .constraint-list {
   margin: 0;
   padding: 0 0 0 18px;
@@ -2310,6 +2625,46 @@ button.btn-hero-secondary {
 
 .project-hero-note--italic {
   font-style: italic;
+}
+
+/* What made it hard — the conditions around the work, above problem/solution/outcome */
+.project-context {
+  background: #fff;
+  padding: 44px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.project-context-kicker {
+  font-size: 12px;
+  font-weight: 700;
+  color: #c4841d;
+  margin: 0 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.project-context-body {
+  margin: 0;
+  max-width: 760px;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #2a2d33;
+}
+
+.project-constraint-list {
+  margin: 0;
+  padding: 0 0 0 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #444;
+  max-width: 760px;
+}
+
+.project-constraint-list li::marker {
+  color: #f5a623;
 }
 
 .project-overview {

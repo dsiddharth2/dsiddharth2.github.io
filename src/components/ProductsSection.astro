@@ -21,15 +21,15 @@ const hasMore = shown.length < products.length;
 <section
   id="products"
   class:list={['products-section', hideIntro && 'products-section--page']}
-  aria-label={hideIntro ? 'Products' : undefined}
+  aria-label={hideIntro ? 'Case studies' : undefined}
   aria-labelledby={hideIntro ? undefined : 'products-heading'}
 >
   <div class="page-container section-padding">
     {!hideIntro && (
       <>
-        <p class="section-eyebrow" data-reveal>Products</p>
+        <p class="section-eyebrow" data-reveal>Case Studies</p>
         <h2 id="products-heading" class="section-title section-title--light" data-reveal data-reveal-delay="1">
-          Systems I've architected and shipped
+          Systems I architected and shipped
         </h2>
       </>
     )}

@@ -1,52 +1,49 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
+import PipelineStrip from '@/components/PipelineStrip.astro';
 import ContactSection from '@/components/ContactSection.astro';
 import RevealScript from '@/components/RevealScript.astro';
-import { resolvedDeployments } from '@/data/deployments';
+import { resolvedCaseStudies } from '@/data/caseStudies';
 import { site } from '@/config/site';
 import { breadcrumbJsonLd } from '@/utils/seo';
 
 const description =
-  'How I run a customer engagement — find the problem nobody is solving, architect the system, hire and mentor the team, ship to production, hand it off.';
+  'The loop I run on every system — problem, understand, explore, prototype, build, deploy, measure, iterate — and three systems it produced.';
 
-const items = resolvedDeployments();
+const studies = resolvedCaseStudies();
 
-const pattern = [
+const intersections = [
   {
-    step: 'Sit with the customer',
+    title: 'Customer / user problem',
     detail:
-      'Requirements come from the people doing the work, not a spec handed down. Direct client interface since 2016 — requirements through delivery. Three clients concurrently today.',
+      'What is actually going wrong for the person doing the job, stated without the solution baked in.',
   },
   {
-    step: 'Architect the system',
+    title: 'Product',
     detail:
-      'Every system on this site was architected end-to-end, not inherited. Logistics ERP, GraphRAG pipeline, multi-agent orchestration, FinOps agent.',
+      'What is worth building, what can wait, and what the business will still need in two years.',
   },
   {
-    step: 'Hire and mentor the team',
+    title: 'Engineering',
     detail:
-      '20+ engineers hired and mentored — 7 at MildlyClassic, ~3 at UXgage, a 4-person team at Apra Labs. Campus hiring lead for 4 years.',
+      'What survives production — the access model, the failure paths, the cost of the thing running every night.',
   },
   {
-    step: 'Ship to production',
+    title: 'AI',
     detail:
-      'A 4-week release cycle at MildlyClassic — build, test, deploy, monthly. Scaled 100s to 2,500 daily users with zero downtime.',
-  },
-  {
-    step: 'Hand off and enable',
-    detail:
-      'Ten community meetups run on Saturdays. Non-technical staff querying a 4 TB database themselves. Teams now own and track their own cloud spend.',
+      'Where a model genuinely helps, and where a deterministic answer is cheaper, faster and more defensible.',
   },
 ];
 
 const constraints = [
   'Confidential client environments — employer and product names withheld under NDA.',
-  'Multi-tenant permission rewriting applied to generated SQL, so natural-language queries can never read across a tenant boundary.',
+  'Multi-tenant permission rewriting applied to generated SQL, so a natural-language query can never read across a tenant boundary.',
   'A 4 TB production operations database queried live, with read-only validation on everything generated.',
-  'A DigitalOcean to AWS migration completed in 3 months, following a security incident.',
+  'A DigitalOcean to AWS migration completed in 3 months, following a security incident, while the business kept running.',
   'Zero-downtime scaling from hundreds to 2,500 daily users on a system finance and operations depended on all day.',
   '20K unstructured support documents with no clean schema and author-dependent terminology.',
+  'Nightly analysis that has to cost a small fraction of the spend it is there to reduce.',
 ];
 ---
 
@@ -66,7 +63,7 @@ const constraints = [
         <div class="about-hero-copy">
           <p class="hero-kicker" data-reveal>How I Work</p>
           <h1 class="about-hero-title" data-reveal data-reveal-delay="1">
-            How I work with customers
+            From ambiguous problem<br />to production
           </h1>
           <p class="about-hero-lede" data-reveal data-reveal-delay="2">
             {description}
@@ -75,40 +72,50 @@ const constraints = [
       </div>
     </section>
 
+    <PipelineStrip detailed hideIntro />
+
     <section class="about-section about-section--white">
       <div class="fieldwork-container">
-        <h2 class="about-heading" data-reveal>The pattern</h2>
-        <ol class="pattern-list">
-          {pattern.map((item, index) => (
-            <li class="pattern-item" data-reveal data-reveal-delay={String(Math.min(index, 3))}>
-              <span class="pattern-index">{String(index + 1).padStart(2, '0')}</span>
+        <h2 class="about-heading" data-reveal>Where I like to work</h2>
+        <p class="intersection-lede" data-reveal data-reveal-delay="1">
+          The problems I find most interesting sit where all four of these overlap. Miss any one of
+          them and you get a system that demos well and does not survive contact with the business.
+        </p>
+        <div class="intersection-grid" data-reveal data-reveal-delay="2">
+          {intersections.map((item, index) => (
+            <div class="intersection-item">
+              <span class="intersection-mark" aria-hidden="true">{index < 3 ? '×' : '='}</span>
               <div>
-                <p class="pattern-step">{item.step}</p>
-                <p class="pattern-detail">{item.detail}</p>
+                <p class="intersection-title">{item.title}</p>
+                <p class="intersection-detail">{item.detail}</p>
               </div>
-            </li>
+            </div>
           ))}
-        </ol>
+        </div>
       </div>
     </section>
 
     <section class="about-section about-section--cream">
       <div class="fieldwork-container">
-        <h2 class="about-heading" data-reveal>Three deployments</h2>
+        <h2 class="about-heading" data-reveal>Three systems, in full</h2>
 
-        {items.map((item) => (
+        {studies.map((study) => (
           <article class="fieldwork" data-reveal>
             <header class="fieldwork-header">
-              <p class="fieldwork-flavour">{item.flavour}</p>
-              <h3 class="fieldwork-title">{item.product.title}</h3>
-              <p class="fieldwork-tagline">{item.product.tagline}</p>
-              {item.product.confidentialNote && (
-                <p class="fieldwork-note">{item.product.confidentialNote}</p>
+              <p class="fieldwork-flavour">{study.domain}</p>
+              <h3 class="fieldwork-title">{study.product.title}</h3>
+              <p class="fieldwork-tagline">{study.product.tagline}</p>
+              {study.product.confidentialNote && (
+                <p class="fieldwork-note">{study.product.confidentialNote}</p>
               )}
             </header>
 
+            {study.product.context && (
+              <p class="fieldwork-context">{study.product.context}</p>
+            )}
+
             <div class="fieldwork-metrics">
-              {item.product.impact.map((metric) => (
+              {study.product.impact.map((metric) => (
                 <div class="fieldwork-metric">
                   <span class="fieldwork-metric-value">{metric.metric}</span>
                   <span class="fieldwork-metric-label">{metric.label}</span>
@@ -118,27 +125,36 @@ const constraints = [
 
             <div class="fieldwork-cols">
               <div>
-                <p class="fieldwork-subheading">The problem on the ground</p>
+                <p class="fieldwork-subheading">The problem</p>
                 <ul class="fieldwork-list">
-                  {item.product.overview.problem.map((line) => <li>{line}</li>)}
+                  {study.product.overview.problem.map((line) => <li>{line}</li>)}
                 </ul>
               </div>
               <div>
                 <p class="fieldwork-subheading">What I built</p>
                 <ul class="fieldwork-list">
-                  {item.product.overview.solution.map((line) => <li>{line}</li>)}
+                  {study.product.overview.solution.map((line) => <li>{line}</li>)}
                 </ul>
               </div>
               <div>
                 <p class="fieldwork-subheading">What changed</p>
                 <ul class="fieldwork-list">
-                  {item.product.overview.outcome.map((line) => <li>{line}</li>)}
+                  {study.product.overview.outcome.map((line) => <li>{line}</li>)}
                 </ul>
               </div>
             </div>
 
-            <a href={item.href} class="fieldwork-link">
-              Architecture and decisions
+            {study.product.constraints && study.product.constraints.length > 0 && (
+              <div class="fieldwork-constraints">
+                <p class="fieldwork-subheading">Constraints it had to live inside</p>
+                <ul class="fieldwork-list">
+                  {study.product.constraints.map((line) => <li>{line}</li>)}
+                </ul>
+              </div>
+            )}
+
+            <a href={study.href} class="fieldwork-link">
+              Architecture, decisions, and what I'd change
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M5 12h14"></path>
                 <path d="M12 5l7 7-7 7"></path>

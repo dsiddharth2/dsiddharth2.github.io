@@ -3,16 +3,14 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Hero from '@/components/Hero.astro';
 import ImpactHighlights from '@/components/ImpactHighlights.astro';
-import DeploymentsSection from '@/components/DeploymentsSection.astro';
+import WhatIBuild from '@/components/WhatIBuild.astro';
+import CaseStudiesSection from '@/components/CaseStudiesSection.astro';
+import PipelineStrip from '@/components/PipelineStrip.astro';
 import ExperienceSection from '@/components/ExperienceSection.astro';
-import ProductsSection from '@/components/ProductsSection.astro';
+import OpenSourceSection from '@/components/OpenSourceSection.astro';
 import ContactSection from '@/components/ContactSection.astro';
 import RevealScript from '@/components/RevealScript.astro';
-import { deployments } from '@/data/deployments';
 import { personJsonLd, websiteJsonLd } from '@/utils/seo';
-
-/** Featured above as deployments — don't repeat them in the products grid. */
-const featuredSlugs = deployments.map((deployment) => deployment.slug);
 ---
 
 <BaseLayout
@@ -24,9 +22,11 @@ const featuredSlugs = deployments.map((deployment) => deployment.slug);
   <main id="main-content">
     <Hero />
     <ImpactHighlights />
-    <DeploymentsSection />
-    <ProductsSection limit={4} exclude={featuredSlugs} />
+    <WhatIBuild />
+    <CaseStudiesSection />
+    <PipelineStrip />
     <ExperienceSection compact limit={3} />
+    <OpenSourceSection compact />
     <ContactSection />
   </main>
   <RevealScript />

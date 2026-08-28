@@ -43,6 +43,8 @@ interface Props {
   note?: string;
   noteItalic?: boolean;
   links?: SpecLink[];
+  context?: string;
+  constraints?: string[];
   overview: OverviewBucket;
   metrics: Metric[];
   architectureSvg?: string;
@@ -62,6 +64,8 @@ const {
   note,
   noteItalic = false,
   links = [],
+  context,
+  constraints = [],
   overview,
   metrics,
   architectureSvg,
@@ -72,7 +76,9 @@ const {
   reflections,
 } = Astro.props;
 
-const hasArchitecture = Boolean(architectureSvg || howItWorks.length || decisions.length);
+const hasArchitecture = Boolean(
+  architectureSvg || howItWorks.length || constraints.length || decisions.length
+);
 const hasNotes = Boolean(evaluation || reflections.length);
 const overviewSections = [
   { key: 'problem', label: 'Problem', items: overview.problem },
@@ -127,6 +133,15 @@ const overviewSections = [
       </div>
     </div>
   </header>
+
+  {context && (
+    <section class="project-context" aria-labelledby="context-heading">
+      <div class="project-inner">
+        <p id="context-heading" class="project-context-kicker">What made it hard</p>
+        <p class="project-context-body">{context}</p>
+      </div>
+    </section>
+  )}
 
   <section id="overview" class="project-overview" aria-label="Project overview">
     <div class="project-inner project-overview-grid">
@@ -224,6 +239,15 @@ const overviewSections = [
                   </li>
                 ))}
               </ol>
+            </div>
+          )}
+
+          {constraints.length > 0 && (
+            <div>
+              <p class="project-architecture-kicker">Constraints</p>
+              <ul class="project-constraint-list">
+                {constraints.map((line) => <li>{line}</li>)}
+              </ul>
             </div>
           )}
 

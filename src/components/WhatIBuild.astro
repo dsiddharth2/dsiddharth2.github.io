@@ -1,0 +1,29 @@
+---
+import { domains } from '@/data/domains';
+---
+
+<section class="build-section" aria-labelledby="build-heading">
+  <div class="page-container section-padding">
+    <p class="section-eyebrow" data-reveal>What I Build</p>
+    <h2 id="build-heading" class="section-title build-title" data-reveal data-reveal-delay="1">
+      Four kinds of problem<br />keep landing on my desk.
+    </h2>
+
+    <div class="build-grid">
+      {domains.map((domain, index) => (
+        <article class="build-card" data-reveal data-reveal-delay={String((index % 2) + 1)}>
+          <h3 class="build-card-title">{domain.title}</h3>
+          <p class="build-problem">{domain.problem}</p>
+          <p class="build-work">{domain.work}</p>
+          <a href={domain.evidence.href} class="build-evidence">
+            {domain.evidence.label}
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"></path>
+              <path d="M12 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

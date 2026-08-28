@@ -32,7 +32,7 @@ const description = productSeoDescription(product);
     projectJsonLd(product),
     breadcrumbJsonLd([
       { name: 'Home', path: '/' },
-      { name: 'Products', path: '/projects' },
+      { name: 'Case Studies', path: '/projects' },
       { name: product.title, path: projectPath },
     ]),
   ]}
@@ -45,6 +45,8 @@ const description = productSeoDescription(product);
     stack={product.stack}
     note={product.confidentialNote || `Built at ${product.company}`}
     noteItalic={Boolean(product.confidentialNote)}
+    context={product.context}
+    constraints={product.constraints}
     overview={product.overview}
     metrics={product.impact}
     architectureSvg={product.architectureSvg}
