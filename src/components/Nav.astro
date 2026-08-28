@@ -4,7 +4,6 @@ import { site } from '@/config/site';
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isHome = pathname === '/';
 const isAbout = pathname.startsWith('/about');
-const isHowIWork = pathname.startsWith('/how-i-work');
 const isExperience = pathname.startsWith('/experience');
 const isProducts = pathname.startsWith('/projects');
 const isOpenSource = pathname.startsWith('/opensource');
@@ -61,13 +60,6 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
           <span class="nav-link nav-link--active" aria-current="page">About</span>
         ) : (
           <a href="/about" class="nav-link">About</a>
-        )
-      }
-      {
-        isHowIWork ? (
-          <span class="nav-link nav-link--active" aria-current="page">How I Work</span>
-        ) : (
-          <a href="/how-i-work" class="nav-link">How I Work</a>
         )
       }
       {
