@@ -233,7 +233,7 @@ export function llmsTxt(): string {
 
   return `# ${site.name}
 
-> Associate Architect · AI & Cloud Systems. Builds 0-to-1 products and enterprise platforms.
+> Associate Architect · Applied AI. Builds production AI, data, and cloud systems for complex real-world problems.
 
 ${site.description}
 

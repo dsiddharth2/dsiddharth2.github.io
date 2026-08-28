@@ -152,7 +152,8 @@ const phoneLabel = '+91 78478 96052';
 
       .columns {
         display: grid;
-        grid-template-columns: 1.24fr 1fr;
+        /* Experience reads first (left, narrower); deployments keep the wider column. */
+        grid-template-columns: 1fr 1.24fr;
         column-gap: 20px;
         margin-top: 7px;
       }
@@ -249,6 +250,13 @@ const phoneLabel = '+91 78478 96052';
         margin-top: 1px;
       }
 
+      .job-client {
+        font-size: 7pt;
+        font-weight: 600;
+        color: #b06e0a;
+        margin-top: 2px;
+      }
+
       .job p {
         margin: 3px 0 0;
         color: #2a2d33;
@@ -322,7 +330,7 @@ const phoneLabel = '+91 78478 96052';
       <header class="header">
         <div>
           <h1>{site.name}</h1>
-          <div class="role">Software Architect &nbsp;|&nbsp; AI Systems &nbsp;|&nbsp; Engineering Leader</div>
+          <div class="role">Associate Architect &nbsp;|&nbsp; Applied AI &nbsp;|&nbsp; Production Systems</div>
         </div>
         <div class="contact">
           <b><a href={`tel:${phoneTel}`}>{phoneLabel}</a> &nbsp;·&nbsp; <a href={`mailto:${site.email}`}>{site.email}</a></b><br />
@@ -334,10 +342,12 @@ const phoneLabel = '+91 78478 96052';
       <div class="rule"></div>
 
       <p class="lede">
-        <b>12 years</b> of turning ambiguous problems into production systems — ERPs, AI platforms, multi-agent
-        pipelines — across startups and enterprise. I don't just write code; <b>I own the outcome end to end</b>. At
+        <b>12 years</b> turning ambiguous business problems into production systems — ERPs,
+        AI platforms, multi-agent pipelines — across startups and enterprise. I've been the direct client interface
+        since 2016 and run <b class="gold">3 client engagements</b> today; I don't just write code, <b>I own the outcome
+        end to end</b>. At
         <b>Apra Labs</b> I built the AI and data platform layer serving <b class="gold">300+ US facilities</b>:
-        <b>7 AI agents</b> and <b>5 production AI systems</b>, a GraphRAG engine over <b>150K documents</b>, conversational
+        <b>7 AI agents</b> and <b>5 production AI systems</b>, a GraphRAG engine over <b>20K support documents</b>, conversational
         AI across a <b>4 TB database</b>, and a FinOps agent that cut cloud spend <b class="gold">30%</b> — while hiring
         and mentoring <b>20+ engineers</b> and growing with the company <b class="gold">from 10 to 55</b>. Before that, a
         logistics ERP built from scratch to <b>2,500 daily users</b>, <b>70K dockets/month</b> and <b>100K hits a day</b>,
@@ -347,7 +357,86 @@ const phoneLabel = '+91 78478 96052';
 
       <div class="columns">
         <div>
-          <h2 class="hd">Systems I've architected and shipped</h2>
+          <h2 class="hd">Experience</h2>
+          <div class="jobs">
+            <article class="job">
+              <div class="job-name">Apra Labs</div>
+              <div class="job-role">Associate Architect · previously Senior Software Engineer</div>
+              <div class="job-dates">Aug 2019 – Present</div>
+              <div class="job-client">Deployment: 3 concurrent client engagements · 300+ US facilities live</div>
+              <p>
+                Built the <b>AI and data platform layer</b> for a unified facility management product serving
+                <b class="gold">300+ US facilities</b>. Managing <b>3 clients</b>, mentoring a <b>team of 4</b>,
+                <b>architected all systems end-to-end</b>. <b>Campus hiring lead for 4 years</b>; grew with the company
+                <b class="gold">from 10 to 55</b>.
+              </p>
+            </article>
+            <article class="job">
+              <div class="job-name">MildlyClassic</div>
+              <div class="job-role">Engineering Team Lead</div>
+              <div class="job-dates">May 2016 – May 2019</div>
+              <div class="job-client">Deployment: direct client interface, requirements through delivery</div>
+              <p>
+                Built and scaled a <b>logistics ERP from scratch</b> to <b>2,500 daily users</b> handling
+                <b>70K dockets/month</b> for PAN India secure jewellery logistics. <b>Hired 7 engineers</b>, established a
+                <b>4-week release cycle</b>, migrated <b>DigitalOcean → AWS in 3 months</b>.
+              </p>
+              <p class="note">
+                <i>Sister company · <b class="gold">Wifi Dabba → YC W17</b>:</i> built <b>byte-counting and usage sync software</b> on Wi-Fi hardware, and the <b>Google NBU analytics platform</b>.
+              </p>
+            </article>
+            <article class="job">
+              <div class="job-name">UXgage</div>
+              <div class="job-role">Co-Founder &amp; CTO</div>
+              <div class="job-dates">Oct 2015 – Apr 2016</div>
+              <div class="job-client">Deployment: customer demos and stakeholder management</div>
+              <p>
+                Took an idea <b>from zero to a shipped product in 6 months</b> — won a <b class="gold">₹5L cash prize</b> from Deshpande Startups, Hubli, with office space and Azure infrastructure granted separately.
+              </p>
+            </article>
+            <article class="job">
+              <div class="job-name">Earlier</div>
+              <div class="job-dates">2010 – 2016</div>
+              <p>
+                <b>Samvit Learning</b>, Founder — software training institute founded during MCA; trained <b>250+ students</b>.
+                <b>Firaa.me</b>, side project at IdeaFlask — travel blogging platform, <b>500+ organic users</b>.
+                <b>dotCORD IT Solutions</b>, Intern — <b>3 years</b> at GIT Incubation Center.
+              </p>
+            </article>
+          </div>
+
+          <h2 class="hd">Open Source</h2>
+          <div class="stack">
+            <div>
+              <b><a href="https://github.com/dsiddharth2/plug">Plug<span class="ext">↗</span></a></b> — package manager for Claude Code skills; install and manage reusable Skills, Commands and Agents from GitHub-hosted registries. <b>14 packages</b>, on npm as <i>plugvault</i>.
+            </div>
+            <div>
+              <b><a href="https://github.com/dsiddharth2/codehawk">CodeHawk<span class="ext">↗</span></a></b> — AI pull request review pipeline. Runs in CI, scores code quality and posts inline comments. <b>16 language rule sets</b>, <b>394 unit tests</b>.
+            </div>
+            <div>
+              <b><a href="https://github.com/dsiddharth2/php-zxing">PHP ZXing<span class="ext">↗</span></a></b> — PHP wrapper for the ZXing barcode library. <b class="gold">277K+ Packagist installs</b>, <b>133 GitHub stars</b>, featured on the upstream ZXing repo.
+            </div>
+            <div>
+              <b><a href="https://github.com/dsiddharth2/MooPin">MooPin<span class="ext">↗</span></a></b> — Pinterest-style column grid for MooTools, incl. infinite scroll. <b>~120 lines</b>.
+            </div>
+          </div>
+
+          <h2 class="hd">Technical Expertise</h2>
+          <div class="stack">
+            <div><b>Languages &amp; Frameworks</b> — Python · TypeScript · C# / .NET 8 · PHP · React · Node.js · LangChain · LangGraph</div>
+            <div><b>AI &amp; Data</b> — GPT / LLM integration · FAISS · Vector search · GraphRAG · Multi-agent systems</div>
+            <div><b>Infrastructure</b> — Azure (Durable Functions, Service Bus, Cosmos DB) · AWS · Neo4j · Cassandra</div>
+            <div><b>Practices</b> — System design · CI/CD · DevOps · FinOps · Hiring &amp; mentorship</div>
+          </div>
+
+          <h2 class="hd">Education &amp; Recognition</h2>
+          <div class="stack">
+            <div><b>Master of Computer Applications (MCA)</b> — Gogte Institute of Technology, Belgaum</div>
+            <div class="muted"><b>Leadership Excellence</b>, Apra Labs (Nov 2024) · <b>Customer Appreciation</b>, Apra Labs (Apr 2023) · <b>Guiding Vision</b>, Pravega X Fest</div>
+          </div>
+        </div>
+        <div>
+          <h2 class="hd">Selected deployments</h2>
           <div class="systems">
             <article class="sys">
               <div class="sys-top">
@@ -466,83 +555,6 @@ const phoneLabel = '+91 78478 96052';
                 <li class="out"><b class="gold">Outcome</b> — <b class="gold">₹5L seed funding</b>; idea to funded product in under 6 months</li>
               </ul>
             </article>
-          </div>
-        </div>
-
-        <div>
-          <h2 class="hd">Experience</h2>
-          <div class="jobs">
-            <article class="job">
-              <div class="job-name">Apra Labs</div>
-              <div class="job-role">Associate Architect · previously Senior Software Engineer</div>
-              <div class="job-dates">Aug 2019 – Present</div>
-              <p>
-                Built the <b>AI and data platform layer</b> for a unified facility management product serving
-                <b class="gold">300+ US facilities</b>. Managing <b>3 clients</b>, mentoring a <b>team of 4</b>,
-                <b>architected all systems end-to-end</b>. <b>Campus hiring lead for 4 years</b>; grew with the company
-                <b class="gold">from 10 to 55</b>.
-              </p>
-            </article>
-            <article class="job">
-              <div class="job-name">MildlyClassic</div>
-              <div class="job-role">Engineering Team Lead</div>
-              <div class="job-dates">May 2016 – May 2019</div>
-              <p>
-                Built and scaled a <b>logistics ERP from scratch</b> to <b>2,500 daily users</b> handling
-                <b>70K dockets/month</b> for PAN India secure jewellery logistics. <b>Hired 7 engineers</b>, established a
-                <b>4-week release cycle</b>, migrated <b>DigitalOcean → AWS in 3 months</b>.
-              </p>
-              <p class="note">
-                <i>Sister company · <b class="gold">Wifi Dabba → YC W17</b>:</i> built <b>byte-counting and usage sync software</b> on Wi-Fi hardware, and the <b>Google NBU analytics platform</b>.
-              </p>
-            </article>
-            <article class="job">
-              <div class="job-name">UXgage</div>
-              <div class="job-role">Co-Founder &amp; CTO</div>
-              <div class="job-dates">Oct 2015 – Apr 2016</div>
-              <p>
-                Took an idea <b>from zero to a shipped product in 6 months</b> — won a <b class="gold">₹5L cash prize</b> from Deshpande Startups, Hubli, with office space and Azure infrastructure granted separately.
-              </p>
-            </article>
-            <article class="job">
-              <div class="job-name">Earlier</div>
-              <div class="job-dates">2010 – 2016</div>
-              <p>
-                <b>Samvit Learning</b>, Founder — software training institute founded during MCA; trained <b>250+ students</b>.
-                <b>Firaa.me</b>, side project at IdeaFlask — travel blogging platform, <b>500+ organic users</b>.
-                <b>dotCORD IT Solutions</b>, Intern — <b>3 years</b> at GIT Incubation Center.
-              </p>
-            </article>
-          </div>
-
-          <h2 class="hd">Open Source</h2>
-          <div class="stack">
-            <div>
-              <b><a href="https://github.com/dsiddharth2/plug">Plug<span class="ext">↗</span></a></b> — package manager for Claude Code skills; install and manage reusable Skills, Commands and Agents from GitHub-hosted registries. <b>14 packages</b>, on npm as <i>plugvault</i>.
-            </div>
-            <div>
-              <b><a href="https://github.com/dsiddharth2/codehawk">CodeHawk<span class="ext">↗</span></a></b> — AI pull request review pipeline. Runs in CI, scores code quality and posts inline comments. <b>16 language rule sets</b>, <b>394 unit tests</b>.
-            </div>
-            <div>
-              <b><a href="https://github.com/dsiddharth2/php-zxing">PHP ZXing<span class="ext">↗</span></a></b> — PHP wrapper for the ZXing barcode library. <b class="gold">277K+ Packagist installs</b>, <b>133 GitHub stars</b>, featured on the upstream ZXing repo.
-            </div>
-            <div>
-              <b><a href="https://github.com/dsiddharth2/MooPin">MooPin<span class="ext">↗</span></a></b> — Pinterest-style column grid for MooTools, incl. infinite scroll. <b>~120 lines</b>.
-            </div>
-          </div>
-
-          <h2 class="hd">Technical Expertise</h2>
-          <div class="stack">
-            <div><b>Languages &amp; Frameworks</b> — Python · TypeScript · C# / .NET 8 · PHP · React · Node.js · LangChain · LangGraph</div>
-            <div><b>AI &amp; Data</b> — GPT / LLM integration · FAISS · Vector search · GraphRAG · Multi-agent systems</div>
-            <div><b>Infrastructure</b> — Azure (Durable Functions, Service Bus, Cosmos DB) · AWS · Neo4j · Cassandra</div>
-            <div><b>Practices</b> — System design · CI/CD · DevOps · FinOps · Hiring &amp; mentorship</div>
-          </div>
-
-          <h2 class="hd">Education &amp; Recognition</h2>
-          <div class="stack">
-            <div><b>Master of Computer Applications (MCA)</b> — Gogte Institute of Technology, Belgaum</div>
-            <div class="muted"><b>Leadership Excellence</b>, Apra Labs (Nov 2024) · <b>Customer Appreciation</b>, Apra Labs (Apr 2023) · <b>Guiding Vision</b>, Pravega X Fest</div>
           </div>
         </div>
       </div>
