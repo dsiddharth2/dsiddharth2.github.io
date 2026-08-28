@@ -1,40 +1,17 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
-import PipelineStrip from '@/components/PipelineStrip.astro';
 import ContactSection from '@/components/ContactSection.astro';
 import RevealScript from '@/components/RevealScript.astro';
-import { resolvedCaseStudies } from '@/data/caseStudies';
+import { walkthrough, walkthroughIntro, walkthroughChanges } from '@/data/walkthrough';
+import { getProductBySlug } from '@/data/products';
 import { site } from '@/config/site';
 import { breadcrumbJsonLd } from '@/utils/seo';
 
 const description =
-  'The loop I run on every system: problem, understand, explore, prototype, build, deploy, measure, iterate. Plus three systems it produced.';
+  'One system from the first conversation to production: what was actually asked for, the first version that did not work, where the security decision was, and what I would change.';
 
-const studies = resolvedCaseStudies();
-
-const intersections = [
-  {
-    title: 'Customer / user problem',
-    detail:
-      'What is going wrong for the person doing the job, stated without the solution baked in.',
-  },
-  {
-    title: 'Product',
-    detail:
-      'What is worth building now and what can wait, when one platform serves 300+ tenants with different priorities.',
-  },
-  {
-    title: 'Engineering',
-    detail:
-      'What it costs to run every night, and what happens when a dependency it does not own goes down.',
-  },
-  {
-    title: 'AI',
-    detail:
-      'Where a model helps, and where a deterministic answer is cheaper, faster and more defensible.',
-  },
-];
+const product = getProductBySlug('multi-agent')!;
 
 const constraints = [
   'Confidential client environments, with employer and product names withheld under NDA.',
@@ -63,109 +40,70 @@ const constraints = [
         <div class="about-hero-copy">
           <p class="hero-kicker" data-reveal>How I Work</p>
           <h1 class="about-hero-title" data-reveal data-reveal-delay="1">
-            From ambiguous problem<br />to production
+            One system, end to end
           </h1>
           <p class="about-hero-lede" data-reveal data-reveal-delay="2">
-            {description}
+            {walkthroughIntro}
           </p>
         </div>
       </div>
     </section>
 
-    <PipelineStrip detailed hideIntro />
-
     <section class="about-section about-section--white">
-      <div class="fieldwork-container">
-        <h2 class="about-heading" data-reveal>Where I like to work</h2>
-        <p class="intersection-lede" data-reveal data-reveal-delay="1">
-          The problems I find most interesting sit where all four of these overlap.
-        </p>
-        <div class="intersection-grid" data-reveal data-reveal-delay="2">
-          {intersections.map((item, index) => (
-            <div class="intersection-item">
-              <span class="intersection-mark" aria-hidden="true">{index < 3 ? '×' : '='}</span>
-              <div>
-                <p class="intersection-title">{item.title}</p>
-                <p class="intersection-detail">{item.detail}</p>
-              </div>
-            </div>
-          ))}
+      <div class="walk-container">
+        <div class="walk-meta" data-reveal>
+          <p class="walk-meta-name">{product.title}</p>
+          <p class="walk-meta-sub">{product.company} · {product.stack.slice(0, 4).join(' · ')}</p>
         </div>
-      </div>
-    </section>
 
-    <section class="about-section about-section--cream">
-      <div class="fieldwork-container">
-        <h2 class="about-heading" data-reveal>Three systems, in full</h2>
+        {walkthrough.map((section) => (
+          <article class="walk-section" data-reveal>
+            <h2 class="walk-heading">{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => (
+              <p class="walk-body">{paragraph}</p>
+            ))}
+          </article>
+        ))}
 
-        {studies.map((study) => (
-          <article class="fieldwork" data-reveal>
-            <header class="fieldwork-header">
-              <p class="fieldwork-flavour">{study.domain}</p>
-              <h3 class="fieldwork-title">{study.product.title}</h3>
-              <p class="fieldwork-tagline">{study.product.tagline}</p>
-              {study.product.confidentialNote && (
-                <p class="fieldwork-note">{study.product.confidentialNote}</p>
-              )}
-            </header>
-
-            {study.product.context && (
-              <p class="fieldwork-context">{study.product.context}</p>
-            )}
-
-            <div class="fieldwork-metrics">
-              {study.product.impact.map((metric) => (
-                <div class="fieldwork-metric">
-                  <span class="fieldwork-metric-value">{metric.metric}</span>
-                  <span class="fieldwork-metric-label">{metric.label}</span>
-                </div>
-              ))}
-            </div>
-
-            <div class="fieldwork-cols">
-              <div>
-                <p class="fieldwork-subheading">The problem</p>
-                <ul class="fieldwork-list">
-                  {study.product.overview.problem.map((line) => <li>{line}</li>)}
-                </ul>
+        <article class="walk-section" data-reveal>
+          <h2 class="walk-heading">What I would change</h2>
+          <dl class="walk-changes">
+            {walkthroughChanges.map((change) => (
+              <div class="walk-change">
+                <dt class="walk-change-title">{change.title}</dt>
+                <dd class="walk-change-detail">{change.detail}</dd>
               </div>
-              <div>
-                <p class="fieldwork-subheading">What I built</p>
-                <ul class="fieldwork-list">
-                  {study.product.overview.solution.map((line) => <li>{line}</li>)}
-                </ul>
-              </div>
-              <div>
-                <p class="fieldwork-subheading">What changed</p>
-                <ul class="fieldwork-list">
-                  {study.product.overview.outcome.map((line) => <li>{line}</li>)}
-                </ul>
-              </div>
-            </div>
+            ))}
+          </dl>
+        </article>
 
-            {study.product.constraints && study.product.constraints.length > 0 && (
-              <div class="fieldwork-constraints">
-                <p class="fieldwork-subheading">Constraints it had to live inside</p>
-                <ul class="fieldwork-list">
-                  {study.product.constraints.map((line) => <li>{line}</li>)}
-                </ul>
-              </div>
-            )}
-
-            <a href={study.href} class="fieldwork-link">
-              Architecture, decisions, and what I'd change
+        <div class="walk-outro" data-reveal>
+          <p class="walk-body">
+            The architecture diagram, the full decision list and the rest of the stack are on the
+            case study. Four other systems are written up the same way.
+          </p>
+          <div class="walk-links">
+            <a href="/projects/multi-agent" class="walk-link">
+              Read the full case study
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M5 12h14"></path>
                 <path d="M12 5l7 7-7 7"></path>
               </svg>
             </a>
-          </article>
-        ))}
+            <a href="/projects" class="walk-link">
+              All case studies
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="about-section about-section--white">
-      <div class="fieldwork-container">
+    <section class="about-section about-section--cream">
+      <div class="walk-container">
         <h2 class="about-heading" data-reveal>Constraints I've worked under</h2>
         <ul class="constraint-list" data-reveal data-reveal-delay="1">
           {constraints.map((line) => <li>{line}</li>)}

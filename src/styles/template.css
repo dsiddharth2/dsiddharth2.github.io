@@ -768,111 +768,6 @@ button.btn-hero-secondary {
 }
 
 /* Products — dark */
-/* How I Work — the eight-stage loop, compact on the homepage, annotated on /how-i-work */
-.pipeline-section {
-  background: #1a1a1a;
-}
-
-.pipeline-title {
-  color: #fff;
-  margin-bottom: 40px;
-}
-
-.pipeline-flow {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 0;
-}
-
-.pipeline-step {
-  position: relative;
-  padding: 0 16px 0 0;
-}
-
-/* Connector arrow between stages */
-.pipeline-step:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  top: 7px;
-  right: 8px;
-  width: 6px;
-  height: 6px;
-  border-top: 1.5px solid rgba(245, 166, 35, 0.55);
-  border-right: 1.5px solid rgba(245, 166, 35, 0.55);
-  transform: rotate(45deg);
-}
-
-.pipeline-index {
-  display: block;
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  color: #f5a623;
-  letter-spacing: 0.06em;
-}
-
-.pipeline-stage {
-  margin: 6px 0 0;
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff;
-  line-height: 1.2;
-}
-
-.pipeline-section--detailed .pipeline-flow {
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px 24px;
-}
-
-.pipeline-section--detailed .pipeline-step {
-  padding: 0;
-}
-
-.pipeline-section--detailed .pipeline-step::after {
-  display: none;
-}
-
-.pipeline-section--detailed .pipeline-stage {
-  font-size: 17px;
-}
-
-.pipeline-meaning {
-  margin: 8px 0 0;
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.72);
-}
-
-.pipeline-instance {
-  margin: 10px 0 0;
-  padding-left: 10px;
-  border-left: 2px solid rgba(245, 166, 35, 0.5);
-  font-size: 12.5px;
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.45);
-}
-
-.pipeline-more {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 32px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.pipeline-more:hover,
-.pipeline-more:focus-visible {
-  color: #f5a623;
-}
-
 /* What I Build — classes of problem, each linked to the system that proves it */
 .build-section {
   background: #fffbf2;
@@ -1665,14 +1560,6 @@ button.btn-hero-secondary {
     gap: 22px;
   }
 
-  .pipeline-flow {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px 0;
-  }
-
-  .pipeline-section--detailed .pipeline-flow {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 @media (max-width: 768px) {
@@ -1681,15 +1568,6 @@ button.btn-hero-secondary {
     grid-template-columns: 1fr;
   }
 
-  .pipeline-flow,
-  .pipeline-section--detailed .pipeline-flow {
-    grid-template-columns: 1fr 1fr;
-    gap: 22px 12px;
-  }
-
-  .pipeline-step:not(:last-child)::after {
-    display: none;
-  }
 }
 
 @media (max-width: 768px) {
@@ -3663,4 +3541,112 @@ a.resume-modal-title:focus-visible {
     grid-template-columns: 1fr;
     gap: 6px;
   }
+}
+
+/* One system, end to end — long-form walkthrough on /how-i-work */
+/* Shares a left edge with the hero; prose measure capped on the children */
+.walk-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 48px);
+}
+
+.walk-container > * {
+  max-width: 780px;
+}
+
+.walk-meta {
+  padding-bottom: 24px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.walk-meta-name {
+  margin: 0;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.walk-meta-sub {
+  margin: 5px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #999;
+}
+
+.walk-section {
+  padding-top: 34px;
+}
+
+.walk-heading {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 14px;
+  line-height: 1.25;
+}
+
+.walk-body {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #2a2d33;
+  margin: 0 0 16px;
+}
+
+.walk-body:last-child {
+  margin-bottom: 0;
+}
+
+.walk-changes {
+  margin: 0;
+  display: grid;
+  gap: 22px;
+}
+
+.walk-change-title {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.walk-change-detail {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #555;
+  padding-left: 14px;
+  border-left: 2px solid rgba(245, 166, 35, 0.55);
+}
+
+.walk-outro {
+  margin-top: 40px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.walk-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin-top: 6px;
+}
+
+.walk-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.walk-link:hover,
+.walk-link:focus-visible {
+  color: #b06e0a;
 }
