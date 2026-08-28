@@ -3571,3 +3571,87 @@ a.resume-modal-title:focus-visible {
 .oss-packagist-link:focus-visible {
   color: #f5a623;
 }
+
+/* Technical depth — capability areas, each with one clause of real evidence */
+.depth-list {
+  margin: 0 0 40px;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.depth-item {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.depth-area {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.5;
+}
+
+.depth-evidence {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #555;
+}
+
+.depth-stack {
+  padding-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .depth-item {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+/* Technical depth — capability areas, each with one clause of real evidence */
+.depth-list {
+  margin: 0 0 40px;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.depth-item {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.depth-area {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.5;
+}
+
+.depth-evidence {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #555;
+}
+
+.depth-stack {
+  padding-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .depth-item {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}

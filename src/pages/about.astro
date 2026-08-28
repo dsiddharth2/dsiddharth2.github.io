@@ -7,6 +7,7 @@ import { assetUrl } from '@/utils/assets';
 import {
   aboutBio,
   aboutCapabilities,
+  aboutDepth,
   aboutSkills,
   aboutEducation,
 } from '@/data/about';
@@ -105,8 +106,20 @@ const aboutDescription =
 
     <section class="about-section about-section--white">
       <div class="about-narrow">
-        <h2 class="about-heading" data-reveal>Technical expertise</h2>
-        <div class="about-skills-grid" data-reveal data-reveal-delay="1">
+        <h2 class="about-heading" data-reveal>Technical depth</h2>
+        <p class="about-body" data-reveal data-reveal-delay="1">
+          Not a technology list — where the depth actually is, and the system that shows it.
+        </p>
+        <dl class="depth-list" data-reveal data-reveal-delay="1">
+          {aboutDepth.map((item) => (
+            <div class="depth-item">
+              <dt class="depth-area">{item.area}</dt>
+              <dd class="depth-evidence">{item.evidence}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <div class="about-skills-grid depth-stack" data-reveal data-reveal-delay="2">
           {aboutSkills.map((group) => (
             <div class="about-skill-group">
               <p class="about-skill-category">{group.category}</p>
