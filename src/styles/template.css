@@ -1636,6 +1636,10 @@ button.btn-hero-secondary {
     flex-wrap: wrap;
   }
 
+  .hero-links {
+    justify-content: center;
+  }
+
   .hero-photo-wrap {
     display: flex;
     justify-content: center;
