@@ -53,6 +53,8 @@ const isResumePage = (canonicalPath || Astro.url.pathname).replace(/\/$/, '') ==
     <meta name="theme-color" content="#F5A623" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href={assetUrl('favicon.svg')} />
+    <link rel="apple-touch-icon" sizes="180x180" href={assetUrl('apple-touch-icon.png')} />
+    <link rel="manifest" href={assetUrl('site.webmanifest')} />
     <link rel="canonical" href={canonicalUrl} />
     {markdownUrl && <link rel="alternate" type="text/markdown" href={markdownUrl} />}
 
