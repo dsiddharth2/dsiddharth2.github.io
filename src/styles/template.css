@@ -118,16 +118,6 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
-.nav-logo {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #f5a623;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .nav-name {
   font-size: 18px;
   font-weight: 700;
