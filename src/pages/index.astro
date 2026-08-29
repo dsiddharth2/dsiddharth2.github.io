@@ -3,11 +3,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Hero from '@/components/Hero.astro';
 import ImpactHighlights from '@/components/ImpactHighlights.astro';
-import PhilosophySection from '@/components/PhilosophySection.astro';
+import WhatIBuild from '@/components/WhatIBuild.astro';
+import CaseStudiesSection from '@/components/CaseStudiesSection.astro';
 import ExperienceSection from '@/components/ExperienceSection.astro';
-import ProductsSection from '@/components/ProductsSection.astro';
 import OpenSourceSection from '@/components/OpenSourceSection.astro';
-import RecognitionSection from '@/components/RecognitionSection.astro';
 import ContactSection from '@/components/ContactSection.astro';
 import RevealScript from '@/components/RevealScript.astro';
 import { personJsonLd, websiteJsonLd } from '@/utils/seo';
@@ -22,11 +21,10 @@ import { personJsonLd, websiteJsonLd } from '@/utils/seo';
   <main id="main-content">
     <Hero />
     <ImpactHighlights />
-    <PhilosophySection />
-    <ExperienceSection />
-    <ProductsSection />
-    <OpenSourceSection />
-    <RecognitionSection />
+    <WhatIBuild />
+    <CaseStudiesSection />
+    <ExperienceSection compact limit={3} />
+    <OpenSourceSection compact limit={2} />
     <ContactSection />
   </main>
   <RevealScript />

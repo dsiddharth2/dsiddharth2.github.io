@@ -12,13 +12,13 @@ const description =
 ---
 
 <BaseLayout
-  title={`Products — ${site.name}`}
+  title={`Case Studies — ${site.name}`}
   description={description}
   canonicalPath="/projects"
   markdownPath="/projects.md"
   jsonLd={[
     collectionPageJsonLd({
-      name: `Products — ${site.name}`,
+      name: `Case Studies — ${site.name}`,
       path: '/projects',
       description,
       items: products.map((product) => ({
@@ -28,7 +28,7 @@ const description =
     }),
     breadcrumbJsonLd([
       { name: 'Home', path: '/' },
-      { name: 'Products', path: '/projects' },
+      { name: 'Case Studies', path: '/projects' },
     ]),
   ]}
 >
@@ -37,9 +37,9 @@ const description =
     <section class="about-hero">
       <div class="about-hero-inner">
         <div class="about-hero-copy">
-          <p class="hero-kicker" data-reveal>Products</p>
+          <p class="hero-kicker" data-reveal>Case Studies</p>
           <h1 class="about-hero-title" data-reveal data-reveal-delay="1">
-            Systems I've architected and shipped
+            Systems I architected and shipped
           </h1>
           <p class="about-hero-lede" data-reveal data-reveal-delay="2">
             {description}

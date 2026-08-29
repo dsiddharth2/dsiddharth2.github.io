@@ -1,12 +1,18 @@
 ---
 import OpenSourceIcon from '@/components/ui/OpenSourceIcon.astro';
-import { openSourceProjects } from '@/data/opensource';
+import { openSourceProjects, externalContributions } from '@/data/opensource';
 
 interface Props {
   hideIntro?: boolean;
+  /** Homepage mode — drops the per-card description to keep the row scannable. */
+  compact?: boolean;
+  /** Show only the first n projects, with a link through to the full list. */
+  limit?: number;
 }
 
-const { hideIntro = false } = Astro.props;
+const { hideIntro = false, compact = false, limit } = Astro.props;
+const shown = limit ? openSourceProjects.slice(0, limit) : openSourceProjects;
+const hasMore = shown.length < openSourceProjects.length;
 ---
 
 <section
@@ -20,12 +26,12 @@ const { hideIntro = false } = Astro.props;
       <>
         <p class="section-eyebrow" data-reveal>Open Source</p>
         <h2 id="opensource-heading" class="section-title" data-reveal data-reveal-delay="1">
-          Giving back to the community
+          Code other people run in production
         </h2>
       </>
     )}
     <div class="opensource-grid">
-      {openSourceProjects.map((project, index) => (
+      {shown.map((project, index) => (
         <article class="opensource-card" data-reveal data-reveal-delay={String((index % 2) + 1)}>
           <div class="opensource-card-top">
             <span class="opensource-index">{String(index + 1).padStart(2, '0')}</span>
@@ -34,7 +40,7 @@ const { hideIntro = false } = Astro.props;
           </div>
           <h3 class="opensource-title">{project.title}</h3>
           <p class="opensource-subtitle">{project.subtitle}</p>
-          <p class="opensource-description">{project.description}</p>
+          {!compact && <p class="opensource-description">{project.description}</p>}
           <div class="opensource-tags">
             {project.tags.map((tag) => (
               <span class="opensource-tag">{tag}</span>
@@ -60,5 +66,47 @@ const { hideIntro = false } = Astro.props;
         </article>
       ))}
     </div>
+
+    {hasMore && (
+      <a href="/opensource" class="opensource-more" data-reveal>
+        All open source
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"></path>
+          <path d="M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    )}
+
+    {!compact && externalContributions.length > 0 && (
+      <div class="contrib-block">
+        <h3 class="contrib-heading">Contributions to other people's codebases</h3>
+        <div class="contrib-list">
+          {externalContributions.map((item) => (
+            <article class="contrib-item">
+              <a href={item.url} target="_blank" rel="noopener noreferrer" class="contrib-repo">
+                {item.repo}
+                <span class="sr-only">(opens in a new tab)</span>
+              </a>
+              <dl class="contrib-facts">
+                <dt>Problem</dt>
+                <dd>{item.problem}</dd>
+                <dt>What I changed</dt>
+                <dd>{item.contribution}</dd>
+                <dt>Approach</dt>
+                <dd>{item.approach}</dd>
+                <dt>Result</dt>
+                <dd>{item.result}</dd>
+              </dl>
+              {item.prUrl && (
+                <a href={item.prUrl} target="_blank" rel="noopener noreferrer" class="contrib-pr">
+                  View the pull request
+                  <span class="sr-only">(opens in a new tab)</span>
+                </a>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
   </div>
 </section>

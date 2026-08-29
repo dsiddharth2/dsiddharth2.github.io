@@ -185,9 +185,9 @@ export function productsIndexMarkdown(): string {
     })
     .join('\n');
 
-  return `# Products — ${site.name}
+  return `# Case Studies — ${site.name}
 
-> Systems architected and shipped across knowledge graphs, multi-agent AI, FinOps, search, logistics, and analytics.
+> Production systems architected and shipped across knowledge graphs, multi-agent AI, FinOps, search, logistics, and analytics.
 
 ${items}
 `;
@@ -233,7 +233,7 @@ export function llmsTxt(): string {
 
   return `# ${site.name}
 
-> Associate Architect · AI & Cloud Systems. Builds 0-to-1 products and enterprise platforms.
+> Associate Architect · Applied AI. Builds production AI, data, and cloud systems for complex real-world problems.
 
 ${site.description}
 
@@ -241,7 +241,7 @@ ${site.description}
 
 ${experienceLinks}
 
-## Products
+## Case Studies
 
 ${productLinks}
 
@@ -254,7 +254,7 @@ ${ossLinks}
 - [Homepage](${getSiteUrl('/')}): ${site.description}
 - [About](${getSiteUrl('/about')}): Background, capabilities, and technical expertise
 - [Experience index](${getSiteUrl('/experience.md')}): Roles and impact
-- [Products index](${getSiteUrl('/projects.md')}): All shipped systems
+- [Case Studies index](${getSiteUrl('/projects.md')}): All shipped systems
 - [Open Source index](${getSiteUrl('/opensource.md')}): All public repositories
 - [Resume](${getSiteUrl('/resume')}): PDF resume
 - [Full text](${getSiteUrl('/llms-full.txt')}): Complete markdown for every project
@@ -282,7 +282,7 @@ export function llmsFullTxt(): string {
 
 ${experienceBlocks}
 
-## Products
+## Case Studies
 
 ${productBlocks}
 

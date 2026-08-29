@@ -4,9 +4,15 @@ import { experience } from '@/data/experience';
 
 interface Props {
   hideIntro?: boolean;
+  /** Render rows as a timeline — company, role, metrics and summary only. */
+  compact?: boolean;
+  /** Show only the first N entries and link out to the full history. */
+  limit?: number;
 }
 
-const { hideIntro = false } = Astro.props;
+const { hideIntro = false, compact = false, limit } = Astro.props;
+const shown = limit ? experience.slice(0, limit) : experience;
+const hasMore = shown.length < experience.length;
 ---
 
 <section
@@ -25,8 +31,18 @@ const { hideIntro = false } = Astro.props;
       </>
     )}
 
-    {experience.map((entry) => (
-      <ExperienceRow entry={entry} reveal />
+    {shown.map((entry) => (
+      <ExperienceRow entry={entry} reveal compact={compact} />
     ))}
+
+    {hasMore && (
+      <a href="/experience" class="experience-more" data-reveal>
+        Full work history
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"></path>
+          <path d="M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    )}
   </div>
 </section>

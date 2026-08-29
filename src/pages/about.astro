@@ -7,16 +7,18 @@ import { assetUrl } from '@/utils/assets';
 import {
   aboutBio,
   aboutCapabilities,
+  aboutDepth,
   aboutSkills,
   aboutEducation,
 } from '@/data/about';
 import { awards } from '@/data/awards';
+import { philosophyStats } from '@/data/philosophy';
 import { aboutPageJsonLd } from '@/utils/seo';
 
 const profileImage = assetUrl('images/profile.jpg');
 const aboutAwards = awards.slice(0, 3);
 const aboutDescription =
-  '12 years of turning ambiguous problems into production systems — ERPs, AI platforms, multi-agent pipelines — across startups and enterprise.';
+  '12 years turning ambiguous business problems into production systems — ERPs, AI platforms, multi-agent pipelines — across startups and enterprise, working directly with the people who use them.';
 ---
 
 <BaseLayout
@@ -34,12 +36,12 @@ const aboutDescription =
           <p class="hero-kicker" data-reveal>About</p>
           <h1 class="about-hero-title" data-reveal data-reveal-delay="1">{site.name}</h1>
           <p class="about-hero-role" data-reveal data-reveal-delay="2">
-            Associate Architect · Systems Builder · Engineering Leader
+            Associate Architect · Applied AI · Engineering Leader
           </p>
           <p class="about-hero-lede" data-reveal data-reveal-delay="3">
-            12 years of turning ambiguous problems into production systems — ERPs, AI platforms,
-            multi-agent pipelines — across startups and enterprise. I don't just write code; I own
-            the outcome end to end.
+            12 years turning ambiguous business problems into production systems — ERPs, AI
+            platforms, multi-agent pipelines — across startups and enterprise. I don't just write
+            code; I own the outcome end to end.
           </p>
         </div>
         <div class="about-hero-photo" data-reveal data-reveal-delay="2">
@@ -104,8 +106,17 @@ const aboutDescription =
 
     <section class="about-section about-section--white">
       <div class="about-narrow">
-        <h2 class="about-heading" data-reveal>Technical expertise</h2>
-        <div class="about-skills-grid" data-reveal data-reveal-delay="1">
+        <h2 class="about-heading" data-reveal>Technical depth</h2>
+        <dl class="depth-list" data-reveal data-reveal-delay="1">
+          {aboutDepth.map((item) => (
+            <div class="depth-item">
+              <dt class="depth-area">{item.area}</dt>
+              <dd class="depth-evidence">{item.evidence}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <div class="about-skills-grid depth-stack" data-reveal data-reveal-delay="2">
           {aboutSkills.map((group) => (
             <div class="about-skill-group">
               <p class="about-skill-category">{group.category}</p>
@@ -120,6 +131,15 @@ const aboutDescription =
 
     <section class="about-section about-section--cream">
       <div class="about-narrow">
+        <div class="about-stats" data-reveal>
+          {philosophyStats.map((stat) => (
+            <div class="about-stat">
+              <p class="about-stat-value">{stat.value}</p>
+              <p class="about-stat-label">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+
         <div class="about-two-col" data-reveal>
           <div>
             <h2 class="about-heading">Education</h2>

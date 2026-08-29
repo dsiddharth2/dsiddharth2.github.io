@@ -502,3 +502,29 @@ export function openSourceSeoDescription(project: OpenSourceProject): string {
     ? `${project.tagline.slice(0, 157).trimEnd()}...`
     : project.tagline;
 }
+
+/**
+ * Contributions to codebases I did not author.
+ *
+ * Kept separate from `openSourceProjects` on purpose: those are libraries I
+ * wrote and maintain, which is a different kind of evidence from going into
+ * someone else's repository, understanding it, and landing a change with a
+ * maintainer. The section renders only when this array has entries — an empty
+ * placeholder would be worse than no section at all.
+ */
+export interface ExternalContribution {
+  repo: string;
+  url: string;
+  /** What was broken or missing upstream. */
+  problem: string;
+  /** What I actually changed. */
+  contribution: string;
+  /** How I approached an unfamiliar codebase. */
+  approach: string;
+  /** Link to the PR or discussion thread. */
+  prUrl?: string;
+  /** What happened after — merged, released, adopted. */
+  result: string;
+}
+
+export const externalContributions: ExternalContribution[] = [];

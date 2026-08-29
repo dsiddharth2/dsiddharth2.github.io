@@ -1,0 +1,66 @@
+---
+import { resolvedCaseStudies } from '@/data/caseStudies';
+
+const studies = resolvedCaseStudies();
+---
+
+<section id="case-studies" class="case-section" aria-labelledby="case-heading">
+  <div class="page-container section-padding">
+    <p class="section-eyebrow" data-reveal>Case Studies</p>
+    <h2 id="case-heading" class="section-title case-title" data-reveal data-reveal-delay="1">
+      Systems I took from<br />problem to production.
+    </h2>
+
+    <div class="case-grid">
+      {studies.map((study, index) => (
+        <article class="case-card" data-reveal data-reveal-delay={String((index % 3) + 1)}>
+          <p class="case-domain">{study.domain}</p>
+          <h3 class="case-card-title">{study.product.title}</h3>
+          <p class="case-tagline">{study.product.tagline}</p>
+
+          <dl class="case-facts">
+            <dt>Problem</dt>
+            <dd>{study.problem}</dd>
+            {study.constraint && (
+              <>
+                <dt>Hardest constraint</dt>
+                <dd>{study.constraint}</dd>
+              </>
+            )}
+            <dt>Approach</dt>
+            <dd>{study.approach}</dd>
+          </dl>
+
+          {study.decision && (
+            <p class="case-decision">
+              <span class="case-decision-label">Key decision</span>
+              {study.decision}
+            </p>
+          )}
+
+          <div class="case-card-footer">
+            <p class="case-outcome">
+              <span class="case-outcome-metric">{study.outcome.metric}</span>
+              <span class="case-outcome-label">{study.outcome.label}</span>
+            </p>
+            <a href={study.href} class="case-view-more">
+              Read the case study
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <a href="/projects" class="case-more" data-reveal>
+      All case studies
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14"></path>
+        <path d="M12 5l7 7-7 7"></path>
+      </svg>
+    </a>
+  </div>
+</section>
