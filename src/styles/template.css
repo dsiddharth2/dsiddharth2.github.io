@@ -1169,6 +1169,23 @@ button.btn-hero-secondary {
   gap: 20px;
 }
 
+.opensource-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 28px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.opensource-more:hover,
+.opensource-more:focus-visible {
+  color: #b06e0a;
+}
+
 .opensource-card {
   display: flex;
   flex-direction: column;
