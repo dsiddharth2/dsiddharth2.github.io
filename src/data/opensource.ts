@@ -1,4 +1,4 @@
-export type OpenSourceIcon = 'plug' | 'hawk' | 'barcode' | 'grid';
+export type OpenSourceIcon = 'agent' | 'plug' | 'hawk' | 'barcode' | 'grid';
 
 export interface OpenSourceStat {
   metric: string;
@@ -52,6 +52,121 @@ export interface OpenSourceProject {
 }
 
 export const openSourceProjects: OpenSourceProject[] = [
+  {
+    slug: 'apra-agent-kit',
+    title: 'Apra Agent Kit',
+    subtitle: 'A starting point for a new agent',
+    tagline:
+      'A new agent starts from a running shell. The agent-builder skill in Claude writes the spec, the plan, and the build.',
+    description:
+      'Scaffold an agent on Apra Fleet. The shell already runs. /agent-builder in Claude walks through the spec, the plan, and the tools that are specific to the job.',
+    url: 'https://github.com/Apra-Labs/apra-agent-kit',
+    npmUrl: 'https://www.npmjs.com/package/@apralabs/create-agent-kit',
+    tags: ['Node.js', 'Claude Code', 'MCP', 'Python'],
+    icon: 'agent',
+    language: 'JavaScript',
+    stats: [
+      { metric: '12', label: 'tools in the box' },
+      { metric: '4', label: 'builder phases' },
+      { metric: '2', label: 'front doors' },
+      { metric: 'MIT', label: 'open source' },
+    ],
+    overview: {
+      problem: [
+        'A new agent usually starts as an empty repo',
+        'The run loop, the cost caps, and the approval gate get rebuilt every time',
+        'Those pieces fail while the tests still pass',
+        'Chat, MCP, a queue, and a schedule are the same doors on every agent',
+        'The domain tools are the real work, and they get buried under the shell',
+        'There was no guided path from an idea to a running agent',
+      ],
+      solution: [
+        'Clone the kit, delete the demos, and the project is yours',
+        'npm create @apralabs/agent-kit scaffolds it in one command',
+        '/agent-builder in Claude: interview, spec, plan, then build',
+        'Plan-execute or open-ended, already wired',
+        'Known steps live in a workflow, as plain code',
+        'Budgets, guardrails, memory, chat, and MCP are modules you turn on',
+      ],
+      outcome: [
+        'A new agent starts from a shell that already runs',
+        'Claude writes the spec and the plan before the tool code',
+        'An irreversible tool stays gated unless someone approves it',
+        '/task uses this agent\'s brain; /mcp lets Claude Code or Cursor bring their own',
+        'Mock tests run with no Fleet binary and no token',
+        'MIT licensed, published as @apralabs/create-agent-kit',
+      ],
+    },
+    architectureSvg: 'images/architecture/apra-agent-kit-architecture.svg',
+    howItWorks: [
+      {
+        stage: 'Scaffold',
+        detail:
+          'npm create @apralabs/agent-kit copies the kit, installs dependencies, and writes a starter workflow. npm run doctor shows what is missing. npm test runs against mock Fleet clients, so the shell can be checked with no binary and no token.',
+      },
+      {
+        stage: 'Interview',
+        detail:
+          '/agent-builder in Claude Code asks what the agent does, which tools it needs, and where it can fail. It writes a spec to docs/specs and a task-by-task plan to docs/plans, in the order the pieces have to be built.',
+      },
+      {
+        stage: 'Build',
+        detail:
+          'A tool is a script plus a registry entry: a name, a description, an input schema, and a run function. A workflow is a sequence you already know, written as code and exposed as a tool, so the model does not rediscover it.',
+      },
+      {
+        stage: 'Run',
+        detail:
+          'A task comes in through chat, a cron schedule, POST /task, or POST /mcp. The router sends it to a workflow, to plan-execute, or to the open-ended loop. The worker pool runs Claude Code instances: a standing set, then overflow, then a queue.',
+      },
+      {
+        stage: 'Stop',
+        detail:
+          'Defaults cap a task at 25 iterations, $5, 500K tokens, and 10 minutes. An irreversible tool resolves to approve, and approve with nobody to ask means denied. A kill switch freezes writes without a redeploy.',
+      },
+    ],
+    decisions: [
+      {
+        title: 'You clone it, and the first commit is yours',
+        detail:
+          'The path in the clone contract is: clone, delete the demo agents, drop the git link, first commit. From there the project is yours and almost everything is meant to be edited. A shared library would have kept every agent on one version. A few safety properties are not meant to change by accident, and a conformance test holds them: irreversible tools stay gated, no approver means denied, and the kill switch outranks the policy table.',
+      },
+      {
+        title: 'The agent-builder skill is how a new agent gets written',
+        detail:
+          'In Claude Code, /agent-builder runs four phases: an interview about the job, the tools, and the failure modes; a spec with no blank sections; a plan in build order; then the build. It sets host.config.mjs, turns on memory when the agent needs it, and shows how API keys reach executeCommand, which does not inherit the parent shell. Those are the steps that get skipped when the config is written by hand.',
+      },
+      {
+        title: 'Known steps belong in a workflow',
+        detail:
+          'A workflow is plain code, exposed as a tool. It is faster, cheaper, and the same every time. The run loop is for a task whose path is not known yet. Plan-execute writes a plan, a reviewer approves it, and a failed step triggers a replan. Open-ended mode decides the next turn from what just happened.',
+      },
+      {
+        title: 'Two front doors, one registry',
+        detail:
+          'POST /task is for a caller that wants this agent to plan and finish the work. POST /mcp is for Claude Code, Cursor, or another agent that brings its own reasoning and only needs the tools. Both use the same registry, the same worker pool, and the same guardrails.',
+      },
+      {
+        title: 'A refusal goes back to the model',
+        detail:
+          'Guardrails return a value with a reason. The run loop feeds that to the model as an observation, so it can explain the refusal or try another step. Throwing would end the run, and the person waiting would see a crash instead of a reason.',
+      },
+    ],
+    evaluation:
+      'npm test is the check that exists today: mock Fleet clients, no binary, no token. It catches regressions in the run loop, the guardrails, and the budgets. There is no graded set of real tasks, so I cannot say how often an agent finishes the job it was given. That harness is the next item on the roadmap, and the research notes for it are already in the repo.',
+    reflections: [
+      {
+        title: 'The eval harness is still outside the box',
+        detail:
+          'The kit\'s own anatomy lists evals as planned: 20 to 50 real tasks with graded outcomes. Until that exists, a prompt or model change has no score. The shell can be tested. The agent\'s judgment cannot.',
+      },
+      {
+        title: 'The worker pool still speaks Claude Code',
+        detail:
+          'Fleet can register other model providers. This pool provisions Claude Code instances. The doors and the tool registry do not depend on that staying true, and multi-provider support is on the roadmap.',
+      },
+    ],
+  },
   {
     slug: 'plug',
     title: 'Plug',

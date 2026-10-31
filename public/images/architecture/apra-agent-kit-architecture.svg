@@ -1,0 +1,75 @@
+<svg viewBox="0 0 1000 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Apra Agent Kit architecture: scaffold and the agent-builder skill, four doors into one shell, then a Fleet worker pool">
+  <title>Apra Agent Kit: a new agent starts from a shell that already runs</title>
+  <style>
+    svg { --accent: #C2571E; --ink: #17212B; --sub: #5C6875; --line: #C9D2DC; --band: #F6F8FA; --bandline: #E3E8EE; --label: #8B96A5; }
+    .band   { fill: var(--band); stroke: var(--bandline); stroke-width: 1; }
+    .box    { fill: #FFFFFF; stroke: var(--line); stroke-width: 1.2; }
+    .box-k  { fill: #FFFFFF; stroke: var(--accent); stroke-width: 1.8; }
+    text    { font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .h      { font-size: 15px; font-weight: 650; fill: var(--ink); }
+    .bl     { font-size: 10.5px; font-weight: 650; fill: var(--label); letter-spacing: 0.13em; }
+    .t      { font-size: 13px; font-weight: 620; fill: var(--ink); }
+    .s      { font-size: 11px; fill: var(--sub); }
+    .m      { font-size: 11px; fill: var(--sub); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .flow   { fill: none; stroke: #58636F; stroke-width: 1.6; }
+  </style>
+  <defs>
+    <marker id="ak-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#58636F"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="40" y="32">Apra Agent Kit: a new agent starts from a shell that already runs</text>
+
+  <rect class="band" x="40" y="52" width="920" height="126" rx="10"/>
+  <text class="bl" x="58" y="74">START</text>
+  <rect class="box" x="72" y="88" width="424" height="72" rx="7"/>
+  <text class="m" x="90" y="116">npm create @apralabs/agent-kit</text>
+  <text class="s" x="90" y="138">Copies the kit and a starter workflow</text>
+  <rect class="box-k" x="512" y="88" width="416" height="72" rx="7"/>
+  <text class="m" x="530" y="116">/agent-builder</text>
+  <text class="s" x="530" y="138">Interview, spec, plan, then build in Claude</text>
+
+  <line class="flow" x1="500" y1="178" x2="500" y2="198" marker-end="url(#ak-arrow)"/>
+
+  <rect class="band" x="40" y="204" width="920" height="126" rx="10"/>
+  <text class="bl" x="58" y="226">DOORS</text>
+  <rect class="box-k" x="72" y="240" width="206" height="72" rx="7"/>
+  <text class="m" x="88" y="268">POST /task</text>
+  <text class="s" x="88" y="290">This agent's brain</text>
+  <rect class="box" x="294" y="240" width="206" height="72" rx="7"/>
+  <text class="m" x="310" y="268">POST /mcp</text>
+  <text class="s" x="310" y="290">An external AI brings its own</text>
+  <rect class="box" x="516" y="240" width="206" height="72" rx="7"/>
+  <text class="t" x="532" y="268">Chat</text>
+  <text class="s" x="532" y="290">Progress over SSE</text>
+  <rect class="box" x="738" y="240" width="190" height="72" rx="7"/>
+  <text class="t" x="754" y="268">Scheduler</text>
+  <text class="s" x="754" y="290">Cron, skip or queue</text>
+
+  <line class="flow" x1="500" y1="330" x2="500" y2="350" marker-end="url(#ak-arrow)"/>
+
+  <rect class="band" x="40" y="356" width="920" height="220" rx="10"/>
+  <text class="bl" x="58" y="378">SHELL</text>
+  <rect class="box-k" x="72" y="392" width="430" height="100" rx="7"/>
+  <text class="t" x="90" y="418">Run loop</text>
+  <text class="s" x="90" y="440">Plan-execute: a reviewer approves the plan</text>
+  <text class="s" x="90" y="460">Open-ended: decide the next turn</text>
+  <rect class="box" x="518" y="392" width="410" height="46" rx="7"/>
+  <text class="t" x="534" y="420">Workflows: known steps, written as code</text>
+  <rect class="box" x="518" y="446" width="410" height="46" rx="7"/>
+  <text class="t" x="534" y="474">Tools: a script plus a registry entry</text>
+  <rect class="box" x="72" y="508" width="270" height="48" rx="7"/>
+  <text class="t" x="88" y="537">Budgets</text>
+  <rect class="box" x="358" y="508" width="270" height="48" rx="7"/>
+  <text class="t" x="374" y="537">Guardrails</text>
+  <rect class="box" x="644" y="508" width="284" height="48" rx="7"/>
+  <text class="t" x="660" y="537">Memory</text>
+
+  <line class="flow" x1="500" y1="576" x2="500" y2="596" marker-end="url(#ak-arrow)"/>
+
+  <rect class="band" x="40" y="602" width="920" height="88" rx="10"/>
+  <text class="bl" x="58" y="624">WORKERS</text>
+  <rect class="box" x="72" y="636" width="856" height="40" rx="7"/>
+  <text class="t" x="90" y="661">Fleet worker pool: standing Claude Code instances, then overflow, then a queue</text>
+</svg>
