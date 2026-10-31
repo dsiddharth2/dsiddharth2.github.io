@@ -34,7 +34,7 @@ export const experience: ExperienceEntry[] = [
   {
     id: 'apra-labs',
     company: 'Apra Labs',
-    role: 'Associate Architect · previously Senior Software Engineer',
+    role: 'Architect · previously Associate Architect',
     period: 'Aug 2019 – Present',
     summary:
       'Built the AI and data platform layer for a unified facility management product serving 300+ US facilities.',
