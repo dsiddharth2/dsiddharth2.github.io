@@ -233,7 +233,7 @@ export function llmsTxt(): string {
 
   return `# ${site.name}
 
-> Associate Architect · Applied AI. Builds production AI, data, and cloud systems for complex real-world problems.
+> Architect · Applied AI. Builds production AI, data, and cloud systems for complex real-world problems.
 
 ${site.description}
 
@@ -256,7 +256,6 @@ ${ossLinks}
 - [Experience index](${getSiteUrl('/experience.md')}): Roles and impact
 - [Case Studies index](${getSiteUrl('/projects.md')}): All shipped systems
 - [Open Source index](${getSiteUrl('/opensource.md')}): All public repositories
-- [Resume](${getSiteUrl('/resume')}): PDF resume
 - [Full text](${getSiteUrl('/llms-full.txt')}): Complete markdown for every project
 
 ## Contact
@@ -265,7 +264,6 @@ ${ossLinks}
 - LinkedIn: ${site.linkedin}
 - Medium: ${site.medium}
 - Email: ${site.email}
-- Resume: ${getSiteUrl('/resume')}
 `;
 }
 

@@ -49,7 +49,10 @@ const isResumePage = (canonicalPath || Astro.url.pathname).replace(/\/$/, '') ==
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="author" content={site.name} />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta
+      name="robots"
+      content={isResumePage ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}
+    />
     <meta name="theme-color" content="#F5A623" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/png" sizes="48x48" href={assetUrl('favicon-48.png')} />
@@ -88,6 +91,6 @@ const isResumePage = (canonicalPath || Astro.url.pathname).replace(/\/$/, '') ==
       <a href="#main-content" class="skip-link">Skip to content</a>
     )}
     <slot />
-    <ResumeDialog standalone={isResumePage} />
+    {isResumePage && <ResumeDialog standalone />}
   </body>
 </html>

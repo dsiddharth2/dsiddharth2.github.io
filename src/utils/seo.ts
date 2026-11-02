@@ -8,7 +8,7 @@ export function personJsonLd() {
     name: site.name,
     url: getSiteUrl('/'),
     image: getSiteUrl('/images/profile.jpg'),
-    jobTitle: 'Associate Architect',
+    jobTitle: 'Architect',
     description: site.description,
     email: site.email,
     sameAs: [site.github, site.linkedin, site.medium],

@@ -9,6 +9,13 @@ const { icon } = Astro.props;
 ---
 
 <div class="opensource-icon" aria-hidden="true">
+  {icon === 'agent' && (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 8V4H8"></path>
+      <rect x="4" y="8" width="16" height="12" rx="2"></rect>
+      <path d="M2 14h2M20 14h2M9 13v2M15 13v2"></path>
+    </svg>
+  )}
   {icon === 'plug' && (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 22v-5"></path>
