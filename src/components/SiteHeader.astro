@@ -1,0 +1,94 @@
+---
+import { site } from '@/config/site';
+import { activeNavFor, headerNav, type NavLabel } from '@/config/nav';
+
+interface Props {
+  active?: NavLabel;
+}
+
+const active = Astro.props.active ?? activeNavFor(Astro.url.pathname);
+const items = headerNav.map((item) => ({
+  ...item,
+  isActive: Boolean(item.key && item.key === active),
+}));
+---
+
+<div class="site-header-spacer" aria-hidden="true"></div>
+<header class="site-header" data-site-header>
+  <div class="sh-bar">
+    <div class="sh-row">
+      <a href="/" class="sh-brand" aria-label={`${site.name} — Home`}>
+        <span class="sd-mark" aria-hidden="true">SD</span>
+        <span class="sh-name">{site.name}</span>
+      </a>
+      <nav class="sh-nav" aria-label="Main navigation">
+        {items.map((item) => (
+          <a
+            href={item.href}
+            class:list={['sh-link', item.isActive && 'is-active']}
+            aria-current={item.isActive ? 'page' : undefined}
+            target={item.external ? '_blank' : undefined}
+            rel={item.external ? 'noopener noreferrer' : undefined}
+          >
+            {item.label}
+            {item.external && <span class="sr-only"> (opens in a new tab)</span>}
+          </a>
+        ))}
+      </nav>
+      <div class="sh-actions">
+        <button type="button" class="sh-theme" data-theme-toggle aria-label="Switch to dark mode" title="Switch between light and dark mode">☾</button>
+        <a href={`mailto:${site.email}`} class="sh-cta">Get in Touch</a>
+        <button
+          type="button"
+          class="sh-menu-btn"
+          data-menu-toggle
+          aria-expanded="false"
+          aria-controls="sh-mobile-nav"
+        >Menu</button>
+      </div>
+    </div>
+    <nav id="sh-mobile-nav" class="sh-mobile" aria-label="Main navigation (mobile)" hidden>
+      {items.map((item) => (
+        <a
+          href={item.href}
+          class:list={['sh-mobile-link', item.isActive && 'is-active']}
+          aria-current={item.isActive ? 'page' : undefined}
+          target={item.external ? '_blank' : undefined}
+          rel={item.external ? 'noopener noreferrer' : undefined}
+        >
+          {item.label}
+          <span class="sh-dot" aria-hidden="true"></span>
+        </a>
+      ))}
+      <a href={`mailto:${site.email}`} class="sh-mobile-cta">Get in Touch</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  const toggle = header?.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = header?.querySelector<HTMLElement>('#sh-mobile-nav');
+
+  if (header && toggle && menu) {
+    const mobile = window.matchMedia('(max-width: 859.98px)');
+    const setOpen = (open: boolean) => {
+      header.toggleAttribute('data-open', open);
+      menu.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.textContent = open ? 'Close' : 'Menu';
+    };
+
+    toggle.addEventListener('click', () => setOpen(menu.hidden));
+    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !menu.hidden) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    mobile.addEventListener('change', (event) => {
+      if (!event.matches) setOpen(false);
+    });
+  }
+</script>

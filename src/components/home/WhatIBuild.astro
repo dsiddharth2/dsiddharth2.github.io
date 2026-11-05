@@ -1,0 +1,23 @@
+---
+import { domains } from '@/data/domains';
+
+const hashtag = (title: string) => title.replace(/[^A-Za-z0-9]/g, '');
+---
+
+<section class="section" aria-labelledby="build-heading">
+  <div class="section-head">
+    <span class="eyebrow">What I Build</span>
+    <h2 id="build-heading" class="h2">Four kinds of problem keep landing on my desk.</h2>
+  </div>
+  <div class="build-cards">
+    {domains.map((domain) => (
+      <article class="card build-card2">
+        <span class="mono">#{hashtag(domain.title)}</span>
+        <h3 class="build-card2-title">{domain.title}</h3>
+        <p class="build-card2-problem">{domain.problem}</p>
+        <p class="build-card2-work">{domain.work}</p>
+        <a href={domain.evidence.href} class="build-card2-link">{domain.evidence.label} →</a>
+      </article>
+    ))}
+  </div>
+</section>

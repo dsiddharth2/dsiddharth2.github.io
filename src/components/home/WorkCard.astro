@@ -1,0 +1,72 @@
+---
+import type { WorkCardData } from '@/data/workMeta';
+
+interface Props {
+  card: WorkCardData;
+  index: number;
+  total: number;
+}
+
+const { card, index, total } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<article
+  class="work-card"
+  data-work-card
+  data-slug={card.slug}
+  data-categories={JSON.stringify(card.categories)}
+  data-case={card.isCase ? 'true' : 'false'}
+  aria-labelledby={`work-${card.slug}`}
+>
+  <div class="wc-split">
+    <div class="wc-copy">
+      <div class="chip-row">
+        {card.isCase && <span class="wc-case-label">Case study · {card.domain}</span>}
+        {card.categories.map((category) => (
+          <button type="button" class="wc-tag" data-filter-pick={category} title="Filter by this tag">#{category}</button>
+        ))}
+      </div>
+      <h3 id={`work-${card.slug}`} class="wc-title">
+        <a href={card.href}>{card.title}</a>
+        <span class="wc-headline">{card.headline}</span>
+      </h3>
+      <p class="wc-desc">{card.description}</p>
+      <a href={card.href} class="wc-cta" aria-label={`${card.isCase ? 'Read the case study' : 'View More'}: ${card.title}`}>
+        {card.isCase ? 'Read the case study' : 'View More'} →
+      </a>
+    </div>
+    <div class="wc-panel">
+      <div class="wc-panel-top">
+        <span>System {pad(index + 1)} / {pad(total)}</span>
+        <span class="wc-company">{card.company}</span>
+      </div>
+      <div class="wc-metric">
+        <span class:list={['wc-metric-value', card.metric.metric.length > 5 && 'wc-metric-value--long']}>{card.metric.metric}</span>
+        <span class="wc-metric-label">{card.metric.label}</span>
+      </div>
+      <dl class="wc-facts">
+        <div>
+          <dt>System</dt>
+          <dd>{card.subtitle}</dd>
+        </div>
+        <div>
+          <dt>Stack</dt>
+          <dd class="chip-row">
+            {card.stack.map((item) => <span class="wc-chip">{item}</span>)}
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+  {card.points.length > 0 && (
+    <dl class="wc-points">
+      {card.points.map((point) => (
+        <div class:list={['wc-point', point.accent && 'is-accent']}>
+          <dt>{point.label}.</dt>
+          <dd>{point.value}</dd>
+        </div>
+      ))}
+    </dl>
+  )}
+</article>

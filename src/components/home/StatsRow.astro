@@ -1,0 +1,18 @@
+---
+import { highlights } from '@/data/highlights';
+import { heroBadge } from '@/data/hero';
+
+const stats = [heroBadge, ...highlights].map((stat) => ({
+  value: stat.value,
+  label: stat.label.replace(/\s*\n\s*/g, ' '),
+}));
+---
+
+<section class="stats-row" aria-label="Highlights">
+  {stats.map((stat) => (
+    <div class="stat-tile">
+      <span class="stat-value">{stat.value}</span>
+      <span class="stat-label">{stat.label}</span>
+    </div>
+  ))}
+</section>

@@ -1,0 +1,187 @@
+---
+import { assetUrl } from '@/utils/assets';
+
+interface Overview {
+  problem: string[];
+  solution: string[];
+  outcome: string[];
+}
+
+interface Item {
+  title: string;
+  detail: string;
+}
+
+interface Props {
+  title: string;
+  metrics: { metric: string; label: string }[];
+  context?: string;
+  overview: Overview;
+  architectureSvg?: string;
+  howItWorks: { stage: string; detail: string }[];
+  constraints?: string[];
+  decisions: Item[];
+  evaluation?: string;
+  reflections: Item[];
+}
+
+const {
+  title,
+  metrics,
+  context,
+  overview,
+  architectureSvg,
+  howItWorks,
+  constraints = [],
+  decisions,
+  evaluation,
+  reflections,
+} = Astro.props;
+
+const pad = (n: number) => String(n).padStart(2, '0');
+const architectureAlt = `${title} architecture`;
+const columns = [
+  { label: 'Problem', items: overview.problem },
+  { label: 'Solution', items: overview.solution },
+  { label: 'Outcome', items: overview.outcome, accent: true },
+];
+---
+
+{metrics.length > 0 && (
+  <section class="metric-band" aria-label="Impact metrics">
+    {metrics.map((item) => (
+      <div class="metric-cell">
+        <span class:list={['metric-value', item.metric.length > 6 && 'metric-value--long']}>{item.metric}</span>
+        <span class="metric-label">{item.label}</span>
+      </div>
+    ))}
+  </section>
+)}
+
+{context && (
+  <section class="split-section" aria-labelledby="context-heading">
+    <h2 id="context-heading" class="h2-sm split-aside">What made it hard</h2>
+    <p class="split-main detail-context">{context}</p>
+  </section>
+)}
+
+<section id="overview" class="pso-grid" aria-label="Overview">
+  {columns.map((column) => (
+    <div class="card pso-card">
+      <h2 class:list={['pso-title', column.accent && 'is-accent']}>{column.label}</h2>
+      <ul>
+        {column.items.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  ))}
+</section>
+
+{architectureSvg && (
+  <section id="architecture" class="arch-section" aria-labelledby="architecture-heading">
+    <div class="arch-head">
+      <div class="page-hero-copy">
+        <span class="eyebrow">System design · Pipeline · Decisions</span>
+        <h2 id="architecture-heading" class="h2">Architecture Review</h2>
+      </div>
+      <button type="button" class="text-btn" data-diagram-open aria-haspopup="dialog">Open fullscreen ↗</button>
+    </div>
+    <button type="button" class="arch-frame" data-diagram-open aria-label={`${architectureAlt}, open fullscreen`}>
+      <img src={assetUrl(architectureSvg)} alt={architectureAlt} loading="lazy" />
+    </button>
+    <dialog class="diagram-dialog" data-diagram-dialog aria-label={`${architectureAlt}, fullscreen`}>
+      <div class="diagram-dialog-bar">
+        <b>{title} — Architecture</b>
+        <button type="button" class="agent-modal-close" data-diagram-close>Close</button>
+      </div>
+      <div class="diagram-dialog-body">
+        <img src={assetUrl(architectureSvg)} alt={architectureAlt} />
+      </div>
+    </dialog>
+  </section>
+)}
+
+{howItWorks.length > 0 && (
+  <section class="steps-section" aria-labelledby="how-heading">
+    <h2 id="how-heading" class="h2-sm section-gap">How it works</h2>
+    <ol class="steps-grid">
+      {howItWorks.map((step, index) => (
+        <li class="card step-card">
+          <span class="step-n" aria-hidden="true">{index + 1}</span>
+          <h3 class="step-title">{step.stage}</h3>
+          <p class="step-detail">{step.detail}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+)}
+
+{constraints.length > 0 && (
+  <section class="constraints dark-panel--glow" aria-labelledby="constraints-heading">
+    <h2 id="constraints-heading" class="h2-sm">Constraints</h2>
+    <ol class="constraints-list">
+      {constraints.map((line, index) => (
+        <li><span class="constraints-n" aria-hidden="true">{pad(index + 1)}</span><span>{line}</span></li>
+      ))}
+    </ol>
+  </section>
+)}
+
+{decisions.length > 0 && (
+  <section class="split-section" aria-labelledby="decisions-heading">
+    <div class="split-aside">
+      <h2 id="decisions-heading" class="h2-sm sticky-heading">Key Decisions</h2>
+    </div>
+    <ol class="split-main decision-list">
+      {decisions.map((decision, index) => (
+        <li class="decision">
+          <span class="decision-n" aria-hidden="true">{pad(index + 1)}</span>
+          <div>
+            <h3 class="decision-title">{decision.title}</h3>
+            <p class="decision-detail">{decision.detail}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+)}
+
+{(evaluation || reflections.length > 0) && (
+  <section class="notes-grid" aria-label="Evaluation and reflections">
+    {evaluation && (
+      <div class="note-card dark-panel">
+        <h2 class="note-title note-title--amber">Evaluation</h2>
+        <p class="note-eval">{evaluation}</p>
+      </div>
+    )}
+    {reflections.length > 0 && (
+      <div class="card note-card">
+        <h2 class="note-title">What I'd Change</h2>
+        <ul class="arrow-list">
+          {reflections.map((item) => (
+            <li><span><b>{item.title}</b> <span class="note-detail">{item.detail}</span></span></li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </section>
+)}
+
+<script>
+  document.querySelectorAll<HTMLDialogElement>('[data-diagram-dialog]').forEach((dialog) => {
+    if (typeof dialog.showModal !== 'function') return;
+    const section = dialog.closest('section');
+    section?.querySelectorAll('[data-diagram-open]').forEach((el) => {
+      el.addEventListener('click', () => {
+        dialog.showModal();
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    dialog.querySelector('[data-diagram-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', () => {
+      document.body.style.overflow = '';
+    });
+  });
+</script>

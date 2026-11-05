@@ -1,0 +1,94 @@
+---
+import type { ExperienceEntry } from '@/data/experience';
+
+interface Props {
+  entry: ExperienceEntry;
+  /** `h1` on the slug page, `h2` in the long-scroll index. */
+  headingLevel?: 'h1' | 'h2';
+  /** Show a link through to the entry's own SEO URL (index only). */
+  showPermalink?: boolean;
+}
+
+const { entry, headingLevel = 'h2', showPermalink = false } = Astro.props;
+const Heading = headingLevel;
+const SubHeading = headingLevel === 'h1' ? 'h2' : 'h3';
+const href = `/experience/${entry.id}`;
+---
+
+{entry.earlierEntries ? (
+  <section id={entry.id} class="exp-earlier" aria-labelledby={`${entry.id}-heading`}>
+    <div class="exp-earlier-head">
+      <Heading id={`${entry.id}-heading`} class="exp-earlier-title">
+        {entry.company}<span class="amber-dot">.</span>
+      </Heading>
+      <span class="mono exp-earlier-period">{entry.period}</span>
+    </div>
+    <div class="exp-earlier-grid">
+      {entry.earlierEntries.map((item) => (
+        <article class="card exp-earlier-card">
+          <SubHeading class="exp-earlier-name">{item.company}</SubHeading>
+          <span class="mono exp-earlier-meta">{item.role}</span>
+          <p>{item.summary}</p>
+        </article>
+      ))}
+    </div>
+    <slot name="after-earlier" />
+    {showPermalink && <a href={href} class="exp-permalink">View More →<span class="sr-only">: {entry.company}</span></a>}
+  </section>
+) : (
+  <article id={entry.id} class="exp-article" aria-labelledby={`${entry.id}-heading`}>
+    <div class="exp-top">
+      <div class="exp-who">
+        <span class="mono">{entry.period}</span>
+        <Heading id={`${entry.id}-heading`} class="exp-company">
+          {entry.company}<span class="amber-dot">.</span>
+        </Heading>
+        {entry.role && <span class="exp-role">{entry.role}</span>}
+      </div>
+      <p class="exp-summary">{entry.summary}</p>
+    </div>
+
+    {entry.metrics && entry.metrics.length > 0 && (
+      <div class="exp-metrics">
+        {entry.metrics.map((metric) => (
+          <p class="exp-metric">
+            <span class="exp-metric-value">{metric.value}</span>
+            <span class="exp-metric-label">{metric.label}</span>
+          </p>
+        ))}
+      </div>
+    )}
+
+    <div class="exp-cols">
+      {entry.items && entry.items.length > 0 && (
+        <div class="exp-col">
+          <SubHeading class="exp-col-title">What I shipped</SubHeading>
+          <ul class="arrow-list">
+            {entry.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      )}
+      {entry.columns?.map((column) => (
+        <div class="exp-col exp-col--alt">
+          <SubHeading class="exp-col-title">{column.title}</SubHeading>
+          <ul class="arrow-list arrow-list--dot">
+            {column.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    {entry.extra && (
+      <div class="exp-note dark-panel--glow">
+        <span class="mono-label exp-note-title">{entry.extra.title}</span>
+        <p>{entry.extra.description}</p>
+      </div>
+    )}
+
+    {showPermalink && (
+      <div class="exp-foot">
+        <a href={href} class="exp-permalink">View More →<span class="sr-only">: {entry.company}</span></a>
+      </div>
+    )}
+  </article>
+)}

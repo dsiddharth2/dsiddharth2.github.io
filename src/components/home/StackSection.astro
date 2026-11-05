@@ -1,0 +1,33 @@
+---
+import { aboutSkills } from '@/data/about';
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { id = 'stack', eyebrow = 'My Stack', headingLevel = 'h2' } = Astro.props;
+const Heading = headingLevel;
+const groups = aboutSkills.map((group) => ({
+  title: group.category,
+  chips: group.items.flatMap((item) => item.split(' · ')),
+}));
+---
+
+<section id={id} class="section" aria-labelledby={`${id}-heading`}>
+  <div class="section-head">
+    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+    <Heading id={`${id}-heading`} class="h2">Technical expertise</Heading>
+  </div>
+  <div class="stack-list">
+    {groups.map((group) => (
+      <div class="stack-row">
+        <span class="stack-title">{group.title}</span>
+        <div class="chip-row stack-chips">
+          {group.chips.map((chip) => <span class="chip chip--outline">{chip}</span>)}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

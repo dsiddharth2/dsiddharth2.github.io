@@ -1,0 +1,100 @@
+---
+import CtaBanner from '@/components/CtaBanner.astro';
+import { site } from '@/config/site';
+import { pageNav } from '@/config/nav';
+
+interface Props {
+  /** The page's markdown alternate; the Agent view falls back to /llms.txt. */
+  markdownPath?: string;
+  hideCta?: boolean;
+}
+
+const { markdownPath, hideCta = false } = Astro.props;
+const agentSource = markdownPath ?? '/llms.txt';
+---
+
+<div class="wrap site-footer-wrap">
+  {!hideCta && <CtaBanner />}
+  <footer class="site-footer">
+    <div class="sf-col">
+      <span class="sd-mark sd-mark--lg" aria-hidden="true">SD</span>
+      <span class="sf-muted">© {site.name}<br />AI Architect · Production Systems</span>
+    </div>
+    <nav class="sf-col" aria-label="Footer pages">
+      <b>Pages</b>
+      {pageNav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+    <div class="sf-col">
+      <b>Contact</b>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <a href={site.medium} target="_blank" rel="noopener noreferrer">Medium ↗</a>
+    </div>
+    <div class="sf-col sf-col--agent">
+      <b>Agent view</b>
+      <span class="sf-muted">This page as plain Markdown, the way an AI agent reads it.</span>
+      <button type="button" class="pill-btn" data-agent-open aria-haspopup="dialog">View as Markdown</button>
+    </div>
+  </footer>
+</div>
+
+<dialog class="agent-modal" data-agent-modal data-source={agentSource} aria-labelledby="agent-modal-title">
+  <div class="agent-modal-bar">
+    <b id="agent-modal-title">Agent view</b>
+    <div class="agent-modal-actions">
+      <a class="agent-modal-raw" href={agentSource} target="_blank" rel="noopener">{agentSource}</a>
+      <button type="button" class="agent-modal-copy" data-agent-copy>Copy Markdown</button>
+      <button type="button" class="agent-modal-close" data-agent-close>Close</button>
+    </div>
+  </div>
+  <pre class="agent-modal-body" data-agent-body>Loading…</pre>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-agent-modal]');
+  const body = dialog?.querySelector<HTMLElement>('[data-agent-body]');
+  const copy = dialog?.querySelector<HTMLButtonElement>('[data-agent-copy]');
+
+  if (dialog && body && copy && typeof dialog.showModal === 'function') {
+    let text: string | null = null;
+
+    const load = async () => {
+      if (text !== null) return text;
+      try {
+        const response = await fetch(dialog.dataset.source ?? '/llms.txt');
+        if (!response.ok) throw new Error(String(response.status));
+        text = await response.text();
+      } catch {
+        text = '';
+        body.textContent = 'Could not load the Markdown for this page.';
+        return text;
+      }
+      body.textContent = text;
+      return text;
+    };
+
+    document.querySelectorAll('[data-agent-open]').forEach((button) => {
+      button.addEventListener('click', () => {
+        copy.textContent = 'Copy Markdown';
+        dialog.showModal();
+        void load();
+      });
+    });
+
+    copy.addEventListener('click', async () => {
+      const value = await load();
+      try {
+        await navigator.clipboard.writeText(value);
+        copy.textContent = 'Copied ✓';
+      } catch {
+        copy.textContent = 'Copy failed';
+      }
+    });
+
+    dialog.querySelector('[data-agent-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  }
+</script>

@@ -7,13 +7,20 @@ interface Props {
   markdownPath?: string;
   ogType?: 'website' | 'article' | 'profile';
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  /** Header item to highlight; derived from the URL when omitted. */
+  active?: NavLabel;
 }
 
 import { site, getSiteUrl } from '@/config/site';
 import { assetUrl } from '@/utils/assets';
 import ResumeDialog from '@/components/ResumeDialog.astro';
+import ThemeScript from '@/components/ThemeScript.astro';
+import SiteHeader from '@/components/SiteHeader.astro';
+import SiteFooter from '@/components/SiteFooter.astro';
+import type { NavLabel } from '@/config/nav';
+import { THEME_COLORS } from '@/utils/theme';
 import '@/styles/global.css';
-import '@/styles/template.css';
+import '@/styles/site.css';
 
 const {
   title = site.title,
@@ -23,12 +30,14 @@ const {
   markdownPath,
   ogType = 'website',
   jsonLd,
+  active,
 } = Astro.props;
 
 const canonicalUrl = getSiteUrl(canonicalPath);
 const markdownUrl = markdownPath ? getSiteUrl(markdownPath) : undefined;
 const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 const isResumePage = (canonicalPath || Astro.url.pathname).replace(/\/$/, '') === '/resume';
+const showChrome = !isResumePage;
 ---
 
 <!doctype html>
@@ -53,8 +62,15 @@ const isResumePage = (canonicalPath || Astro.url.pathname).replace(/\/$/, '') ==
       name="robots"
       content={isResumePage ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}
     />
-    <meta name="theme-color" content="#F5A623" />
+    <meta name="theme-color" content={THEME_COLORS.light} />
+    <ThemeScript />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
     <link rel="icon" type="image/png" sizes="48x48" href={assetUrl('favicon-48.png')} />
     <link rel="icon" type="image/png" sizes="32x32" href={assetUrl('favicon-32.png')} />
     <link rel="icon" type="image/png" sizes="16x16" href={assetUrl('favicon-16.png')} />
@@ -90,7 +106,9 @@ const isResumePage = (canonicalPath || Astro.url.pathname).replace(/\/$/, '') ==
     {!isResumePage && (
       <a href="#main-content" class="skip-link">Skip to content</a>
     )}
+    {showChrome && <SiteHeader active={active} />}
     <slot />
+    {showChrome && <SiteFooter markdownPath={markdownPath} />}
     {isResumePage && <ResumeDialog standalone />}
   </body>
 </html>
