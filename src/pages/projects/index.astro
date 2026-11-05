@@ -1,22 +1,21 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Nav from '@/components/Nav.astro';
-import ProductsSection from '@/components/ProductsSection.astro';
-import RevealScript from '@/components/RevealScript.astro';
 import { products } from '@/data/products';
+import { resolvedCaseStudies } from '@/data/caseStudies';
 import { site } from '@/config/site';
 import { breadcrumbJsonLd, collectionPageJsonLd } from '@/utils/seo';
 
 const description =
   'Production systems across knowledge graphs, multi-agent AI, FinOps, search, logistics, and analytics — from 0-to-1 through enterprise scale.';
+const studies = resolvedCaseStudies();
 ---
 
 <BaseLayout
-  hideChrome
   title={`Case Studies — ${site.name}`}
   description={description}
   canonicalPath="/projects"
   markdownPath="/projects.md"
+  active="Work"
   jsonLd={[
     collectionPageJsonLd({
       name: `Case Studies — ${site.name}`,
@@ -33,35 +32,60 @@ const description =
     ]),
   ]}
 >
-  <Nav />
-  <main id="main-content">
-    <section class="about-hero">
-      <div class="about-hero-inner">
-        <div class="about-hero-copy">
-          <p class="hero-kicker" data-reveal>Case Studies</p>
-          <h1 class="about-hero-title" data-reveal data-reveal-delay="1">
-            Systems I architected and shipped
-          </h1>
-          <p class="about-hero-lede" data-reveal data-reveal-delay="2">
-            {description}
-          </p>
-        </div>
+  <main id="main-content" class="wrap">
+    <section class="page-hero">
+      <div class="page-hero-copy">
+        <span class="eyebrow">Case Studies</span>
+        <h1 class="page-title">Systems I architected and <em class="acc-em">shipped.</em></h1>
       </div>
+      <p class="page-hero-aside">{description}</p>
     </section>
 
-    <ProductsSection hideIntro />
+    <section class="case-list" aria-labelledby="cases-heading">
+      <h2 id="cases-heading" class="list-heading">Case studies</h2>
+      {studies.map((study) => (
+        <a href={study.href} class="case-card2">
+          <div class="case-card2-copy">
+            <span class="mono">#{study.domain}</span>
+            <h3 class="case-card2-title">{study.product.title}</h3>
+            <p class="case-card2-summary">{study.product.tagline}</p>
+            <dl class="case-card2-facts">
+              <div><dt>Problem</dt><dd>{study.problem}</dd></div>
+              {study.constraint && <div><dt>Hardest constraint</dt><dd>{study.constraint}</dd></div>}
+              <div><dt>Approach</dt><dd>{study.approach}</dd></div>
+              {study.decision && <div class="is-accent"><dt>Key decision</dt><dd>{study.decision}</dd></div>}
+            </dl>
+            <span class="case-card2-cta">Read the case study →</span>
+          </div>
+          <div class="case-card2-panel">
+            <span class="case-card2-metric">{study.outcome.metric}</span>
+            <span class="case-card2-label">{study.outcome.label}</span>
+          </div>
+        </a>
+      ))}
+    </section>
 
-    <section class="about-cta">
-      <div class="about-narrow about-cta-inner">
-        <h2 class="about-cta-title" data-reveal>Let's build something great.</h2>
-        <p class="about-cta-lede" data-reveal data-reveal-delay="1">
-          Always open to interesting problems and collaborations.
-        </p>
-        <div class="about-cta-actions" data-reveal data-reveal-delay="2">
-          <a href={`mailto:${site.email}`} class="btn-hero-primary">Get in Touch →</a>
-        </div>
+    <section class="section systems" aria-labelledby="systems-heading">
+      <div class="systems-head">
+        <h2 id="systems-heading" class="list-heading">All systems</h2>
+        <span class="mono">{products.length} production systems</span>
+      </div>
+      <div class="oss-grid">
+        {products.map((product, index) => (
+          <a href={`/projects/${product.slug}`} class="card system-card">
+            <div class="system-card-top">
+              <span class="mono">{String(index + 1).padStart(2, '0')} · {product.company}</span>
+              <span class="system-card-metric">{product.impact[0].metric}</span>
+            </div>
+            <h3 class="system-card-title">{product.title}</h3>
+            <span class="system-card-sub">{product.subtitle}</span>
+            <p class="system-card-desc">{product.description}</p>
+            <div class="chip-row">
+              {product.tags.map((tag) => <span class="chip">{tag}</span>)}
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   </main>
-  <RevealScript />
 </BaseLayout>

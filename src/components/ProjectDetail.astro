@@ -1,0 +1,51 @@
+---
+import DetailBody from '@/components/detail/DetailBody.astro';
+import { products, type Product } from '@/data/products';
+import { featuredCaseStudies } from '@/data/caseStudies';
+import { neighbours } from '@/utils/neighbours';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const study = featuredCaseStudies.find((item) => item.slug === product.slug);
+const { prev, next } = neighbours(products, product);
+const builtLabel = product.confidentialNote ? product.company : `Built at ${product.company}`;
+---
+
+<article class="wrap detail-page">
+  <header class="detail-hero">
+    <a href="/projects" class="back-link">← All work</a>
+    <div class="chip-row detail-badges">
+      {study && <span class="badge badge--amber">{study.domain}</span>}
+      <span class="badge">{builtLabel}</span>
+    </div>
+    <h1 class="detail-title">{product.title}</h1>
+    <p class="detail-sub">{product.subtitle}</p>
+    <p class="detail-lede">{product.tagline}</p>
+    {product.confidentialNote && <p class="detail-note">{product.confidentialNote}</p>}
+    <div class="chip-row detail-stack">
+      <span class="detail-stack-label">Stack</span>
+      {product.stack.map((item) => <span class="chip chip--outline">{item}</span>)}
+    </div>
+  </header>
+
+  <DetailBody
+    title={product.title}
+    metrics={product.impact}
+    context={product.context}
+    overview={product.overview}
+    architectureSvg={product.architectureSvg}
+    howItWorks={product.howItWorks}
+    constraints={product.constraints}
+    decisions={product.decisions}
+    evaluation={product.evaluation}
+    reflections={product.reflections}
+  />
+
+  <nav class="prev-next" aria-label="More work">
+    <a href={`/projects/${prev.slug}`}><span>← Previous</span><b>{prev.title}</b></a>
+    <a href={`/projects/${next.slug}`}><span>Next →</span><b>{next.title}</b></a>
+  </nav>
+</article>

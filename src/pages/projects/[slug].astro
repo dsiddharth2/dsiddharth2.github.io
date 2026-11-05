@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import SplitDetailPage from '@/components/SplitDetailPage.astro';
+import ProjectDetail from '@/components/ProjectDetail.astro';
 import { products, getProductBySlug, productSeoDescription } from '@/data/products';
 import { site } from '@/config/site';
 import { breadcrumbJsonLd, projectJsonLd } from '@/utils/seo';
@@ -23,12 +23,12 @@ const description = productSeoDescription(product);
 ---
 
 <BaseLayout
-  hideChrome
   title={`${product.title} — ${site.name}`}
   description={description}
   canonicalPath={projectPath}
   markdownPath={`${projectPath}.md`}
   ogType="article"
+  active="Work"
   jsonLd={[
     projectJsonLd(product),
     breadcrumbJsonLd([
@@ -38,23 +38,7 @@ const description = productSeoDescription(product);
     ]),
   ]}
 >
-  <SplitDetailPage
-    backHref="/projects"
-    title={product.title}
-    subtitle={product.subtitle}
-    tagline={product.tagline}
-    stack={product.stack}
-    note={product.confidentialNote || `Built at ${product.company}`}
-    noteItalic={Boolean(product.confidentialNote)}
-    context={product.context}
-    constraints={product.constraints}
-    overview={product.overview}
-    metrics={product.impact}
-    architectureSvg={product.architectureSvg}
-    architectureAlt={`${product.title} architecture`}
-    howItWorks={product.howItWorks}
-    decisions={product.decisions}
-    evaluation={product.evaluation}
-    reflections={product.reflections}
-  />
+  <main id="main-content">
+    <ProjectDetail product={product} />
+  </main>
 </BaseLayout>
