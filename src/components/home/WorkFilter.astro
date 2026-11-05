@@ -1,0 +1,74 @@
+---
+import WorkCard from '@/components/home/WorkCard.astro';
+import { workCards, workFilters } from '@/data/workMeta';
+import { countForFilter } from '@/utils/workFilter';
+
+const cards = workCards();
+const filters = workFilters.map((label) => ({ label, count: countForFilter(cards, label) }));
+---
+
+<section id="work" class="section" aria-labelledby="work-heading">
+  <div class="section-head section-head--split">
+    <h2 id="work-heading" class="work-title">Work<span class="amber-dot">.</span></h2>
+    <p class="lede-soft">
+      Production systems across knowledge graphs, multi-agent AI, FinOps, search, logistics, and
+      analytics — from 0-to-1 through enterprise scale.
+    </p>
+  </div>
+
+  <div class="work-toolbar" data-work-filter>
+    <div class="chip-row" role="group" aria-label="Filter work">
+      {filters.map((filter, index) => (
+        <button
+          type="button"
+          class="filter-pill"
+          data-filter={filter.label}
+          aria-pressed={index === 0 ? 'true' : 'false'}
+        >{filter.label} · {filter.count}</button>
+      ))}
+    </div>
+    <span class="mono" aria-live="polite" data-work-count>Showing {cards.length} of {cards.length} systems</span>
+  </div>
+
+  <div class="work-list">
+    {cards.map((card, index) => <WorkCard card={card} index={index} total={cards.length} />)}
+  </div>
+  <p class="work-more"><a href="/projects">All case studies and systems →</a></p>
+</section>
+
+<script>
+  import { matchesWorkFilter } from '@/utils/workFilter';
+
+  const root = document.querySelector<HTMLElement>('#work');
+  if (root) {
+    const pills = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-work-card]')];
+    const count = root.querySelector<HTMLElement>('[data-work-count]');
+
+    const apply = (filter: string) => {
+      let shown = 0;
+      for (const card of cards) {
+        const visible = matchesWorkFilter(
+          {
+            slug: card.dataset.slug ?? '',
+            categories: JSON.parse(card.dataset.categories ?? '[]'),
+            isCase: card.dataset.case === 'true',
+          },
+          filter,
+        );
+        card.hidden = !visible;
+        if (visible) shown += 1;
+      }
+      pills.forEach((pill) => pill.setAttribute('aria-pressed', String(pill.dataset.filter === filter)));
+      if (count) count.textContent = `Showing ${shown} of ${cards.length} systems`;
+    };
+
+    pills.forEach((pill) => pill.addEventListener('click', () => apply(pill.dataset.filter ?? 'All')));
+    root.querySelectorAll<HTMLButtonElement>('[data-filter-pick]').forEach((tag) => {
+      tag.addEventListener('click', () => {
+        apply(tag.dataset.filterPick ?? 'All');
+        root.querySelector('[data-work-filter]')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+</script>

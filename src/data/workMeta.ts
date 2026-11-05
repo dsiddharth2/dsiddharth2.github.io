@@ -50,6 +50,8 @@ export interface WorkCardData {
   stack: string[];
   categories: WorkCategory[];
   isCase: boolean;
+  /** Live case-study domain from `caseStudies.ts`, e.g. "Enterprise AI". */
+  domain?: string;
   /** Featured case-study facts, only when the product is a case study. */
   points: CasePoint[];
 }
@@ -77,6 +79,7 @@ export function workCardFor(product: Product): WorkCardData {
     stack: product.tags,
     categories: productCategories[product.slug] ?? [],
     isCase: Boolean(study),
+    domain: study?.domain,
     points,
   };
 }

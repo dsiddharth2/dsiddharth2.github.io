@@ -37,6 +37,7 @@ describe('workMeta', () => {
     const cases = workCards().filter((card) => card.isCase);
     expect(cases.map((card) => card.slug).sort()).toEqual(featuredCaseStudies.map((c) => c.slug).sort());
     for (const card of cases) {
+      expect(card.domain).toBe(featuredCaseStudies.find((c) => c.slug === card.slug)?.domain);
       const labels = card.points.map((point) => point.label);
       expect(labels).toContain('Problem');
       expect(labels).toContain('Approach');

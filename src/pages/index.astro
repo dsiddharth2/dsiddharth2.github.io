@@ -1,29 +1,47 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Hero from '@/components/Hero.astro';
-import ImpactHighlights from '@/components/ImpactHighlights.astro';
-import WhatIBuild from '@/components/WhatIBuild.astro';
-import CaseStudiesSection from '@/components/CaseStudiesSection.astro';
-import ExperienceSection from '@/components/ExperienceSection.astro';
-import OpenSourceSection from '@/components/OpenSourceSection.astro';
-import ContactSection from '@/components/ContactSection.astro';
-import RevealScript from '@/components/RevealScript.astro';
+import HeroHome from '@/components/home/HeroHome.astro';
+import StatsRow from '@/components/home/StatsRow.astro';
+import WhatIBuild from '@/components/home/WhatIBuild.astro';
+import WorkFilter from '@/components/home/WorkFilter.astro';
+import FaqSection from '@/components/home/FaqSection.astro';
+import AboutTeaser from '@/components/home/AboutTeaser.astro';
+import StackSection from '@/components/home/StackSection.astro';
+import OssCard from '@/components/OssCard.astro';
+import { openSourceProjects } from '@/data/opensource';
 import { personJsonLd, websiteJsonLd } from '@/utils/seo';
 ---
 
 <BaseLayout
   canonicalPath="/"
   ogType="profile"
+  active="Home"
   jsonLd={[websiteJsonLd(), personJsonLd()]}
 >
-  <main id="main-content">
-    <Hero />
-    <ImpactHighlights />
+  <main id="main-content" class="wrap">
+    <HeroHome />
+    <StatsRow />
     <WhatIBuild />
-    <CaseStudiesSection />
-    <ExperienceSection compact limit={3} />
-    <OpenSourceSection compact limit={2} />
-    <ContactSection />
+    <WorkFilter />
+
+    <section id="oss" class="section" aria-labelledby="oss-heading">
+      <div class="section-head section-head--split">
+        <div class="page-hero-copy">
+          <span class="eyebrow">Open Source</span>
+          <h2 id="oss-heading" class="h2">Code other people run in production</h2>
+        </div>
+        <p class="lede-soft">
+          Tools I build in public — agent kits, package managers, review pipelines, libraries, and UI
+          plugins other engineers actually use.
+        </p>
+      </div>
+      <div class="oss-grid oss-grid--home">
+        {openSourceProjects.map((project, index) => <OssCard project={project} index={index} />)}
+      </div>
+    </section>
+
+    <FaqSection />
+    <AboutTeaser />
+    <StackSection />
   </main>
-  <RevealScript />
 </BaseLayout>

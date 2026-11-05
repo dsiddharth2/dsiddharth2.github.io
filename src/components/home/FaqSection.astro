@@ -1,0 +1,33 @@
+---
+import { site } from '@/config/site';
+import { faq } from '@/data/faq';
+---
+
+<section id="ask" class="section" aria-labelledby="faq-heading">
+  <div class="faq-panel dark-panel--glow">
+    <div class="faq-intro">
+      <span class="mono-label faq-label">FAQ</span>
+      <h2 id="faq-heading" class="faq-title">Questions people <em class="display-em faq-em">usually ask.</em></h2>
+      <p class="faq-lede">Quick answers about my work, experience and stack. Anything else, email me.</p>
+      <a href={`mailto:${site.email}`} class="btn btn--amber faq-mail">{site.email}</a>
+    </div>
+    <div class="faq-list">
+      {faq.map((item, index) => (
+        <details class="faq-item" name="faq" open={index === 0}>
+          <summary>
+            <span>{item.question}</span>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-answer">
+            <p>{item.answer}</p>
+            {item.links && item.links.length > 0 && (
+              <p class="faq-links">
+                {item.links.map((link) => <a href={link.href}>{link.label} →</a>)}
+              </p>
+            )}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
