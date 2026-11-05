@@ -9,8 +9,6 @@ interface Props {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   /** Header item to highlight; derived from the URL when omitted. */
   active?: NavLabel;
-  /** Skip the shared header and footer (pages still on the old layout, resume). */
-  hideChrome?: boolean;
 }
 
 import { site, getSiteUrl } from '@/config/site';
@@ -22,7 +20,6 @@ import SiteFooter from '@/components/SiteFooter.astro';
 import type { NavLabel } from '@/config/nav';
 import { THEME_COLORS } from '@/utils/theme';
 import '@/styles/global.css';
-import '@/styles/template.css';
 import '@/styles/site.css';
 
 const {
@@ -34,14 +31,13 @@ const {
   ogType = 'website',
   jsonLd,
   active,
-  hideChrome = false,
 } = Astro.props;
 
 const canonicalUrl = getSiteUrl(canonicalPath);
 const markdownUrl = markdownPath ? getSiteUrl(markdownPath) : undefined;
 const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 const isResumePage = (canonicalPath || Astro.url.pathname).replace(/\/$/, '') === '/resume';
-const showChrome = !hideChrome && !isResumePage;
+const showChrome = !isResumePage;
 ---
 
 <!doctype html>
