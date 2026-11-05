@@ -51,7 +51,7 @@ const columns = [
   <section class="metric-band" aria-label="Impact metrics">
     {metrics.map((item) => (
       <div class="metric-cell">
-        <span class="metric-value">{item.metric}</span>
+        <span class:list={['metric-value', item.metric.length > 6 && 'metric-value--long']}>{item.metric}</span>
         <span class="metric-label">{item.label}</span>
       </div>
     ))}

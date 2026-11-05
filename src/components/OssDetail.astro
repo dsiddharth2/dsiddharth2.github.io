@@ -1,0 +1,103 @@
+---
+import DetailBody from '@/components/detail/DetailBody.astro';
+import { openSourceProjects, type OpenSourceProject } from '@/data/opensource';
+import { cloneCommand, projectLinks, registryFor } from '@/utils/registry';
+import { neighbours } from '@/utils/neighbours';
+
+interface Props {
+  project: OpenSourceProject;
+}
+
+const { project } = Astro.props;
+const index = openSourceProjects.findIndex((item) => item.slug === project.slug);
+const registry = registryFor(project);
+const clone = cloneCommand(project);
+const links = projectLinks(project);
+const { prev, next } = neighbours(openSourceProjects, project);
+---
+
+<article class="wrap detail-page">
+  <header class="oss-hero">
+    <div class="detail-hero">
+      <a href="/opensource" class="back-link">← All open source</a>
+      <span class="mono oss-hero-meta">{String(index + 1).padStart(2, '0')} · {project.language} · MIT</span>
+      <h1 class="detail-title">{project.title}<span class="amber-dot">.</span></h1>
+      <p class="detail-sub">{project.subtitle}</p>
+      <p class="detail-lede">{project.tagline}</p>
+    </div>
+
+    <div class="install-card dark-panel--glow">
+      {registry && (
+        <div class="install-row">
+          <span class="install-head">
+            <span>Published on {registry.name}</span>
+            {registry.stat && <span class="install-stat">{registry.stat}</span>}
+          </span>
+          <div class="install-cmd">
+            <code>$ {registry.install}</code>
+            <button type="button" class="copy-btn" data-copy={registry.install} aria-label={`Copy: ${registry.install}`}>Copy</button>
+          </div>
+          <a href={registry.url} target="_blank" rel="noopener noreferrer" class="install-pkg">
+            {registry.pkg} ↗<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        </div>
+      )}
+      <div class="install-cmd install-cmd--clone">
+        <code>$ {clone}</code>
+        <button type="button" class="copy-btn" data-copy={clone} aria-label={`Copy: ${clone}`}>Copy</button>
+      </div>
+      <div class="install-links">
+        {links.map((link, i) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={['btn', i === 0 ? 'btn--amber' : 'install-link']}
+          >
+            {link.label} ↗<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </header>
+
+  <div class="oss-intro">
+    <p class="detail-context">{project.description}</p>
+    <div class="chip-row detail-stack">
+      <span class="detail-stack-label">Built with</span>
+      {project.tags.map((tag) => <span class="chip chip--outline">{tag}</span>)}
+    </div>
+  </div>
+
+  <DetailBody
+    title={project.title}
+    metrics={project.stats}
+    overview={project.overview}
+    architectureSvg={project.architectureSvg}
+    howItWorks={project.howItWorks}
+    decisions={project.decisions}
+    evaluation={project.evaluation}
+    reflections={project.reflections}
+  />
+
+  <nav class="prev-next" aria-label="More open source">
+    <a href={`/opensource/${prev.slug}`}><span>← Previous</span><b>{prev.title}</b></a>
+    <a href={`/opensource/${next.slug}`}><span>Next →</span><b>{next.title}</b></a>
+  </nav>
+</article>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy ?? '');
+        button.textContent = 'Copied ✓';
+      } catch {
+        button.textContent = 'Copy failed';
+      }
+      window.setTimeout(() => {
+        button.textContent = 'Copy';
+      }, 1600);
+    });
+  });
+</script>

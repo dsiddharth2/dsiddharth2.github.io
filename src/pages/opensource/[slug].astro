@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import SplitDetailPage from '@/components/SplitDetailPage.astro';
+import OssDetail from '@/components/OssDetail.astro';
 import { openSourceProjects, getOpenSourceBySlug, openSourceSeoDescription } from '@/data/opensource';
 import { site } from '@/config/site';
 import { breadcrumbJsonLd, openSourceJsonLd } from '@/utils/seo';
@@ -20,23 +20,15 @@ if (!project) {
 
 const projectPath = `/opensource/${project.slug}`;
 const description = openSourceSeoDescription(project);
-const links = [
-  { label: 'GitHub', href: project.url },
-  ...(project.packagist ? [{ label: 'Packagist', href: project.packagist }] : []),
-  ...(project.npmUrl ? [{ label: 'npm', href: project.npmUrl }] : []),
-  ...(project.vaultUrl ? [{ label: 'Vault', href: project.vaultUrl }] : []),
-  ...(project.dockerHub ? [{ label: 'Docker Hub', href: project.dockerHub }] : []),
-  ...(project.demoUrl ? [{ label: 'Demos', href: project.demoUrl }] : []),
-];
 ---
 
 <BaseLayout
-  hideChrome
   title={`${project.title} — ${site.name}`}
   description={description}
   canonicalPath={projectPath}
   markdownPath={`${projectPath}.md`}
   ogType="article"
+  active="Open Source"
   jsonLd={[
     openSourceJsonLd(project),
     breadcrumbJsonLd([
@@ -46,21 +38,7 @@ const links = [
     ]),
   ]}
 >
-  <SplitDetailPage
-    backHref="/opensource"
-    title={project.title}
-    subtitle={project.subtitle}
-    tagline={project.tagline}
-    stack={project.tags}
-    note={`${project.language} · MIT`}
-    links={links}
-    overview={project.overview}
-    metrics={project.stats}
-    architectureSvg={project.architectureSvg}
-    architectureAlt={`${project.title} architecture`}
-    howItWorks={project.howItWorks}
-    decisions={project.decisions}
-    evaluation={project.evaluation}
-    reflections={project.reflections}
-  />
+  <main id="main-content">
+    <OssDetail project={project} />
+  </main>
 </BaseLayout>
