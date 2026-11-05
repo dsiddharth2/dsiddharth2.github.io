@@ -1,0 +1,58 @@
+---
+import { THEME_STORAGE_KEY, THEME_COLORS } from '@/utils/theme';
+---
+
+<script
+  is:inline
+  define:vars={{ key: THEME_STORAGE_KEY, colors: THEME_COLORS }}
+>
+  (function () {
+    try {
+      var t = localStorage.getItem(key);
+      if (t === 'dark' || t === 'light') {
+        document.documentElement.setAttribute('data-theme', t);
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', colors[t]);
+      }
+    } catch (e) {}
+  })();
+</script>
+
+<script>
+  import {
+    THEME_STORAGE_KEY,
+    THEME_COLORS,
+    nextTheme,
+    parseTheme,
+    themeIcon,
+    type Theme,
+  } from '@/utils/theme';
+
+  const root = document.documentElement;
+  const current = (): Theme => parseTheme(root.getAttribute('data-theme')) ?? 'light';
+
+  const render = (theme: Theme) => {
+    document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach((button) => {
+      button.textContent = themeIcon(theme);
+      button.setAttribute('aria-pressed', String(theme === 'dark'));
+      button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    });
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[theme]);
+  };
+
+  const apply = (theme: Theme) => {
+    root.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+      // Storage can be unavailable (private mode); the toggle still works for this page.
+    }
+    render(theme);
+  };
+
+  render(current());
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement | null;
+    if (target?.closest('[data-theme-toggle]')) apply(nextTheme(current()));
+  });
+</script>
