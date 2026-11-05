@@ -1,6 +1,5 @@
 ---
 import { site } from '@/config/site';
-import { assetUrl } from '@/utils/assets';
 ---
 
 <section class="cta-banner" aria-labelledby="cta-heading">
@@ -11,8 +10,6 @@ import { assetUrl } from '@/utils/assets';
   </div>
   <div class="cta-actions">
     <a href={`mailto:${site.email}`} class="cta-btn cta-btn--dark">Let's Talk →</a>
-    <a href={assetUrl(site.resumePath)} class="cta-btn cta-btn--outline" target="_blank" rel="noopener noreferrer">
-      View Resume<span class="sr-only"> (PDF, opens in a new tab)</span>
-    </a>
+    <a href="/resume" class="cta-btn cta-btn--outline" data-resume-modal>View Resume</a>
   </div>
 </section>

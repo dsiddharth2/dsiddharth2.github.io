@@ -109,6 +109,6 @@ const showChrome = !isResumePage;
     {showChrome && <SiteHeader active={active} />}
     <slot />
     {showChrome && <SiteFooter markdownPath={markdownPath} />}
-    {isResumePage && <ResumeDialog standalone />}
+    <ResumeDialog standalone={isResumePage} />
   </body>
 </html>

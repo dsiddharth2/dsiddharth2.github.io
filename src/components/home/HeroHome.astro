@@ -37,9 +37,7 @@ const profileImage = assetUrl('images/profile.jpg');
   <div class="hh-actions">
     <a href="#work" class="btn btn--amber">See my work ↓</a>
     <a href="#ask" class="btn btn--outline">Common questions</a>
-    <a href={assetUrl(site.resumePath)} class="btn btn--ghost" target="_blank" rel="noopener noreferrer">
-      Resume ↗<span class="sr-only"> (PDF, opens in a new tab)</span>
-    </a>
+    <a href="/resume" class="btn btn--ghost" data-resume-modal>Resume</a>
     <span class="hh-socials">
       <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub ↗<span class="sr-only"> (opens in a new tab)</span></a>
       <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗<span class="sr-only"> (opens in a new tab)</span></a>
