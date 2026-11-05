@@ -1,6 +1,7 @@
 export type Theme = 'light' | 'dark';
 
 export const THEME_STORAGE_KEY = 'sd-ai-theme';
+export const DEFAULT_THEME: Theme = 'dark';
 
 export const THEME_COLORS: Record<Theme, string> = {
   light: '#F7F5F0',
@@ -9,6 +10,10 @@ export const THEME_COLORS: Record<Theme, string> = {
 
 export function parseTheme(value: string | null | undefined): Theme | null {
   return value === 'dark' || value === 'light' ? value : null;
+}
+
+export function resolveTheme(value: string | null | undefined): Theme {
+  return parseTheme(value) ?? DEFAULT_THEME;
 }
 
 export function nextTheme(current: Theme): Theme {

@@ -41,7 +41,7 @@ const showChrome = !isResumePage;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <!-- Google tag (gtag.js) -->
@@ -62,7 +62,7 @@ const showChrome = !isResumePage;
       name="robots"
       content={isResumePage ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}
     />
-    <meta name="theme-color" content={THEME_COLORS.light} />
+    <meta name="theme-color" content={THEME_COLORS.dark} />
     <ThemeScript />
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

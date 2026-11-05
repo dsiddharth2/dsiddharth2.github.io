@@ -1,19 +1,18 @@
 ---
-import { THEME_STORAGE_KEY, THEME_COLORS } from '@/utils/theme';
+import { DEFAULT_THEME, THEME_STORAGE_KEY, THEME_COLORS } from '@/utils/theme';
 ---
 
 <script
   is:inline
-  define:vars={{ key: THEME_STORAGE_KEY, colors: THEME_COLORS }}
+  define:vars={{ key: THEME_STORAGE_KEY, colors: THEME_COLORS, fallback: DEFAULT_THEME }}
 >
   (function () {
     try {
-      var t = localStorage.getItem(key);
-      if (t === 'dark' || t === 'light') {
-        document.documentElement.setAttribute('data-theme', t);
-        var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', colors[t]);
-      }
+      var stored = localStorage.getItem(key);
+      var t = stored === 'dark' || stored === 'light' ? stored : fallback;
+      document.documentElement.setAttribute('data-theme', t);
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', colors[t]);
     } catch (e) {}
   })();
 </script>
@@ -23,13 +22,13 @@ import { THEME_STORAGE_KEY, THEME_COLORS } from '@/utils/theme';
     THEME_STORAGE_KEY,
     THEME_COLORS,
     nextTheme,
-    parseTheme,
+    resolveTheme,
     themeIcon,
     type Theme,
   } from '@/utils/theme';
 
   const root = document.documentElement;
-  const current = (): Theme => parseTheme(root.getAttribute('data-theme')) ?? 'light';
+  const current = (): Theme => resolveTheme(root.getAttribute('data-theme'));
 
   const render = (theme: Theme) => {
     document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach((button) => {
