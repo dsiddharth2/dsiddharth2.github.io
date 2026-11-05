@@ -7,15 +7,23 @@ interface Props {
   markdownPath?: string;
   ogType?: 'website' | 'article' | 'profile';
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  /** Header item to highlight; derived from the URL when omitted. */
+  active?: NavLabel;
+  /** Skip the shared header and footer (pages still on the old layout, resume). */
+  hideChrome?: boolean;
 }
 
 import { site, getSiteUrl } from '@/config/site';
 import { assetUrl } from '@/utils/assets';
 import ResumeDialog from '@/components/ResumeDialog.astro';
 import ThemeScript from '@/components/ThemeScript.astro';
+import SiteHeader from '@/components/SiteHeader.astro';
+import SiteFooter from '@/components/SiteFooter.astro';
+import type { NavLabel } from '@/config/nav';
 import { THEME_COLORS } from '@/utils/theme';
 import '@/styles/global.css';
 import '@/styles/template.css';
+import '@/styles/site.css';
 
 const {
   title = site.title,
@@ -25,12 +33,15 @@ const {
   markdownPath,
   ogType = 'website',
   jsonLd,
+  active,
+  hideChrome = false,
 } = Astro.props;
 
 const canonicalUrl = getSiteUrl(canonicalPath);
 const markdownUrl = markdownPath ? getSiteUrl(markdownPath) : undefined;
 const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 const isResumePage = (canonicalPath || Astro.url.pathname).replace(/\/$/, '') === '/resume';
+const showChrome = !hideChrome && !isResumePage;
 ---
 
 <!doctype html>
@@ -99,7 +110,9 @@ const isResumePage = (canonicalPath || Astro.url.pathname).replace(/\/$/, '') ==
     {!isResumePage && (
       <a href="#main-content" class="skip-link">Skip to content</a>
     )}
+    {showChrome && <SiteHeader active={active} />}
     <slot />
+    {showChrome && <SiteFooter markdownPath={markdownPath} />}
     {isResumePage && <ResumeDialog standalone />}
   </body>
 </html>
