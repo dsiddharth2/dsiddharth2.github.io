@@ -2051,3 +2051,244 @@ summary.journey-row::-webkit-details-marker {
   font-size: 15px;
   color: var(--soft);
 }
+
+/* ---------- experience ---------- */
+
+.detail-page {
+  padding-top: clamp(32px, 5vw, 56px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 5vw, 64px);
+}
+
+.exp-hero-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 400px;
+}
+
+.jump-pill {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--soft);
+}
+
+.jump-pill:hover {
+  border-color: var(--amber);
+  color: var(--ink);
+}
+
+.exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.exp-article {
+  scroll-margin-top: 96px;
+  border-radius: 28px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.exp-top {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 24px;
+  padding: clamp(24px, 3vw, 40px);
+}
+
+.exp-who {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exp-company {
+  margin: 0;
+  font-size: clamp(36px, 4.4vw, 60px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-weight: 800;
+}
+
+.exp-role {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 21px;
+  color: var(--acc);
+}
+
+.exp-summary {
+  margin: 0;
+  align-self: end;
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.exp-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 1px;
+  background: var(--panel-line);
+}
+
+.exp-metric {
+  margin: 0;
+  background: var(--panel);
+  padding: 22px clamp(24px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exp-metric-value {
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  color: var(--amber);
+}
+
+.exp-metric-label {
+  font-size: 13px;
+  color: var(--panel-soft);
+}
+
+.exp-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+}
+
+.exp-col {
+  padding: clamp(24px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.exp-col--alt {
+  background: var(--card2);
+}
+
+.exp-col-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.exp-note {
+  padding: clamp(24px, 3vw, 40px);
+  color: var(--panel-ink);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exp-note-title {
+  color: var(--amber);
+  letter-spacing: 0.06em;
+}
+
+.exp-note p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 860px;
+}
+
+.exp-foot {
+  padding: 18px clamp(24px, 3vw, 40px);
+  border-top: 1px solid var(--line);
+}
+
+.exp-permalink {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.exp-earlier {
+  scroll-margin-top: 96px;
+  padding-top: clamp(28px, 4vw, 52px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.exp-earlier-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.exp-earlier-title {
+  margin: 0;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+h1.exp-earlier-title {
+  font-size: clamp(48px, 7vw, 96px);
+}
+
+.exp-earlier-period {
+  font-size: 13px;
+}
+
+.exp-earlier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 12px;
+}
+
+.exp-earlier-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exp-earlier-name {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.exp-earlier-meta {
+  color: var(--acc);
+}
+
+.exp-earlier-card p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--soft);
+}
+
+.exp-edu {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 20px 4px;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+}
+
+.exp-edu span {
+  color: var(--muted);
+}
