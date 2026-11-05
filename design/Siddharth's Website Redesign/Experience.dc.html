@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="site-data.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5F0;--ink:#15140F;--soft:#45423B;--muted:#77736A;--line:#E3DED3;--card:#FFFFFF;--card2:#EFEBE2;--acc:#94570A;--glass:rgba(247,245,240,0.85)}
+:root[data-theme="dark"]{--bg:#0E0E0D;--ink:#EDEBE6;--soft:#B9B5AC;--muted:#8F8B83;--line:#262521;--card:#161614;--card2:#1E1D1A;--acc:#F5A623;--glass:rgba(14,14,13,0.85)}
+html,body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;transition:background .3s}
+*{box-sizing:border-box}
+a{color:var(--acc);text-decoration:none}
+a:hover{color:#F5A623}
+::selection{background:#F5A623;color:#0F0F0E}
+</style>
+</helmet>
+<div style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:'Figtree',sans-serif;font-size:16px;line-height:1.55">
+<dc-import name="SiteHeader" active="Experience" hint-size="100%,76px"></dc-import>
+<main style="max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,40px)">
+
+<section style="padding:clamp(48px,7vw,88px) 0 40px;display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--acc);text-transform:uppercase;letter-spacing:0.08em">Experience</span>
+    <h1 style="margin:0;font-size:clamp(48px,7.4vw,108px);line-height:0.92;letter-spacing:-0.05em;font-weight:800;max-width:900px;text-wrap:balance">Where I've made an <span style="font-family:'Newsreader',serif;font-style:italic;font-weight:400;color:var(--acc)">impact.</span></h1>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:14px;max-width:400px">
+    <p style="margin:0;font-size:17px;color:var(--soft);text-wrap:pretty">{{ lead }}</p>
+    <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ jumps }}" as="j" hint-placeholder-count="4"><a onClick="{{ j.go }}" style="cursor:pointer;padding:7px 13px;border-radius:999px;border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--soft)" style-hover="border-color:#F5A623;color:var(--ink)">{{ j.label }}</a></sc-for></div>
+  </div>
+</section>
+
+<div style="display:flex;flex-direction:column;gap:20px">
+  <sc-for list="{{ roles }}" as="e" hint-placeholder-count="3">
+    <article id="{{ e.slug }}" style="scroll-margin-top:96px;border-radius:28px;background:var(--card);border:1px solid var(--line);overflow:hidden">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:24px;padding:clamp(24px,3vw,40px)">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)">{{ e.dates }}</span>
+          <h2 style="margin:0;font-size:clamp(36px,4.4vw,60px);line-height:0.95;letter-spacing:-0.045em;font-weight:800">{{ e.co }}<span style="color:#F5A623">.</span></h2>
+          <span style="font-family:'Newsreader',serif;font-style:italic;font-size:21px;color:var(--acc)">{{ e.role }}</span>
+        </div>
+        <p style="margin:0;align-self:end;font-size:clamp(17px,1.5vw,20px);line-height:1.5;font-weight:500;text-wrap:pretty">{{ e.summary }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:1px;background:#2C2A25">
+        <sc-for list="{{ e.metrics }}" as="m" hint-placeholder-count="3"><div style="background:#15140F;padding:22px clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:4px"><span style="font-size:clamp(36px,4vw,52px);font-weight:800;letter-spacing:-0.05em;line-height:0.9;color:#F5A623">{{ m.v }}</span><span style="font-size:13px;color:#B9B5AC">{{ m.l }}</span></div></sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr))">
+        <div style="padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:12px">
+          <h3 style="margin:0;font-size:20px;font-weight:800">What I built</h3>
+          <div style="display:flex;flex-direction:column"><sc-for list="{{ e.bullets }}" as="b" hint-placeholder-count="5"><div style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px"><span style="color:var(--acc);font-weight:800">→</span><span style="text-wrap:pretty">{{ b }}</span></div></sc-for></div>
+        </div>
+        <div style="padding:clamp(24px,3vw,40px);background:var(--card2);display:flex;flex-direction:column;gap:12px">
+          <h3 style="margin:0;font-size:20px;font-weight:800">{{ e.leadTitle }}</h3>
+          <div style="display:flex;flex-direction:column"><sc-for list="{{ e.lead }}" as="b" hint-placeholder-count="4"><div style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px"><span style="color:var(--acc);font-weight:800">●</span><span style="text-wrap:pretty">{{ b }}</span></div></sc-for></div>
+        </div>
+      </div>
+      <sc-if value="{{ e.hasNote }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:clamp(24px,3vw,40px);background:#15140F;background-image:radial-gradient(circle at 92% 0%,rgba(245,166,35,0.3),transparent 50%);color:#EDEBE6;display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#F5A623;text-transform:uppercase;letter-spacing:0.06em">{{ e.noteTitle }}</span>
+          <p style="margin:0;font-size:16px;line-height:1.6;max-width:860px;text-wrap:pretty">{{ e.note }}</p>
+        </div>
+      </sc-if>
+    </article>
+  </sc-for>
+
+  <section id="earlier" style="scroll-margin-top:96px;padding:clamp(48px,6vw,72px) 0 0;display:flex;flex-direction:column;gap:20px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap"><h2 style="margin:0;font-size:clamp(32px,4vw,52px);line-height:1;letter-spacing:-0.04em;font-weight:800">Earlier<span style="color:#F5A623">.</span></h2><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--muted)">2010 – 2016</span></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px">
+      <sc-for list="{{ earlier }}" as="x" hint-placeholder-count="4">
+        <div style="padding:24px;border-radius:22px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px">
+          <h3 style="margin:0;font-size:22px;font-weight:800;letter-spacing:-0.02em">{{ x.name }}</h3>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--acc)">{{ x.meta }}</span>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:var(--soft);text-wrap:pretty">{{ x.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:20px 4px;border-bottom:1px solid var(--line);font-size:15px"><b>{{ edu.t }}</b><span style="color:var(--muted)">{{ edu.m }}</span></div>
+  </section>
+</div>
+</main>
+<dc-import name="SiteFooter" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { sd: window.SD || null };
+  componentDidMount() {
+    document.title = 'Experience — Siddharth Deshpande';
+    const go = () => { const p = new URLSearchParams(location.search).get('p') || location.hash.slice(1); if (p) setTimeout(() => this.scrollTo(p), 120); };
+    if (this.state.sd) go(); else this.t = setInterval(() => { if (window.SD) { clearInterval(this.t); this.setState({ sd: window.SD }, go); } }, 40);
+  }
+  componentWillUnmount() { clearInterval(this.t); }
+  scrollTo(id) { const el = document.getElementById(id); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 96, behavior: 'smooth' }); }
+  renderVals() {
+    const SD = this.state.sd;
+    if (!SD) return {};
+    const roles = SD.exp.map(e => ({ ...e, hasNote: !!e.hasNote }));
+    return {
+      lead: SD.bio.lead, roles, earlier: SD.earlier, edu: SD.education,
+      jumps: [...roles.map(r => ({ label: r.co, id: r.slug })), { label: 'Earlier', id: 'earlier' }].map(j => ({ ...j, go: () => this.scrollTo(j.id) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

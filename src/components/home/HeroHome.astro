@@ -1,0 +1,61 @@
+---
+import { site } from '@/config/site';
+import { assetUrl } from '@/utils/assets';
+import { heroRoles, heroTitle, introTiles } from '@/data/hero';
+
+const profileImage = assetUrl('images/profile.jpg');
+---
+
+<section id="home" class="hero-home">
+  <div class="hh-top">
+    <div class="hh-copy">
+      <span class="hh-role">
+        <span class="sr-only">{heroRoles[0]}</span>
+        <span aria-hidden="true" data-role-rotator data-roles={JSON.stringify(heroRoles)}>{heroRoles[0]}</span>
+      </span>
+
+      <h1 class="hh-title">
+        {heroTitle.before}<span class="acc-em">{heroTitle.emphasis}</span>{heroTitle.after}
+      </h1>
+    </div>
+
+    <figure class="hh-portrait">
+      <img src={profileImage} alt={site.name} width="709" height="945" fetchpriority="high" />
+    </figure>
+  </div>
+
+  <div class="hh-tiles">
+    {introTiles.map((tile, index) => (
+      <div class="hh-tile">
+        <span class="mono">0{index + 1}</span>
+        <span class="hh-tile-title">{tile.title}</span>
+        <span class="hh-tile-body">{tile.body}</span>
+      </div>
+    ))}
+  </div>
+
+  <div class="hh-actions">
+    <a href="#work" class="btn btn--amber">See my work ↓</a>
+    <a href="#ask" class="btn btn--outline">Common questions</a>
+    <a href="/resume" class="btn btn--ghost" data-resume-modal>Resume</a>
+    <span class="hh-socials">
+      <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub ↗<span class="sr-only"> (opens in a new tab)</span></a>
+      <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗<span class="sr-only"> (opens in a new tab)</span></a>
+    </span>
+  </div>
+</section>
+
+<script>
+  const rotator = document.querySelector<HTMLElement>('[data-role-rotator]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (rotator && !reduceMotion) {
+    const roles: string[] = JSON.parse(rotator.dataset.roles ?? '[]');
+    let index = 0;
+    if (roles.length > 1) {
+      window.setInterval(() => {
+        index = (index + 1) % roles.length;
+        rotator.textContent = roles[index];
+      }, 2400);
+    }
+  }
+</script>

@@ -1,0 +1,47 @@
+---
+import type { OpenSourceProject } from '@/data/opensource';
+import { registryFor } from '@/utils/registry';
+
+interface Props {
+  project: OpenSourceProject;
+  index: number;
+  /** Index page shows the tag chips; the homepage keeps the card shorter. */
+  showTags?: boolean;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { project, index, showTags = false, headingLevel = 'h3' } = Astro.props;
+const registry = registryFor(project);
+const Heading = headingLevel;
+---
+
+<article class="card card--hover oss-card">
+  <div class="oss-card-top mono">
+    <span>{String(index + 1).padStart(2, '0')}</span>
+    <span class="oss-lang">{project.language}</span>
+  </div>
+  <Heading class="oss-card-title">{project.title}</Heading>
+  <span class="oss-card-sub">{project.subtitle}</span>
+  <p class="oss-card-desc">{project.description}</p>
+  {showTags && (
+    <div class="chip-row oss-card-tags">
+      {project.tags.map((tag) => <span class="chip">{tag}</span>)}
+    </div>
+  )}
+  {registry && (
+    <a href={registry.url} class="reg-strip" target="_blank" rel="noopener noreferrer">
+      <span class="reg-strip-top">
+        <span class="reg-strip-name">{registry.name} ↗</span>
+        {registry.stat && <span class="reg-strip-stat">{registry.stat}</span>}
+      </span>
+      <code>$ {registry.install}</code>
+      <span class="sr-only"> (opens in a new tab)</span>
+    </a>
+  )}
+  <div class="oss-card-links">
+    <a href={`/opensource/${project.slug}`}>View More →<span class="sr-only">: {project.title}</span></a>
+    <a href={project.url} target="_blank" rel="noopener noreferrer" class="oss-card-gh">
+      GitHub ↗<span class="sr-only"> (opens in a new tab)</span>
+    </a>
+  </div>
+</article>

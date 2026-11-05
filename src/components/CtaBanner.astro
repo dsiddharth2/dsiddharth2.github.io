@@ -1,0 +1,15 @@
+---
+import { site } from '@/config/site';
+---
+
+<section class="cta-banner" aria-labelledby="cta-heading">
+  <div class="cta-copy">
+    <span class="mono-label">Get in Touch</span>
+    <h2 id="cta-heading" class="cta-title">Let's build something <em class="display-em">great.</em></h2>
+    <p class="cta-lede">Always open to interesting problems and collaborations.</p>
+  </div>
+  <div class="cta-actions">
+    <a href={`mailto:${site.email}`} class="cta-btn cta-btn--dark">Let's Talk →</a>
+    <a href="/resume" class="cta-btn cta-btn--outline" data-resume-modal>View Resume</a>
+  </div>
+</section>

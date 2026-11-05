@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="height:76px"></div>
+<header style="position:fixed;top:12px;left:0;right:0;z-index:40;padding:0 12px;font-family:'Figtree',sans-serif">
+  <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:10px 18px;padding:8px 8px 8px 16px;border-radius:{{ barRadius }};background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--line);flex-direction:column;align-items:stretch">
+    <div style="display:flex;align-items:center;gap:10px 18px">
+      <a href="AI%20Portfolio.dc.html" style="display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:700;min-height:44px">
+        <span style="width:30px;height:30px;border-radius:50%;background:#F5A623;color:#0F0F0E;display:grid;place-items:center;font-size:12px;font-weight:800">SD</span>
+        <span style="display:{{ nameDisplay }}">Siddharth Deshpande</span>
+      </a>
+      <nav style="flex:1;display:{{ deskNav }};justify-content:center;gap:2px;font-size:14px;font-weight:500">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+          <a href="{{ n.href }}" target="{{ n.target }}" style="padding:7px 12px;border-radius:999px;background:{{ n.bg }};color:{{ n.ink }};white-space:nowrap" style-hover="background:var(--card2);color:var(--ink)">{{ n.label }}</a>
+        </sc-for>
+      </nav>
+      <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+        <button onClick="{{ toggleTheme }}" title="Switch between light and dark mode" style="width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;font-size:15px">{{ themeIcon }}</button>
+        <a href="mailto:dsiddharth2@gmail.com" style="display:{{ deskCta }};padding:12px 18px;border-radius:999px;background:var(--ink);color:var(--bg);font-weight:700;font-size:14px;white-space:nowrap" style-hover="color:#F5A623">Get in Touch</a>
+        <button onClick="{{ toggleMenu }}" title="Menu" style="display:{{ mobBtn }};height:44px;padding:0 18px;border-radius:999px;border:0;background:var(--ink);color:var(--bg);font-family:inherit;font-weight:700;font-size:14px;cursor:pointer">{{ menuLabel }}</button>
+      </div>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <nav style="display:flex;flex-direction:column;padding:4px 8px 8px 0;border-top:1px solid var(--line)">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+          <a href="{{ n.href }}" target="{{ n.target }}" onClick="{{ closeMenu }}" style="display:flex;align-items:center;justify-content:space-between;min-height:52px;padding:0 8px;border-bottom:1px solid var(--line);font-size:18px;font-weight:{{ n.weight }};color:{{ n.ink }}">{{ n.label }}<span style="width:8px;height:8px;border-radius:50%;background:{{ n.dot }}"></span></a>
+        </sc-for>
+        <a href="mailto:dsiddharth2@gmail.com" style="margin-top:12px;min-height:52px;display:flex;align-items:center;justify-content:center;border-radius:999px;background:#F5A623;color:#0F0F0E;font-weight:700;font-size:16px" style-hover="color:#0F0F0E">Get in Touch</a>
+      </nav>
+    </sc-if>
+  </div>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;active&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Home&quot;, &quot;About&quot;, &quot;Experience&quot;, &quot;Work&quot;, &quot;Open Source&quot;], &quot;default&quot;: &quot;Home&quot;, &quot;tsType&quot;: &quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { theme: 'light', vw: typeof window !== 'undefined' ? window.innerWidth : 1400, open: false };
+  componentDidMount() {
+    let t = 'light';
+    try { t = localStorage.getItem('sd-ai-theme') || 'light'; } catch (e) {}
+    this.apply(t);
+    this.onR = () => this.setState(s => ({ vw: window.innerWidth, open: window.innerWidth < 860 ? s.open : false }));
+    window.addEventListener('resize', this.onR); this.onR();
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onR); }
+  apply(t) { document.documentElement.setAttribute('data-theme', t); try { localStorage.setItem('sd-ai-theme', t); } catch (e) {} this.setState({ theme: t }); }
+  renderVals() {
+    const a = this.props.active || '', dark = this.state.theme === 'dark', vw = this.state.vw, mob = vw < 860, open = mob && this.state.open;
+    const items = [['Home', 'AI%20Portfolio.dc.html'], ['About', 'About.dc.html'], ['Experience', 'Experience.dc.html'], ['Work', 'Work.dc.html'], ['Open Source', 'Open%20Source.dc.html'], ['Writing ↗', 'https://medium.com/@siddharthanantdeshpande']];
+    return {
+      nav: items.map(([label, href]) => ({ label, href, target: href.startsWith('http') ? '_blank' : '_self', bg: label === a ? 'var(--card2)' : 'transparent', ink: label === a ? 'var(--ink)' : 'var(--soft)', weight: label === a ? 700 : 500, dot: label === a ? '#F5A623' : 'transparent' })),
+      nameDisplay: vw < 1080 && !mob ? 'none' : (vw < 360 ? 'none' : 'inline'),
+      deskNav: mob ? 'none' : 'flex', deskCta: mob ? 'none' : 'inline-block', mobBtn: mob ? 'block' : 'none',
+      barRadius: open ? '24px' : '999px',
+      menuOpen: open, menuLabel: open ? 'Close' : 'Menu',
+      toggleMenu: () => this.setState(s => ({ open: !s.open })),
+      closeMenu: () => this.setState({ open: false }),
+      themeIcon: dark ? '☀' : '☾',
+      toggleTheme: () => this.apply(dark ? 'light' : 'dark')
+    };
+  }
+}
+</script>
+</body>
+</html>

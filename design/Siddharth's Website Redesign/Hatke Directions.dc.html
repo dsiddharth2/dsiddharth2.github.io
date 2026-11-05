@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=Martian+Mono:wght@400;500&family=Onest:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,700;0,6..72,800;1,6..72,400&family=Libre+Franklin:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Courier+Prime:wght@400;700&family=Archivo:wght@400;600;800;900&family=IBM+Plex+Sans+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Serif+Display:ital@0;1&family=Overpass:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Young+Serif&family=Work+Sans:wght@400;500;700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&family=Public+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#DCD8CF}
+*{box-sizing:border-box}
+a{color:#94570A;text-decoration:none}
+a:hover{color:#F5A623}
+</style>
+</helmet>
+<section style="padding:48px;display:flex;flex-direction:column;gap:28px;font-family:'Onest',sans-serif;border-bottom:2px solid #B4AD9E">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:900px">
+    <span style="font-family:'Martian Mono',monospace;font-size:12px;color:#6B675F;text-transform:uppercase;letter-spacing:0.08em">Round 8 · Hatke but grown-up</span>
+    <h1 style="margin:0;font-size:40px;letter-spacing:-0.02em;color:#15140F">Four calmer metaphors: straight layouts, no handwriting, lots of air.</h1>
+    <p style="margin:0;font-size:17px;color:#45423B"><a href="#4a">4a</a> Museum exhibition · <a href="#4b">4b</a> Career passport · <a href="#4c">4c</a> Recipe book · <a href="#4d">4d</a> Annual report.</p>
+  </div>
+  <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start">
+
+    <!-- 4a MUSEUM -->
+    <div id="4a" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">4a</span><span style="font-size:16px;font-weight:600;color:#15140F">Museum exhibition: each system is an exhibit with a wall label</span></div>
+      <div style="width:1200px;background:#F6F4EF;color:#15140F;border-radius:6px;overflow:hidden;font-family:'Hanken Grotesk',sans-serif">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:22px 56px;font-size:13px;letter-spacing:0.04em">
+          <span style="font-weight:700">SIDDHARTH DESHPANDE</span>
+          <span style="display:flex;gap:28px;color:#6B675F"><span>About</span><span>Experience</span><span>Case Studies</span><span>Open Source</span><span>Resume</span></span>
+          <span style="padding:8px 14px;background:#15140F;color:#F5A623;font-weight:700">Get in Touch</span>
+        </div>
+        <div style="padding:90px 56px 70px;display:grid;grid-template-columns:1fr 360px;gap:64px;align-items:end">
+          <div style="display:flex;flex-direction:column;gap:20px">
+            <span style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#94570A">Permanent collection · 2010 – present</span>
+            <h2 style="margin:0;font-family:'Gloock',serif;font-weight:400;font-size:76px;line-height:1;letter-spacing:-0.01em">Production AI systems for complex, real-world problems.</h2>
+          </div>
+          <div style="border-left:3px solid #F5A623;padding:4px 0 4px 20px;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.5">
+            <b>Siddharth Deshpande</b>
+            <span style="color:#45423B">Associate Architect · Applied AI</span>
+            <span style="color:#45423B">I work the full path from ambiguous problem to production: understanding the problem, designing the system, building it, deploying it, and iterating once people are using it.</span>
+          </div>
+        </div>
+        <div style="padding:0 56px 70px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px">
+          <sc-for list="{{ exhibits }}" as="x" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;gap:18px">
+              <div style="aspect-ratio:4/5;background:#FFFFFF;box-shadow:0 1px 0 #E2DDD2, 0 30px 40px -24px rgba(0,0,0,0.25);display:grid;place-items:center;border:14px solid #FFFFFF;outline:1px solid #E2DDD2">
+                <div style="width:100%;height:100%;background:{{ x.bg }};display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;color:{{ x.ink }}">
+                  <span style="font-family:'Gloock',serif;font-size:96px;line-height:0.9">{{ x.mv }}</span>
+                  <span style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase">{{ x.ml }}</span>
+                </div>
+              </div>
+              <div style="background:#FFFFFF;padding:16px 18px;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.45;max-width:300px">
+                <b style="font-size:15px">{{ x.title }}</b>
+                <span style="color:#6B675F">{{ x.cat }} · Apra Labs</span>
+                <span style="color:#45423B">{{ x.summary }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4b PASSPORT -->
+    <div id="4b" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">4b</span><span style="font-size:16px;font-weight:600;color:#15140F">Career passport: data page up front, every job a visa stamp</span></div>
+      <div style="width:1200px;background:#1E1D1A;border-radius:6px;padding:56px;display:flex;justify-content:center">
+        <div style="display:grid;grid-template-columns:1fr 1fr;width:1060px;box-shadow:0 30px 60px rgba(0,0,0,0.45)">
+          <div style="background:#F3EEE2;background-image:repeating-linear-gradient(45deg,rgba(148,87,10,0.05) 0 2px,transparent 2px 8px);padding:36px;display:flex;flex-direction:column;gap:22px;border-right:1px solid #D4CBB8;font-family:'Space Mono',monospace;color:#15140F">
+            <div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:0.12em"><span>CAREER PASSPORT</span><span style="color:#94570A">PRODUCTION AI</span></div>
+            <div style="display:grid;grid-template-columns:150px 1fr;gap:20px">
+              <img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="width:150px;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1);background:#D4CBB8">
+              <div style="display:flex;flex-direction:column;gap:10px;font-size:12px">
+                <div><span style="font-size:9px;color:#6B675F">SURNAME / NOM</span><br><b style="font-size:16px">DESHPANDE</b></div>
+                <div><span style="font-size:9px;color:#6B675F">GIVEN NAME</span><br><b style="font-size:16px">SIDDHARTH</b></div>
+                <div><span style="font-size:9px;color:#6B675F">OCCUPATION</span><br><b>Associate Architect · Applied AI</b></div>
+                <div><span style="font-size:9px;color:#6B675F">IN SERVICE SINCE</span><br><b>2010 · 12+ years</b></div>
+              </div>
+            </div>
+            <div style="font-family:'Young Serif',serif;font-size:30px;line-height:1.15">Production AI systems for complex, real-world problems.</div>
+            <div style="margin-top:auto;padding-top:14px;border-top:1px solid #D4CBB8;font-size:13px;letter-spacing:0.08em;line-height:1.6;word-break:break-all">P&lt;INDDESHPANDE&lt;&lt;SIDDHARTH&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>PRODUCTIONAI&lt;&lt;300FACILITIES&lt;&lt;30PCT&lt;&lt;&lt;</div>
+          </div>
+          <div style="background:#F3EEE2;background-image:repeating-linear-gradient(45deg,rgba(148,87,10,0.05) 0 2px,transparent 2px 8px);padding:36px;display:flex;flex-direction:column;gap:18px;font-family:'Space Mono',monospace;color:#15140F">
+            <div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:0.12em"><span>VISAS · ENTRIES</span><span>PAGE 02</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+              <sc-for list="{{ visas }}" as="v" hint-placeholder-count="4">
+                <div style="border:2.5px solid {{ v.c }};color:{{ v.c }};border-radius:{{ v.rad }};min-height:160px;padding:22px 26px;display:flex;flex-direction:column;justify-content:center;gap:4px;text-align:center;align-items:center">
+                  <span style="font-size:9px;letter-spacing:0.1em;white-space:nowrap">ENTRY · {{ v.role }}</span>
+                  <span style="font-family:'Young Serif',serif;font-size:20px;line-height:1.05;white-space:nowrap">{{ v.co }}</span>
+                  <span style="font-size:11px;font-weight:700">{{ v.dates }}</span>
+                  <span style="font-size:10px">{{ v.stat }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#F5A623;font-size:12px;font-weight:700"><span>NEXT DESTINATION: YOUR PROBLEM</span><span>GET IN TOUCH →</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4c RECIPE BOOK -->
+    <div id="4c" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">4c</span><span style="font-size:16px;font-weight:600;color:#15140F">Recipe book: "Recipes for Production AI", one system per recipe</span></div>
+      <div style="width:1200px;background:#FBF7EF;color:#15140F;border-radius:6px;overflow:hidden;font-family:'Work Sans',sans-serif">
+        <div style="display:grid;grid-template-columns:1fr 1fr">
+          <div style="background:#F5A623;padding:64px 56px;display:flex;flex-direction:column;justify-content:space-between;gap:40px;color:#0F0F0E">
+            <span style="font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase">Siddharth Deshpande · Vol. 12</span>
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <span style="font-family:'Young Serif',serif;font-size:84px;line-height:0.95">Recipes for Production AI</span>
+              <span style="font-size:17px;line-height:1.5;max-width:440px">I work the full path from ambiguous problem to production: understanding the problem, designing the system, building it, deploying it, and iterating once people are using it.</span>
+            </div>
+            <span style="font-size:13px;font-weight:700">8 recipes · 4 open-source side dishes · 12+ years in the kitchen</span>
+          </div>
+          <div style="padding:56px;display:flex;flex-direction:column;gap:22px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#94570A;font-weight:700"><span>Recipe No. 01 · Enterprise AI</span><span>p. 14</span></div>
+            <span style="font-family:'Young Serif',serif;font-size:44px;line-height:1">Multi-Agent Conversational AI</span>
+            <span style="font-size:16px;line-height:1.5;color:#45423B">Ask a building a question in plain English — five specialist agents over a 4 TB operations database, instead of five admin screens.</span>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #15140F;border-bottom:1px solid #15140F;font-size:12px">
+              <div style="padding:12px 0;display:flex;flex-direction:column"><span style="color:#6B675F">SERVES</span><b style="font-size:18px">300+ facilities</b></div>
+              <div style="padding:12px 0 12px 14px;border-left:1px solid #15140F;display:flex;flex-direction:column"><span style="color:#6B675F">AGENTS</span><b style="font-size:18px">5 specialists</b></div>
+              <div style="padding:12px 0 12px 14px;border-left:1px solid #15140F;display:flex;flex-direction:column"><span style="color:#6B675F">DIFFICULTY</span><b style="font-size:18px">4 TB, live</b></div>
+            </div>
+            <div style="display:grid;grid-template-columns:180px 1fr;gap:28px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase">Ingredients</span>
+                <sc-for list="{{ ingredients }}" as="i" hint-placeholder-count="4"><span style="font-size:14px;padding-bottom:6px;border-bottom:1px dotted #C9C2B3">{{ i }}</span></sc-for>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <span style="font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase">Method</span>
+                <sc-for list="{{ method }}" as="s" hint-placeholder-count="4"><div style="display:grid;grid-template-columns:28px 1fr;gap:8px;font-size:14px;line-height:1.45"><span style="font-family:'Young Serif',serif;font-size:20px;color:#94570A">{{ s.n }}</span><span>{{ s.t }}</span></div></sc-for>
+              </div>
+            </div>
+            <div style="padding:14px 16px;background:#F3EBDB;font-size:14px;line-height:1.45"><b>Chef's note:</b> Supervisor pattern, not a single monolithic agent.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4d ANNUAL REPORT -->
+    <div id="4d" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">4d</span><span style="font-size:16px;font-weight:600;color:#15140F">Annual report: a corporate report where the company is you</span></div>
+      <div style="width:1200px;background:#FFFFFF;color:#15140F;border-radius:6px;overflow:hidden;font-family:'Public Sans',sans-serif">
+        <div style="display:grid;grid-template-columns:1.1fr 1fr;min-height:560px">
+          <div style="padding:56px;display:flex;flex-direction:column;justify-content:space-between;gap:32px;border-right:1px solid #E2DDD2">
+            <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase"><span>Siddharth Deshpande</span><span style="color:#94570A">Annual Report 2026</span></div>
+            <div style="display:flex;flex-direction:column;gap:18px">
+              <span style="font-family:'Bodoni Moda',serif;font-size:92px;line-height:0.92;letter-spacing:-0.02em">Twelve years of <i>shipping.</i></span>
+              <span style="font-size:17px;line-height:1.55;color:#45423B;max-width:520px">Production AI systems for complex, real-world problems. I work the full path from ambiguous problem to production: understanding the problem, designing the system, building it, deploying it, and iterating once people are using it.</span>
+            </div>
+            <div style="display:flex;gap:12px"><span style="padding:12px 18px;background:#15140F;color:#F5A623;font-weight:800;font-size:14px">Read the report → Case Studies</span><span style="padding:12px 18px;border:1.5px solid #15140F;font-weight:800;font-size:14px">Download PDF · Resume</span></div>
+          </div>
+          <div style="background:#F5A623;padding:56px;display:flex;flex-direction:column;gap:28px;color:#0F0F0E">
+            <span style="font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase">Highlights of the year</span>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px 24px">
+              <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:4px;border-top:2px solid #0F0F0E;padding-top:12px"><span style="font-family:'Bodoni Moda',serif;font-size:64px;line-height:0.9">{{ k.v }}</span><span style="font-size:13px;font-weight:600">{{ k.l }}</span></div></sc-for>
+            </div>
+          </div>
+        </div>
+        <div style="padding:48px 56px;display:grid;grid-template-columns:1fr 1.4fr;gap:56px;border-top:1px solid #E2DDD2">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <span style="font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#94570A">Letter from the architect</span>
+            <span style="font-family:'Bodoni Moda',serif;font-style:italic;font-size:24px;line-height:1.35">"12 years of turning ambiguous problems into production systems — ERPs, AI platforms, multi-agent pipelines — across startups and enterprise. I don't just write code; I own the outcome end to end."</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <span style="font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase">Segment performance</span>
+            <sc-for list="{{ segments }}" as="s" hint-placeholder-count="3">
+              <div style="display:grid;grid-template-columns:150px 1fr 120px;gap:16px;align-items:center;font-size:14px">
+                <b>{{ s.co }}</b>
+                <div style="height:22px;background:#F3EEE2"><div style="height:100%;width:{{ s.w }};background:{{ s.c }}"></div></div>
+                <span style="font-weight:600;text-align:right">{{ s.stat }}</span>
+              </div>
+            </sc-for>
+            <span style="font-size:12px;color:#6B675F">Bar length: years in role. Apra Labs Aug 2019 – Present · MildlyClassic May 2016 – May 2019 · UXgage Oct 2015 – Apr 2016</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding:48px;display:flex;flex-direction:column;gap:28px;font-family:'Onest',sans-serif;border-bottom:2px solid #B4AD9E">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:900px">
+    <span style="font-family:'Martian Mono',monospace;font-size:12px;color:#6B675F;text-transform:uppercase;letter-spacing:0.08em">Round 7 · Pop-culture & physical</span>
+    <h1 style="margin:0;font-size:40px;letter-spacing:-0.02em;color:#15140F">Four more, borrowing from film, music, transit and a real desk.</h1>
+    <p style="margin:0;font-size:17px;color:#45423B"><a href="#3a">3a</a> Movie poster & credits · <a href="#3b">3b</a> Vinyl album · <a href="#3c">3c</a> Metro map · <a href="#3d">3d</a> Founder's desk.</p>
+  </div>
+  <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start">
+
+    <!-- 3a MOVIE POSTER -->
+    <div id="3a" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">3a</span><span style="font-size:16px;font-weight:600;color:#15140F">Movie poster: "Now showing", systems in the credits</span></div>
+      <div style="width:1200px;background:#0F0F0E;color:#EDEBE6;border-radius:6px;overflow:hidden;display:grid;grid-template-columns:520px 1fr">
+        <div style="position:relative;min-height:860px;background:#1A1917">
+          <img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)">
+          <div style="position:absolute;inset:0;background:linear-gradient(transparent 40%, rgba(15,15,14,0.95))"></div>
+          <div style="position:absolute;left:28px;right:28px;top:24px;display:flex;justify-content:space-between;font-family:'Overpass',sans-serif;font-size:12px;letter-spacing:0.2em;text-transform:uppercase"><span>Apra Labs presents</span><span style="color:#F5A623">12+ yrs in the making</span></div>
+          <div style="position:absolute;left:28px;right:28px;bottom:28px;display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'Overpass',sans-serif;font-size:13px;letter-spacing:0.3em;color:#F5A623">SIDDHARTH DESHPANDE IN</span>
+            <span style="font-family:'Anton',sans-serif;font-size:98px;line-height:0.85;text-transform:uppercase;color:#F5A623">Production</span>
+            <span style="font-family:'Overpass',sans-serif;font-size:15px;letter-spacing:0.08em">AI systems for complex, real-world problems.</span>
+          </div>
+        </div>
+        <div style="padding:44px 48px;display:flex;flex-direction:column;gap:26px;font-family:'Overpass',sans-serif">
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <sc-for list="{{ laurels }}" as="l" hint-placeholder-count="3"><div style="padding:10px 16px;border:1.5px solid #F5A623;border-radius:999px;display:flex;flex-direction:column;align-items:center;line-height:1.2"><span style="font-size:10px;letter-spacing:0.14em;color:#F5A623">WINNER</span><span style="font-size:13px;font-weight:800">{{ l.t }}</span><span style="font-size:10px;color:#9C988F">{{ l.m }}</span></div></sc-for>
+          </div>
+          <p style="margin:0;font-family:'DM Serif Display',serif;font-style:italic;font-size:28px;line-height:1.3">"I work the full path from ambiguous problem to production: understanding the problem, designing the system, building it, deploying it, and iterating once people are using it."</p>
+          <div style="display:flex;flex-direction:column;gap:12px;padding:24px 0;border-top:1px solid #2A2925;border-bottom:1px solid #2A2925;text-align:center">
+            <span style="font-size:11px;letter-spacing:0.3em;color:#9C988F">STARRING</span>
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px">
+              <sc-for list="{{ starring }}" as="s" hint-placeholder-count="8"><span style="font-family:'Anton',sans-serif;font-size:24px;text-transform:uppercase;letter-spacing:0.02em">{{ s }}</span></sc-for>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:13px">
+            <sc-for list="{{ credits }}" as="c" hint-placeholder-count="8"><div style="display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dotted #3A3832"><span style="color:#9C988F;text-transform:uppercase;letter-spacing:0.08em;font-size:11px">{{ c.k }}</span><span style="font-weight:600;text-align:right">{{ c.v }}</span></div></sc-for>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:auto">
+            <span style="padding:14px 22px;background:#F5A623;color:#0F0F0E;font-weight:800;letter-spacing:0.08em;white-space:nowrap">GET IN TOUCH →</span>
+            <span style="padding:14px 22px;border:1.5px solid #EDEBE6;font-weight:800;letter-spacing:0.08em;white-space:nowrap">VIEW RESUME</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3b VINYL -->
+    <div id="3b" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">3b</span><span style="font-size:16px;font-weight:600;color:#15140F">Vinyl album: "Greatest Hits", systems as the tracklist</span></div>
+      <div style="width:1200px;background:#EFE9DC;color:#15140F;border-radius:6px;overflow:hidden;padding:48px;display:grid;grid-template-columns:600px 1fr;gap:40px;align-items:center">
+        <div style="position:relative;height:480px">
+          <div style="position:absolute;left:210px;top:45px;width:390px;height:390px;border-radius:50%;background:repeating-radial-gradient(circle,#15140F 0 2px,#22211D 2px 4px);display:grid;place-items:center;box-shadow:0 20px 40px rgba(0,0,0,0.25)">
+            <div style="width:120px;height:120px;border-radius:50%;background:#F5A623;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Overpass',sans-serif;font-size:11px;font-weight:800;color:#0F0F0E;text-align:center;line-height:1.3"><span>SIDE A</span><span style="font-size:9px;font-weight:600">Production AI</span><span style="width:10px;height:10px;border-radius:50%;background:#EFE9DC;margin:6px 0"></span><span style="font-size:9px;font-weight:600">33⅓ RPM · 2026</span></div>
+          </div>
+          <div style="position:absolute;left:0;top:20px;width:340px;height:440px;background:#F5A623;color:#0F0F0E;padding:28px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 20px 40px rgba(0,0,0,0.2)">
+            <span style="font-family:'Overpass',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.2em">SIDDHARTH DESHPANDE</span>
+            <span style="font-family:'DM Serif Display',serif;font-size:76px;line-height:0.85">Greatest<br><i>Hits</i></span>
+            <div style="display:flex;justify-content:space-between;align-items:end;font-family:'Overpass',sans-serif;font-size:12px;font-weight:600"><span>2010 — 2026<br>Remastered for production</span><span style="width:64px;height:64px;border-radius:50%;overflow:hidden;border:2px solid #0F0F0E"><img src="https://siddharthdeshpande.com/images/profile.jpg" alt="" style="width:100%;height:100%;object-fit:cover;filter:grayscale(1)"></span></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px;font-family:'Overpass',sans-serif">
+          <span style="font-size:12px;font-weight:800;letter-spacing:0.2em;color:#94570A">TRACKLIST</span>
+          <div style="display:flex;flex-direction:column">
+            <sc-for list="{{ tracks }}" as="t" hint-placeholder-count="8">
+              <div style="display:grid;grid-template-columns:36px 1fr auto;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px solid #D4CBB8">
+                <span style="font-size:13px;color:#6B675F;font-weight:600">{{ t.n }}</span>
+                <div style="display:flex;flex-direction:column"><span style="font-family:'DM Serif Display',serif;font-size:22px;line-height:1.1">{{ t.title }}</span><span style="font-size:12px;color:#6B675F">feat. {{ t.feat }}</span></div>
+                <span style="font-size:13px;font-weight:800;color:#94570A">{{ t.len }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:10px"><span style="padding:12px 20px;border-radius:999px;background:#15140F;color:#F5A623;font-weight:800">▶ Play · Get in Touch</span><span style="padding:12px 20px;border-radius:999px;border:1.5px solid #15140F;font-weight:800">Liner notes · About</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3c METRO MAP -->
+    <div id="3c" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">3c</span><span style="font-size:16px;font-weight:600;color:#15140F">Metro map: three lines, every stop a project</span></div>
+      <div style="width:1200px;background:#FFFFFF;color:#15140F;border-radius:6px;overflow:hidden;font-family:'Overpass',sans-serif">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 36px;background:#15140F;color:#FFFFFF">
+          <span style="display:flex;align-items:center;gap:12px;font-weight:800;font-size:18px"><span style="width:34px;height:34px;border-radius:50%;background:#F5A623;color:#0F0F0E;display:grid;place-items:center;font-size:13px">SD</span>Siddharth Deshpande Metro</span>
+          <span style="font-size:13px;color:#B9B5AC">Production AI systems for complex, real-world problems.</span>
+        </div>
+        <div style="padding:40px 36px 28px;display:flex;flex-direction:column;gap:42px">
+          <sc-for list="{{ metro }}" as="ln" hint-placeholder-count="3">
+            <div style="display:grid;grid-template-columns:170px 1fr;gap:18px;align-items:center">
+              <div style="display:flex;align-items:center;gap:10px"><span style="padding:6px 10px;border-radius:6px;background:{{ ln.c }};color:{{ ln.ink }};font-weight:800;font-size:13px">{{ ln.code }}</span><span style="font-weight:800;font-size:15px;line-height:1.1">{{ ln.name }}</span></div>
+              <div style="position:relative;height:96px">
+                <div style="position:absolute;left:0;right:0;top:20px;height:10px;border-radius:5px;background:{{ ln.c }}"></div>
+                <div style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between">
+                  <sc-for list="{{ ln.stops }}" as="s" hint-placeholder-count="5">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;width:130px">
+                      <span style="width:{{ s.sz }};height:{{ s.sz }};margin-top:{{ s.mt }};border-radius:50%;background:#FFFFFF;border:5px solid {{ s.bd }}"></span>
+                      <span style="font-size:13px;font-weight:{{ s.fw }};text-align:center;line-height:1.15">{{ s.t }}</span>
+                      <span style="font-size:11px;color:#6B675F">{{ s.m }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 36px;border-top:2px solid #15140F;background:#FAF8F3;font-size:13px">
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:16px;border-radius:50%;background:#FFFFFF;border:5px solid #15140F"></span>Interchange: Apra Labs, where all three lines meet</span>
+          <span style="padding:10px 18px;background:#F5A623;color:#0F0F0E;font-weight:800">Next stop: Your problem → Get in Touch</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3d DESK -->
+    <div id="3d" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">3d</span><span style="font-size:16px;font-weight:600;color:#15140F">Founder's desk: sticky notes, index cards and a polaroid</span></div>
+      <div style="position:relative;width:1200px;height:860px;background:#C9B48F;background-image:repeating-linear-gradient(92deg,rgba(0,0,0,0.03) 0 3px,transparent 3px 14px);border-radius:6px;overflow:hidden">
+        <div style="position:absolute;left:60px;top:60px;width:300px;padding:14px 14px 50px;background:#FFFFFF;box-shadow:0 12px 24px rgba(0,0,0,0.25);transform:rotate(-5deg)">
+          <img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="display:block;width:100%;aspect-ratio:1;object-fit:cover;background:#DAD4C7">
+          <span style="position:absolute;left:0;right:0;bottom:12px;text-align:center;font-family:'Kalam',cursive;font-size:22px;color:#15140F">Siddharth, Associate Architect</span>
+        </div>
+        <div style="position:absolute;left:420px;top:50px;width:700px;padding:36px 40px;background:#FFFEF8;box-shadow:0 10px 20px rgba(0,0,0,0.18);transform:rotate(0.8deg);background-image:repeating-linear-gradient(#FFFEF8 0 35px,#C8D8E8 35px 36px);font-family:'Overpass',sans-serif">
+          <span style="position:absolute;left:60px;top:0;bottom:0;width:2px;background:#E8A0A0"></span>
+          <div style="padding-left:40px;display:flex;flex-direction:column;gap:8px">
+            <span style="font-family:'Kalam',cursive;font-size:20px;color:#94570A">Mission —</span>
+            <span style="font-family:'DM Serif Display',serif;font-size:46px;line-height:1.05;color:#15140F">Production AI systems for complex, real-world problems.</span>
+            <span style="font-family:'Kalam',cursive;font-size:20px;line-height:1.75;color:#45423B">understand the problem → design → build → deploy → iterate once people are using it ✓</span>
+          </div>
+        </div>
+        <sc-for list="{{ stickies }}" as="s" hint-placeholder-count="5">
+          <div style="position:absolute;left:{{ s.x }};top:{{ s.y }};width:190px;height:170px;padding:18px;background:{{ s.bg }};box-shadow:0 8px 14px rgba(0,0,0,0.2);transform:rotate({{ s.r }});display:flex;flex-direction:column;justify-content:space-between;font-family:'Kalam',cursive;color:#15140F">
+            <span style="font-size:54px;line-height:0.9;font-weight:700">{{ s.v }}</span>
+            <span style="font-size:18px;line-height:1.15">{{ s.l }}</span>
+          </div>
+        </sc-for>
+        <div style="position:absolute;left:60px;top:470px;width:360px;padding:22px 24px;background:#FFFFFF;box-shadow:0 10px 20px rgba(0,0,0,0.2);transform:rotate(2deg);display:flex;flex-direction:column;gap:8px;font-family:'Overpass',sans-serif">
+          <span style="font-size:11px;font-weight:800;letter-spacing:0.12em;color:#94570A">CASE STUDY · INDEX CARD 01</span>
+          <span style="font-family:'DM Serif Display',serif;font-size:28px;line-height:1.05">Multi-Agent Conversational AI</span>
+          <span style="font-size:14px;color:#45423B;line-height:1.45">Ask a building a question in plain English — five specialist agents over a 4 TB operations database, instead of five admin screens.</span>
+          <span style="font-family:'Kalam',cursive;font-size:18px;color:#94570A">key call: supervisor pattern ↑</span>
+        </div>
+        <div style="position:absolute;left:920px;top:640px;width:260px;padding:22px;background:#15140F;color:#F5A623;box-shadow:0 10px 20px rgba(0,0,0,0.3);transform:rotate(-3deg);display:flex;flex-direction:column;gap:10px;font-family:'Overpass',sans-serif">
+          <span style="font-size:11px;font-weight:800;letter-spacing:0.14em">BUSINESS CARD</span>
+          <span style="font-family:'DM Serif Display',serif;font-size:30px;line-height:1">Let's build something great.</span>
+          <span style="font-size:12px;color:#EDEBE6">dsiddharth2@gmail.com</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding:48px;display:flex;flex-direction:column;gap:28px;font-family:'Onest',sans-serif;border-bottom:2px solid #B4AD9E">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:900px">
+    <span style="font-family:'Martian Mono',monospace;font-size:12px;color:#6B675F;text-transform:uppercase;letter-spacing:0.08em">Round 6 · Even more hatke</span>
+    <h1 style="margin:0;font-size:40px;letter-spacing:-0.02em;color:#15140F">Four more concepts, each a different metaphor.</h1>
+    <p style="margin:0;font-size:17px;color:#45423B"><a href="#2a">2a</a> Periodic table · <a href="#2b">2b</a> RPG character sheet · <a href="#2c">2c</a> Printed receipt · <a href="#2d">2d</a> Engineering datasheet.</p>
+  </div>
+  <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start">
+
+    <!-- 2a PERIODIC TABLE -->
+    <div id="2a" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">2a</span><span style="font-size:16px;font-weight:600;color:#15140F">Periodic table: every system, job and skill is an element</span></div>
+      <div style="width:1200px;background:#FBF9F4;color:#15140F;border-radius:6px;overflow:hidden;padding:36px;font-family:'Archivo',sans-serif;display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;justify-content:space-between;align-items:end;gap:24px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:#94570A">The Periodic Table of</span>
+            <span style="font-size:76px;line-height:0.88;font-weight:900;letter-spacing:-0.04em">Siddharth Deshpande</span>
+          </div>
+          <p style="margin:0;max-width:380px;font-size:15px;color:#45423B;line-height:1.5">Production AI systems for complex, real-world problems. Hover an element to see what it's made of.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(9,1fr);gap:6px">
+          <sc-for list="{{ elements }}" as="e" hint-placeholder-count="27">
+            <div style="aspect-ratio:1;border-radius:6px;background:{{ e.bg }};color:{{ e.ink }};border:1.5px solid {{ e.bd }};padding:8px;display:flex;flex-direction:column;justify-content:space-between;grid-column:{{ e.col }}">
+              <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:600"><span>{{ e.n }}</span><span>{{ e.v }}</span></div>
+              <span style="font-size:34px;font-weight:900;letter-spacing:-0.03em;line-height:1">{{ e.sym }}</span>
+              <span style="font-size:10px;line-height:1.15;font-weight:600">{{ e.name }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:12px;font-weight:600">
+          <span style="display:flex;gap:6px;align-items:center"><span style="width:14px;height:14px;border-radius:3px;background:#F5A623"></span>AI systems</span>
+          <span style="display:flex;gap:6px;align-items:center"><span style="width:14px;height:14px;border-radius:3px;background:#15140F"></span>Companies</span>
+          <span style="display:flex;gap:6px;align-items:center"><span style="width:14px;height:14px;border-radius:3px;background:#FFFFFF;border:1.5px solid #15140F"></span>Platforms & open source</span>
+          <span style="display:flex;gap:6px;align-items:center"><span style="width:14px;height:14px;border-radius:3px;background:#EDE7D9"></span>Skills</span>
+        </div>
+        <div style="display:grid;grid-template-columns:320px 1fr;gap:24px;padding:24px;border-radius:10px;background:#15140F;color:#EDEBE6">
+          <div style="display:flex;flex-direction:column;justify-content:space-between;aspect-ratio:1;max-width:240px;padding:18px;border-radius:8px;background:#F5A623;color:#0F0F0E">
+            <div style="display:flex;justify-content:space-between;font-weight:600"><span>03</span><span>5</span></div>
+            <span style="font-size:110px;font-weight:900;line-height:0.8;letter-spacing:-0.05em">Ma</span>
+            <span style="font-weight:600">Multi-Agent Conversational AI</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;justify-content:center">
+            <span style="font-family:'Martian Mono',monospace;font-size:11px;color:#F5A623;text-transform:uppercase">Element detail · Case study · Enterprise AI</span>
+            <span style="font-size:22px;line-height:1.35;font-weight:600">Ask a building a question in plain English — five specialist agents over a 4 TB operations database, instead of five admin screens.</span>
+            <span style="font-size:14px;color:#B9B5AC">Key decision: Supervisor pattern, not a single monolithic agent</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2b RPG -->
+    <div id="2b" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">2b</span><span style="font-size:16px;font-weight:600;color:#15140F">RPG character sheet: jobs are levels, systems are quests</span></div>
+      <div style="width:1200px;background:#14130F;color:#EDEBE6;border-radius:6px;overflow:hidden;padding:32px;font-family:'Silkscreen',monospace;display:grid;grid-template-columns:360px 1fr;gap:24px">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="border:4px solid #F5A623;padding:6px;background:#0F0F0E;box-shadow:6px 6px 0 #F5A623">
+            <img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="display:block;width:100%;aspect-ratio:1;object-fit:cover;image-rendering:pixelated;filter:contrast(1.1);background:#2A2925">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:28px;line-height:1;color:#F5A623">SIDDHARTH</span>
+            <span style="font-size:13px">CLASS: ASSOCIATE ARCHITECT</span>
+            <span style="font-size:13px;color:#9C988F">LVL 12+ · APPLIED AI</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;padding:16px;border:2px solid #45423B">
+            <sc-for list="{{ attrs }}" as="a" hint-placeholder-count="5">
+              <div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;font-size:11px"><span>{{ a.k }}</span><span style="color:#F5A623">{{ a.v }}</span></div><div style="height:10px;background:#2A2925"><div style="height:100%;width:{{ a.w }};background:#F5A623"></div></div></div>
+            </sc-for>
+          </div>
+          <div style="padding:12px;background:#F5A623;color:#0F0F0E;text-align:center;font-size:16px">▶ PRESS START TO GET IN TOUCH</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div style="padding:18px;border:2px solid #45423B;display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:11px;color:#F5A623">MAIN QUEST</span>
+            <span style="font-family:'Onest',sans-serif;font-size:34px;line-height:1.05;font-weight:700">Production AI systems for complex, real-world problems.</span>
+            <span style="font-family:'Onest',sans-serif;font-size:15px;color:#B9B5AC;line-height:1.5">I work the full path from ambiguous problem to production: understanding the problem, designing the system, building it, deploying it, and iterating once people are using it.</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:11px;color:#9C988F">QUESTS COMPLETED</span>
+            <sc-for list="{{ quests }}" as="q" hint-placeholder-count="5">
+              <div style="display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center;padding:12px 14px;background:#1E1D1A;border-left:4px solid {{ q.c }}">
+                <span style="color:{{ q.c }}">★</span>
+                <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:14px">{{ q.t }}</span><span style="font-family:'Onest',sans-serif;font-size:12px;color:#9C988F">{{ q.s }}</span></div>
+                <span style="font-size:12px;color:#F5A623">+{{ q.xp }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+            <sc-for list="{{ levels }}" as="l" hint-placeholder-count="3">
+              <div style="padding:14px;border:2px solid #F5A623;display:flex;flex-direction:column;gap:4px"><span style="font-size:10px;color:#9C988F">{{ l.lvl }}</span><span style="font-size:16px;color:#F5A623">{{ l.co }}</span><span style="font-size:10px">{{ l.d }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2c RECEIPT -->
+    <div id="2c" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">2c</span><span style="font-size:16px;font-weight:600;color:#15140F">Printed receipt: 12 years itemised, impact as the total</span></div>
+      <div style="width:1200px;background:#F5A623;border-radius:6px;padding:48px 0;display:flex;justify-content:center;gap:48px;align-items:flex-start">
+        <div style="width:520px;background:#FFFEFA;color:#15140F;padding:36px 34px 44px;font-family:'Courier Prime',monospace;font-size:15px;line-height:1.5;box-shadow:0 20px 40px rgba(15,15,14,0.25);transform:rotate(-1.2deg);clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),96% 100%,92% calc(100% - 10px),88% 100%,84% calc(100% - 10px),80% 100%,76% calc(100% - 10px),72% 100%,68% calc(100% - 10px),64% 100%,60% calc(100% - 10px),56% 100%,52% calc(100% - 10px),48% 100%,44% calc(100% - 10px),40% 100%,36% calc(100% - 10px),32% 100%,28% calc(100% - 10px),24% 100%,20% calc(100% - 10px),16% 100%,12% calc(100% - 10px),8% 100%,4% calc(100% - 10px),0 100%)">
+          <div style="text-align:center;display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:26px;font-weight:700;letter-spacing:0.04em">SIDDHARTH DESHPANDE</span>
+            <span>Associate Architect · Applied AI</span>
+            <span>siddharthdeshpande.com</span>
+            <span>EST. 2010 · OPEN 24/7</span>
+          </div>
+          <div style="border-top:2px dashed #15140F;margin:18px 0"></div>
+          <div style="font-weight:700;text-align:center;font-size:18px;line-height:1.3">PRODUCTION AI SYSTEMS FOR COMPLEX, REAL-WORLD PROBLEMS.</div>
+          <div style="border-top:2px dashed #15140F;margin:18px 0"></div>
+          <div style="display:flex;justify-content:space-between;font-weight:700"><span>QTY ITEM</span><span>IMPACT</span></div>
+          <sc-for list="{{ receipt }}" as="r" hint-placeholder-count="8">
+            <div style="display:flex;justify-content:space-between;gap:12px"><span>1  {{ r.t }}</span><span style="white-space:nowrap">{{ r.v }}</span></div>
+          </sc-for>
+          <div style="border-top:2px dashed #15140F;margin:18px 0"></div>
+          <div style="display:flex;justify-content:space-between"><span>SUBTOTAL (YEARS)</span><span>12+</span></div>
+          <div style="display:flex;justify-content:space-between"><span>FACILITIES LIVE</span><span>300+</span></div>
+          <div style="display:flex;justify-content:space-between"><span>CLOUD SPEND</span><span>-30%</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:22px;font-weight:700;margin-top:8px"><span>TOTAL</span><span>SHIPPED</span></div>
+          <div style="border-top:2px dashed #15140F;margin:18px 0"></div>
+          <div style="text-align:center;display:flex;flex-direction:column;gap:6px">
+            <span style="font-weight:700">LET'S BUILD SOMETHING GREAT.</span>
+            <span>dsiddharth2@gmail.com</span>
+            <span style="font-size:34px;letter-spacing:-1px;line-height:1">||| || ||| | || |||| | ||</span>
+            <span>THANK YOU · PLEASE VISIT AGAIN</span>
+          </div>
+        </div>
+        <div style="width:440px;display:flex;flex-direction:column;gap:18px;color:#0F0F0E;padding-top:24px">
+          <span style="font-family:'Courier Prime',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.1em">How it works</span>
+          <span style="font-family:'Archivo',sans-serif;font-size:44px;line-height:0.95;font-weight:900;letter-spacing:-0.03em">The page prints itself as you scroll.</span>
+          <span style="font-family:'Onest',sans-serif;font-size:17px;line-height:1.5">Each line item is a system or job. Tap one and it tears off as a full "itemised bill" with the case-study details. The resume is the final receipt you can download.</span>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;font-family:'Courier Prime',monospace;font-size:14px">
+            <span style="padding:10px 16px;background:#0F0F0E;color:#F5A623">LET'S TALK →</span>
+            <span style="padding:10px 16px;border:1.5px solid #0F0F0E">VIEW RESUME</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2d DATASHEET -->
+    <div id="2d" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">2d</span><span style="font-size:16px;font-weight:600;color:#15140F">Engineering datasheet: Siddharth as a component, SD-12</span></div>
+      <div style="width:1200px;background:#FFFFFF;color:#15140F;border-radius:6px;overflow:hidden;font-family:'IBM Plex Sans Condensed',sans-serif">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 32px;background:#15140F;color:#EDEBE6;font-size:13px">
+          <span style="font-weight:700;letter-spacing:0.06em">SD-12 · DATASHEET</span><span>Rev. 2026 · Associate Architect · Applied AI</span><span style="color:#F5A623">Get in Touch →</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:2px solid #15140F">
+          <div style="padding:32px;display:flex;flex-direction:column;gap:14px;border-right:1px solid #15140F">
+            <span style="font-size:13px;font-weight:700;color:#94570A">SIDDHARTH DESHPANDE · SD-12 SERIES</span>
+            <span style="font-size:52px;line-height:0.95;font-weight:700;letter-spacing:-0.02em">Production AI systems for complex, real-world problems.</span>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:15px">
+              <span style="font-weight:700">FEATURES</span>
+              <sc-for list="{{ features }}" as="f" hint-placeholder-count="5"><span style="display:flex;gap:8px"><span style="color:#94570A">■</span>{{ f }}</span></sc-for>
+            </div>
+          </div>
+          <div style="padding:32px;display:flex;flex-direction:column;gap:12px;background:#FAF8F3">
+            <span style="font-size:13px;font-weight:700">FIGURE 1 · FUNCTIONAL BLOCK DIAGRAM</span>
+            <div style="flex:1;display:grid;grid-template-columns:1fr 60px 1.2fr 60px 1fr;align-items:center;font-size:13px;font-weight:600;text-align:center">
+              <div style="display:flex;flex-direction:column;gap:8px"><span style="padding:12px 8px;border:1.5px solid #15140F;background:#FFFFFF">AMBIGUOUS PROBLEM</span><span style="padding:12px 8px;border:1.5px solid #15140F;background:#FFFFFF">LIVE BUSINESS DATA</span></div>
+              <div style="height:2px;background:#15140F"></div>
+              <div style="padding:28px 12px;border:2px solid #15140F;background:#F5A623;display:flex;flex-direction:column;gap:6px"><span style="font-size:22px;font-weight:700">SD-12</span><span>understand → design → build → deploy → iterate</span></div>
+              <div style="height:2px;background:#15140F"></div>
+              <div style="display:flex;flex-direction:column;gap:8px"><span style="padding:12px 8px;border:1.5px solid #15140F;background:#FFFFFF">PRODUCTION SYSTEM</span><span style="padding:12px 8px;border:1.5px solid #15140F;background:#FFFFFF">PEOPLE USING IT</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:28px 32px;display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:13px;font-weight:700">TABLE 1 · ELECTRICAL CHARACTERISTICS</span>
+          <div style="border:1.5px solid #15140F">
+            <div style="display:grid;grid-template-columns:2fr 1.4fr 80px 80px 100px;background:#15140F;color:#EDEBE6;font-size:12px;font-weight:700"><span style="padding:8px 12px">PARAMETER</span><span style="padding:8px 12px">CONDITIONS</span><span style="padding:8px 12px">MIN</span><span style="padding:8px 12px">TYP</span><span style="padding:8px 12px">UNIT</span></div>
+            <sc-for list="{{ specs }}" as="s" hint-placeholder-count="6">
+              <div style="display:grid;grid-template-columns:2fr 1.4fr 80px 80px 100px;font-size:14px;border-top:1px solid #DAD4C7"><span style="padding:9px 12px;font-weight:600">{{ s.p }}</span><span style="padding:9px 12px;color:#45423B">{{ s.c }}</span><span style="padding:9px 12px">{{ s.min }}</span><span style="padding:9px 12px;font-weight:700;color:#94570A">{{ s.typ }}</span><span style="padding:9px 12px;color:#45423B">{{ s.u }}</span></div>
+            </sc-for>
+          </div>
+          <span style="font-size:12px;color:#6B675F">Note 1: Typical values measured in production. Full application notes available as case studies. Ordering information: dsiddharth2@gmail.com</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding:48px;display:flex;flex-direction:column;gap:28px;font-family:'Onest',sans-serif">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:900px">
+    <span style="font-family:'Martian Mono',monospace;font-size:12px;color:#6B675F;text-transform:uppercase;letter-spacing:0.08em">Round 5 · Hatke directions</span>
+    <h1 style="margin:0;font-size:40px;letter-spacing:-0.02em;color:#15140F">Three offbeat concepts. Pick one and I'll build the full site.</h1>
+    <p style="margin:0;font-size:17px;color:#45423B">Each shows the hero plus one signature section, using your real content. <a href="#1a">1a</a> Railway departure board · <a href="#1b">1b</a> Chat with my agent · <a href="#1c">1c</a> The Deshpande Times.</p>
+  </div>
+  <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start">
+
+    <!-- 1a DEPARTURE BOARD -->
+    <div id="1a" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">1a</span><span style="font-size:16px;font-weight:600;color:#15140F">Departure board: career as a railway journey</span></div>
+      <div style="width:1200px;background:#0F0F0E;color:#EDEBE6;border-radius:6px;overflow:hidden;font-family:'Martian Mono',monospace">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 28px;border-bottom:2px solid #F5A623;font-size:12px;letter-spacing:0.08em;text-transform:uppercase">
+          <span style="display:flex;align-items:center;gap:12px"><span style="width:28px;height:28px;border-radius:50%;background:#F5A623;color:#0F0F0E;display:grid;place-items:center;font-weight:500">SD</span>Siddharth Deshpande Junction</span>
+          <span style="color:#9C988F">Platform 12+ · Associate Architect · Applied AI</span>
+          <span style="padding:8px 14px;border-radius:4px;background:#F5A623;color:#0F0F0E">Get in Touch</span>
+        </div>
+        <div style="padding:48px 28px 28px;display:flex;flex-direction:column;gap:22px">
+          <span style="font-size:12px;color:#F5A623;letter-spacing:0.12em">▶ NOW DEPARTING</span>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;gap:5px;flex-wrap:wrap">{{ flapA }}</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap">{{ flapB }}</div>
+          </div>
+          <p style="margin:0;max-width:640px;font-family:'Onest',sans-serif;font-size:18px;line-height:1.5;color:#B9B5AC">Production AI systems for complex, real-world problems. I work the full path from ambiguous problem to production: understanding the problem, designing the system, building it, deploying it, and iterating once people are using it.</p>
+        </div>
+        <div style="margin:0 28px 28px;border:1px solid #2A2925;border-radius:4px;overflow:hidden">
+          <div style="display:grid;grid-template-columns:90px 1.6fr 1fr 1.2fr 110px;gap:16px;padding:12px 18px;background:#1A1917;font-size:11px;color:#9C988F;letter-spacing:0.1em">
+            <span>YEAR</span><span>DESTINATION</span><span>VIA</span><span>KEY STAT</span><span>STATUS</span>
+          </div>
+          <sc-for list="{{ board }}" as="r" hint-placeholder-count="7">
+            <div style="display:grid;grid-template-columns:90px 1.6fr 1fr 1.2fr 110px;gap:16px;padding:14px 18px;border-top:1px solid #2A2925;align-items:center;font-size:13px">
+              <span style="color:#F5A623">{{ r.y }}</span>
+              <span style="font-family:'Big Shoulders Display',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:#EDEBE6">{{ r.dest }}</span>
+              <span style="color:#B9B5AC">{{ r.via }}</span>
+              <span style="color:#B9B5AC">{{ r.stat }}</span>
+              <span style="color:{{ r.sc }}">{{ r.status }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin:0 28px 36px;display:grid;grid-template-columns:1fr 220px;background:#F5A623;color:#0F0F0E;border-radius:10px;overflow:hidden">
+          <div style="padding:26px 28px;display:flex;flex-direction:column;gap:10px;border-right:2px dashed #0F0F0E">
+            <span style="font-size:11px;letter-spacing:0.12em">BOARDING PASS · GET IN TOUCH</span>
+            <span style="font-family:'Big Shoulders Display',sans-serif;font-size:64px;line-height:0.9;font-weight:900;text-transform:uppercase">Let's build something great.</span>
+            <span style="font-size:12px">dsiddharth2@gmail.com · LinkedIn · GitHub · Medium</span>
+          </div>
+          <div style="padding:26px 22px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;font-size:11px;letter-spacing:0.08em">
+            <span>FROM<br><b style="font-size:20px">YOUR PROBLEM</b></span>
+            <span>TO<br><b style="font-size:20px">PRODUCTION</b></span>
+            <span style="padding:10px;border:1.5px solid #0F0F0E;text-align:center">LET'S TALK →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1b CHAT -->
+    <div id="1b" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">1b</span><span style="font-size:16px;font-weight:600;color:#15140F">Chat with my agent: the portfolio is a conversation</span></div>
+      <div style="width:1200px;height:1000px;background:#F7F4EE;color:#15140F;border-radius:6px;overflow:hidden;display:grid;grid-template-columns:300px 1fr;font-family:'Onest',sans-serif">
+        <aside style="background:#EFEBE3;border-right:1px solid #DAD4C7;padding:24px 20px;display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="width:48px;height:48px;border-radius:50%;object-fit:cover;background:#DAD4C7">
+            <div style="display:flex;flex-direction:column"><span style="font-weight:700">Siddharth Deshpande</span><span style="font-size:12px;color:#2FA36B">● agent online</span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-family:'Martian Mono',monospace;font-size:10px;color:#6B675F;text-transform:uppercase;letter-spacing:0.08em">Ask about</span>
+            <sc-for list="{{ prompts }}" as="p" hint-placeholder-count="7"><div style="padding:10px 12px;border-radius:10px;background:{{ p.bg }};color:{{ p.ink }};font-size:14px;font-weight:500">{{ p.t }}</div></sc-for>
+          </div>
+          <div style="margin-top:auto;display:flex;flex-direction:column;gap:8px;font-size:13px">
+            <span style="padding:10px 12px;border-radius:10px;background:#F5A623;color:#0F0F0E;font-weight:600;text-align:center">Get in Touch</span>
+            <span style="color:#6B675F;text-align:center;font-family:'Martian Mono',monospace;font-size:11px">GitHub · LinkedIn · Medium</span>
+          </div>
+        </aside>
+        <div style="display:flex;flex-direction:column;min-height:0">
+          <div style="flex:1;overflow:hidden;padding:32px 48px;display:flex;flex-direction:column;gap:18px">
+            <div style="align-self:flex-end;max-width:420px;padding:12px 16px;border-radius:18px 18px 4px 18px;background:#15140F;color:#F7F4EE;font-size:15px">Hi! What do you do?</div>
+            <div style="max-width:640px;display:flex;flex-direction:column;gap:10px">
+              <div style="padding:20px 22px;border-radius:18px 18px 18px 4px;background:#FFFFFF;border:1px solid #DAD4C7;display:flex;flex-direction:column;gap:10px">
+                <span style="font-size:34px;line-height:1.05;font-weight:700;letter-spacing:-0.03em">Production AI systems for complex, real-world problems.</span>
+                <span style="font-size:15px;color:#45423B;line-height:1.5">I work the full path from ambiguous problem to production: understanding the problem, designing the system, building it, deploying it, and iterating once people are using it.</span>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ statsChat }}" as="s" hint-placeholder-count="5"><div style="padding:10px 14px;border-radius:12px;background:#FFFFFF;border:1px solid #DAD4C7;display:flex;flex-direction:column"><span style="font-size:22px;font-weight:700;color:#94570A;letter-spacing:-0.02em">{{ s.v }}</span><span style="font-size:11px;color:#6B675F">{{ s.l }}</span></div></sc-for>
+              </div>
+            </div>
+            <div style="align-self:flex-end;max-width:420px;padding:12px 16px;border-radius:18px 18px 4px 18px;background:#15140F;color:#F7F4EE;font-size:15px">Show me something you shipped.</div>
+            <div style="max-width:680px;border-radius:18px 18px 18px 4px;background:#FFFFFF;border:1px solid #DAD4C7;overflow:hidden">
+              <div style="padding:18px 22px;background:#F5A623;color:#0F0F0E;display:flex;justify-content:space-between;align-items:end;gap:16px">
+                <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'Martian Mono',monospace;font-size:10px;text-transform:uppercase">Case study · Enterprise AI</span><span style="font-size:24px;font-weight:700;letter-spacing:-0.02em">Multi-Agent Conversational AI</span></div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end"><span style="font-size:44px;font-weight:700;line-height:0.9">5</span><span style="font-family:'Martian Mono',monospace;font-size:10px">specialized agents</span></div>
+              </div>
+              <div style="padding:18px 22px;display:flex;flex-direction:column;gap:10px;font-size:14px">
+                <span style="color:#45423B">Ask a building a question in plain English — five specialist agents over a 4 TB operations database, instead of five admin screens.</span>
+                <div style="display:grid;grid-template-columns:130px 1fr;gap:8px 14px"><span style="font-family:'Martian Mono',monospace;font-size:10px;color:#6B675F;text-transform:uppercase;padding-top:3px">Key decision</span><span style="font-weight:600">Supervisor pattern, not a single monolithic agent</span></div>
+                <span style="font-family:'Martian Mono',monospace;font-size:12px;color:#94570A">Read the case study →</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;align-items:center;color:#6B675F;font-size:13px"><span style="width:6px;height:6px;border-radius:50%;background:#F5A623"></span><span style="width:6px;height:6px;border-radius:50%;background:#F5A623;opacity:.6"></span><span style="width:6px;height:6px;border-radius:50%;background:#F5A623;opacity:.3"></span><span style="margin-left:6px">Suggested: "Where have you made an impact?"</span></div>
+          </div>
+          <div style="padding:16px 48px 28px;border-top:1px solid #DAD4C7;background:#F7F4EE">
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:16px;background:#FFFFFF;border:1.5px solid #15140F">
+              <span style="flex:1;color:#6B675F;font-size:15px">Ask anything about my work…</span>
+              <span style="width:36px;height:36px;border-radius:50%;background:#F5A623;color:#0F0F0E;display:grid;place-items:center;font-weight:700">↑</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1c NEWSPAPER -->
+    <div id="1c" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:13px;padding:4px 10px;border-radius:6px;background:#15140F;color:#F5A623">1c</span><span style="font-size:16px;font-weight:600;color:#15140F">The Deshpande Times: a broadsheet front page</span></div>
+      <div style="width:1200px;background:#F4EFE3;color:#15140F;border-radius:6px;overflow:hidden;padding:28px 36px 40px;font-family:'Libre Franklin',sans-serif">
+        <div style="display:flex;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;padding-bottom:10px;border-bottom:1px solid #15140F">
+          <span>Vol. XII · Est. 2010</span><span>Production Edition</span><span>About · Experience · Case Studies · Open Source · Resume</span>
+        </div>
+        <div style="text-align:center;padding:14px 0 10px;border-bottom:4px double #15140F">
+          <div style="font-family:'Newsreader',serif;font-weight:800;font-size:96px;line-height:0.9;letter-spacing:-0.03em">The Deshpande Times</div>
+          <div style="font-family:'Newsreader',serif;font-style:italic;font-size:17px;margin-top:6px">Associate Architect · Systems Builder · Engineering Leader</div>
+        </div>
+        <div style="display:flex;gap:28px;padding:10px 0;border-bottom:1px solid #15140F;font-size:12px;overflow:hidden;white-space:nowrap">
+          <span style="background:#F5A623;padding:2px 8px;font-weight:800">MARKETS</span>
+          <span><b>12+</b> years shipping</span><span><b>3</b> client engagements in parallel</span><span><b>5</b> production AI systems shipped</span><span><b>300+</b> US facilities live</span><span><b>30%</b> cloud spend reduced ▼</span>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:28px;padding-top:22px">
+          <div style="display:flex;flex-direction:column;gap:14px;padding-right:28px;border-right:1px solid #15140F">
+            <span style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:#94570A">Lead story</span>
+            <h2 style="margin:0;font-family:'Newsreader',serif;font-weight:800;font-size:64px;line-height:0.95;letter-spacing:-0.02em">Production AI systems for complex, real-world problems.</h2>
+            <div style="display:grid;grid-template-columns:200px 1fr 1fr;gap:20px;font-family:'Newsreader',serif;font-size:16px;line-height:1.45">
+              <figure style="margin:0;display:flex;flex-direction:column;gap:6px"><img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1);background:#DAD4C7"><figcaption style="font-family:'Libre Franklin',sans-serif;font-size:11px;color:#6B675F">Siddharth Deshpande, Associate Architect · Applied AI</figcaption></figure>
+              <p style="margin:0"><span style="float:left;font-size:58px;line-height:0.8;font-weight:800;padding:4px 6px 0 0;color:#94570A">I</span> work the full path from ambiguous problem to production: understanding the problem, designing the system, building it, deploying it, and iterating once people are using it.</p>
+              <p style="margin:0">12 years of turning ambiguous problems into production systems — ERPs, AI platforms, multi-agent pipelines — across startups and enterprise. I don't just write code; I own the outcome end to end.</p>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <span style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:#94570A">Case studies</span>
+            <sc-for list="{{ news }}" as="n" hint-placeholder-count="3">
+              <div style="display:flex;flex-direction:column;gap:4px;padding-bottom:14px;border-bottom:1px solid #C9C2B3">
+                <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#6B675F">{{ n.cat }}</span>
+                <span style="font-family:'Newsreader',serif;font-weight:700;font-size:24px;line-height:1.05">{{ n.title }}</span>
+                <span style="font-family:'Newsreader',serif;font-size:14px;line-height:1.4;color:#45423B">{{ n.summary }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr) 1.2fr;gap:0;margin-top:22px;border-top:4px double #15140F;padding-top:16px">
+          <sc-for list="{{ jobsNews }}" as="j" hint-placeholder-count="3">
+            <div style="padding-right:18px;margin-right:18px;border-right:1px solid #C9C2B3;display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#94570A">{{ j.dates }}</span>
+              <span style="font-family:'Newsreader',serif;font-weight:700;font-size:22px;line-height:1.05">{{ j.co }}</span>
+              <span style="font-family:'Newsreader',serif;font-size:14px;line-height:1.4">{{ j.summary }}</span>
+            </div>
+          </sc-for>
+          <div style="background:#F5A623;padding:16px;display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em">Classifieds · Get in Touch</span>
+            <span style="font-family:'Newsreader',serif;font-weight:800;font-size:30px;line-height:1">Let's build something great.</span>
+            <span style="font-size:12px">Always open to interesting problems and collaborations. Write: dsiddharth2@gmail.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  flap(text, size) {
+    return text.split('').map((ch, i) => React.createElement('span', { key: i, style: {
+      width: size * 0.72, height: size, display: 'inline-grid', placeItems: 'center', borderRadius: 4,
+      background: ch === ' ' ? 'transparent' : 'linear-gradient(#1E1D1A 0 49%, #0F0F0E 49% 51%, #23221E 51%)',
+      color: '#F5A623', fontFamily: "'Big Shoulders Display',sans-serif", fontWeight: 900, fontSize: size * 0.78, lineHeight: 1
+    } }, ch));
+  }
+  renderVals() {
+    const A = '#F5A623', K = '#15140F';
+    const sty = { ai: [A, K, A], co: [K, '#F5A623', K], pf: ['#FFFFFF', K, K], sk: ['#EDE7D9', K, '#EDE7D9'] };
+    const els = [
+      ['Gr','GraphRAG Knowledge Engine','20K','ai'],['Ma','Multi-Agent Conversational AI','5','ai'],['Cr','AI Code Review Pipeline','10+','ai'],['Cc','Cloud Cost Intelligence Agent','30%','ai'],['Ip','Infrastructure Performance Agent','0–100','ai'],['Ss','Search Index Sync Engine','','pf'],['Le','Secure Logistics ERP','70K','pf'],['Ux','UXgage — Behavioral Analytics','','pf'],['Al','Apra Labs','2019','co'],
+      ['Mc','MildlyClassic','2016','co'],['Ug','UXgage','2015','co'],['Fi','Firaa.me','2014','co'],['Sl','Samvit Learning','2011','co'],['Dc','dotCORD IT Solutions','2010','co'],['Pl','Plug','TS','pf'],['Ch','CodeHawk','Py','pf'],['Zx','PHP ZXing','277K+','pf'],['Mp','MooPin','JS','pf'],
+      ['Py','Python','','sk'],['Ts','TypeScript','','sk'],['Cs','C# / .NET 8','','sk'],['Lg','LangChain · LangGraph','','sk'],['Az','Azure','','sk'],['Aw','AWS','','sk'],['Nj','Neo4j','','sk'],['Fs','FAISS','','sk'],['Sd','System design & architecture','','sk']
+    ];
+    const stop = (t, m, big) => ({ t, m, sz: big ? '30px' : '22px', mt: big ? '10px' : '14px', fw: big ? 800 : 600, bd: big ? K : 'currentColor' });
+    const line = (code, name, c, ink, stops) => ({ code, name, c, ink, stops: stops.map(s => ({ ...s, bd: s.bd === 'currentColor' ? c : s.bd })) });
+    return {
+      exhibits: [
+        { mv: '5', ml: 'specialized agents', title: 'Multi-Agent Conversational AI', cat: 'Enterprise AI', summary: 'Ask a building a question in plain English — five specialist agents over a 4 TB operations database, instead of five admin screens.', bg: '#F5A623', ink: '#0F0F0E' },
+        { mv: '20K', ml: 'support documents', title: 'GraphRAG Knowledge Engine', cat: 'Data & Knowledge Systems', summary: 'Turning 20K unstructured support tickets into an answerable knowledge base.', bg: '#15140F', ink: '#F5A623' },
+        { mv: '30%', ml: 'cost reduction', title: 'Cloud Cost Intelligence Agent', cat: 'Production Systems', summary: 'Finding out why the cloud bill moved — every night, before anyone has to ask. Identified 30% savings across the Azure estate.', bg: '#EDE7D9', ink: '#15140F' }
+      ],
+      visas: [
+        { co: 'Apra Labs', role: 'ARCHITECT', dates: 'AUG 2019 – PRESENT', stat: '300+ facilities served', c: '#94570A', rad: '50%' },
+        { co: 'MildlyClassic', role: 'TEAM LEAD', dates: 'MAY 2016 – MAY 2019', stat: '70K dockets/month', c: '#15140F', rad: '6px' },
+        { co: 'UXgage', role: 'CO-FOUNDER & CTO', dates: 'OCT 2015 – APR 2016', stat: '₹5L cash prize won', c: '#B23A1E', rad: '6px' },
+        { co: 'Samvit Learning', role: 'FOUNDER', dates: 'APR 2011 – APR 2016', stat: '250+ students trained', c: '#2F6B4F', rad: '50%' }
+      ],
+      ingredients: ['Python', 'LangChain', 'LangGraph', 'SignalR'],
+      method: [
+        { n: '1', t: 'Start with a 4 TB database that has no usable natural-language interface.' },
+        { n: '2', t: 'Add a supervisor agent that routes to 5 specialized agents — never answers itself.' },
+        { n: '3', t: 'Fold in natural-language SQL with read-only validation and post-generation permission rewrite.' },
+        { n: '4', t: 'Serve with SignalR streaming of the reasoning trace.' }
+      ],
+      kpis: [['12+','years shipping'],['300+','US facilities live'],['30%','cloud spend reduced'],['5','production AI systems shipped']].map(([v, l]) => ({ v, l })),
+      segments: [
+        { co: 'Apra Labs', w: '100%', stat: '300+ facilities', c: '#F5A623' },
+        { co: 'MildlyClassic', w: '47%', stat: '2.5K daily users', c: '#15140F' },
+        { co: 'UXgage', w: '9%', stat: '0→1 shipped', c: '#94570A' }
+      ],
+      laurels: [{ t: 'Leadership Excellence', m: 'Apra Labs · Nov 2024' }, { t: 'Customer Appreciation', m: 'Apra Labs · Apr 2023' }, { t: '₹5L Cash Prize', m: 'Sandbox Startups' }],
+      starring: ['GraphRAG','Multi-Agent AI','Code Review','Cloud Cost Agent','Infra Perf Agent','Search Sync','Logistics ERP','UXgage'],
+      credits: [['Directed by','Siddharth Deshpande'],['Produced at','Apra Labs'],['Prequel','MildlyClassic'],['Origin story','UXgage'],['Running time','12+ years'],['Locations','300+ US facilities'],['Budget cut','30% cloud spend'],['Cast & crew','20+ engineers hired']].map(([k, v]) => ({ k, v })),
+      tracks: [['A1','Multi-Agent Conversational AI','LangGraph, SignalR','5 agents'],['A2','GraphRAG Knowledge Engine','Cosmos DB, FAISS','20K docs'],['A3','Cloud Cost Intelligence Agent','Azure Cost Mgmt','−30%'],['A4','AI Code Review Pipeline','Azure DevOps, GPT','10+ langs'],['B1','Infrastructure Performance Agent','Azure Monitor','0–100'],['B2','Search Index Sync Engine','Azure AI Search','real-time'],['B3','Secure Logistics ERP','PHP, AWS','70K/mo'],['B4','UXgage — Behavioral Analytics','Neo4j, Cassandra','₹5L']].map(([n, title, feat, len]) => ({ n, title, feat, len })),
+      metro: [
+        line('AI', 'Enterprise AI Line', '#F5A623', '#0F0F0E', [stop('Code Review', 'CI/CD'), stop('GraphRAG', '20K docs'), stop('Apra Labs', 'Interchange', true), stop('Multi-Agent AI', '5 agents'), stop('Secure AI', 'permission rewrite')]),
+        line('PR', 'Production Systems Line', '#15140F', '#F5A623', [stop('dotCORD', '2010'), stop('Logistics ERP', '70K/mo'), stop('Apra Labs', 'Interchange', true), stop('Cloud Cost Agent', '−30%'), stop('Infra Perf Agent', '0–100')]),
+        line('LD', 'Leadership Line', '#94570A', '#FFFFFF', [stop('Samvit Learning', '250+ students'), stop('UXgage', 'Co-Founder & CTO'), stop('Apra Labs', 'Interchange', true), stop('20+ engineers', 'hired & mentored'), stop('10 → 55', 'team growth')])
+      ],
+      stickies: [['30%','cloud spend reduced','#FFD6A0','450px','430px','-2deg'],['5','production AI systems shipped','#FFF3A8','650px','430px','3deg'],['12+','years shipping','#F5A623','850px','430px','4deg'],['3','client engagements in parallel','#F5A623','470px','640px','-4deg'],['300+','US facilities live','#FFF3A8','700px','640px','-3deg']].map(([v, l, bg, x, y, r]) => ({ v, l, bg, x, y, r })),
+      elements: els.map(([sym, name, v, t], i) => ({ sym, name, v, n: String(i + 1).padStart(2, '0'), col: 'auto', bg: sty[t][0], ink: sty[t][1], bd: sty[t][2] })),
+      attrs: [['ARCHITECTURE','99','96%'],['AI & DATA','95','90%'],['LEADERSHIP','90','84%'],['0-TO-1','92','88%'],['SHIPPING','MAX','100%']].map(([k, v, w]) => ({ k, v, w })),
+      quests: [
+        ['Multi-Agent Conversational AI','5 specialized agents over a 4 TB database','5000', A],
+        ['GraphRAG Knowledge Engine','20K support documents made answerable','4000', A],
+        ['Cloud Cost Intelligence Agent','30% cost reduction','3000', A],
+        ['Secure Logistics ERP','2,500 daily users · 70K dockets/month','3000', '#9C988F'],
+        ['PHP ZXing','277K+ Packagist installs, 133 GitHub stars','1000', '#9C988F']
+      ].map(([t, s, xp, c]) => ({ t, s, xp, c })),
+      levels: [{ lvl: 'LVL 3 · NOW', co: 'APRA LABS', d: 'Aug 2019 – Present' }, { lvl: 'LVL 2', co: 'MILDLYCLASSIC', d: 'May 2016 – May 2019' }, { lvl: 'LVL 1', co: 'UXGAGE', d: 'Oct 2015 – Apr 2016' }],
+      receipt: [['Multi-Agent Conversational AI','5 agents'],['GraphRAG Knowledge Engine','20K docs'],['Cloud Cost Intelligence Agent','-30%'],['AI Code Review Pipeline','10+ langs'],['Infrastructure Perf. Agent','0–100'],['Search Index Sync Engine','real-time'],['Secure Logistics ERP','70K/mo'],['UXgage — Behavioral Analytics','₹5L']].map(([t, v]) => ({ t, v })),
+      features: ['12+ years shipping production systems','5 production AI systems shipped','300+ US facilities live','3 client engagements in parallel','20+ engineers hired and mentored'],
+      specs: [
+        ['Facilities served','Apra Labs platform','—','300+','facilities'],
+        ['Cloud spend reduction','Azure estate, nightly agent','—','30','%'],
+        ['Daily users','Secure Logistics ERP','100s','2,500','users/day'],
+        ['Docket throughput','Bulk upload','—','70K','dockets/mo'],
+        ['Knowledge corpus','GraphRAG pipeline','20K','150K','documents'],
+        ['Team growth','Apra Labs','10','55','people']
+      ].map(([p, c, min, typ, u]) => ({ p, c, min, typ, u })),
+      flapA: this.flap('PRODUCTION AI', 88),
+      flapB: this.flap('SYSTEMS', 88),
+      board: [
+        ['NOW','Multi-Agent Conversational AI','Apra Labs','5 specialized agents','ON TIME'],
+        ['NOW','GraphRAG Knowledge Engine','Apra Labs','20K support documents','ON TIME'],
+        ['NOW','Cloud Cost Intelligence Agent','Apra Labs','30% cost reduction','ON TIME'],
+        ['2019','Apra Labs','Associate Architect','300+ facilities served','BOARDING'],
+        ['2016','Secure Logistics ERP','MildlyClassic','70K dockets/month','ARRIVED'],
+        ['2015','UXgage','Co-Founder & CTO','₹5L cash prize won','ARRIVED'],
+        ['2010','dotCORD IT Solutions','Web Developer Intern','Where it started','ARRIVED']
+      ].map(([y, dest, via, stat, status]) => ({ y, dest, via, stat, status, sc: status === 'ARRIVED' ? '#9C988F' : status === 'BOARDING' ? '#F5A623' : '#2FA36B' })),
+      prompts: ['What do you build?','Show me a case study','Where have you worked?','Open source','Technical expertise','About me','Resume'].map((t, i) => ({ t, bg: i === 1 ? '#15140F' : '#F7F4EE', ink: i === 1 ? '#F7F4EE' : '#15140F' })),
+      statsChat: [['12+','years shipping'],['3','client engagements'],['5','production AI systems'],['300+','US facilities live'],['30%','cloud spend reduced']].map(([v, l]) => ({ v, l })),
+      news: [
+        { cat: 'Enterprise AI', title: 'Multi-Agent Conversational AI', summary: 'Ask a building a question in plain English — five specialist agents over a 4 TB operations database, instead of five admin screens.' },
+        { cat: 'Data & Knowledge Systems', title: 'GraphRAG Knowledge Engine', summary: 'Turning 20K unstructured support tickets into an answerable knowledge base.' },
+        { cat: 'Production Systems', title: 'Cloud Cost Intelligence Agent', summary: 'Finding out why the cloud bill moved — every night, before anyone has to ask. Identified 30% savings across the Azure estate.' }
+      ],
+      jobsNews: [
+        { co: 'Apra Labs', dates: 'Aug 2019 – Present', summary: 'Built the AI and data platform layer for a unified facility management product serving 300+ US facilities.' },
+        { co: 'MildlyClassic', dates: 'May 2016 – May 2019', summary: 'Built and scaled a mission-critical logistics ERP from scratch to 2,500 daily users handling 70K dockets/month.' },
+        { co: 'UXgage', dates: 'Oct 2015 – Apr 2016', summary: 'Took an idea from zero to a shipped product in 6 months — won a ₹5L cash prize from Sandbox Startups.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

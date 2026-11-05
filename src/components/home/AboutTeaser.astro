@@ -1,0 +1,124 @@
+---
+import { aboutBio, aboutCapabilities, aboutEducation } from '@/data/about';
+import { awards } from '@/data/awards';
+import { experience } from '@/data/experience';
+import { aboutLede, ownershipLine } from '@/data/hero';
+
+const [firstParagraph, ...moreParagraphs] = aboutBio;
+const roles = experience.filter((entry) => !entry.earlierEntries?.length);
+const earlier = experience.find((entry) => entry.earlierEntries?.length);
+const awardMeta = (description: string) => description.split(' — ')[0];
+---
+
+<section id="about" class="section" aria-labelledby="about-heading">
+  <div class="about-teaser">
+    <div class="at-main">
+      <span class="eyebrow">About me</span>
+      <h2 id="about-heading" class="at-title">{aboutLede}</h2>
+      <p class="at-own">{ownershipLine}</p>
+      <div class="at-bio">
+        <p set:html={firstParagraph} />
+        <div id="about-more" class="at-bio-more" data-bio-more hidden>
+          {moreParagraphs.map((paragraph) => <p set:html={paragraph} />)}
+        </div>
+        <button type="button" class="text-btn" data-bio-toggle aria-expanded="false" aria-controls="about-more">
+          Read full background ↓
+        </button>
+      </div>
+      <div class="at-caps">
+        {aboutCapabilities.map((capability) => (
+          <div class="card at-cap">
+            <span class="at-cap-title">{capability.title}</span>
+            <span class="at-cap-body">{capability.description}</span>
+          </div>
+        ))}
+      </div>
+      <p class="at-more-link"><a href="/about">More about me →</a></p>
+    </div>
+
+    <div class="at-side">
+      <h3 class="at-side-title">Journey</h3>
+      <div class="journey">
+        {roles.map((entry, index) => (
+          <details class="journey-item" name="journey" open={index === 0}>
+            <summary class="journey-row">
+              <span class="journey-who">
+                <span class="journey-role">{entry.role.split(' · ')[0]}</span>
+                <span class="journey-co">{entry.company}</span>
+              </span>
+              <span class="journey-when">{entry.period} <span class="journey-sign" aria-hidden="true"></span></span>
+            </summary>
+            <div class="journey-body">
+              <p class="journey-summary">{entry.summary}</p>
+              {entry.metrics && (
+                <div class="chip-row">
+                  {entry.metrics.map((metric) => (
+                    <span class="journey-metric"><b>{metric.value}</b> {metric.label}</span>
+                  ))}
+                </div>
+              )}
+              {entry.items && (
+                <ul class="journey-bullets">
+                  {entry.items.map((item) => <li>{item}</li>)}
+                </ul>
+              )}
+              {entry.columns?.map((column) => (
+                <div class="card journey-lead">
+                  <span class="journey-lead-title">{column.title}</span>
+                  <ul>
+                    {column.items.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+              ))}
+              {entry.extra && (
+                <div class="journey-note">
+                  <b>{entry.extra.title}</b><br />{entry.extra.description}
+                </div>
+              )}
+              <a href={`/experience/${entry.id}`} class="journey-link">View More →<span class="sr-only">: {entry.company}</span></a>
+            </div>
+          </details>
+        ))}
+        {earlier?.earlierEntries?.map((item) => (
+          <a href={`/experience/${earlier.id}`} class="journey-row journey-row--link">
+            <span class="journey-who">
+              <span class="journey-role">{item.role.split(' · ')[0]}</span>
+              <span class="journey-co">{item.company}</span>
+            </span>
+            <span class="journey-when">{item.role.split(' · ').slice(-1)[0]} →</span>
+          </a>
+        ))}
+        <div class="journey-row journey-row--static">
+          <span class="journey-who">
+            <span class="journey-role">{aboutEducation.degree}</span>
+            <span class="journey-co">{aboutEducation.school}</span>
+          </span>
+          <span class="journey-when">Education</span>
+        </div>
+      </div>
+
+      <div class="at-recognition">
+        <h3 class="at-recognition-title">Recognition</h3>
+        {awards.map((award) => (
+          <div class="at-award">
+            <b>{award.title}</b>
+            <span>{awardMeta(award.description)}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-bio-toggle]');
+  const more = document.querySelector<HTMLElement>('[data-bio-more]');
+  if (toggle && more) {
+    toggle.addEventListener('click', () => {
+      const open = more.hidden;
+      more.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.textContent = open ? 'Show less ↑' : 'Read full background ↓';
+    });
+  }
+</script>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="site-data.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5F0;--ink:#15140F;--soft:#45423B;--muted:#77736A;--line:#E3DED3;--card:#FFFFFF;--card2:#EFEBE2;--acc:#94570A;--glass:rgba(247,245,240,0.85)}
+:root[data-theme="dark"]{--bg:#0E0E0D;--ink:#EDEBE6;--soft:#B9B5AC;--muted:#8F8B83;--line:#262521;--card:#161614;--card2:#1E1D1A;--acc:#F5A623;--glass:rgba(14,14,13,0.85)}
+html,body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;transition:background .3s}
+*{box-sizing:border-box}
+a{color:var(--acc);text-decoration:none}
+a:hover{color:#F5A623}
+::selection{background:#F5A623;color:#0F0F0E}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:'Figtree',sans-serif;font-size:16px;line-height:1.55">
+<dc-import name="SiteHeader" active="Work" hint-size="100%,76px"></dc-import>
+<main style="max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,40px)">
+
+<sc-if value="{{ isIndex }}" hint-placeholder-val="{{ true }}">
+  <section style="padding:clamp(48px,7vw,88px) 0 40px;display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--acc);text-transform:uppercase;letter-spacing:0.08em">Case Studies & Systems</span>
+      <h1 style="margin:0;font-size:clamp(64px,10vw,140px);line-height:0.88;letter-spacing:-0.055em;font-weight:800">Work<span style="color:#F5A623">.</span></h1>
+    </div>
+    <p style="margin:0;max-width:440px;font-size:17px;color:var(--soft);text-wrap:pretty">Systems I took from problem to production — knowledge graphs, multi-agent AI, FinOps, search, logistics, and analytics.</p>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:16px">
+    <h2 style="margin:0 0 4px;font-size:22px;font-weight:800;letter-spacing:-0.02em">Case studies</h2>
+    <sc-for list="{{ caseList }}" as="c" hint-placeholder-count="3">
+      <a href="{{ c.href }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));border-radius:28px;background:var(--card);border:1px solid var(--line);overflow:hidden;color:var(--ink)" style-hover="border-color:#F5A623;color:var(--ink)">
+        <div style="padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:14px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)">#{{ c.cat }}</span>
+          <h3 style="margin:0;font-size:clamp(26px,2.8vw,36px);line-height:1.06;letter-spacing:-0.03em;font-weight:800">{{ c.title }}</h3>
+          <p style="margin:0;font-size:16px;color:var(--soft);text-wrap:pretty">{{ c.summary }}</p>
+          <div style="display:flex;flex-direction:column;gap:2px;font-size:14px"><span style="color:var(--muted)">Key decision</span><b style="color:var(--acc)">{{ c.decision }}</b></div>
+          <span style="margin-top:auto;font-weight:700;color:var(--acc)">Read the case study →</span>
+        </div>
+        <div style="min-height:240px;background:#15140F;background-image:radial-gradient(circle at 75% 25%,rgba(245,166,35,0.34),transparent 55%);padding:28px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;color:#EDEBE6">
+          <span style="font-size:clamp(72px,8vw,120px);font-weight:800;letter-spacing:-0.06em;line-height:0.85;color:#F5A623">{{ c.mv }}</span>
+          <span style="font-size:18px;font-weight:700;text-transform:capitalize">{{ c.ml }}</span>
+        </div>
+      </a>
+    </sc-for>
+  </section>
+
+  <section style="padding:clamp(64px,8vw,104px) 0 0;display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap">
+      <h2 style="margin:0;font-size:22px;font-weight:800;letter-spacing:-0.02em">All systems</h2>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)">{{ count }} production systems</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:12px">
+      <sc-for list="{{ projectList }}" as="p" hint-placeholder-count="8">
+        <a href="{{ p.href }}" style="padding:24px;border-radius:22px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:12px;color:var(--ink)" style-hover="border-color:#F5A623;color:var(--ink)">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)">{{ p.n }} · {{ p.builtAt }}</span><span style="font-size:28px;font-weight:800;letter-spacing:-0.04em;color:var(--acc)">{{ p.mv }}</span></div>
+          <h3 style="margin:0;font-size:22px;font-weight:800;letter-spacing:-0.02em;line-height:1.15">{{ p.title }}</h3>
+          <span style="font-size:14px;font-weight:600;color:var(--soft)">{{ p.sub }}</span>
+          <p style="margin:0;font-size:14px;color:var(--soft);flex:1;text-wrap:pretty">{{ p.desc }}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ p.stack }}" as="s" hint-placeholder-count="3"><span style="padding:4px 10px;border-radius:999px;background:var(--card2);font-size:12px;color:var(--soft)">{{ s }}</span></sc-for></div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+  <article style="padding:clamp(32px,5vw,56px) 0 0;display:flex;flex-direction:column;gap:clamp(56px,7vw,88px);animation:rise .35s ease both">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <a href="Work.dc.html" style="font-size:14px;font-weight:600;color:var(--soft)" style-hover="color:var(--ink)">← All work</a>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px">
+        <sc-if value="{{ p.cat }}" hint-placeholder-val="{{ false }}"><span style="padding:5px 11px;border-radius:999px;background:#F5A623;color:#0F0F0E">{{ p.cat }}</span></sc-if>
+        <span style="padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--soft)">{{ builtLabel }}</span>
+      </div>
+      <h1 style="margin:0;font-size:clamp(44px,7vw,96px);line-height:0.95;letter-spacing:-0.05em;font-weight:800;max-width:1000px;text-wrap:balance">{{ p.title }}</h1>
+      <span style="font-family:'Newsreader',serif;font-style:italic;font-size:clamp(22px,2.4vw,30px);color:var(--acc)">{{ p.sub }}</span>
+      <p style="margin:0;font-size:clamp(18px,1.7vw,22px);line-height:1.45;max-width:780px;text-wrap:pretty">{{ p.summary }}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><span style="font-size:13px;color:var(--muted);margin-right:4px">Stack</span><sc-for list="{{ p.stack }}" as="s" hint-placeholder-count="4"><span style="padding:6px 13px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:13px">{{ s }}</span></sc-for></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:1px;background:#2C2A25;border-radius:24px;overflow:hidden">
+      <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="4">
+        <div style="background:#15140F;padding:28px;display:flex;flex-direction:column;gap:6px;color:#EDEBE6">
+          <span style="font-size:clamp(44px,5vw,68px);font-weight:800;letter-spacing:-0.05em;line-height:0.9;color:#F5A623">{{ m.v }}</span>
+          <span style="font-size:14px;color:#B9B5AC">{{ m.l }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ hasHard }}" hint-placeholder-val="{{ false }}">
+      <section style="display:flex;flex-wrap:wrap;gap:24px 56px">
+        <h2 style="margin:0;flex:1 1 260px;font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-0.03em">What made it hard</h2>
+        <p style="margin:0;flex:2 1 480px;min-width:0;font-size:clamp(17px,1.5vw,20px);line-height:1.6;color:var(--soft);text-wrap:pretty">{{ hard }}</p>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ hasPSO }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">
+        <sc-for list="{{ pso }}" as="col" hint-placeholder-count="3">
+          <div style="padding:26px;border-radius:22px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:14px">
+            <h2 style="margin:0;font-size:22px;font-weight:800;letter-spacing:-0.02em;color:{{ col.c }}">{{ col.t }}</h2>
+            <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;font-size:15px;color:var(--soft)"><sc-for list="{{ col.items }}" as="li" hint-placeholder-count="5"><li style="text-wrap:pretty">{{ li }}</li></sc-for></ul>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ hasPoints }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden">
+        <sc-for list="{{ points }}" as="pt" hint-placeholder-count="4">
+          <div style="background:var(--card);padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:800;color:{{ pt.c }}">{{ pt.k }}</span><span style="font-size:15px;color:var(--soft);text-wrap:pretty">{{ pt.v }}</span></div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ hasOverview }}" hint-placeholder-val="{{ false }}">
+      <section style="display:flex;flex-wrap:wrap;gap:24px">
+        <h2 style="margin:0;flex:1 1 260px;font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-0.03em">Overview</h2>
+        <p style="margin:0;flex:2 1 480px;min-width:0;font-size:18px;line-height:1.6;color:var(--soft);text-wrap:pretty">{{ p.desc }}</p>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ hasArch }}" hint-placeholder-val="{{ false }}">
+      <section style="display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--acc);text-transform:uppercase;letter-spacing:0.08em">System design · Pipeline · Decisions</span><h2 style="margin:0;font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-0.035em">Architecture Review</h2></div>
+          <a href="{{ arch }}" target="_blank" rel="noopener" style="font-size:14px;font-weight:700">Open fullscreen ↗</a>
+        </div>
+        <div style="border-radius:24px;background:#FFFFFF;border:1px solid var(--line);padding:clamp(12px,2vw,28px)"><div role="img" aria-label="{{ archAlt }}" style="width:100%;aspect-ratio:16/9;background-image:{{ archBg }};background-size:contain;background-repeat:no-repeat;background-position:center"></div></div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ hasSteps }}" hint-placeholder-val="{{ false }}">
+      <section style="display:flex;flex-direction:column;gap:18px">
+        <h2 style="margin:0;font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-0.03em">How it works</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+            <div style="padding:24px;border-radius:22px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:12px">
+              <span style="width:36px;height:36px;border-radius:50%;background:#F5A623;color:#0F0F0E;display:grid;place-items:center;font-weight:800">{{ s.n }}</span>
+              <h3 style="margin:0;font-size:20px;font-weight:800">{{ s.t }}</h3>
+              <p style="margin:0;font-size:14px;line-height:1.6;color:var(--soft);text-wrap:pretty">{{ s.d }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ hasConstraints }}" hint-placeholder-val="{{ false }}">
+      <section style="padding:clamp(24px,3vw,40px);border-radius:24px;background:#15140F;background-image:radial-gradient(circle at 90% 0%,rgba(245,166,35,0.28),transparent 50%);color:#EDEBE6;display:flex;flex-direction:column;gap:18px">
+        <h2 style="margin:0;font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-0.03em">Constraints</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:1px;background:#2C2A25;border-radius:16px;overflow:hidden">
+          <sc-for list="{{ constraints }}" as="c" hint-placeholder-count="5"><div style="background:#15140F;padding:18px 20px;display:flex;gap:12px;font-size:15px;line-height:1.5"><span style="color:#F5A623;font-weight:800">{{ c.n }}</span><span style="text-wrap:pretty">{{ c.t }}</span></div></sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ hasDecisions }}" hint-placeholder-val="{{ false }}">
+      <section style="display:flex;flex-wrap:wrap;gap:24px 48px">
+        <div style="flex:1 1 260px"><h2 style="margin:0;font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-0.03em;position:sticky;top:100px">Key Decisions</h2></div>
+        <div style="flex:2 1 480px;min-width:0;display:flex;flex-direction:column;border-top:1px solid var(--line)">
+          <sc-for list="{{ decisions }}" as="k" hint-placeholder-count="5">
+            <div style="padding:24px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc);padding-top:4px">{{ k.n }}</span>
+              <div style="display:flex;flex-direction:column;gap:8px"><h3 style="margin:0;font-size:20px;font-weight:800;letter-spacing:-0.01em;text-wrap:balance">{{ k.t }}</h3><p style="margin:0;font-size:15px;line-height:1.6;color:var(--soft);text-wrap:pretty">{{ k.d }}</p></div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ hasEval }}" hint-placeholder-val="{{ false }}">
+      <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px">
+        <div style="padding:clamp(24px,3vw,36px);border-radius:24px;background:#15140F;color:#EDEBE6;display:flex;flex-direction:column;gap:14px">
+          <h2 style="margin:0;font-size:26px;font-weight:800;color:#F5A623">Evaluation</h2>
+          <p style="margin:0;font-size:15px;line-height:1.65;color:#D4D0C8;text-wrap:pretty">{{ evaluation }}</p>
+        </div>
+        <div style="padding:clamp(24px,3vw,36px);border-radius:24px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:14px">
+          <h2 style="margin:0;font-size:26px;font-weight:800">What I'd Change</h2>
+          <div style="display:flex;flex-direction:column"><sc-for list="{{ change }}" as="c" hint-placeholder-count="6"><div style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px"><span style="color:var(--acc);font-weight:800">→</span><span>{{ c }}</span></div></sc-for></div>
+        </div>
+      </section>
+    </sc-if>
+
+    <nav style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">
+      <a href="{{ prev.href }}" style="padding:22px 24px;border-radius:22px;border:1px solid var(--line);display:flex;flex-direction:column;gap:4px;color:var(--ink)" style-hover="border-color:#F5A623;color:var(--ink)"><span style="font-size:13px;color:var(--muted)">← Previous</span><b style="font-size:18px">{{ prev.title }}</b></a>
+      <a href="{{ next.href }}" style="padding:22px 24px;border-radius:22px;border:1px solid var(--line);display:flex;flex-direction:column;gap:4px;text-align:right;color:var(--ink)" style-hover="border-color:#F5A623;color:var(--ink)"><span style="font-size:13px;color:var(--muted)">Next →</span><b style="font-size:18px">{{ next.title }}</b></a>
+    </nav>
+  </article>
+</sc-if>
+</main>
+<dc-import name="SiteFooter" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { sd: window.SD || null };
+  componentDidMount() {
+    if (!this.state.sd) this.t = setInterval(() => { if (window.SD) { clearInterval(this.t); this.setState({ sd: window.SD }); } }, 40);
+  }
+  componentWillUnmount() { clearInterval(this.t); }
+  renderVals() {
+    const SD = this.state.sd;
+    if (!SD) return { isIndex: false, isDetail: false };
+    const slug = new URLSearchParams(location.search).get('p');
+    const list = SD.projects, i = list.findIndex(x => x.slug === slug);
+    if (i < 0) {
+      document.title = 'Work — Siddharth Deshpande';
+      return { isIndex: true, isDetail: false, caseList: SD.cases.map(c => ({ ...c, href: 'Work.dc.html?p=' + c.slug })), projectList: list, count: list.length };
+    }
+    const p = list[i], d = p.detail, c = p.caseData;
+    document.title = p.title + ' — Siddharth Deshpande';
+    const pad = (n) => String(n).padStart(2, '0');
+    return {
+      isIndex: false, isDetail: true, p,
+      metrics: d ? d.metrics : [{ v: p.mv, l: p.ml }],
+      hasPSO: !!d, pso: d ? [{ t: 'Problem', items: d.problem, c: 'var(--ink)' }, { t: 'Solution', items: d.solution, c: 'var(--ink)' }, { t: 'Outcome', items: d.outcome, c: 'var(--acc)' }] : [],
+      hasPoints: !d && !!c, points: c ? [{ k: 'Problem', v: c.problem, c: 'var(--ink)' }, { k: 'Hardest constraint', v: c.constraint, c: 'var(--ink)' }, { k: 'Approach', v: c.approach, c: 'var(--ink)' }, { k: 'Key decision', v: c.decision, c: 'var(--acc)' }] : [],
+      hasOverview: !d,
+      builtLabel: p.builtNote || ('Built at ' + p.builtAt),
+      hasHard: !!(d && d.hard), hard: d && d.hard ? d.hard : '',
+      hasConstraints: !!(d && d.constraints), constraints: d && d.constraints ? d.constraints.map((t, k) => ({ t, n: pad(k + 1) })) : [],
+      hasArch: !!(d && d.arch), arch: d ? d.arch : '', archBg: d && d.arch ? 'url("' + d.arch + '")' : 'none', archAlt: p.title + ' architecture',
+      hasSteps: !!(d && d.steps), steps: d && d.steps ? d.steps.map((s, k) => ({ ...s, n: k + 1 })) : [],
+      hasDecisions: !!(d && d.decisions), decisions: d && d.decisions ? d.decisions.map((s, k) => ({ ...s, n: pad(k + 1) })) : [],
+      hasEval: !!(d && d.evaluation), evaluation: d ? d.evaluation : '', change: d && d.change ? d.change : [],
+      prev: list[(i - 1 + list.length) % list.length], next: list[(i + 1) % list.length]
+    };
+  }
+}
+</script>
+</body>
+</html>

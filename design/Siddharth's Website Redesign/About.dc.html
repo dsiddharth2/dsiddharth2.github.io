@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="site-data.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5F0;--ink:#15140F;--soft:#45423B;--muted:#77736A;--line:#E3DED3;--card:#FFFFFF;--card2:#EFEBE2;--acc:#94570A;--glass:rgba(247,245,240,0.85)}
+:root[data-theme="dark"]{--bg:#0E0E0D;--ink:#EDEBE6;--soft:#B9B5AC;--muted:#8F8B83;--line:#262521;--card:#161614;--card2:#1E1D1A;--acc:#F5A623;--glass:rgba(14,14,13,0.85)}
+html,body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;transition:background .3s}
+*{box-sizing:border-box}
+a{color:var(--acc);text-decoration:none}
+a:hover{color:#F5A623}
+::selection{background:#F5A623;color:#0F0F0E}
+</style>
+</helmet>
+<div style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:'Figtree',sans-serif;font-size:16px;line-height:1.55">
+<dc-import name="SiteHeader" active="About" hint-size="100%,76px"></dc-import>
+<main style="max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,40px)">
+
+<section style="padding:clamp(48px,7vw,88px) 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px;align-items:end">
+  <div style="display:flex;flex-direction:column;gap:18px">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--acc);text-transform:uppercase;letter-spacing:0.08em">About me</span>
+    <h1 style="margin:0;font-size:clamp(44px,6.4vw,92px);line-height:0.94;letter-spacing:-0.05em;font-weight:800;text-wrap:balance">I own the outcome <span style="font-family:'Newsreader',serif;font-style:italic;font-weight:400;color:var(--acc)">end to end.</span></h1>
+    <p style="margin:0;font-size:clamp(18px,1.7vw,22px);line-height:1.45;max-width:620px;text-wrap:pretty">{{ bio.lead }}</p>
+    <p style="margin:0;font-size:17px;color:var(--soft)">{{ bio.own }}</p>
+  </div>
+  <div style="position:relative;border-radius:32px;overflow:hidden;background:#15140F;aspect-ratio:4/5;max-height:560px">
+    <img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="width:100%;height:100%;object-fit:cover;display:block">
+    <div style="position:absolute;left:16px;right:16px;bottom:16px;display:flex;justify-content:space-between;gap:12px;padding:14px 18px;border-radius:20px;background:rgba(15,15,14,0.72);backdrop-filter:blur(8px);color:#EDEBE6;font-size:14px"><b>Siddharth Deshpande</b><span style="color:#F5A623">AI Architect</span></div>
+  </div>
+</section>
+
+<section style="padding:clamp(80px,10vw,120px) 0 0;display:flex;flex-wrap:wrap;gap:24px 56px">
+  <div style="flex:1 1 260px"><h2 style="margin:0;font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-0.03em;position:sticky;top:100px">Background</h2></div>
+  <div style="flex:2 1 480px;min-width:0;display:flex;flex-direction:column;gap:20px;font-size:17px;line-height:1.7;color:var(--soft)">
+    <sc-for list="{{ bio.paras }}" as="p" hint-placeholder-count="4"><p style="margin:0;text-wrap:pretty">{{ p }}</p></sc-for>
+  </div>
+</section>
+
+<section style="padding:clamp(80px,10vw,120px) 0 0;display:flex;flex-direction:column;gap:24px">
+  <h2 style="margin:0;font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-0.03em">What I do</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px">
+    <sc-for list="{{ whatIDo }}" as="w" hint-placeholder-count="4">
+      <div style="padding:24px;border-radius:22px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--acc)">{{ w.n }}</span>
+        <h3 style="margin:0;font-size:20px;font-weight:800">{{ w.title }}</h3>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:var(--soft);text-wrap:pretty">{{ w.text }}</p>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section style="padding:clamp(80px,10vw,120px) 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:48px">
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><h2 style="margin:0;font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-0.03em">Journey</h2><a href="Experience.dc.html" style="font-size:14px;font-weight:700">Full work history →</a></div>
+    <div style="display:flex;flex-direction:column;border-top:1px solid var(--line)">
+      <sc-for list="{{ journey }}" as="j" hint-placeholder-count="5">
+        <a href="{{ j.href }}" style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline;color:var(--ink)" style-hover="color:var(--acc)">
+          <div style="display:flex;flex-direction:column"><span style="font-size:17px;font-weight:700">{{ j.co }}</span><span style="font-size:14px;color:var(--soft)">{{ j.role }}</span></div>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);white-space:nowrap">{{ j.dates }} →</span>
+        </a>
+      </sc-for>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline">
+        <div style="display:flex;flex-direction:column"><span style="font-size:17px;font-weight:700">{{ edu.t }}</span><span style="font-size:14px;color:var(--soft)">{{ edu.m }}</span></div>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)">Education</span>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <h2 style="margin:0;font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-0.03em">Recognition</h2>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ recognition }}" as="r" hint-placeholder-count="3">
+        <div style="padding:20px 22px;border-radius:20px;background:#15140F;color:#EDEBE6;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><b style="font-size:17px">{{ r.t }}</b><span style="font-size:13px;color:#F5A623">{{ r.m }}</span></div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="padding:clamp(80px,10vw,120px) 0 0;display:flex;flex-direction:column;gap:20px">
+  <h2 style="margin:0;font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-0.03em">Technical expertise</h2>
+  <div style="display:flex;flex-direction:column;border-top:1px solid var(--line)">
+    <sc-for list="{{ expertise }}" as="g" hint-placeholder-count="4">
+      <div style="display:flex;flex-wrap:wrap;gap:10px 24px;padding:20px 0;border-bottom:1px solid var(--line);align-items:center"><span style="font-weight:700;flex:1 1 220px">{{ g.title }}</span>
+        <div style="flex:2 1 480px;min-width:0;display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ g.chips }}" as="c" hint-placeholder-count="5"><span style="padding:7px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:14px">{{ c }}</span></sc-for></div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+</main>
+<dc-import name="SiteFooter" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { sd: window.SD || null };
+  componentDidMount() { document.title = 'About — Siddharth Deshpande'; if (!this.state.sd) this.t = setInterval(() => { if (window.SD) { clearInterval(this.t); this.setState({ sd: window.SD }); } }, 40); }
+  componentWillUnmount() { clearInterval(this.t); }
+  renderVals() {
+    const SD = this.state.sd;
+    if (!SD) return {};
+    return {
+      bio: SD.bio, whatIDo: SD.whatIDo, recognition: SD.recognition, edu: SD.education,
+      journey: [...SD.exp.map(e => ({ co: e.co, role: e.role, dates: e.dates, href: 'Experience.dc.html#' + e.slug })), ...SD.earlier.map(x => ({ co: x.name, role: x.meta.split(' · ')[0], dates: x.meta.split(' · ').slice(-1)[0], href: 'Experience.dc.html#earlier' }))],
+      expertise: SD.expertise.map(g => ({ title: g.title, chips: g.items.flatMap(x => x.split(' · ')) }))
+    };
+  }
+}
+</script>
+</body>
+</html>
