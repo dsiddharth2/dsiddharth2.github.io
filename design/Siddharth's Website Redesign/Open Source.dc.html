@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="site-data.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5F0;--ink:#15140F;--soft:#45423B;--muted:#77736A;--line:#E3DED3;--card:#FFFFFF;--card2:#EFEBE2;--acc:#94570A;--glass:rgba(247,245,240,0.85)}
+:root[data-theme="dark"]{--bg:#0E0E0D;--ink:#EDEBE6;--soft:#B9B5AC;--muted:#8F8B83;--line:#262521;--card:#161614;--card2:#1E1D1A;--acc:#F5A623;--glass:rgba(14,14,13,0.85)}
+html,body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;transition:background .3s}
+*{box-sizing:border-box}
+a{color:var(--acc);text-decoration:none}
+a:hover{color:#F5A623}
+::selection{background:#F5A623;color:#0F0F0E}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:'Figtree',sans-serif;font-size:16px;line-height:1.55">
+<dc-import name="SiteHeader" active="Open Source" hint-size="100%,76px"></dc-import>
+<main style="max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,40px)">
+
+<sc-if value="{{ isIndex }}" hint-placeholder-val="{{ true }}">
+  <section style="padding:clamp(48px,7vw,88px) 0 40px;display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--acc);text-transform:uppercase;letter-spacing:0.08em">Open Source</span>
+      <h1 style="margin:0;font-size:clamp(48px,7.4vw,108px);line-height:0.92;letter-spacing:-0.05em;font-weight:800;max-width:900px;text-wrap:balance">Code other people run in <span style="font-family:'Newsreader',serif;font-style:italic;font-weight:400;color:var(--acc)">production.</span></h1>
+    </div>
+    <a href="https://github.com/dsiddharth2" target="_blank" rel="noopener" style="padding:13px 20px;border-radius:999px;border:1px solid var(--ink);color:var(--ink);font-weight:700" style-hover="color:var(--ink);background:var(--card2)">github.com/dsiddharth2 ↗</a>
+  </section>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:12px">
+    <sc-for list="{{ oss }}" as="o" hint-placeholder-count="5">
+      <div style="padding:26px;border-radius:24px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:12px" style-hover="border-color:#F5A623">
+        <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)"><span>{{ o.n }}</span><span style="color:var(--acc)">{{ o.lang }}</span></div>
+        <h2 style="margin:0;font-size:30px;font-weight:800;letter-spacing:-0.035em">{{ o.title }}</h2>
+        <span style="font-size:16px;font-weight:600">{{ o.sub }}</span>
+        <p style="margin:0;font-size:14px;color:var(--soft);text-wrap:pretty">{{ o.desc }}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;flex:1;align-content:flex-end"><sc-for list="{{ o.tags }}" as="t" hint-placeholder-count="4"><span style="padding:4px 10px;border-radius:999px;background:var(--card2);font-size:12px;color:var(--soft)">{{ t }}</span></sc-for></div>
+        <sc-if value="{{ o.hasReg }}" hint-placeholder-val="{{ false }}"><a href="{{ o.regUrl }}" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:14px;background:#15140F;color:#EDEBE6" style-hover="color:#EDEBE6"><span style="display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:700"><span style="color:#F5A623">{{ o.reg }} ↗</span><span style="color:#B9B5AC;font-weight:500">{{ o.regStat }}</span></span><code style="font-family:'IBM Plex Mono',monospace;font-size:12px;overflow-wrap:anywhere">$ {{ o.install }}</code></a></sc-if><div style="display:flex;gap:16px;font-size:14px;font-weight:700"><a href="{{ o.local }}">View More →</a><a href="{{ o.gh }}" target="_blank" rel="noopener" style="color:var(--muted)">GitHub ↗</a></div>
+      </div>
+    </sc-for>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+  <article style="padding:clamp(32px,5vw,56px) 0 0;display:flex;flex-direction:column;gap:clamp(40px,5vw,64px);animation:rise .35s ease both">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:32px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <a href="Open%20Source.dc.html" style="font-size:14px;font-weight:600;color:var(--soft)" style-hover="color:var(--ink)">← All open source</a>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc)">{{ o.n }} · {{ o.lang }}</span>
+        <h1 style="margin:0;font-size:clamp(56px,9vw,128px);line-height:0.88;letter-spacing:-0.055em;font-weight:800">{{ o.title }}<span style="color:#F5A623">.</span></h1>
+        <span style="font-family:'Newsreader',serif;font-style:italic;font-size:clamp(22px,2.4vw,30px);color:var(--acc)">{{ o.sub }}</span>
+      </div>
+      <div style="padding:24px;border-radius:24px;background:#15140F;background-image:radial-gradient(circle at 85% 0%,rgba(245,166,35,0.32),transparent 55%);color:#EDEBE6;display:flex;flex-direction:column;gap:14px">
+        <sc-if value="{{ o.hasReg }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:6px;padding-bottom:14px;border-bottom:1px solid #2C2A25"><span style="display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:700"><span style="color:#F5A623">Published on {{ o.reg }}</span><span style="color:#B9B5AC;font-weight:500">{{ o.regStat }}</span></span><code style="font-family:'IBM Plex Mono',monospace;font-size:14px;overflow-wrap:anywhere">$ {{ o.install }}</code><a href="{{ o.regUrl }}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:#F5A623">{{ o.pkg }} ↗</a></div></sc-if><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#B9B5AC">$ git clone {{ o.gh }}</span>
+        <a href="{{ o.gh }}" target="_blank" rel="noopener" style="align-self:flex-start;padding:12px 20px;border-radius:999px;background:#F5A623;color:#0F0F0E;font-weight:700" style-hover="color:#0F0F0E;background:#FFC35A">Give it a try on GitHub ↗</a>
+      </div>
+    </div>
+    <sc-if value="{{ hasDesc }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:clamp(18px,1.7vw,22px);line-height:1.5;max-width:820px;text-wrap:pretty">{{ o.desc }}</p></sc-if>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><span style="font-size:13px;color:var(--muted);margin-right:4px">Built with</span><sc-for list="{{ o.tags }}" as="t" hint-placeholder-count="4"><span style="padding:7px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:14px">{{ t }}</span></sc-for></div>
+    <nav style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">
+      <a href="{{ prev.local }}" style="padding:22px 24px;border-radius:22px;border:1px solid var(--line);display:flex;flex-direction:column;gap:4px;color:var(--ink)" style-hover="border-color:#F5A623;color:var(--ink)"><span style="font-size:13px;color:var(--muted)">← Previous</span><b style="font-size:18px">{{ prev.title }}</b></a>
+      <a href="{{ next.local }}" style="padding:22px 24px;border-radius:22px;border:1px solid var(--line);display:flex;flex-direction:column;gap:4px;text-align:right;color:var(--ink)" style-hover="border-color:#F5A623;color:var(--ink)"><span style="font-size:13px;color:var(--muted)">Next →</span><b style="font-size:18px">{{ next.title }}</b></a>
+    </nav>
+  </article>
+</sc-if>
+</main>
+<dc-import name="SiteFooter" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { sd: window.SD || null };
+  componentDidMount() { if (!this.state.sd) this.t = setInterval(() => { if (window.SD) { clearInterval(this.t); this.setState({ sd: window.SD }); } }, 40); }
+  componentWillUnmount() { clearInterval(this.t); }
+  renderVals() {
+    const SD = this.state.sd;
+    if (!SD) return { isIndex: false, isDetail: false };
+    const slug = new URLSearchParams(location.search).get('p');
+    const oss = SD.oss.map(o => ({ ...o, local: 'Open%20Source.dc.html?p=' + o.slug }));
+    const i = oss.findIndex(o => o.slug === slug);
+    if (i < 0) { document.title = 'Open Source — Siddharth Deshpande'; return { isIndex: true, isDetail: false, oss }; }
+    const o = oss[i];
+    document.title = o.title + ' — Siddharth Deshpande';
+    return { isIndex: false, isDetail: true, o, hasDesc: !!o.desc, prev: oss[(i - 1 + oss.length) % oss.length], next: oss[(i + 1) % oss.length] };
+  }
+}
+</script>
+</body>
+</html>

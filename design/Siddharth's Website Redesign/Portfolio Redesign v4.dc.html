@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EFECE4;--ink:#15140F;--muted:#6B675F;--soft:#45423B;--line:#DAD4C7;--card:#FFFFFF;--card2:#F4F1EA;--faint:#C9C2B3;--acc:#94570A;--glass:rgba(239,236,228,0.9)}
+:root[data-theme="dark"]{--bg:#0B0B0A;--ink:#EDEBE6;--muted:#9C988F;--soft:#B9B5AC;--line:#26251F;--card:#141412;--card2:#1B1A17;--faint:#3A3832;--acc:#F5A623;--glass:rgba(11,11,10,0.9)}
+html,body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:var(--acc);text-decoration:none}
+a:hover{color:#F5A623}
+::selection{background:#F5A623;color:#0F0F0E}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+</style>
+</helmet>
+<div style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:'Geist',system-ui,sans-serif;font-size:16px;line-height:1.5">
+
+<header style="position:sticky;top:0;z-index:20;background:var(--glass);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)">
+  <div style="max-width:1480px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px">
+    <span style="display:flex;align-items:center;gap:8px;color:var(--ink)"><span style="width:8px;height:8px;border-radius:50%;background:#2FA36B;animation:pulse 2s infinite"></span>siddharthdeshpande.com</span>
+    <span style="color:var(--muted);display:{{ metaDisplay }}">status: shipping</span>
+    <span style="color:var(--muted);display:{{ metaDisplay }}">uptime: 12+ yrs</span>
+    <span style="color:var(--muted);display:{{ metaDisplay }}">IST {{ clock }}</span>
+    <span style="flex:1"></span>
+    <a href="https://medium.com/@siddharthanantdeshpande" target="_blank" rel="noopener" style="color:var(--soft)">Writing ↗</a>
+    <a href="https://github.com/dsiddharth2" target="_blank" rel="noopener" style="color:var(--soft)">GitHub ↗</a>
+    <a href="https://www.linkedin.com/in/dsiddharth2/" target="_blank" rel="noopener" style="color:var(--soft)">LinkedIn ↗</a>
+    <button onClick="{{ toggleTheme }}" style="display:flex;align-items:center;gap:8px;padding:6px 12px 6px 7px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;text-transform:uppercase;letter-spacing:0.06em;font-size:11px;cursor:pointer">
+      <span style="position:relative;width:30px;height:16px;border-radius:999px;background:var(--card2);border:1px solid var(--line)"><span style="position:absolute;top:2px;left:{{ knobLeft }};width:10px;height:10px;border-radius:50%;background:#F5A623;transition:left .2s"></span></span>{{ themeLabel }}
+    </button>
+  </div>
+</header>
+
+<main style="max-width:1480px;margin:0 auto;padding:16px;display:grid;grid-template-columns:{{ gridCols }};gap:12px;grid-auto-flow:dense">
+
+  <section style="grid-column:{{ sp.hero }};grid-row:span 2;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:22px;min-height:440px">
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em"><span>Siddharth Deshpande</span><span style="color:var(--acc)">Associate Architect · Applied AI</span></div>
+    <h1 style="margin:auto 0 0;font-size:clamp(40px,5.4vw,84px);line-height:0.94;letter-spacing:-0.045em;font-weight:800;text-wrap:balance">Production AI systems for <span style="font-family:'Instrument Serif',serif;font-weight:400;font-style:italic;letter-spacing:-0.02em">complex, real-world</span> problems.</h1>
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap">
+      <p style="margin:0;max-width:520px;font-size:17px;color:var(--soft);text-wrap:pretty">I work the full path from ambiguous problem to production: understanding the problem, designing the system, building it, deploying it, and iterating once people are using it.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="#systems" style="padding:13px 20px;border-radius:999px;background:var(--ink);color:var(--bg);font-weight:600;font-size:15px" style-hover="color:#F5A623">View my work ↓</a>
+        <a onClick="{{ open.resume }}" style="cursor:pointer;padding:13px 20px;border-radius:999px;border:1.5px solid var(--ink);color:var(--ink);font-weight:600;font-size:15px" style-hover="color:var(--ink);background:var(--card2)">Resume</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="grid-column:{{ sp.photo }};grid-row:span 2;position:relative;border-radius:22px;overflow:hidden;background:var(--card2);min-height:440px;border:1px solid var(--line)">
+    <img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+    <div style="position:absolute;left:12px;right:12px;bottom:12px;padding:14px 16px;border-radius:14px;background:var(--glass);backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:2px">
+      <span style="font-family:'Instrument Serif',serif;font-size:26px;line-height:1">Siddharth Deshpande</span>
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted)">Associate Architect · Systems Builder · Engineering Leader</span>
+    </div>
+  </section>
+
+  <sc-for list="{{ stats }}" as="s" hint-placeholder-count="5">
+    <div style="grid-column:{{ s.span }};background:{{ s.bg }};color:{{ s.ink }};border:1px solid {{ s.bd }};border-radius:22px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:20px;min-height:150px">
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.06em">{{ s.l }}</span>
+      <span style="font-size:clamp(44px,4.4vw,64px);line-height:0.85;font-weight:800;letter-spacing:-0.05em">{{ s.v }}</span>
+    </div>
+  </sc-for>
+
+  <section style="grid-column:{{ sp.build }};background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:18px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <h2 style="margin:0;font-size:26px;letter-spacing:-0.02em;font-weight:700">What I Build</h2>
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted)">Four kinds of problem keep landing on my desk.</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <sc-for list="{{ build }}" as="b" hint-placeholder-count="4">
+        <button onClick="{{ b.pick }}" style="padding:8px 14px;border-radius:999px;border:1px solid {{ b.bd }};background:{{ b.bg }};color:{{ b.ink }};font-family:'Geist Mono',monospace;font-size:12px;cursor:pointer">{{ b.n }} {{ b.title }}</button>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:20px;padding-top:4px;flex:1">
+      <div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase">The problem</span><p style="margin:0;font-size:20px;line-height:1.35;font-weight:500;text-wrap:pretty">{{ cb.problem }}</p></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase">What I build</span><p style="margin:0;font-size:16px;color:var(--soft);text-wrap:pretty">{{ cb.what }}</p><a href="{{ cb.href }}" style="font-family:'Geist Mono',monospace;font-size:12px;margin-top:auto;padding-top:10px">{{ cb.link }} →</a></div>
+    </div>
+  </section>
+
+  <section style="grid-column:{{ sp.log }};background:#15140F;color:#EDEBE6;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:12px;font-family:'Geist Mono',monospace;font-size:12px">
+    <div style="display:flex;justify-content:space-between;color:#9C988F"><span>career.log</span><span style="color:#F5A623">● live</span></div>
+    <sc-for list="{{ log }}" as="l" hint-placeholder-count="9">
+      <div style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;line-height:1.45"><span style="color:#F5A623">{{ l.y }}</span><span>{{ l.t }}</span></div>
+    </sc-for>
+  </section>
+
+  <section id="systems" style="grid-column:{{ sp.full }};background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;scroll-margin-top:60px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:22px 24px">
+      <h2 style="margin:0;font-size:26px;letter-spacing:-0.02em;font-weight:700">Systems I've architected and shipped</h2>
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);max-width:560px">Production systems across knowledge graphs, multi-agent AI, FinOps, search, logistics, and analytics — from 0-to-1 through enterprise scale.</span>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
+        <div onClick="{{ p.open }}" style="cursor:pointer;display:grid;grid-template-columns:{{ rowCols }};gap:8px 20px;align-items:center;padding:16px 24px;border-top:1px solid var(--line)" style-hover="background:var(--card2)">
+          <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--muted)">{{ p.n }}</span>
+          <div style="display:flex;flex-direction:column;min-width:0"><span style="font-size:18px;font-weight:600;letter-spacing:-0.01em">{{ p.title }}</span><span style="font-size:13px;color:var(--muted)">{{ p.sub }}</span></div>
+          <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--soft)">{{ p.stack }}</span>
+          <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px">
+            <sc-if value="{{ p.isCase }}" hint-placeholder-val="{{ false }}"><span style="font-family:'Geist Mono',monospace;font-size:10px;padding:3px 8px;border-radius:999px;background:#F5A623;color:#0F0F0E;text-transform:uppercase">Case study</span></sc-if>
+            <span style="display:flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:11px;color:#2FA36B"><span style="width:6px;height:6px;border-radius:50%;background:#2FA36B"></span>shipped</span>
+            <span style="color:var(--acc)">→</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <sc-for list="{{ cases }}" as="c" hint-placeholder-count="3">
+    <article onClick="{{ c.open }}" style="cursor:pointer;grid-column:{{ sp.third }};background:{{ c.bg }};color:{{ c.ink }};border:1px solid {{ c.bd }};border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:14px;min-height:320px" style-hover="transform:translateY(-2px)">
+      <div style="display:flex;justify-content:space-between;font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.06em"><span>Case study · {{ c.cat }}</span><span>↗</span></div>
+      <span style="font-size:clamp(56px,5vw,80px);line-height:0.85;font-weight:800;letter-spacing:-0.05em">{{ c.mv }}</span>
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase;margin-top:-8px">{{ c.ml }}</span>
+      <h3 style="margin:auto 0 0;font-size:24px;line-height:1.1;letter-spacing:-0.02em;font-weight:700">{{ c.title }}</h3>
+      <p style="margin:0;font-size:15px;text-wrap:pretty">{{ c.summary }}</p>
+      <span style="font-family:'Geist Mono',monospace;font-size:12px;padding-top:10px;border-top:1px solid {{ c.rule }}">Key decision: {{ c.decision }}</span>
+    </article>
+  </sc-for>
+
+  <section style="grid-column:{{ sp.full }};background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:20px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <h2 style="margin:0;font-size:26px;letter-spacing:-0.02em;font-weight:700">Where I've made an impact</h2>
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);max-width:620px">12 years shipping production systems — from a training institute and 0-to-1 products through logistics ERP and an AI platform serving 300+ facilities.</span>
+    </div>
+    <div style="overflow-x:auto">
+      <div style="min-width:720px;display:flex;flex-direction:column;gap:8px">
+        <div style="display:grid;grid-template-columns:180px minmax(0,1fr);gap:12px">
+          <span></span>
+          <div style="display:flex;justify-content:space-between;font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted)"><sc-for list="{{ years }}" as="y" hint-placeholder-count="9"><span>{{ y }}</span></sc-for></div>
+        </div>
+        <sc-for list="{{ gantt }}" as="g" hint-placeholder-count="6">
+          <div onClick="{{ g.open }}" style="cursor:pointer;display:grid;grid-template-columns:180px minmax(0,1fr);gap:12px;align-items:center" style-hover="opacity:0.85">
+            <div style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:15px;font-weight:600">{{ g.name }}</span><span style="font-size:11px;color:var(--muted)">{{ g.role }}</span><span style="font-family:'Geist Mono',monospace;font-size:10px;color:var(--acc)">{{ g.dates }}</span></div>
+            <div style="position:relative;height:40px;border-radius:10px;background:var(--card2)">
+              <div style="position:absolute;top:4px;bottom:4px;left:{{ g.left }};width:{{ g.width }};min-width:8px;border-radius:8px;background:{{ g.bg }}"></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <sc-for list="{{ oss }}" as="o" hint-placeholder-count="4">
+    <article onClick="{{ o.open }}" style="cursor:pointer;grid-column:{{ sp.quarter }};background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:10px;min-height:240px" style-hover="border-color:#F5A623">
+      <div style="display:flex;justify-content:space-between;font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted)"><span>Open Source {{ o.n }}</span><span style="color:var(--acc)">{{ o.lang }}</span></div>
+      <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:44px;line-height:0.95">{{ o.title }}</h3>
+      <span style="font-size:15px;color:var(--soft)">{{ o.sub }}</span>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto"><sc-for list="{{ o.tags }}" as="t" hint-placeholder-count="4"><span style="font-family:'Geist Mono',monospace;font-size:11px;padding:3px 8px;border-radius:6px;background:var(--card2);color:var(--soft)">{{ t }}</span></sc-for></div>
+    </article>
+  </sc-for>
+
+  <section onClick="{{ open.about }}" style="cursor:pointer;grid-column:{{ sp.half }};background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:14px" style-hover="border-color:#F5A623">
+    <div style="display:flex;justify-content:space-between;font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em"><span>About</span><span style="color:var(--acc)">Read background →</span></div>
+    <p style="margin:0;font-size:clamp(20px,1.8vw,26px);line-height:1.3;font-weight:500;text-wrap:pretty">12 years of turning ambiguous problems into production systems — ERPs, AI platforms, multi-agent pipelines — across startups and enterprise. I don't just write code; I own the outcome end to end.</p>
+  </section>
+
+  <section onClick="{{ open.whatido }}" style="cursor:pointer;grid-column:{{ sp.quarter }};background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:8px" style-hover="border-color:#F5A623">
+    <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em">What I do</span>
+    <sc-for list="{{ whatIDo }}" as="w" hint-placeholder-count="4"><div style="display:flex;gap:10px;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--line)"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--acc)">{{ w.n }}</span><span style="font-size:16px;font-weight:600">{{ w.title }}</span></div></sc-for>
+  </section>
+
+  <section onClick="{{ open.edu }}" style="cursor:pointer;grid-column:{{ sp.quarter }};background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:8px" style-hover="border-color:#F5A623">
+    <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em">Education & Recognition</span>
+    <span style="font-size:16px;font-weight:600;line-height:1.25">Master of Computer Applications (MCA)</span>
+    <span style="font-size:12px;color:var(--muted)">Gogte Institute of Technology, Belgaum</span>
+    <sc-for list="{{ recognition }}" as="r" hint-placeholder-count="3"><div style="display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-top:1px solid var(--line);font-size:13px"><span style="font-weight:600">{{ r.t }}</span><span style="color:var(--muted);font-family:'Geist Mono',monospace;font-size:10px">{{ r.m }}</span></div></sc-for>
+  </section>
+
+  <section style="grid-column:{{ sp.full }};background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:20px">
+    <h2 style="margin:0;font-size:26px;letter-spacing:-0.02em;font-weight:700">Technical expertise</h2>
+    <sc-for list="{{ expertise }}" as="g" hint-placeholder-count="4">
+      <div style="display:flex;flex-direction:column;gap:6px;border-top:2px solid #F5A623;padding-top:12px">
+        <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em">{{ g.title }}</span>
+        <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3"><span style="font-size:15px">{{ it }}</span></sc-for>
+      </div>
+    </sc-for>
+  </section>
+
+  <section style="grid-column:{{ sp.full }};background:#F5A623;color:#0F0F0E;border-radius:22px;padding:clamp(28px,4vw,56px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:28px">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em">Get in Touch</span>
+      <h2 style="margin:0;font-size:clamp(44px,7vw,112px);line-height:0.88;letter-spacing:-0.05em;font-weight:800">Let's build <span style="font-family:'Instrument Serif',serif;font-weight:400;font-style:italic">something great.</span></h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="mailto:dsiddharth2@gmail.com" style="padding:14px 22px;border-radius:999px;background:#0F0F0E;color:#F5A623;font-weight:600" style-hover="color:#FFC35A">Let's Talk →</a>
+        <a onClick="{{ open.resume }}" style="cursor:pointer;padding:14px 22px;border-radius:999px;border:1.5px solid #0F0F0E;color:#0F0F0E;font-weight:600" style-hover="color:#0F0F0E;background:rgba(15,15,14,0.08)">View Resume</a>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px">
+        <a href="https://medium.com/@siddharthanantdeshpande" target="_blank" rel="noopener" style="color:#0F0F0E">Medium ↗</a>
+        <a href="https://www.linkedin.com/in/dsiddharth2/" target="_blank" rel="noopener" style="color:#0F0F0E">LinkedIn ↗</a>
+        <a href="https://github.com/dsiddharth2" target="_blank" rel="noopener" style="color:#0F0F0E">GitHub ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="grid-column:{{ sp.full }};display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 4px 20px;font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted)"><span>© Siddharth Deshpande</span><span>AI Architect · Production Systems</span></footer>
+</main>
+
+<sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ close }}" style="position:fixed;inset:0;z-index:40;background:rgba(15,15,14,0.55);backdrop-filter:blur(4px);display:flex;justify-content:center;align-items:flex-start;padding:5vh 16px;overflow-y:auto">
+    <div onClick="{{ stop }}" style="width:min(760px,100%);background:var(--card);color:var(--ink);border-radius:24px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,0.3);overflow:hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--line);background:var(--card2)">
+        <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--acc);text-transform:uppercase;letter-spacing:0.08em">{{ d.kicker }}</span>
+        <button onClick="{{ close }}" style="border:1px solid var(--line);background:var(--card);color:var(--ink);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px">×</button>
+      </div>
+      <div style="padding:28px 28px 36px;display:flex;flex-direction:column;gap:20px">
+
+        <sc-if value="{{ dt.about }}" hint-placeholder-val="{{ false }}">
+          <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:52px;line-height:0.95">Siddharth Deshpande</h2>
+          <div style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--muted)">Associate Architect · Systems Builder · Engineering Leader</div>
+          <p style="margin:0;font-size:19px;line-height:1.4;font-weight:500;text-wrap:pretty">12 years of turning ambiguous problems into production systems — ERPs, AI platforms, multi-agent pipelines — across startups and enterprise. I don't just write code; I own the outcome end to end.</p>
+          <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--acc);text-transform:uppercase;letter-spacing:0.08em">Background</span>
+          <div style="display:flex;flex-direction:column;gap:16px;font-size:16px;color:var(--soft);text-wrap:pretty">
+            <p style="margin:0">I've been building software products for over 12 years, starting as an intern at a college incubation center and growing into an Associate Architect role where I manage multiple clients and lead engineering teams. My career has followed a consistent pattern: find a problem nobody's solving, take full ownership, and ship a production system that people depend on every day.</p>
+            <p style="margin:0">At <strong style="color:var(--ink)">Apra Labs</strong>, I joined as a Senior Software Engineer and now serve as Associate Architect. I've built the AI and data platform layer for a unified facility management product serving 300+ US facilities. This includes a GraphRAG knowledge engine over 150K documents, a multi-agent conversational AI system querying a 4 TB database, an automated code review pipeline, a cloud cost intelligence agent that reduced Azure spend by 30%, and an infrastructure performance agent. I manage 3 clients simultaneously and mentor a team of 4 engineers.</p>
+            <p style="margin:0">Before that, I spent 3 years at <strong style="color:var(--ink)">MildlyClassic</strong>, where I built a mission-critical logistics ERP from scratch — Finance, Operations, Booking, Hub Management, CRM, Route Planning — that grew to 2,500 daily users handling 70,000 dockets per month for secure jewellery logistics across India. I hired 7 engineers and established the engineering process from the ground up.</p>
+            <p style="margin:0">Earlier, I co-founded <strong style="color:var(--ink)">UXgage</strong>, a behavioral analytics startup that won a ₹5L cash prize from Sandbox Startups in 6 months, with office space and Azure infrastructure granted separately. I also founded <strong style="color:var(--ink)">Samvit Learning</strong>, a software training institute during my MCA, where I trained 250+ students in web programming.</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ dt.whatido }}" hint-placeholder-val="{{ false }}">
+          <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:52px;line-height:0.95">What I do</h2>
+          <sc-for list="{{ whatIDo }}" as="w" hint-placeholder-count="4">
+            <div style="display:flex;flex-direction:column;gap:6px;padding:14px 0;border-top:1px solid var(--line)">
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--acc)">{{ w.n }}</span>
+              <span style="font-size:21px;font-weight:700">{{ w.title }}</span>
+              <p style="margin:0;font-size:15px;color:var(--soft);text-wrap:pretty">{{ w.text }}</p>
+            </div>
+          </sc-for>
+        </sc-if>
+
+        <sc-if value="{{ dt.edu }}" hint-placeholder-val="{{ false }}">
+          <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:52px;line-height:0.95">Education</h2>
+          <div style="display:flex;flex-direction:column;gap:4px;padding:16px;border-radius:12px;background:var(--card2)"><span style="font-size:18px;font-weight:600">Master of Computer Applications (MCA)</span><span style="font-size:14px;color:var(--muted)">Gogte Institute of Technology, Belgaum</span></div>
+          <h2 style="margin:8px 0 0;font-family:'Instrument Serif',serif;font-weight:400;font-size:52px;line-height:0.95">Recognition</h2>
+          <sc-for list="{{ recognition }}" as="r" hint-placeholder-count="3"><div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--line)"><span style="font-size:17px;font-weight:600">{{ r.t }}</span><span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--muted)">{{ r.m }}</span></div></sc-for>
+        </sc-if>
+
+        <sc-if value="{{ dt.product }}" hint-placeholder-val="{{ false }}">
+          <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:52px;line-height:0.95">{{ d.title }}</h2>
+          <div style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--acc);text-transform:uppercase;letter-spacing:0.04em">{{ d.sub }}</div>
+          <sc-if value="{{ d.isCase }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap;padding:18px;border-radius:14px;background:#F5A623;color:#0F0F0E">
+              <div style="display:flex;flex-direction:column;gap:4px;max-width:440px"><span style="font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase">Case study · {{ d.cat }}</span><span style="font-size:16px;font-weight:600;line-height:1.35">{{ d.summary }}</span></div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end"><span style="font-size:56px;font-weight:800;letter-spacing:-0.05em;line-height:0.9">{{ d.mv }}</span><span style="font-family:'Geist Mono',monospace;font-size:10px;text-transform:uppercase">{{ d.ml }}</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden">
+              <div style="background:var(--card);padding:14px 16px;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase">Problem</span><span style="font-size:15px">{{ d.problem }}</span></div>
+              <div style="background:var(--card);padding:14px 16px;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase">Hardest constraint</span><span style="font-size:15px">{{ d.constraint }}</span></div>
+              <div style="background:var(--card);padding:14px 16px;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase">Approach</span><span style="font-size:15px">{{ d.approach }}</span></div>
+              <div style="background:var(--card2);padding:14px 16px;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--acc);text-transform:uppercase">Key decision</span><span style="font-size:15px;font-weight:700">{{ d.decision }}</span></div>
+            </div>
+          </sc-if>
+          <p style="margin:0;font-size:16px;color:var(--soft);text-wrap:pretty">{{ d.desc }}</p>
+          <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ d.tags }}" as="t" hint-placeholder-count="4"><span style="font-family:'Geist Mono',monospace;font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--soft)">{{ t }}</span></sc-for></div>
+          <a href="{{ d.href }}" style="font-family:'Geist Mono',monospace;font-size:13px">{{ d.cta }} →</a>
+        </sc-if>
+
+        <sc-if value="{{ dt.job }}" hint-placeholder-val="{{ false }}">
+          <div style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--acc)">{{ d.dates }}</div>
+          <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:60px;line-height:0.9">{{ d.co }}</h2>
+          <div style="font-size:15px;color:var(--muted)">{{ d.role }}</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ d.metrics }}" as="m" hint-placeholder-count="3"><div style="flex:1 1 120px;padding:12px 14px;border-radius:12px;background:var(--card2);display:flex;flex-direction:column"><span style="font-size:28px;font-weight:800;letter-spacing:-0.03em;color:var(--acc)">{{ m.v }}</span><span style="font-family:'Geist Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase">{{ m.l }}</span></div></sc-for></div>
+          <p style="margin:0;font-size:18px;line-height:1.4;font-weight:500;text-wrap:pretty">{{ d.summary }}</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px"><sc-for list="{{ d.bullets }}" as="li" hint-placeholder-count="4"><li style="display:flex;gap:10px;font-size:15px;color:var(--soft)"><span style="color:var(--acc)">↳</span><span>{{ li }}</span></li></sc-for></ul>
+          <div style="padding:18px;border-radius:14px;background:#F5A623;color:#0F0F0E;display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.06em">{{ d.leadTitle }}</span>
+            <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px"><sc-for list="{{ d.lead }}" as="li" hint-placeholder-count="3"><li style="display:flex;gap:10px;font-size:14px;font-weight:500"><span>●</span><span>{{ li }}</span></li></sc-for></ul>
+          </div>
+          <sc-if value="{{ d.hasNote }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:16px 18px;border-radius:14px;border:1px dashed var(--faint);display:flex;flex-direction:column;gap:6px"><span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--acc);text-transform:uppercase">{{ d.noteTitle }}</span><p style="margin:0;font-size:14px;color:var(--soft);text-wrap:pretty">{{ d.note }}</p></div>
+          </sc-if>
+          <a href="{{ d.href }}" style="font-family:'Geist Mono',monospace;font-size:13px">{{ d.more }} →</a>
+        </sc-if>
+
+        <sc-if value="{{ dt.earlier }}" hint-placeholder-val="{{ false }}">
+          <div style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--acc)">2010 – 2016</div>
+          <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:60px;line-height:0.9">Earlier</h2>
+          <sc-for list="{{ earlier }}" as="x" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;gap:6px;padding:16px 0;border-top:1px solid var(--line)">
+              <span style="font-size:20px;font-weight:700">{{ x.name }}</span>
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--acc)">{{ x.meta }}</span>
+              <p style="margin:0;font-size:15px;color:var(--soft);text-wrap:pretty">{{ x.desc }}</p>
+            </div>
+          </sc-for>
+          <a href="https://siddharthdeshpande.com/experience/earlier" style="font-family:'Geist Mono',monospace;font-size:13px">View More →</a>
+        </sc-if>
+
+        <sc-if value="{{ dt.oss }}" hint-placeholder-val="{{ false }}">
+          <div style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--muted)">{{ d.n }} · {{ d.lang }}</div>
+          <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:60px;line-height:0.9">{{ d.title }}</h2>
+          <div style="font-size:19px;font-weight:600">{{ d.sub }}</div>
+          <p style="margin:0;font-size:16px;color:var(--soft);text-wrap:pretty">{{ d.desc }}</p>
+          <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ d.tags }}" as="t" hint-placeholder-count="4"><span style="font-family:'Geist Mono',monospace;font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--soft)">{{ t }}</span></sc-for></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a href="{{ d.href }}" style="padding:11px 18px;border-radius:999px;background:#F5A623;color:#0F0F0E;font-weight:600;font-size:14px" style-hover="background:#FFC35A;color:#0F0F0E">View More →</a>
+            <a href="{{ d.gh }}" target="_blank" rel="noopener" style="padding:11px 18px;border-radius:999px;border:1px solid var(--line);color:var(--ink);font-size:14px" style-hover="color:var(--ink);border-color:#F5A623">GitHub ↗</a>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ dt.resume }}" hint-placeholder-val="{{ false }}">
+          <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:52px;line-height:0.95">Resume</h2>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a href="https://siddharthdeshpande.com/Siddharth_Deshpande.pdf" target="_blank" rel="noopener" style="padding:11px 18px;border-radius:999px;background:#F5A623;color:#0F0F0E;font-weight:600;font-size:14px" style-hover="background:#FFC35A;color:#0F0F0E">Download PDF</a>
+            <a onClick="{{ printPdf }}" style="cursor:pointer;padding:11px 18px;border-radius:999px;border:1px solid var(--line);color:var(--ink);font-size:14px" style-hover="color:var(--ink);border-color:#F5A623">Print</a>
+          </div>
+          <iframe src="https://siddharthdeshpande.com/Siddharth_Deshpande.pdf" title="Resume PDF" style="width:100%;height:70vh;border:1px solid var(--line);border-radius:12px;background:var(--card2)"></iframe>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { theme: 'light', sel: null, build: 0, vw: 1400, clock: '' };
+  componentDidMount() {
+    let t = 'light';
+    try { t = localStorage.getItem('sd-theme') || 'light'; } catch (e) {}
+    this.applyTheme(t);
+    this.onResize = () => this.setState({ vw: window.innerWidth });
+    window.addEventListener('resize', this.onResize); this.onResize();
+    this.onKey = (e) => { if (e.key === 'Escape') this.setState({ sel: null }); };
+    window.addEventListener('keydown', this.onKey);
+    const tick = () => { try { this.setState({ clock: new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' }).format(new Date()) }); } catch (e) {} };
+    tick(); this.iv = setInterval(tick, 30000);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); window.removeEventListener('keydown', this.onKey); clearInterval(this.iv); }
+  applyTheme(t) { document.documentElement.setAttribute('data-theme', t); try { localStorage.setItem('sd-theme', t); } catch (e) {} this.setState({ theme: t }); }
+  openId = (id) => () => this.setState({ sel: id });
+
+  data() {
+    if (this._d) return this._d;
+    const S = 'https://siddharthdeshpande.com';
+    const m = (a) => a.map(([v, l]) => ({ v, l }));
+    const cases = {
+      'multi-agent': { cat: 'Enterprise AI', summary: 'Ask a building a question in plain English — five specialist agents over a 4 TB operations database, instead of five admin screens.', problem: '4 TB database with no usable natural-language interface', constraint: 'Generated SQL runs against live production data, so read-only validation and post-generation permission rewrite are non-negotiable', approach: 'Supervisor agent routes to 5 specialized agents — never answers itself', decision: 'Supervisor pattern, not a single monolithic agent', mv: '5', ml: 'specialized agents' },
+      'graphrag': { cat: 'Data & Knowledge Systems', summary: 'Turning 20K unstructured support tickets into an answerable knowledge base.', problem: 'Recurring tickets solved from scratch every time', constraint: 'No usable schema: free-text tickets with author-dependent vocabulary for the same concepts', approach: 'Two-stage ingest pipeline with graph extraction', decision: 'Two-stage pipeline: seconds-to-searchable, minutes-to-graph-enriched', mv: '20K', ml: 'support documents' },
+      'cloud-cost': { cat: 'Production Systems', summary: 'Finding out why the cloud bill moved — every night, before anyone has to ask. Identified 30% savings across the Azure estate.', problem: 'Cloud spend growing unchecked month over month', constraint: 'Attribution has to be defensible: a wrong cost claim sends an engineer down a multi-day dead end', approach: '19 collectors across 3 dependency phases — six Azure APIs, SQL DMVs, and the app database', decision: 'Deterministic answers first, LLM only where reasoning is required', mv: '30%', ml: 'cost reduction' }
+    };
+    const products = [
+      ['graphrag','GraphRAG Knowledge Engine','Enterprise knowledge graph pipeline','Full GraphRAG pipeline — ingests documents, builds knowledge graphs with entities, relationships, topics, and communities via vector similarity. 17 activity classes, 14 prompt templates.',['Python','Durable Functions','Cosmos DB','FAISS']],
+      ['multi-agent','Multi-Agent Conversational AI','Supervisor-pattern agent orchestration','Supervisor pattern routing to 5 specialized agents — Reporting, Admin, System Setup, Knowledge, and Support Tickets — across ~30 registry-driven tools. Natural-language SQL with permission rewrite, seven-collection RAG, 100+ report types, SignalR streaming of the reasoning trace.',['Python','LangChain','LangGraph','SignalR']],
+      ['code-review','AI Code Review Pipeline','CI/CD-integrated automated reviews','Automatically reviews pull requests with inline comments and star ratings. 10+ languages, penalty-based scoring, fix verification mode.',['Python','Azure DevOps','GPT']],
+      ['cloud-cost','Cloud Cost Intelligence Agent','Automated FinOps analysis','Nightly FinOps agent: 19 collectors across 3 phases, 13 anomaly detectors, 4-tier breach thresholds. 20+ standing questions answered deterministically; an LLM handles only the reasoning. Unused resources, query cost attribution, and rightsizing — 30% cost reduction.',['TypeScript','Azure Cost Mgmt','LLM']],
+      ['infra-perf','Infrastructure Performance Agent','Health scoring & regression detection','Composite health score (0–100) per service. Rolling 30-day baselines for regression detection. Nightly collection of Azure Monitor metrics and SQL DMV telemetry sampled at 15-second intervals, 13 anomaly checks, 4-tier breach thresholds — surfacing degradation before impact.',['TypeScript','Azure Monitor','Service Bus']],
+      ['search-sync','Search Index Sync Engine','Real-time & bulk search indexing','Synchronizing records into Azure AI Search. Bulk indexing via Durable Functions, real-time incremental sync via Service Bus.',['C# / .NET 8','Azure AI Search','Service Bus']],
+      ['logistics-erp','Secure Logistics ERP','PAN India logistics platform','End-to-end ERP — Finance, Operations, Booking, Hub Management, CRM, Route Planning. 2,500 daily users, 70K dockets/month.',['PHP','AWS','React','Node.js']],
+      ['uxgage','UXgage — Behavioral Analytics','Enterprise usability platform','Capturing clicks, mouse movements, text input, navigation and URL transitions to reconstruct actual user workflows. Built the entire stack from scratch.',['PHP','Neo4j','Cassandra','JavaScript']]
+    ].map(([slug, title, sub, desc, tags], i) => {
+      const c = cases[slug];
+      return { id: 'p-' + slug, type: 'product', n: String(i + 1).padStart(2, '0'), title, sub, desc, tags, stack: tags.join(' · '), href: S + '/projects/' + slug, isCase: !!c, cta: c ? 'Read the case study' : 'View More', ...(c || {}) };
+    });
+    const jobs = [
+      { id: 'j-apra', co: 'Apra Labs', role: 'Associate Architect · previously Senior Software Engineer', dates: 'Aug 2019 – Present',
+        summary: 'Built the AI and data platform layer for a unified facility management product serving 300+ US facilities.',
+        bullets: ['Virtual Credentials — facility entry/exit across 300+ US buildings','Reporting platform — 1000s of reports per hour across 300+ tenants','Analytics platform from scratch — facility operations monitoring','GraphRAG pipeline — 150K support case documents, accurate answers','Interactive chat system over 4 TB database','Cloud Cost Agent — real-time Azure analysis, 30% cost reduction','Infrastructure Performance Agent — health scoring and regression detection'],
+        leadTitle: 'Leadership & Impact',
+        lead: ['Managing 3 clients with technical expertise, helping the team build and ship products','Leading a team of 4 as technical mentor across multiple projects','Architected all systems end-to-end','Led 10 community meetups on Saturdays','Campus hiring lead for 4 years — IIIT Dharwad & GIT Belgaum','Grew with the company from 10 engineers to 55 people'],
+        metrics: m([['300+','facilities served'],['30%','cloud costs reduced'],['10→55','team growth']]),
+        more: '4 more, and the leadership work', href: S + '/experience/apra-labs' },
+      { id: 'j-mildly', co: 'MildlyClassic', role: 'Engineering Team Lead', dates: 'May 2016 – May 2019',
+        summary: 'Built and scaled a mission-critical logistics ERP from scratch to 2,500 daily users handling 70K dockets/month.',
+        bullets: ['End-to-end ERP — Finance, Ops, Booking, Hub Management, CRM, Route Planning for PAN India secure logistics','Clients: large jewellery manufacturers shipping daily from manufacturing to retail','Bulk docket creation via upload, 70K dockets/month','Scaled from 100s to 2,500 daily users with zero downtime','Migrated DigitalOcean → AWS in 3 months after security incident'],
+        leadTitle: 'Leadership & Process',
+        lead: ['Hired 7 engineers, led the team through the full product lifecycle','Direct client interface — requirements to modules','Established 4-week release cycle — build, test, deploy monthly','System served entire company (Ops + Finance) all day, every day'],
+        hasNote: true, noteTitle: 'Meanwhile — Sister Company · Wifi Dabba → YC W17',
+        note: 'Pre-Jio era — built byte-counting and usage sync software on Wi-Fi hardware for Wifi Dabba, selling data at ₹2/100 MB. Built the Google NBU analytics platform for Hubballi. Hired 4-5 members post-funding.',
+        metrics: m([['70K','dockets/month'],['2.5K','daily users'],['7','engineers hired']]),
+        more: '2 more, and the leadership work', href: S + '/experience/mildlyclassic' },
+      { id: 'j-uxgage', co: 'UXgage', role: 'Co-Founder & CTO', dates: 'Oct 2015 – Apr 2016',
+        summary: 'Took an idea from zero to a shipped product in 6 months — won a ₹5L cash prize from Sandbox Startups, with office space and Azure infrastructure granted separately.',
+        bullets: ['Core product architecture — PHP, Neo4j, Cassandra','JS instrumentation engine capturing user interactions and behavioral data','Data pipeline for large-volume user interaction storage'],
+        leadTitle: 'Leadership',
+        lead: ['Owned the product end-to-end — not a contributor, the builder','Hired ~3 engineers, mentored them, unblocked technical challenges','Conducted product demos for clients and stakeholders'],
+        metrics: m([['0→1','product shipped'],['₹5L','cash prize won']]),
+        more: 'View More', href: S + '/experience/uxgage' }
+    ].map(j => ({ ...j, type: 'job', hasNote: !!j.hasNote }));
+    const oss = [
+      { id: 'o-plug', n: '01', lang: 'TypeScript', title: 'Plug', sub: 'Package manager for Claude Code skills', desc: 'Discover, install, and manage reusable Skills, Commands, and Agents from GitHub-hosted registries — through an interactive TUI or the CLI.', tags: ['TypeScript','Node.js','Ink','Claude Code'], href: S + '/opensource/plug', gh: 'https://github.com/dsiddharth2/plug' },
+      { id: 'o-hawk', n: '02', lang: 'Python', title: 'CodeHawk', sub: 'AI-powered pull request review pipeline', desc: 'Runs in CI, produces structured findings, scores code quality, and posts inline comments to Azure DevOps or GitHub.', tags: ['Python','OpenAI Agents','Docker','Azure DevOps','GitHub'], href: S + '/opensource/codehawk', gh: 'https://github.com/dsiddharth2/codehawk' },
+      { id: 'o-zxing', n: '03', lang: 'PHP', title: 'PHP ZXing', sub: 'PHP wrapper for the ZXing barcode library', desc: 'Composer package for reading barcodes and QR codes. 277K+ Packagist installs, 133 GitHub stars, and featured on the upstream ZXing repo.', tags: ['PHP','Composer','ZXing','Java'], href: S + '/opensource/php-zxing', gh: 'https://github.com/dsiddharth2/php-zxing' },
+      { id: 'o-moo', n: '04', lang: 'JavaScript', title: 'MooPin', sub: 'Pinterest-style column grid for MooTools', desc: 'Small MooTools plugin that packs tiles into a Pinterest-style column grid — including infinite-scroll galleries. Inspired by Wookmark for jQuery.', tags: ['JavaScript','MooTools','Layout','Infinite scroll'], href: S + '/opensource/moo-pin', gh: 'https://github.com/dsiddharth2/moo-pin' }
+    ].map(o => ({ ...o, type: 'oss' }));
+    const byId = {};
+    [...products, ...jobs, ...oss].forEach(x => { byId[x.id] = x; });
+    byId['j-earlier'] = { type: 'earlier' };
+    this._d = { S, products, jobs, oss, byId,
+      caseList: ['p-multi-agent', 'p-graphrag', 'p-cloud-cost'].map(id => byId[id]),
+      build: [
+        ['Enterprise AI','People who need an answer cannot get it, because the answer lives behind SQL, five admin screens, or someone else’s calendar.','Production RAG, GraphRAG, agent orchestration, and LLM applications that run against live business data.','Multi-Agent Conversational AI','/projects/multi-agent'],
+        ['Data & Knowledge Systems','The knowledge exists, but it is spread across thousands of unstructured documents with no schema and no shared vocabulary.','Large-scale document processing, entity and relationship extraction, graph-based retrieval, and vector search.','GraphRAG Knowledge Engine','/projects/graphrag'],
+        ['Production Systems','A system the whole company runs on, all day, where an hour of downtime means shipments stop.','Cloud architecture, distributed systems, APIs, data pipelines, and the observability to know when they degrade.','Secure Logistics ERP','/projects/logistics-erp'],
+        ['Secure AI','An AI system that can read the database can read the wrong tenant’s data. The access model has to be part of the design.','Permission-aware generation, post-generation query rewriting, read-only validation, and enterprise access control.','Permission rewrite on generated SQL','/projects/multi-agent']
+      ].map(([title, problem, what, link, h], i) => ({ n: '0' + (i + 1), title, problem, what, link, href: S + h })),
+      whatIDo: [
+        ['System Architecture','End-to-end design of production systems — from database schema to API layer to deployment pipeline. I\'ve architected ERPs, AI platforms, analytics engines, and multi-agent systems that serve thousands of users daily.'],
+        ['AI & Data Systems','Building production AI — not prototypes. 7 AI agents shipped, 5 production AI systems. GraphRAG pipelines, multi-agent orchestration, automated code review, cloud cost optimization, infrastructure monitoring.'],
+        ['Team Building & Leadership','20+ engineers hired and mentored, including campus hires. I\'ve grown with a company from 10 to 55 people, led campus hiring for 4 years, managed 3 clients simultaneously, and run 10 community meetups on Saturdays.'],
+        ['0-to-1 Product Development','Taking ideas from a whiteboard to production. I\'ve co-founded a startup, built an ERP from scratch that became the backbone of an entire company, and shipped products that handle 100K hits per day.']
+      ].map(([title, text], i) => ({ n: '0' + (i + 1), title, text })),
+      expertise: [
+        { title: 'Languages & Frameworks', items: ['Python · TypeScript · C# / .NET 8','PHP · React · Node.js','LangChain · LangGraph'] },
+        { title: 'AI & Data', items: ['GPT / LLM integration','FAISS · Vector search','GraphRAG · Multi-agent systems'] },
+        { title: 'Infrastructure', items: ['Azure (Durable Functions, Service Bus, Cosmos DB)','AWS · Azure AI Search','Neo4j · Cassandra'] },
+        { title: 'Practices', items: ['System design & architecture','CI/CD · DevOps · FinOps','Team hiring & mentorship'] }
+      ],
+      recognition: [{ t: 'Leadership Excellence', m: 'Apra Labs · Nov 2024' }, { t: 'Customer Appreciation', m: 'Apra Labs · Apr 2023' }, { t: 'Guiding Vision', m: 'Pravega X Fest' }],
+      earlier: [
+        { name: 'Firaa.me', meta: 'Side Project · Built at IdeaFlask · Sep 2014 – Sep 2015', desc: 'Built and shipped a travel blogging platform end-to-end. Reached 500+ organic users in 6 months with zero marketing spend.' },
+        { name: 'Samvit Learning', meta: 'Founder · Apr 2011 – Apr 2016', desc: 'Founded a software training institute during 2nd year of MCA. Trained 250+ students in web programming technologies. Managed 25+ innovative projects.' },
+        { name: 'dotCORD IT Solutions', meta: 'Web Developer Intern · 2010–2013', desc: 'Interned for 3 years at GIT Incubation Center. Learned software engineering before completing MCA. Built applications on PHP frameworks (CodeIgniter, Yii).' }
+      ],
+      log: [['2010','Web Developer Intern · dotCORD IT Solutions, GIT Incubation Center'],['2011','Founded Samvit Learning — 250+ students trained'],['2014','Firaa.me shipped at IdeaFlask — 500+ organic users'],['2015','Co-founded UXgage · Co-Founder & CTO'],['2016','MildlyClassic · Engineering Team Lead'],['2019','Apra Labs · Senior Software Engineer'],['2023','Customer Appreciation · Apra Labs'],['2024','Leadership Excellence · Apra Labs'],['now','Associate Architect · Apra Labs']].map(([y, t]) => ({ y, t }))
+    };
+    return this._d;
+  }
+
+  renderVals() {
+    const D = this.data(), st = this.state, A = '#F5A623', K = '#0F0F0E';
+    const vw = st.vw, cols = vw < 760 ? 1 : vw < 1100 ? 6 : 12;
+    const f = (s) => cols === 12 ? 'span ' + s : cols === 6 ? 'span ' + (s >= 5 ? 6 : 3) : 'span 1';
+    const sp = { hero: f(8), photo: cols === 12 ? 'span 4' : f(6), build: f(8), log: cols === 12 ? 'span 4' : f(6), full: f(12), third: cols === 12 ? 'span 4' : cols === 6 ? 'span 6' : 'span 1', quarter: f(3), half: f(6) };
+    const statSpans = cols === 12 ? [3, 2, 2, 2, 3] : cols === 6 ? [2, 2, 2, 3, 3] : [1, 1, 1, 1, 1];
+    const statRaw = [['12+','years shipping'],['3','client engagements in parallel'],['5','production AI systems shipped'],['300+','US facilities live'],['30%','cloud spend reduced']];
+    const stats = statRaw.map(([v, l], i) => ({ v, l, span: 'span ' + statSpans[i], bg: i === 0 || i === 4 ? A : 'var(--card)', ink: i === 0 || i === 4 ? K : 'var(--ink)', bd: i === 0 || i === 4 ? A : 'var(--line)' }));
+    const gridCols = cols === 12 ? 'repeat(12,minmax(0,1fr))' : cols === 6 ? 'repeat(6,minmax(0,1fr))' : 'minmax(0,1fr)';
+
+    const b = st.build;
+    const build = D.build.map((x, i) => ({ ...x, pick: () => this.setState({ build: i }), bg: i === b ? 'var(--ink)' : 'transparent', ink: i === b ? 'var(--bg)' : 'var(--soft)', bd: i === b ? 'var(--ink)' : 'var(--line)' }));
+
+    const span = (a, z) => ({ left: ((a - 2010) / 16 * 100).toFixed(2) + '%', width: ((z - a) / 16 * 100).toFixed(2) + '%' });
+    const gantt = [
+      { id: 'j-apra', name: 'Apra Labs', role: 'Associate Architect', dates: 'Aug 2019 – Present', a: 2019.6, z: 2026, hot: true },
+      { id: 'j-mildly', name: 'MildlyClassic', role: 'Engineering Team Lead', dates: 'May 2016 – May 2019', a: 2016.35, z: 2019.4, hot: true },
+      { id: 'j-uxgage', name: 'UXgage', role: 'Co-Founder & CTO', dates: 'Oct 2015 – Apr 2016', a: 2015.75, z: 2016.3, hot: true },
+      { id: 'j-earlier', name: 'Firaa.me', role: 'Side Project', dates: 'Sep 2014 – Sep 2015', a: 2014.7, z: 2015.7 },
+      { id: 'j-earlier', name: 'Samvit Learning', role: 'Founder', dates: 'Apr 2011 – Apr 2016', a: 2011.25, z: 2016.3 },
+      { id: 'j-earlier', name: 'dotCORD IT Solutions', role: 'Web Developer Intern', dates: '2010–2013', a: 2010, z: 2013 }
+    ].map(g => ({ ...g, ...span(g.a, g.z), bg: g.hot ? A : 'var(--faint)', ink: g.hot ? K : 'var(--ink)', open: this.openId(g.id) }));
+
+    const sel = st.sel, n = sel ? D.byId[sel] : null, type = n ? n.type : sel;
+    const dt = { about: type === 'about', whatido: type === 'whatido', edu: type === 'edu', product: type === 'product', job: type === 'job', earlier: type === 'earlier', oss: type === 'oss', resume: type === 'resume' };
+    const kick = { about: 'About', whatido: 'What I do', edu: 'Education & Recognition', product: 'System', job: 'Experience', earlier: 'Experience · Earlier', oss: 'Open Source', resume: 'Resume' };
+    const dark = st.theme === 'dark';
+
+    return {
+      clock: st.clock, gridCols, sp, metaDisplay: vw < 1000 ? 'none' : 'inline',
+      rowCols: cols === 1 ? '28px minmax(0,1fr)' : '36px minmax(0,1.4fr) minmax(0,1fr) auto',
+      stats,
+      build, cb: D.build[b],
+      log: D.log,
+      products: D.products.map(p => ({ ...p, open: this.openId(p.id) })),
+      cases: D.caseList.map((c, i) => ({ ...c, open: this.openId(c.id), bg: i === 1 ? '#15140F' : i === 0 ? A : 'var(--card)', ink: i === 1 ? '#EDEBE6' : i === 0 ? K : 'var(--ink)', bd: i === 1 ? '#15140F' : i === 0 ? A : 'var(--line)', rule: i === 0 ? 'rgba(15,15,14,0.3)' : i === 1 ? '#3A3832' : 'var(--line)' })),
+      years: ['2010','2012','2014','2016','2018','2020','2022','2024','2026'],
+      gantt,
+      oss: D.oss.map(o => ({ ...o, open: this.openId(o.id) })),
+      whatIDo: D.whatIDo, expertise: D.expertise, recognition: D.recognition, earlier: D.earlier,
+      open: { about: this.openId('about'), whatido: this.openId('whatido'), edu: this.openId('edu'), resume: this.openId('resume') },
+      modalOpen: !!sel, d: { ...(n || {}), kicker: kick[type] || '' }, dt,
+      close: () => this.setState({ sel: null }), stop: (e) => e.stopPropagation(),
+      toggleTheme: () => this.applyTheme(dark ? 'light' : 'dark'), themeLabel: dark ? 'Dark' : 'Light', knobLeft: dark ? '16px' : '2px',
+      printPdf: () => { const w = window.open(D.S + '/Siddharth_Deshpande.pdf'); if (w) w.addEventListener('load', () => w.print()); }
+    };
+  }
+}
+</script>
+</body>
+</html>

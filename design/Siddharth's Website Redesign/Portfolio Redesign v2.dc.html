@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F3EC;--ink:#141310;--muted:#6B675F;--soft:#45423B;--line:#DCD6C9;--card:#FFFFFF;--card2:#ECE7DC;--faint:#C4BDAE;--acc:#94570A}
+:root[data-theme="dark"]{--bg:#0F0F0E;--ink:#EDEBE6;--muted:#9C988F;--soft:#B9B5AC;--line:#2A2925;--card:#141412;--card2:#1A1917;--faint:#3A3832;--acc:#F5A623}
+html,body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;transition:background .25s}
+*{box-sizing:border-box}
+a{color:var(--acc);text-decoration:none}
+a:hover{color:#F5A623}
+::selection{background:#F5A623;color:#0F0F0E}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+</style>
+</helmet>
+<div style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:17px;line-height:1.5;display:flex">
+
+<button onClick="{{ toggleTheme }}" style="position:fixed;top:16px;right:16px;z-index:30;display:flex;align-items:center;gap:10px;padding:10px 16px 10px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,0.12)" style-hover="border-color:#F5A623">
+  <span style="position:relative;width:34px;height:18px;border-radius:999px;background:var(--card2);border:1px solid var(--line)"><span style="position:absolute;top:2px;left:{{ knobLeft }};width:12px;height:12px;border-radius:50%;background:#F5A623;transition:left .2s"></span></span>
+  <span>{{ themeLabel }}</span>
+</button>
+
+<aside style="position:sticky;top:0;height:100vh;width:72px;flex:none;border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:20px 0;background:var(--bg);z-index:5">
+  <a onClick="{{ goHome }}" style="flex:none;cursor:pointer;width:40px;height:40px;border-radius:50%;background:#F5A623;color:#0F0F0E;display:grid;place-items:center;font-weight:800;font-size:15px">SD</a>
+  <nav style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:safe center;padding:12px 0">
+    <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+      <a onClick="{{ n.go }}" style="cursor:pointer;writing-mode:vertical-rl;transform:rotate(180deg);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;padding:9px 7px;border-radius:999px;flex:none;color:{{ n.color }};background:{{ n.bg }}" style-hover="color:var(--acc)">{{ n.label }}</a>
+    </sc-for>
+  </nav>
+  <div style="flex:none;display:flex;flex-direction:column;gap:10px;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11px">
+    <a href="https://medium.com/@siddharthanantdeshpande" target="_blank" rel="noopener" title="Writing (Medium)" style="color:var(--muted)">Md</a>
+    <a href="https://github.com/dsiddharth2" target="_blank" rel="noopener" title="GitHub" style="color:var(--muted)">Gh</a>
+    <a href="https://www.linkedin.com/in/dsiddharth2/" target="_blank" rel="noopener" title="LinkedIn" style="color:var(--muted)">In</a>
+  </div>
+</aside>
+
+<main style="flex:1;min-width:0">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <section style="background:#F5A623;color:#0F0F0E;position:relative;overflow:hidden">
+    <div style="padding:28px clamp(20px,4vw,56px);padding-right:clamp(180px,16vw,220px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.06em">
+      <span>Siddharth Deshpande</span>
+      <span>Associate Architect · Applied AI</span>
+      <a href="mailto:dsiddharth2@gmail.com" style="color:#0F0F0E;border-bottom:1.5px solid #0F0F0E">Get in Touch</a>
+    </div>
+    <div style="padding:clamp(24px,5vw,64px) clamp(20px,4vw,56px) clamp(40px,6vw,80px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end">
+      <h1 style="margin:0;font-size:clamp(52px,9.2vw,150px);line-height:0.88;letter-spacing:-0.05em;font-weight:800;text-wrap:balance">Production AI systems for complex, real-world problems.</h1>
+      <img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="display:block;width:clamp(140px,18vw,240px);aspect-ratio:1;object-fit:cover;border-radius:50%;border:6px solid #0F0F0E;background:#0F0F0E;transform:rotate(4deg)">
+    </div>
+    <div style="padding:0 clamp(20px,4vw,56px) clamp(40px,5vw,64px);display:flex;flex-wrap:wrap;gap:24px 48px;align-items:end;justify-content:space-between">
+      <p style="margin:0;max-width:560px;font-size:20px;line-height:1.45;font-weight:600;text-wrap:pretty">I work the full path from ambiguous problem to production: understanding the problem, designing the system, building it, deploying it, and iterating once people are using it.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a onClick="{{ goProjects }}" style="cursor:pointer;padding:16px 26px;border-radius:999px;background:#0F0F0E;color:#F5A623;font-weight:600" style-hover="background:#26251F;color:#F5A623">View my work ↘</a>
+        <a onClick="{{ goResume }}" style="cursor:pointer;padding:16px 26px;border-radius:999px;border:1.5px solid #0F0F0E;color:#0F0F0E;font-weight:600" style-hover="background:rgba(15,15,14,0.08);color:#0F0F0E">Resume</a>
+      </div>
+    </div>
+  </section>
+  <div style="border-bottom:1px solid var(--line);overflow:hidden;padding:22px 0">{{ marquee }}</div>
+
+  <section style="padding:clamp(72px,9vw,128px) clamp(20px,4vw,56px) 0">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:40px">
+      <h2 style="margin:0;font-size:clamp(36px,5vw,72px);line-height:0.95;letter-spacing:-0.04em;font-weight:800;max-width:820px">Four kinds of problem keep landing on my desk.</h2>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc);text-transform:uppercase;letter-spacing:0.06em">What I Build</span>
+    </div>
+    <div style="display:flex;flex-direction:column;border-top:1px solid var(--line)">
+      <sc-for list="{{ build }}" as="b" hint-placeholder-count="4">
+        <div onClick="{{ b.toggle }}" style="cursor:pointer;border-bottom:1px solid var(--line);padding:28px 0;display:grid;grid-template-columns:clamp(64px,10vw,140px) minmax(0,1fr) 40px;gap:20px;align-items:start" style-hover="background:var(--card)">
+          <span style="font-size:clamp(44px,6vw,88px);line-height:0.8;font-weight:800;letter-spacing:-0.05em;color:{{ b.numColor }}">{{ b.n }}</span>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <h3 style="margin:0;font-size:clamp(26px,3vw,40px);line-height:1;letter-spacing:-0.03em;font-weight:800">{{ b.title }}</h3>
+            <sc-if value="{{ b.open }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:24px 40px;padding-top:8px">
+                <div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em">The problem</span><p style="margin:0;font-size:19px;text-wrap:pretty">{{ b.problem }}</p></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em">What I build</span><p style="margin:0;font-size:17px;color:var(--soft);text-wrap:pretty">{{ b.what }}</p><a href="{{ b.href }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;margin-top:8px">{{ b.link }} →</a></div>
+              </div>
+            </sc-if>
+          </div>
+          <span style="font-size:28px;line-height:1;color:var(--acc);text-align:right">{{ b.sign }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:clamp(72px,9vw,128px) clamp(20px,4vw,56px) 0">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:40px">
+      <h2 style="margin:0;font-size:clamp(36px,5vw,72px);line-height:0.95;letter-spacing:-0.04em;font-weight:800;max-width:820px">Systems I took from problem to production.</h2>
+      <a onClick="{{ goProjects }}" style="cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.06em">Case Studies · All case studies →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));border:1px solid var(--line);border-radius:20px;overflow:hidden">
+      <div style="display:flex;flex-direction:column;border-right:1px solid var(--line)">
+        <sc-for list="{{ cases }}" as="c" hint-placeholder-count="3">
+          <div onClick="{{ c.pick }}" style="cursor:pointer;padding:28px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px;background:{{ c.tabBg }};color:{{ c.tabInk }}">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.06em">{{ c.cat }}</span>
+            <span style="font-size:24px;line-height:1.05;font-weight:800;letter-spacing:-0.02em">{{ c.title }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="grid-column:span 2;padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:28px;background:var(--card);min-width:0">
+        <div style="display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:start">
+          <p style="margin:0;font-size:clamp(20px,2vw,26px);line-height:1.3;font-weight:600;max-width:560px;text-wrap:pretty">{{ cur.summary }}</p>
+          <div style="display:flex;flex-direction:column;align-items:flex-end"><span style="font-size:clamp(64px,8vw,112px);line-height:0.85;font-weight:800;letter-spacing:-0.05em;color:var(--acc)">{{ cur.mv }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);text-transform:uppercase">{{ cur.ml }}</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden">
+          <div style="background:var(--bg);padding:20px;display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase">Problem</span><span style="font-size:15px">{{ cur.problem }}</span></div>
+          <div style="background:var(--bg);padding:20px;display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase">Hardest constraint</span><span style="font-size:15px">{{ cur.constraint }}</span></div>
+          <div style="background:var(--bg);padding:20px;display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase">Approach</span><span style="font-size:15px">{{ cur.approach }}</span></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;padding:20px 24px;border-radius:12px;background:#F5A623;color:#0F0F0E">
+          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase">Key decision</span><span style="font-size:19px;font-weight:800">{{ cur.decision }}</span></div>
+          <a href="{{ cur.href }}" style="padding:12px 20px;border-radius:999px;background:#0F0F0E;color:#F5A623;font-weight:600;font-size:15px">Read the case study →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(72px,9vw,128px) clamp(20px,4vw,56px) 0">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:40px">
+      <h2 style="margin:0;font-size:clamp(36px,5vw,72px);line-height:0.95;letter-spacing:-0.04em;font-weight:800">Where I've made an impact</h2>
+      <a onClick="{{ goExperience }}" style="cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.06em">Experience · Full work history →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:{{ timelineCols }};gap:6px">
+      <sc-for list="{{ timeline }}" as="e" hint-placeholder-count="3">
+        <div onClick="{{ e.pick }}" style="cursor:pointer;display:flex;flex-direction:column;gap:10px;min-width:0">
+          <div style="height:14px;border-radius:999px;background:{{ e.barBg }}"></div>
+          <div style="display:flex;flex-direction:column;gap:2px;padding-right:8px"><span style="font-size:clamp(18px,2vw,26px);font-weight:800;letter-spacing:-0.02em;color:{{ e.nameInk }}">{{ e.co }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted)">{{ e.dates }}</span></div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:40px;padding:clamp(28px,4vw,48px);border:1px solid var(--line);border-radius:20px;background:var(--card)">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--acc)">{{ ce.role }}</span>
+        <p style="margin:0;font-size:clamp(20px,2vw,26px);line-height:1.3;font-weight:600;text-wrap:pretty">{{ ce.summary }}</p>
+        <a href="{{ ce.href }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px">{{ ce.more }} →</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ ce.short }}" as="li" hint-placeholder-count="3"><li style="display:flex;gap:12px;color:var(--soft);font-size:16px"><span style="color:var(--acc)">↳</span><span>{{ li }}</span></li></sc-for>
+        </ul>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <sc-for list="{{ ce.metrics }}" as="m" hint-placeholder-count="3"><div style="flex:1 1 120px;padding:16px;border-radius:12px;background:var(--card2);display:flex;flex-direction:column"><span style="font-size:30px;font-weight:800;letter-spacing:-0.03em;color:var(--acc)">{{ m.v }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase">{{ m.l }}</span></div></sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(72px,9vw,128px) clamp(20px,4vw,56px) 0">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:40px">
+      <h2 style="margin:0;font-size:clamp(36px,5vw,72px);line-height:0.95;letter-spacing:-0.04em;font-weight:800">Code other people run in production</h2>
+      <a onClick="{{ goOss }}" style="cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.06em">Open Source · All open source →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px">
+      <sc-for list="{{ ossHome }}" as="o" hint-placeholder-count="2">
+        <div style="border-radius:20px;background:var(--card);border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)">
+            <span style="width:10px;height:10px;border-radius:50%;background:#F5A623"></span><span style="width:10px;height:10px;border-radius:50%;background:var(--faint)"></span><span style="width:10px;height:10px;border-radius:50%;background:var(--faint)"></span>
+            <span style="margin-left:auto">{{ o.n }} · {{ o.lang }}</span>
+          </div>
+          <div style="padding:28px;display:flex;flex-direction:column;gap:14px;flex:1">
+            <h3 style="margin:0;font-size:48px;line-height:0.9;font-weight:800;letter-spacing:-0.04em">{{ o.title }}</h3>
+            <div style="font-size:18px;color:var(--soft)">{{ o.sub }}</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:12px"><sc-for list="{{ o.tags }}" as="t" hint-placeholder-count="4"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:4px 10px;border-radius:6px;background:var(--card2);color:var(--soft)">{{ t }}</span></sc-for></div>
+            <div style="display:flex;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:13px"><a href="{{ o.href }}">View More →</a><a href="{{ o.gh }}" target="_blank" rel="noopener" style="color:var(--muted)">GitHub ↗</a></div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));min-height:88vh;border-bottom:1px solid var(--line)">
+    <div style="position:relative;background:var(--card2);min-height:420px">
+      <img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)">
+      <div style="position:absolute;left:0;right:0;bottom:0;padding:24px clamp(20px,4vw,40px);background:#F5A623;color:#0F0F0E;font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.06em">Associate Architect · Systems Builder · Engineering Leader</div>
+    </div>
+    <div style="padding:clamp(40px,6vw,80px) clamp(20px,4vw,56px);display:flex;flex-direction:column;justify-content:flex-end;gap:28px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc);text-transform:uppercase;letter-spacing:0.06em">About</span>
+      <h1 style="margin:0;font-size:clamp(56px,8vw,128px);line-height:0.85;letter-spacing:-0.05em;font-weight:800">Siddharth Deshpande</h1>
+      <p style="margin:0;font-size:22px;line-height:1.4;font-weight:600;text-wrap:pretty">12 years of turning ambiguous problems into production systems — ERPs, AI platforms, multi-agent pipelines — across startups and enterprise. I don't just write code; I own the outcome end to end.</p>
+    </div>
+  </section>
+
+  <section style="padding:clamp(72px,9vw,128px) clamp(20px,4vw,56px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:40px">
+    <h2 style="margin:0;font-size:clamp(36px,4vw,56px);line-height:0.95;letter-spacing:-0.04em;font-weight:800;position:sticky;top:24px;align-self:start">Background</h2>
+    <div style="grid-column:span 2;display:flex;flex-direction:column;gap:22px;font-size:19px;color:var(--soft);text-wrap:pretty;max-width:760px">
+      <p style="margin:0;font-size:24px;line-height:1.35;color:var(--ink);font-weight:600">I've been building software products for over 12 years, starting as an intern at a college incubation center and growing into an Associate Architect role where I manage multiple clients and lead engineering teams. My career has followed a consistent pattern: find a problem nobody's solving, take full ownership, and ship a production system that people depend on every day.</p>
+      <p style="margin:0">At <strong style="color:var(--acc)">Apra Labs</strong>, I joined as a Senior Software Engineer and now serve as Associate Architect. I've built the AI and data platform layer for a unified facility management product serving 300+ US facilities. This includes a GraphRAG knowledge engine over 150K documents, a multi-agent conversational AI system querying a 4 TB database, an automated code review pipeline, a cloud cost intelligence agent that reduced Azure spend by 30%, and an infrastructure performance agent. I manage 3 clients simultaneously and mentor a team of 4 engineers.</p>
+      <p style="margin:0">Before that, I spent 3 years at <strong style="color:var(--acc)">MildlyClassic</strong>, where I built a mission-critical logistics ERP from scratch — Finance, Operations, Booking, Hub Management, CRM, Route Planning — that grew to 2,500 daily users handling 70,000 dockets per month for secure jewellery logistics across India. I hired 7 engineers and established the engineering process from the ground up.</p>
+      <p style="margin:0">Earlier, I co-founded <strong style="color:var(--acc)">UXgage</strong>, a behavioral analytics startup that won a ₹5L cash prize from Sandbox Startups in 6 months, with office space and Azure infrastructure granted separately. I also founded <strong style="color:var(--acc)">Samvit Learning</strong>, a software training institute during my MCA, where I trained 250+ students in web programming.</p>
+    </div>
+  </section>
+
+  <section style="padding:clamp(72px,9vw,128px) clamp(20px,4vw,56px) 0">
+    <h2 style="margin:0 0 32px;font-size:clamp(36px,4vw,56px);line-height:0.95;letter-spacing:-0.04em;font-weight:800">What I do</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px">
+      <sc-for list="{{ whatIDo }}" as="w" hint-placeholder-count="4">
+        <div style="border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:14px;background:{{ w.bg }};color:{{ w.ink }};border:1px solid var(--line)">
+          <span style="font-size:64px;line-height:0.8;font-weight:800;letter-spacing:-0.05em">{{ w.n }}</span>
+          <h3 style="margin:0;font-size:24px;font-weight:800;letter-spacing:-0.02em">{{ w.title }}</h3>
+          <p style="margin:0;font-size:16px;text-wrap:pretty">{{ w.text }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:clamp(72px,9vw,128px) clamp(20px,4vw,56px) 0">
+    <h2 style="margin:0 0 32px;font-size:clamp(36px,4vw,56px);line-height:0.95;letter-spacing:-0.04em;font-weight:800">Technical expertise</h2>
+    <div style="display:flex;flex-direction:column;border-top:1px solid var(--line)">
+      <sc-for list="{{ expertise }}" as="g" hint-placeholder-count="4">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px 32px;padding:22px 0;border-bottom:1px solid var(--line);align-items:baseline">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--acc);text-transform:uppercase;letter-spacing:0.06em">{{ g.title }}</span>
+          <div style="grid-column:span 2;display:flex;flex-wrap:wrap;gap:8px 28px"><sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3"><span style="font-size:20px;font-weight:600">{{ it }}</span></sc-for></div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:clamp(72px,9vw,128px) clamp(20px,4vw,56px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:16px">
+    <div style="border-radius:20px;border:1px solid var(--line);background:var(--card);padding:32px;display:flex;flex-direction:column;gap:16px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--acc);text-transform:uppercase;letter-spacing:0.06em">Education</span>
+      <div style="font-size:30px;line-height:1.05;font-weight:800;letter-spacing:-0.02em">Master of Computer Applications (MCA)</div>
+      <div style="font-size:16px;color:var(--muted)">Gogte Institute of Technology, Belgaum</div>
+    </div>
+    <div style="border-radius:20px;border:1px solid var(--line);background:var(--card);padding:32px;display:flex;flex-direction:column;gap:8px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--acc);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">Recognition</span>
+      <sc-for list="{{ recognition }}" as="r" hint-placeholder-count="3">
+        <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid var(--line)"><span style="font-size:19px;font-weight:600">{{ r.t }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)">{{ r.m }}</span></div>
+      </sc-for>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isExperience }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:clamp(72px,8vw,110px) clamp(20px,4vw,56px) 0;display:flex;flex-direction:column;gap:24px">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc);text-transform:uppercase;letter-spacing:0.06em">Experience</span>
+    <h1 style="margin:0;font-size:clamp(56px,8.5vw,140px);line-height:0.85;letter-spacing:-0.05em;font-weight:800">Where I've made an impact</h1>
+    <p style="margin:0;max-width:680px;font-size:21px;color:var(--soft);text-wrap:pretty">12 years shipping production systems — from a training institute and 0-to-1 products through logistics ERP and an AI platform serving 300+ facilities.</p>
+  </section>
+  <section style="padding:56px clamp(20px,4vw,56px) 0;display:flex;flex-direction:column;gap:16px">
+    <sc-for list="{{ exp }}" as="e" hint-placeholder-count="3">
+      <article style="border-radius:24px;border:1px solid var(--line);overflow:hidden;background:var(--card)">
+        <div style="display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;padding:clamp(24px,3vw,40px);background:var(--card2)">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc)">{{ e.dates }}</span>
+            <h2 style="margin:0;font-size:clamp(40px,5vw,72px);line-height:0.9;letter-spacing:-0.04em;font-weight:800">{{ e.co }}</h2>
+            <span style="font-size:16px;color:var(--muted)">{{ e.role }}</span>
+          </div>
+          <div style="display:flex;gap:28px;flex-wrap:wrap">
+            <sc-for list="{{ e.metrics }}" as="m" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;align-items:flex-end"><span style="font-size:36px;line-height:1;font-weight:800;letter-spacing:-0.03em;color:var(--acc)">{{ m.v }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase">{{ m.l }}</span></div></sc-for>
+          </div>
+        </div>
+        <div style="padding:clamp(24px,3vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:32px 48px">
+          <div style="display:flex;flex-direction:column;gap:20px">
+            <p style="margin:0;font-size:21px;line-height:1.35;font-weight:600;text-wrap:pretty">{{ e.summary }}</p>
+            <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ e.bullets }}" as="li" hint-placeholder-count="4"><li style="display:flex;gap:12px;color:var(--soft);font-size:16px"><span style="color:var(--acc)">↳</span><span>{{ li }}</span></li></sc-for>
+            </ul>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="border-radius:16px;background:#F5A623;color:#0F0F0E;padding:24px;display:flex;flex-direction:column;gap:12px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.06em">{{ e.leadTitle }}</span>
+              <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px">
+                <sc-for list="{{ e.lead }}" as="li" hint-placeholder-count="3"><li style="display:flex;gap:10px;font-size:15px;font-weight:600"><span>●</span><span>{{ li }}</span></li></sc-for>
+              </ul>
+            </div>
+            <sc-if value="{{ e.hasNote }}" hint-placeholder-val="{{ false }}">
+              <div style="border-radius:16px;border:1px dashed var(--faint);padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--acc);text-transform:uppercase">{{ e.noteTitle }}</span>
+                <p style="margin:0;font-size:15px;color:var(--soft);text-wrap:pretty">{{ e.note }}</p>
+              </div>
+            </sc-if>
+            <a href="{{ e.href }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px">View More →</a>
+          </div>
+        </div>
+      </article>
+    </sc-for>
+    <article style="border-radius:24px;border:1px solid var(--line);background:var(--card);padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:24px">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap">
+        <h2 style="margin:0;font-size:clamp(40px,5vw,72px);line-height:0.9;letter-spacing:-0.04em;font-weight:800">Earlier</h2>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc)">2010 – 2016</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px">
+        <sc-for list="{{ earlier }}" as="x" hint-placeholder-count="3">
+          <div style="border-radius:16px;background:var(--card2);padding:24px;display:flex;flex-direction:column;gap:10px">
+            <div style="font-size:24px;font-weight:800;letter-spacing:-0.02em">{{ x.name }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--acc)">{{ x.meta }}</div>
+            <p style="margin:0;font-size:15px;color:var(--soft);text-wrap:pretty">{{ x.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <a href="https://siddharthdeshpande.com/experience/earlier" style="font-family:'IBM Plex Mono',monospace;font-size:13px">View More →</a>
+    </article>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isProjects }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:clamp(72px,8vw,110px) clamp(20px,4vw,56px) 0;display:flex;flex-direction:column;gap:24px">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc);text-transform:uppercase;letter-spacing:0.06em">Products</span>
+    <h1 style="margin:0;font-size:clamp(56px,8.5vw,140px);line-height:0.85;letter-spacing:-0.05em;font-weight:800;text-wrap:balance">Systems I've architected and shipped</h1>
+    <p style="margin:0;max-width:680px;font-size:21px;color:var(--soft);text-wrap:pretty">Production systems across knowledge graphs, multi-agent AI, FinOps, search, logistics, and analytics — from 0-to-1 through enterprise scale.</p>
+  </section>
+  <section style="padding:56px clamp(20px,4vw,56px) 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:16px">
+    <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
+      <a href="{{ p.href }}" style="border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;min-height:380px;background:{{ p.bg }};color:{{ p.ink }};border:1px solid var(--line)" style-hover="border-color:#F5A623">
+        <div style="display:flex;justify-content:space-between;align-items:start"><span style="font-size:56px;line-height:0.8;font-weight:800;letter-spacing:-0.05em;opacity:0.35">{{ p.n }}</span><span style="font-size:24px">↗</span></div>
+        <h2 style="margin:0;font-size:28px;line-height:1;letter-spacing:-0.03em;font-weight:800">{{ p.title }}</h2>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.04em">{{ p.sub }}</div>
+        <p style="margin:0;font-size:15px;text-wrap:pretty;flex:1">{{ p.desc }}</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="4"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 9px;border-radius:6px;border:1px solid currentColor">{{ t }}</span></sc-for></div>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500">View More →</span>
+      </a>
+    </sc-for>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isOss }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:clamp(72px,8vw,110px) clamp(20px,4vw,56px) 0;display:flex;flex-direction:column;gap:24px">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc);text-transform:uppercase;letter-spacing:0.06em">Open Source</span>
+    <h1 style="margin:0;font-size:clamp(56px,8.5vw,140px);line-height:0.85;letter-spacing:-0.05em;font-weight:800">Giving back to the community</h1>
+    <p style="margin:0;max-width:680px;font-size:21px;color:var(--soft);text-wrap:pretty">Tools I build in public — package managers, review pipelines, libraries, and UI plugins other engineers actually use.</p>
+  </section>
+  <section style="padding:56px clamp(20px,4vw,56px) 0;display:flex;flex-direction:column">
+    <sc-for list="{{ oss }}" as="o" hint-placeholder-count="4">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px 48px;padding:40px 0;border-top:1px solid var(--line);align-items:start">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)">{{ o.n }} / {{ o.lang }}</span>
+          <h2 style="margin:0;font-size:clamp(56px,7vw,104px);line-height:0.85;font-weight:800;letter-spacing:-0.05em">{{ o.title }}</h2>
+        </div>
+        <div style="grid-column:span 2;display:flex;flex-direction:column;gap:16px;padding-top:12px">
+          <div style="font-size:22px;font-weight:700">{{ o.sub }}</div>
+          <p style="margin:0;font-size:17px;color:var(--soft);text-wrap:pretty;max-width:640px">{{ o.desc }}</p>
+          <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ o.tags }}" as="t" hint-placeholder-count="4"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:4px 10px;border-radius:6px;background:var(--card2);color:var(--soft)">{{ t }}</span></sc-for></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
+            <a href="{{ o.href }}" style="padding:11px 18px;border-radius:999px;background:#F5A623;color:#0F0F0E;font-weight:600;font-size:15px" style-hover="background:#FFC35A;color:#0F0F0E">View More →</a>
+            <a href="{{ o.gh }}" target="_blank" rel="noopener" style="padding:11px 18px;border-radius:999px;border:1px solid var(--faint);color:var(--ink);font-size:15px" style-hover="border-color:#F5A623;color:var(--ink)">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isResume }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:72px clamp(20px,4vw,56px) 64px;display:flex;flex-direction:column;gap:20px">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--acc);text-transform:uppercase;letter-spacing:0.06em">Resume</span>
+        <h1 style="margin:0;font-size:clamp(40px,5vw,64px);line-height:0.9;letter-spacing:-0.04em;font-weight:800">Siddharth Deshpande</h1>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="https://siddharthdeshpande.com/Siddharth_Deshpande.pdf" target="_blank" rel="noopener" style="padding:12px 20px;border-radius:999px;background:#F5A623;color:#0F0F0E;font-weight:600" style-hover="background:#FFC35A;color:#0F0F0E">Download PDF</a>
+        <a onClick="{{ printPdf }}" style="cursor:pointer;padding:12px 20px;border-radius:999px;border:1px solid var(--faint);color:var(--ink)" style-hover="border-color:#F5A623;color:var(--ink)">Print</a>
+        <a onClick="{{ goHome }}" style="cursor:pointer;padding:12px 20px;border-radius:999px;border:1px solid var(--faint);color:var(--ink)" style-hover="border-color:#F5A623;color:var(--ink)">Close</a>
+      </div>
+    </div>
+    <iframe src="https://siddharthdeshpande.com/Siddharth_Deshpande.pdf" title="Resume PDF" style="width:100%;height:calc(100vh - 220px);min-height:600px;border:1px solid var(--line);border-radius:20px;background:var(--card2)"></iframe>
+  </section>
+</sc-if>
+
+<sc-if value="{{ showContact }}" hint-placeholder-val="{{ true }}">
+  <section style="margin-top:clamp(96px,12vw,160px);background:#F5A623;color:#0F0F0E;padding:clamp(48px,7vw,96px) clamp(20px,4vw,56px) 32px;display:flex;flex-direction:column;gap:32px">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.06em">Get in Touch</span>
+    <h2 style="margin:0;font-size:clamp(60px,11vw,190px);line-height:0.82;letter-spacing:-0.06em;font-weight:800">Let's build something great.</h2>
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;padding-top:24px;border-top:1.5px solid #0F0F0E">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="mailto:dsiddharth2@gmail.com" style="padding:16px 26px;border-radius:999px;background:#0F0F0E;color:#F5A623;font-weight:600" style-hover="background:#26251F;color:#F5A623">Let's Talk →</a>
+        <a onClick="{{ goResume }}" style="cursor:pointer;padding:16px 26px;border-radius:999px;border:1.5px solid #0F0F0E;color:#0F0F0E;font-weight:600" style-hover="background:rgba(15,15,14,0.08);color:#0F0F0E">View Resume</a>
+      </div>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:13px">
+        <a href="https://medium.com/@siddharthanantdeshpande" target="_blank" rel="noopener" style="color:#0F0F0E">Medium ↗</a>
+        <a href="https://www.linkedin.com/in/dsiddharth2/" target="_blank" rel="noopener" style="color:#0F0F0E">LinkedIn ↗</a>
+        <a href="https://github.com/dsiddharth2" target="_blank" rel="noopener" style="color:#0F0F0E">GitHub ↗</a>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;padding-top:32px">
+      <span>© Siddharth Deshpande</span><span>AI Architect · Production Systems</span>
+    </div>
+  </section>
+</sc-if>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { page: 'home', build: 0, cs: 0, ex: 0, theme: 'light' };
+  componentDidMount() {
+    let t = 'light';
+    try { t = localStorage.getItem('sd-theme') || 'light'; } catch (e) {}
+    this.applyTheme(t);
+  }
+  applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    try { localStorage.setItem('sd-theme', t); } catch (e) {}
+    this.setState({ theme: t });
+  }
+  go = (p) => () => { this.setState({ page: p }); window.scrollTo(0, 0); };
+  renderVals() {
+    const st = this.state, p = st.page;
+    const S = 'https://siddharthdeshpande.com';
+    const A = '#F5A623', K = '#0F0F0E';
+    const m = (a) => a.map(([v, l]) => ({ v, l }));
+    const pages = [['home','Home'],['about','About'],['experience','Experience'],['projects','Case Studies'],['oss','Open Source'],['resume','Resume']];
+    const stats = m([['12+','years shipping'],['3','client engagements in parallel'],['5','production AI systems shipped'],['300+','US facilities live'],['30%','cloud spend reduced']]);
+    const strip = (k) => React.createElement('div', { key: k, style: { display: 'flex', gap: 56, paddingRight: 56, flex: 'none' } },
+      stats.map((s, i) => React.createElement('div', { key: i, style: { display: 'flex', alignItems: 'baseline', gap: 14, whiteSpace: 'nowrap' } },
+        React.createElement('span', { style: { fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', color: 'var(--acc)', lineHeight: 1 } }, s.v),
+        React.createElement('span', { style: { fontFamily: "'IBM Plex Mono',monospace", fontSize: 13, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.06em' } }, s.l),
+        React.createElement('span', { style: { color: 'var(--faint)', fontSize: 28, marginLeft: 42 } }, '✳'))));
+    const marquee = React.createElement('div', { style: { display: 'flex', width: 'max-content', animation: 'mq 32s linear infinite' } }, [strip('a'), strip('b')]);
+
+    const build = [
+      ['Enterprise AI','People who need an answer cannot get it, because the answer lives behind SQL, five admin screens, or someone else’s calendar.','Production RAG, GraphRAG, agent orchestration, and LLM applications that run against live business data.','Multi-Agent Conversational AI','/projects/multi-agent'],
+      ['Data & Knowledge Systems','The knowledge exists, but it is spread across thousands of unstructured documents with no schema and no shared vocabulary.','Large-scale document processing, entity and relationship extraction, graph-based retrieval, and vector search.','GraphRAG Knowledge Engine','/projects/graphrag'],
+      ['Production Systems','A system the whole company runs on, all day, where an hour of downtime means shipments stop.','Cloud architecture, distributed systems, APIs, data pipelines, and the observability to know when they degrade.','Secure Logistics ERP','/projects/logistics-erp'],
+      ['Secure AI','An AI system that can read the database can read the wrong tenant’s data. The access model has to be part of the design.','Permission-aware generation, post-generation query rewriting, read-only validation, and enterprise access control.','Permission rewrite on generated SQL','/projects/multi-agent']
+    ].map(([title, problem, what, link, h], i) => {
+      const open = st.build === i;
+      return { n: '0' + (i + 1), title, problem, what, link, href: S + h, open, sign: open ? '−' : '+', numColor: open ? 'var(--acc)' : 'var(--faint)', toggle: () => this.setState({ build: open ? -1 : i }) };
+    });
+
+    const casesRaw = [
+      { cat: 'Enterprise AI', title: 'Multi-Agent Conversational AI', summary: 'Ask a building a question in plain English — five specialist agents over a 4 TB operations database, instead of five admin screens.', problem: '4 TB database with no usable natural-language interface', constraint: 'Generated SQL runs against live production data, so read-only validation and post-generation permission rewrite are non-negotiable', approach: 'Supervisor agent routes to 5 specialized agents — never answers itself', decision: 'Supervisor pattern, not a single monolithic agent', mv: '5', ml: 'specialized agents', href: S + '/projects/multi-agent' },
+      { cat: 'Data & Knowledge Systems', title: 'GraphRAG Knowledge Engine', summary: 'Turning 20K unstructured support tickets into an answerable knowledge base.', problem: 'Recurring tickets solved from scratch every time', constraint: 'No usable schema: free-text tickets with author-dependent vocabulary for the same concepts', approach: 'Two-stage ingest pipeline with graph extraction', decision: 'Two-stage pipeline: seconds-to-searchable, minutes-to-graph-enriched', mv: '20K', ml: 'support documents', href: S + '/projects/graphrag' },
+      { cat: 'Production Systems', title: 'Cloud Cost Intelligence Agent', summary: 'Finding out why the cloud bill moved — every night, before anyone has to ask. Identified 30% savings across the Azure estate.', problem: 'Cloud spend growing unchecked month over month', constraint: 'Attribution has to be defensible: a wrong cost claim sends an engineer down a multi-day dead end', approach: '19 collectors across 3 dependency phases — six Azure APIs, SQL DMVs, and the app database', decision: 'Deterministic answers first, LLM only where reasoning is required', mv: '30%', ml: 'cost reduction', href: S + '/projects/cloud-cost' }
+    ];
+    const cases = casesRaw.map((c, i) => ({ ...c, tabBg: st.cs === i ? A : 'transparent', tabInk: st.cs === i ? K : 'var(--ink)', pick: () => this.setState({ cs: i }) }));
+
+    const expRaw = [
+      { co: 'Apra Labs', role: 'Associate Architect · previously Senior Software Engineer', dates: 'Aug 2019 – Present', span: 7,
+        summary: 'Built the AI and data platform layer for a unified facility management product serving 300+ US facilities.',
+        bullets: ['Virtual Credentials — facility entry/exit across 300+ US buildings','Reporting platform — 1000s of reports per hour across 300+ tenants','Analytics platform from scratch — facility operations monitoring','GraphRAG pipeline — 150K support case documents, accurate answers','Interactive chat system over 4 TB database','Cloud Cost Agent — real-time Azure analysis, 30% cost reduction','Infrastructure Performance Agent — health scoring and regression detection'],
+        leadTitle: 'Leadership & Impact',
+        lead: ['Managing 3 clients with technical expertise, helping the team build and ship products','Leading a team of 4 as technical mentor across multiple projects','Architected all systems end-to-end','Led 10 community meetups on Saturdays','Campus hiring lead for 4 years — IIIT Dharwad & GIT Belgaum','Grew with the company from 10 engineers to 55 people'],
+        metrics: m([['300+','facilities served'],['30%','cloud costs reduced'],['10→55','team growth']]),
+        more: '4 more, and the leadership work', href: S + '/experience/apra-labs' },
+      { co: 'MildlyClassic', role: 'Engineering Team Lead', dates: 'May 2016 – May 2019', span: 3,
+        summary: 'Built and scaled a mission-critical logistics ERP from scratch to 2,500 daily users handling 70K dockets/month.',
+        bullets: ['End-to-end ERP — Finance, Ops, Booking, Hub Management, CRM, Route Planning for PAN India secure logistics','Clients: large jewellery manufacturers shipping daily from manufacturing to retail','Bulk docket creation via upload, 70K dockets/month','Scaled from 100s to 2,500 daily users with zero downtime','Migrated DigitalOcean → AWS in 3 months after security incident'],
+        leadTitle: 'Leadership & Process',
+        lead: ['Hired 7 engineers, led the team through the full product lifecycle','Direct client interface — requirements to modules','Established 4-week release cycle — build, test, deploy monthly','System served entire company (Ops + Finance) all day, every day'],
+        hasNote: true, noteTitle: 'Meanwhile — Sister Company · Wifi Dabba → YC W17',
+        note: 'Pre-Jio era — built byte-counting and usage sync software on Wi-Fi hardware for Wifi Dabba, selling data at ₹2/100 MB. Built the Google NBU analytics platform for Hubballi. Hired 4-5 members post-funding.',
+        metrics: m([['70K','dockets/month'],['2.5K','daily users'],['7','engineers hired']]),
+        more: '2 more, and the leadership work', href: S + '/experience/mildlyclassic' },
+      { co: 'UXgage', role: 'Co-Founder & CTO', dates: 'Oct 2015 – Apr 2016', span: 1.6,
+        summary: 'Took an idea from zero to a shipped product in 6 months — won a ₹5L cash prize from Sandbox Startups, with office space and Azure infrastructure granted separately.',
+        bullets: ['Core product architecture — PHP, Neo4j, Cassandra','JS instrumentation engine capturing user interactions and behavioral data','Data pipeline for large-volume user interaction storage'],
+        leadTitle: 'Leadership',
+        lead: ['Owned the product end-to-end — not a contributor, the builder','Hired ~3 engineers, mentored them, unblocked technical challenges','Conducted product demos for clients and stakeholders'],
+        metrics: m([['0→1','product shipped'],['₹5L','cash prize won']]),
+        more: 'View More', href: S + '/experience/uxgage' }
+    ];
+    const exp = expRaw.map((e, i) => ({ ...e, hasNote: !!e.hasNote, short: e.bullets.slice(0, 3), barBg: st.ex === i ? A : 'var(--line)', nameInk: st.ex === i ? 'var(--ink)' : 'var(--muted)', pick: () => this.setState({ ex: i }) }));
+    const timeline = exp.slice().reverse();
+    const timelineCols = timeline.map(e => 'minmax(0,' + e.span + 'fr)').join(' ');
+
+    const oss = [
+      { n: '01', lang: 'TypeScript', title: 'Plug', sub: 'Package manager for Claude Code skills', desc: 'Discover, install, and manage reusable Skills, Commands, and Agents from GitHub-hosted registries — through an interactive TUI or the CLI.', tags: ['TypeScript','Node.js','Ink','Claude Code'], href: S + '/opensource/plug', gh: 'https://github.com/dsiddharth2/plug' },
+      { n: '02', lang: 'Python', title: 'CodeHawk', sub: 'AI-powered pull request review pipeline', desc: 'Runs in CI, produces structured findings, scores code quality, and posts inline comments to Azure DevOps or GitHub.', tags: ['Python','OpenAI Agents','Docker','Azure DevOps','GitHub'], href: S + '/opensource/codehawk', gh: 'https://github.com/dsiddharth2/codehawk' },
+      { n: '03', lang: 'PHP', title: 'PHP ZXing', sub: 'PHP wrapper for the ZXing barcode library', desc: 'Composer package for reading barcodes and QR codes. 277K+ Packagist installs, 133 GitHub stars, and featured on the upstream ZXing repo.', tags: ['PHP','Composer','ZXing','Java'], href: S + '/opensource/php-zxing', gh: 'https://github.com/dsiddharth2/php-zxing' },
+      { n: '04', lang: 'JavaScript', title: 'MooPin', sub: 'Pinterest-style column grid for MooTools', desc: 'Small MooTools plugin that packs tiles into a Pinterest-style column grid — including infinite-scroll galleries. Inspired by Wookmark for jQuery.', tags: ['JavaScript','MooTools','Layout','Infinite scroll'], href: S + '/opensource/moo-pin', gh: 'https://github.com/dsiddharth2/moo-pin' }
+    ];
+    const products = [
+      ['GraphRAG Knowledge Engine','Enterprise knowledge graph pipeline','Full GraphRAG pipeline — ingests documents, builds knowledge graphs with entities, relationships, topics, and communities via vector similarity. 17 activity classes, 14 prompt templates.',['Python','Durable Functions','Cosmos DB','FAISS'],'graphrag'],
+      ['Multi-Agent Conversational AI','Supervisor-pattern agent orchestration','Supervisor pattern routing to 5 specialized agents — Reporting, Admin, System Setup, Knowledge, and Support Tickets — across ~30 registry-driven tools. Natural-language SQL with permission rewrite, seven-collection RAG, 100+ report types, SignalR streaming of the reasoning trace.',['Python','LangChain','LangGraph','SignalR'],'multi-agent'],
+      ['AI Code Review Pipeline','CI/CD-integrated automated reviews','Automatically reviews pull requests with inline comments and star ratings. 10+ languages, penalty-based scoring, fix verification mode.',['Python','Azure DevOps','GPT'],'code-review'],
+      ['Cloud Cost Intelligence Agent','Automated FinOps analysis','Nightly FinOps agent: 19 collectors across 3 phases, 13 anomaly detectors, 4-tier breach thresholds. 20+ standing questions answered deterministically; an LLM handles only the reasoning. Unused resources, query cost attribution, and rightsizing — 30% cost reduction.',['TypeScript','Azure Cost Mgmt','LLM'],'cloud-cost'],
+      ['Infrastructure Performance Agent','Health scoring & regression detection','Composite health score (0–100) per service. Rolling 30-day baselines for regression detection. Nightly collection of Azure Monitor metrics and SQL DMV telemetry sampled at 15-second intervals, 13 anomaly checks, 4-tier breach thresholds — surfacing degradation before impact.',['TypeScript','Azure Monitor','Service Bus'],'infra-perf'],
+      ['Search Index Sync Engine','Real-time & bulk search indexing','Synchronizing records into Azure AI Search. Bulk indexing via Durable Functions, real-time incremental sync via Service Bus.',['C# / .NET 8','Azure AI Search','Service Bus'],'search-sync'],
+      ['Secure Logistics ERP','PAN India logistics platform','End-to-end ERP — Finance, Operations, Booking, Hub Management, CRM, Route Planning. 2,500 daily users, 70K dockets/month.',['PHP','AWS','React','Node.js'],'logistics-erp'],
+      ['UXgage — Behavioral Analytics','Enterprise usability platform','Capturing clicks, mouse movements, text input, navigation and URL transitions to reconstruct actual user workflows. Built the entire stack from scratch.',['PHP','Neo4j','Cassandra','JavaScript'],'uxgage']
+    ].map(([title, sub, desc, tags, slug], i) => {
+      const hot = i === 0 || i === 4 || i === 7;
+      return { n: String(i + 1).padStart(2, '0'), title, sub, desc, tags, href: S + '/projects/' + slug, bg: hot ? A : 'var(--card)', ink: hot ? K : 'var(--ink)' };
+    });
+
+    const whatIDo = [
+      ['System Architecture','End-to-end design of production systems — from database schema to API layer to deployment pipeline. I\'ve architected ERPs, AI platforms, analytics engines, and multi-agent systems that serve thousands of users daily.'],
+      ['AI & Data Systems','Building production AI — not prototypes. 7 AI agents shipped, 5 production AI systems. GraphRAG pipelines, multi-agent orchestration, automated code review, cloud cost optimization, infrastructure monitoring.'],
+      ['Team Building & Leadership','20+ engineers hired and mentored, including campus hires. I\'ve grown with a company from 10 to 55 people, led campus hiring for 4 years, managed 3 clients simultaneously, and run 10 community meetups on Saturdays.'],
+      ['0-to-1 Product Development','Taking ideas from a whiteboard to production. I\'ve co-founded a startup, built an ERP from scratch that became the backbone of an entire company, and shipped products that handle 100K hits per day.']
+    ].map(([title, text], i) => ({ n: '0' + (i + 1), title, text, bg: i % 2 === 0 ? A : 'var(--card)', ink: i % 2 === 0 ? K : 'var(--ink)' }));
+
+    const dark = st.theme === 'dark';
+    return {
+      toggleTheme: () => this.applyTheme(dark ? 'light' : 'dark'),
+      themeLabel: dark ? 'Dark' : 'Light',
+      knobLeft: dark ? '18px' : '2px',
+      nav: pages.map(([k, label]) => ({ label, go: this.go(k), color: p === k ? K : 'var(--muted)', bg: p === k ? A : 'transparent' })),
+      isHome: p === 'home', isAbout: p === 'about', isExperience: p === 'experience', isProjects: p === 'projects', isOss: p === 'oss', isResume: p === 'resume',
+      showContact: p !== 'resume',
+      goHome: this.go('home'), goProjects: this.go('projects'), goResume: this.go('resume'), goExperience: this.go('experience'), goOss: this.go('oss'),
+      printPdf: () => { const w = window.open(S + '/Siddharth_Deshpande.pdf'); if (w) w.addEventListener('load', () => w.print()); },
+      marquee, build, cases, cur: casesRaw[st.cs],
+      exp, timeline, timelineCols, ce: exp[st.ex],
+      oss, ossHome: oss.slice(0, 2), products, whatIDo,
+      earlier: [
+        { name: 'Firaa.me', meta: 'Side Project · Built at IdeaFlask · Sep 2014 – Sep 2015', desc: 'Built and shipped a travel blogging platform end-to-end. Reached 500+ organic users in 6 months with zero marketing spend.' },
+        { name: 'Samvit Learning', meta: 'Founder · Apr 2011 – Apr 2016', desc: 'Founded a software training institute during 2nd year of MCA. Trained 250+ students in web programming technologies. Managed 25+ innovative projects.' },
+        { name: 'dotCORD IT Solutions', meta: 'Web Developer Intern · 2010–2013', desc: 'Interned for 3 years at GIT Incubation Center. Learned software engineering before completing MCA. Built applications on PHP frameworks (CodeIgniter, Yii).' }
+      ],
+      expertise: [
+        { title: 'Languages & Frameworks', items: ['Python · TypeScript · C# / .NET 8','PHP · React · Node.js','LangChain · LangGraph'] },
+        { title: 'AI & Data', items: ['GPT / LLM integration','FAISS · Vector search','GraphRAG · Multi-agent systems'] },
+        { title: 'Infrastructure', items: ['Azure (Durable Functions, Service Bus, Cosmos DB)','AWS · Azure AI Search','Neo4j · Cassandra'] },
+        { title: 'Practices', items: ['System design & architecture','CI/CD · DevOps · FinOps','Team hiring & mentorship'] }
+      ],
+      recognition: [{ t: 'Leadership Excellence', m: 'Apra Labs · Nov 2024' }, { t: 'Customer Appreciation', m: 'Apra Labs · Apr 2023' }, { t: 'Guiding Vision', m: 'Pravega X Fest' }]
+    };
+  }
+}
+</script>
+</body>
+</html>

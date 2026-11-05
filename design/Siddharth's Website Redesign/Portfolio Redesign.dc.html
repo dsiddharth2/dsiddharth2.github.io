@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#0F0F0E;color:#EDEBE6;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#F5A623;text-decoration:none}
+a:hover{color:#FFC35A}
+::selection{background:#F5A623;color:#0F0F0E}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#0F0F0E;color:#EDEBE6;font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:17px;line-height:1.55">
+
+<header style="position:sticky;top:0;z-index:10;background:rgba(15,15,14,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #26251F">
+  <div style="max-width:1240px;margin:0 auto;padding:16px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+    <a onClick="{{ goHome }}" style="display:flex;align-items:center;gap:12px;color:#EDEBE6;cursor:pointer;font-weight:700;font-size:17px;letter-spacing:-0.01em">
+      <span style="width:30px;height:30px;border-radius:6px;background:#F5A623;color:#0F0F0E;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500">SD</span>
+      <span>Siddharth Deshpande</span>
+    </a>
+    <nav style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:13px">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+        <a onClick="{{ n.go }}" style="cursor:pointer;padding:8px 12px;border-radius:6px;color:{{ n.color }};background:{{ n.bg }}" style-hover="color:#EDEBE6">{{ n.label }}</a>
+      </sc-for>
+      <a href="https://medium.com/@siddharthanantdeshpande" target="_blank" rel="noopener" style="padding:8px 12px;color:#9C988F" style-hover="color:#EDEBE6">Writing ↗</a>
+      <a href="mailto:dsiddharth2@gmail.com" style="margin-left:8px;padding:9px 16px;border-radius:6px;background:#F5A623;color:#0F0F0E;font-weight:500" style-hover="background:#FFC35A;color:#0F0F0E">Get in Touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- HOME -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(56px,9vw,120px) clamp(20px,4vw,48px) 56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(40px,6vw,88px);align-items:end">
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623;letter-spacing:0.04em;text-transform:uppercase;display:flex;align-items:center;gap:10px"><span style="width:8px;height:8px;border-radius:50%;background:#F5A623"></span>Associate Architect · Applied AI</div>
+      <h1 style="margin:0;font-size:clamp(44px,6.4vw,86px);line-height:0.98;letter-spacing:-0.035em;font-weight:700;text-wrap:balance">Production AI systems for complex, real-world problems.</h1>
+      <p style="margin:0;max-width:560px;font-size:19px;color:#B9B5AC;text-wrap:pretty">I work the full path from ambiguous problem to production: understanding the problem, designing the system, building it, deploying it, and iterating once people are using it.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <a onClick="{{ goProjects }}" style="cursor:pointer;padding:14px 22px;border-radius:8px;background:#F5A623;color:#0F0F0E;font-weight:600" style-hover="background:#FFC35A;color:#0F0F0E">View my work →</a>
+        <a onClick="{{ goResume }}" style="cursor:pointer;padding:14px 22px;border-radius:8px;border:1px solid #3A3832;color:#EDEBE6;font-weight:600" style-hover="border-color:#F5A623;color:#EDEBE6">Resume</a>
+        <div style="display:flex;gap:18px;margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:13px">
+          <a href="https://github.com/dsiddharth2" target="_blank" rel="noopener" style="color:#9C988F" style-hover="color:#F5A623">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/dsiddharth2/" target="_blank" rel="noopener" style="color:#9C988F" style-hover="color:#F5A623">LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+    <div style="position:relative;justify-self:end;width:min(100%,400px)">
+      <div style="position:absolute;inset:18px -18px -18px 18px;border:1px solid #F5A623;border-radius:14px"></div>
+      <img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="position:relative;display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px;background:#1A1A18">
+    </div>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:40px clamp(20px,4vw,48px) 0">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border-top:1px solid #2A2925;border-bottom:1px solid #2A2925">
+      <sc-for list="{{ stats }}" as="s" hint-placeholder-count="5">
+        <div style="padding:28px 24px 28px 0;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:clamp(36px,4vw,52px);font-weight:700;letter-spacing:-0.03em;line-height:1;color:#F5A623">{{ s.v }}</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#9C988F;text-transform:uppercase;letter-spacing:0.04em">{{ s.l }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0">
+    <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:48px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623;letter-spacing:0.04em;text-transform:uppercase">01 — What I Build</div>
+      <h2 style="margin:0;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-0.03em;font-weight:700;max-width:760px;text-wrap:balance">Four kinds of problem keep landing on my desk.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:1px;background:#2A2925;border:1px solid #2A2925;border-radius:14px;overflow:hidden">
+      <sc-for list="{{ build }}" as="b" hint-placeholder-count="4">
+        <div style="background:#0F0F0E;padding:32px 28px;display:flex;flex-direction:column;gap:18px" style-hover="background:#151513">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <h3 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.015em">{{ b.title }}</h3>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#6E6A62">{{ b.n }}</span>
+          </div>
+          <p style="margin:0;font-size:17px;color:#EDEBE6;text-wrap:pretty">{{ b.problem }}</p>
+          <p style="margin:0;font-size:15px;color:#9C988F;text-wrap:pretty;flex:1">{{ b.what }}</p>
+          <a href="{{ b.href }}" style="font-family:'JetBrains Mono',monospace;font-size:13px;padding-top:16px;border-top:1px solid #2A2925">{{ b.link }} →</a>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:40px">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623;letter-spacing:0.04em;text-transform:uppercase">02 — Case Studies</div>
+        <h2 style="margin:0;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-0.03em;font-weight:700;max-width:760px;text-wrap:balance">Systems I took from problem to production.</h2>
+      </div>
+      <a onClick="{{ goProjects }}" style="cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:13px">All case studies →</a>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ cases }}" as="c" hint-placeholder-count="3">
+        <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:clamp(28px,4vw,64px);padding:44px 0;border-top:1px solid #2A2925">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#9C988F;text-transform:uppercase;letter-spacing:0.04em">{{ c.cat }}</div>
+            <h3 style="margin:0;font-size:clamp(26px,2.6vw,34px);line-height:1.1;letter-spacing:-0.02em;font-weight:700">{{ c.title }}</h3>
+            <p style="margin:0;font-size:18px;color:#B9B5AC;text-wrap:pretty">{{ c.summary }}</p>
+            <div style="display:flex;align-items:baseline;gap:12px;margin-top:auto;padding-top:16px">
+              <span style="font-size:48px;font-weight:700;letter-spacing:-0.03em;color:#F5A623;line-height:1">{{ c.mv }}</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#9C988F;text-transform:uppercase">{{ c.ml }}</span>
+            </div>
+            <a href="{{ c.href }}" style="font-family:'JetBrains Mono',monospace;font-size:13px">Read the case study →</a>
+          </div>
+          <dl style="margin:0;display:flex;flex-direction:column;border:1px solid #2A2925;border-radius:12px;background:#141412">
+            <div style="display:grid;grid-template-columns:150px 1fr;gap:16px;padding:18px 22px;border-bottom:1px solid #2A2925"><dt style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#6E6A62;text-transform:uppercase;padding-top:3px">Problem</dt><dd style="margin:0;font-size:15px">{{ c.problem }}</dd></div>
+            <div style="display:grid;grid-template-columns:150px 1fr;gap:16px;padding:18px 22px;border-bottom:1px solid #2A2925"><dt style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#6E6A62;text-transform:uppercase;padding-top:3px">Hardest constraint</dt><dd style="margin:0;font-size:15px">{{ c.constraint }}</dd></div>
+            <div style="display:grid;grid-template-columns:150px 1fr;gap:16px;padding:18px 22px;border-bottom:1px solid #2A2925"><dt style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#6E6A62;text-transform:uppercase;padding-top:3px">Approach</dt><dd style="margin:0;font-size:15px">{{ c.approach }}</dd></div>
+            <div style="display:grid;grid-template-columns:150px 1fr;gap:16px;padding:18px 22px"><dt style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#F5A623;text-transform:uppercase;padding-top:3px">Key decision</dt><dd style="margin:0;font-size:15px;font-weight:600">{{ c.decision }}</dd></div>
+          </dl>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:40px">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623;letter-spacing:0.04em;text-transform:uppercase">03 — Experience</div>
+        <h2 style="margin:0;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-0.03em;font-weight:700">Where I've made an impact</h2>
+      </div>
+      <a onClick="{{ goExperience }}" style="cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:13px">Full work history →</a>
+    </div>
+    <sc-for list="{{ exp }}" as="e" hint-placeholder-count="3">
+      <article style="display:flex;flex-wrap:wrap;gap:24px clamp(28px,4vw,64px);padding:40px 0;border-top:1px solid #2A2925">
+        <div style="flex:1 1 220px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623">{{ e.dates }}</div>
+          <h3 style="margin:0;font-size:28px;font-weight:700;letter-spacing:-0.02em">{{ e.co }}</h3>
+          <div style="font-size:15px;color:#9C988F">{{ e.role }}</div>
+        </div>
+        <div style="flex:3 1 520px;display:flex;flex-direction:column;gap:20px">
+          <p style="margin:0;font-size:19px;text-wrap:pretty">{{ e.summary }}</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ e.short }}" as="li" hint-placeholder-count="3"><li style="display:flex;gap:12px;color:#B9B5AC;font-size:16px"><span style="color:#F5A623;font-family:'JetBrains Mono',monospace">—</span><span>{{ li }}</span></li></sc-for>
+          </ul>
+          <div style="display:flex;gap:32px;flex-wrap:wrap">
+            <sc-for list="{{ e.metrics }}" as="m" hint-placeholder-count="3"><div style="display:flex;flex-direction:column"><span style="font-size:28px;font-weight:700;letter-spacing:-0.02em">{{ m.v }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#9C988F;text-transform:uppercase">{{ m.l }}</span></div></sc-for>
+          </div>
+          <a href="{{ e.href }}" style="font-family:'JetBrains Mono',monospace;font-size:13px">{{ e.more }} →</a>
+        </div>
+      </article>
+    </sc-for>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:40px">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623;letter-spacing:0.04em;text-transform:uppercase">04 — Open Source</div>
+        <h2 style="margin:0;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-0.03em;font-weight:700">Code other people run in production</h2>
+      </div>
+      <a onClick="{{ goOss }}" style="cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:13px">All open source →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px">
+      <sc-for list="{{ ossHome }}" as="o" hint-placeholder-count="2">
+        <div style="border:1px solid #2A2925;border-radius:14px;padding:32px;display:flex;flex-direction:column;gap:16px;background:#141412" style-hover="border-color:#F5A623">
+          <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:12px;color:#9C988F"><span>{{ o.n }}</span><span style="color:#F5A623">{{ o.lang }}</span></div>
+          <h3 style="margin:0;font-size:32px;font-weight:700;letter-spacing:-0.02em">{{ o.title }}</h3>
+          <div style="font-size:17px;color:#B9B5AC">{{ o.sub }}</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ o.tags }}" as="t" hint-placeholder-count="4"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid #33312B;color:#B9B5AC">{{ t }}</span></sc-for></div>
+          <div style="display:flex;gap:20px;font-family:'JetBrains Mono',monospace;font-size:13px;margin-top:8px"><a href="{{ o.href }}">View More →</a><a href="{{ o.gh }}" target="_blank" rel="noopener" style="color:#9C988F">GitHub ↗</a></div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</sc-if>
+
+<!-- ABOUT -->
+<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,110px) clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(40px,6vw,88px);align-items:end">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623;letter-spacing:0.04em;text-transform:uppercase">About</div>
+      <h1 style="margin:0;font-size:clamp(44px,6vw,80px);line-height:0.98;letter-spacing:-0.035em;font-weight:700">Siddharth Deshpande</h1>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#9C988F">Associate Architect · Systems Builder · Engineering Leader</div>
+      <p style="margin:0;max-width:600px;font-size:20px;color:#B9B5AC;text-wrap:pretty">12 years of turning ambiguous problems into production systems — ERPs, AI platforms, multi-agent pipelines — across startups and enterprise. I don't just write code; I own the outcome end to end.</p>
+    </div>
+    <img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="justify-self:end;width:min(100%,340px);aspect-ratio:4/5;object-fit:cover;border-radius:14px;background:#1A1A18">
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0;display:flex;flex-wrap:wrap;gap:24px clamp(28px,4vw,64px)">
+    <h2 style="flex:1 1 220px;margin:0;font-size:28px;letter-spacing:-0.02em;font-weight:700">Background</h2>
+    <div style="flex:3 1 520px;display:flex;flex-direction:column;gap:22px;font-size:18px;color:#B9B5AC;text-wrap:pretty;max-width:780px">
+      <p style="margin:0">I've been building software products for over 12 years, starting as an intern at a college incubation center and growing into an Associate Architect role where I manage multiple clients and lead engineering teams. My career has followed a consistent pattern: find a problem nobody's solving, take full ownership, and ship a production system that people depend on every day.</p>
+      <p style="margin:0">At <strong style="color:#EDEBE6">Apra Labs</strong>, I joined as a Senior Software Engineer and now serve as Associate Architect. I've built the AI and data platform layer for a unified facility management product serving 300+ US facilities. This includes a GraphRAG knowledge engine over 150K documents, a multi-agent conversational AI system querying a 4 TB database, an automated code review pipeline, a cloud cost intelligence agent that reduced Azure spend by 30%, and an infrastructure performance agent. I manage 3 clients simultaneously and mentor a team of 4 engineers.</p>
+      <p style="margin:0">Before that, I spent 3 years at <strong style="color:#EDEBE6">MildlyClassic</strong>, where I built a mission-critical logistics ERP from scratch — Finance, Operations, Booking, Hub Management, CRM, Route Planning — that grew to 2,500 daily users handling 70,000 dockets per month for secure jewellery logistics across India. I hired 7 engineers and established the engineering process from the ground up.</p>
+      <p style="margin:0">Earlier, I co-founded <strong style="color:#EDEBE6">UXgage</strong>, a behavioral analytics startup that won a ₹5L cash prize from Sandbox Startups in 6 months, with office space and Azure infrastructure granted separately. I also founded <strong style="color:#EDEBE6">Samvit Learning</strong>, a software training institute during my MCA, where I trained 250+ students in web programming.</p>
+    </div>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0">
+    <h2 style="margin:0 0 32px;font-size:28px;letter-spacing:-0.02em;font-weight:700">What I do</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:1px;background:#2A2925;border:1px solid #2A2925;border-radius:14px;overflow:hidden">
+      <sc-for list="{{ whatIDo }}" as="w" hint-placeholder-count="4">
+        <div style="background:#0F0F0E;padding:32px;display:flex;flex-direction:column;gap:12px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#F5A623">{{ w.n }}</span>
+          <h3 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.015em">{{ w.title }}</h3>
+          <p style="margin:0;font-size:16px;color:#B9B5AC;text-wrap:pretty">{{ w.text }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0">
+    <h2 style="margin:0 0 32px;font-size:28px;letter-spacing:-0.02em;font-weight:700">Technical expertise</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:32px">
+      <sc-for list="{{ expertise }}" as="g" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:14px;border-top:2px solid #F5A623;padding-top:18px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#9C988F;text-transform:uppercase;letter-spacing:0.04em">{{ g.title }}</div>
+          <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3"><div style="font-size:16px">{{ it }}</div></sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:48px">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <h2 style="margin:0;font-size:28px;letter-spacing:-0.02em;font-weight:700">Education</h2>
+      <div style="border:1px solid #2A2925;border-radius:12px;padding:24px;background:#141412">
+        <div style="font-size:18px;font-weight:600">Master of Computer Applications (MCA)</div>
+        <div style="font-size:15px;color:#9C988F;margin-top:4px">Gogte Institute of Technology, Belgaum</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <h2 style="margin:0;font-size:28px;letter-spacing:-0.02em;font-weight:700">Recognition</h2>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ recognition }}" as="r" hint-placeholder-count="3">
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid #2A2925"><span style="font-size:17px;font-weight:600">{{ r.t }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#9C988F">{{ r.m }}</span></div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<!-- EXPERIENCE -->
+<sc-if value="{{ isExperience }}" hint-placeholder-val="{{ false }}">
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,110px) clamp(20px,4vw,48px) 24px;display:flex;flex-direction:column;gap:24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623;letter-spacing:0.04em;text-transform:uppercase">Experience</div>
+    <h1 style="margin:0;font-size:clamp(44px,6vw,80px);line-height:0.98;letter-spacing:-0.035em;font-weight:700">Where I've made an impact</h1>
+    <p style="margin:0;max-width:680px;font-size:20px;color:#B9B5AC;text-wrap:pretty">12 years shipping production systems — from a training institute and 0-to-1 products through logistics ERP and an AI platform serving 300+ facilities.</p>
+  </section>
+  <section style="max-width:1240px;margin:0 auto;padding:40px clamp(20px,4vw,48px) 0">
+    <sc-for list="{{ exp }}" as="e" hint-placeholder-count="3">
+      <article style="display:flex;flex-wrap:wrap;gap:24px clamp(28px,4vw,64px);padding:56px 0;border-top:1px solid #2A2925">
+        <div style="flex:1 1 240px;display:flex;flex-direction:column;gap:6px;align-self:flex-start;position:sticky;top:96px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623">{{ e.dates }}</div>
+          <h2 style="margin:0;font-size:34px;font-weight:700;letter-spacing:-0.02em">{{ e.co }}</h2>
+          <div style="font-size:15px;color:#9C988F">{{ e.role }}</div>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-top:24px">
+            <sc-for list="{{ e.metrics }}" as="m" hint-placeholder-count="3"><div style="display:flex;flex-direction:column"><span style="font-size:28px;font-weight:700;letter-spacing:-0.02em;color:#F5A623">{{ m.v }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#9C988F;text-transform:uppercase">{{ m.l }}</span></div></sc-for>
+          </div>
+        </div>
+        <div style="flex:3 1 520px;display:flex;flex-direction:column;gap:28px">
+          <p style="margin:0;font-size:20px;text-wrap:pretty">{{ e.summary }}</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ e.bullets }}" as="li" hint-placeholder-count="4"><li style="display:flex;gap:12px;color:#B9B5AC;font-size:16px"><span style="color:#F5A623;font-family:'JetBrains Mono',monospace">—</span><span>{{ li }}</span></li></sc-for>
+          </ul>
+          <div style="border:1px solid #2A2925;border-radius:12px;padding:24px;background:#141412;display:flex;flex-direction:column;gap:14px">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#F5A623;text-transform:uppercase;letter-spacing:0.04em">{{ e.leadTitle }}</div>
+            <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ e.lead }}" as="li" hint-placeholder-count="3"><li style="display:flex;gap:12px;font-size:15px"><span style="color:#6E6A62">·</span><span>{{ li }}</span></li></sc-for>
+            </ul>
+          </div>
+          <sc-if value="{{ e.hasNote }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:20px 24px;border-left:2px solid #F5A623;display:flex;flex-direction:column;gap:8px">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#9C988F;text-transform:uppercase">{{ e.noteTitle }}</div>
+              <p style="margin:0;font-size:15px;color:#B9B5AC;text-wrap:pretty">{{ e.note }}</p>
+            </div>
+          </sc-if>
+          <a href="{{ e.href }}" style="font-family:'JetBrains Mono',monospace;font-size:13px">View More →</a>
+        </div>
+      </article>
+    </sc-for>
+    <article style="display:flex;flex-wrap:wrap;gap:24px clamp(28px,4vw,64px);padding:56px 0;border-top:1px solid #2A2925">
+      <div style="flex:1 1 240px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623">2010 – 2016</div>
+        <h2 style="margin:0;font-size:34px;font-weight:700;letter-spacing:-0.02em">Earlier</h2>
+      </div>
+      <div style="flex:3 1 520px;display:flex;flex-direction:column;gap:28px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px">
+          <sc-for list="{{ earlier }}" as="x" hint-placeholder-count="3">
+            <div style="border:1px solid #2A2925;border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:8px;background:#141412">
+              <div style="font-size:19px;font-weight:700">{{ x.name }}</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#9C988F">{{ x.meta }}</div>
+              <p style="margin:0;font-size:15px;color:#B9B5AC;text-wrap:pretty">{{ x.desc }}</p>
+            </div>
+          </sc-for>
+        </div>
+        <a href="https://siddharthdeshpande.com/experience/earlier" style="font-family:'JetBrains Mono',monospace;font-size:13px">View More →</a>
+      </div>
+    </article>
+  </section>
+</sc-if>
+
+<!-- PRODUCTS -->
+<sc-if value="{{ isProjects }}" hint-placeholder-val="{{ false }}">
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,110px) clamp(20px,4vw,48px) 24px;display:flex;flex-direction:column;gap:24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623;letter-spacing:0.04em;text-transform:uppercase">Products</div>
+    <h1 style="margin:0;font-size:clamp(44px,6vw,80px);line-height:0.98;letter-spacing:-0.035em;font-weight:700;max-width:960px;text-wrap:balance">Systems I've architected and shipped</h1>
+    <p style="margin:0;max-width:680px;font-size:20px;color:#B9B5AC;text-wrap:pretty">Production systems across knowledge graphs, multi-agent AI, FinOps, search, logistics, and analytics — from 0-to-1 through enterprise scale.</p>
+  </section>
+  <section style="max-width:1240px;margin:0 auto;padding:40px clamp(20px,4vw,48px) 0">
+    <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
+      <a href="{{ p.href }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px clamp(28px,4vw,64px);padding:36px 0;border-top:1px solid #2A2925;color:#EDEBE6" style-hover="color:#EDEBE6;background:#141412">
+        <div style="display:flex;gap:20px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#6E6A62;padding-top:8px">{{ p.n }}</span>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <h2 style="margin:0;font-size:clamp(24px,2.4vw,30px);line-height:1.15;letter-spacing:-0.02em;font-weight:700">{{ p.title }}</h2>
+            <div style="font-size:15px;color:#F5A623">{{ p.sub }}</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;grid-column:span 2">
+          <p style="margin:0;font-size:16px;color:#B9B5AC;text-wrap:pretty">{{ p.desc }}</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+            <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="4"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid #33312B;color:#B9B5AC">{{ t }}</span></sc-for></div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623">View More →</span>
+          </div>
+        </div>
+      </a>
+    </sc-for>
+  </section>
+</sc-if>
+
+<!-- OPEN SOURCE -->
+<sc-if value="{{ isOss }}" hint-placeholder-val="{{ false }}">
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,110px) clamp(20px,4vw,48px) 24px;display:flex;flex-direction:column;gap:24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623;letter-spacing:0.04em;text-transform:uppercase">Open Source</div>
+    <h1 style="margin:0;font-size:clamp(44px,6vw,80px);line-height:0.98;letter-spacing:-0.035em;font-weight:700">Giving back to the community</h1>
+    <p style="margin:0;max-width:680px;font-size:20px;color:#B9B5AC;text-wrap:pretty">Tools I build in public — package managers, review pipelines, libraries, and UI plugins other engineers actually use.</p>
+  </section>
+  <section style="max-width:1240px;margin:0 auto;padding:40px clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:20px">
+    <sc-for list="{{ oss }}" as="o" hint-placeholder-count="4">
+      <div style="border:1px solid #2A2925;border-radius:14px;padding:32px;display:flex;flex-direction:column;gap:16px;background:#141412" style-hover="border-color:#F5A623">
+        <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:12px;color:#9C988F"><span>{{ o.n }}</span><span style="color:#F5A623">{{ o.lang }}</span></div>
+        <h2 style="margin:0;font-size:32px;font-weight:700;letter-spacing:-0.02em">{{ o.title }}</h2>
+        <div style="font-size:17px;font-weight:600">{{ o.sub }}</div>
+        <p style="margin:0;font-size:15px;color:#B9B5AC;text-wrap:pretty;flex:1">{{ o.desc }}</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ o.tags }}" as="t" hint-placeholder-count="4"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid #33312B;color:#B9B5AC">{{ t }}</span></sc-for></div>
+        <div style="display:flex;gap:20px;font-family:'JetBrains Mono',monospace;font-size:13px;margin-top:8px;padding-top:16px;border-top:1px solid #2A2925"><a href="{{ o.href }}">View More →</a><a href="{{ o.gh }}" target="_blank" rel="noopener" style="color:#9C988F">GitHub ↗</a></div>
+      </div>
+    </sc-for>
+  </section>
+</sc-if>
+
+<!-- RESUME -->
+<sc-if value="{{ isResume }}" hint-placeholder-val="{{ false }}">
+  <section style="max-width:1240px;margin:0 auto;padding:40px clamp(20px,4vw,48px) 64px;display:flex;flex-direction:column;gap:20px">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5A623;letter-spacing:0.04em;text-transform:uppercase">Resume</div>
+        <h1 style="margin:0;font-size:32px;letter-spacing:-0.02em;font-weight:700">Siddharth Deshpande</h1>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:13px">
+        <a href="https://siddharthdeshpande.com/Siddharth_Deshpande.pdf" target="_blank" rel="noopener" style="padding:11px 18px;border-radius:8px;background:#F5A623;color:#0F0F0E;font-weight:500" style-hover="background:#FFC35A;color:#0F0F0E">Download PDF</a>
+        <a onClick="{{ printPdf }}" style="cursor:pointer;padding:11px 18px;border-radius:8px;border:1px solid #3A3832;color:#EDEBE6" style-hover="border-color:#F5A623;color:#EDEBE6">Print</a>
+        <a onClick="{{ goHome }}" style="cursor:pointer;padding:11px 18px;border-radius:8px;border:1px solid #3A3832;color:#EDEBE6" style-hover="border-color:#F5A623;color:#EDEBE6">Close</a>
+      </div>
+    </div>
+    <iframe src="https://siddharthdeshpande.com/Siddharth_Deshpande.pdf" title="Resume PDF" style="width:100%;height:calc(100vh - 220px);min-height:600px;border:1px solid #2A2925;border-radius:12px;background:#1A1A18"></iframe>
+  </section>
+</sc-if>
+
+<!-- CONTACT -->
+<sc-if value="{{ showContact }}" hint-placeholder-val="{{ true }}">
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(96px,12vw,160px) clamp(20px,4vw,48px) 0">
+    <div style="border-radius:20px;background:#F5A623;color:#0F0F0E;padding:clamp(36px,6vw,80px);display:flex;flex-direction:column;gap:28px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:0.04em;text-transform:uppercase">Get in Touch</div>
+      <h2 style="margin:0;font-size:clamp(44px,7vw,104px);line-height:0.95;letter-spacing:-0.04em;font-weight:800;max-width:900px;text-wrap:balance">Let's build something great.</h2>
+      <p style="margin:0;font-size:19px;max-width:520px">Always open to interesting problems and collaborations.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="mailto:dsiddharth2@gmail.com" style="padding:15px 24px;border-radius:8px;background:#0F0F0E;color:#F5A623;font-weight:600" style-hover="background:#26251F;color:#F5A623">Let's Talk →</a>
+        <a onClick="{{ goResume }}" style="cursor:pointer;padding:15px 24px;border-radius:8px;border:1.5px solid #0F0F0E;color:#0F0F0E;font-weight:600" style-hover="background:rgba(15,15,14,0.08);color:#0F0F0E">View Resume</a>
+      </div>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:13px;padding-top:24px;border-top:1px solid rgba(15,15,14,0.25)">
+        <a href="mailto:dsiddharth2@gmail.com" style="color:#0F0F0E">dsiddharth2@gmail.com</a>
+        <a href="https://medium.com/@siddharthanantdeshpande" target="_blank" rel="noopener" style="color:#0F0F0E">Medium ↗</a>
+        <a href="https://www.linkedin.com/in/dsiddharth2/" target="_blank" rel="noopener" style="color:#0F0F0E">LinkedIn ↗</a>
+        <a href="https://github.com/dsiddharth2" target="_blank" rel="noopener" style="color:#0F0F0E">GitHub ↗</a>
+      </div>
+    </div>
+  </section>
+</sc-if>
+</main>
+
+<footer style="max-width:1240px;margin:0 auto;padding:48px clamp(20px,4vw,48px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;color:#6E6A62">
+  <span>© Siddharth Deshpande</span>
+  <span>AI Architect · Production Systems</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { page: 'home' };
+  go = (p) => () => { this.setState({ page: p }); window.scrollTo(0, 0); };
+  renderVals() {
+    const p = this.state.page;
+    const S = 'https://siddharthdeshpande.com';
+    const pages = [['about','About'],['experience','Experience'],['projects','Case Studies'],['oss','Open Source'],['resume','Resume']];
+    const m = (a) => a.map(([v, l]) => ({ v, l }));
+    const exp = [
+      { co: 'Apra Labs', role: 'Associate Architect · previously Senior Software Engineer', dates: 'Aug 2019 – Present',
+        summary: 'Built the AI and data platform layer for a unified facility management product serving 300+ US facilities.',
+        bullets: ['Virtual Credentials — facility entry/exit across 300+ US buildings','Reporting platform — 1000s of reports per hour across 300+ tenants','Analytics platform from scratch — facility operations monitoring','GraphRAG pipeline — 150K support case documents, accurate answers','Interactive chat system over 4 TB database','Cloud Cost Agent — real-time Azure analysis, 30% cost reduction','Infrastructure Performance Agent — health scoring and regression detection'],
+        leadTitle: 'Leadership & Impact',
+        lead: ['Managing 3 clients with technical expertise, helping the team build and ship products','Leading a team of 4 as technical mentor across multiple projects','Architected all systems end-to-end','Led 10 community meetups on Saturdays','Campus hiring lead for 4 years — IIIT Dharwad & GIT Belgaum','Grew with the company from 10 engineers to 55 people'],
+        metrics: m([['300+','facilities served'],['30%','cloud costs reduced'],['10→55','team growth']]),
+        more: '4 more, and the leadership work', href: S + '/experience/apra-labs' },
+      { co: 'MildlyClassic', role: 'Engineering Team Lead', dates: 'May 2016 – May 2019',
+        summary: 'Built and scaled a mission-critical logistics ERP from scratch to 2,500 daily users handling 70K dockets/month.',
+        bullets: ['End-to-end ERP — Finance, Ops, Booking, Hub Management, CRM, Route Planning for PAN India secure logistics','Clients: large jewellery manufacturers shipping daily from manufacturing to retail','Bulk docket creation via upload, 70K dockets/month','Scaled from 100s to 2,500 daily users with zero downtime','Migrated DigitalOcean → AWS in 3 months after security incident'],
+        leadTitle: 'Leadership & Process',
+        lead: ['Hired 7 engineers, led the team through the full product lifecycle','Direct client interface — requirements to modules','Established 4-week release cycle — build, test, deploy monthly','System served entire company (Ops + Finance) all day, every day'],
+        hasNote: true, noteTitle: 'Meanwhile — Sister Company · Wifi Dabba → YC W17',
+        note: 'Pre-Jio era — built byte-counting and usage sync software on Wi-Fi hardware for Wifi Dabba, selling data at ₹2/100 MB. Built the Google NBU analytics platform for Hubballi. Hired 4-5 members post-funding.',
+        metrics: m([['70K','dockets/month'],['2.5K','daily users'],['7','engineers hired']]),
+        more: '2 more, and the leadership work', href: S + '/experience/mildlyclassic' },
+      { co: 'UXgage', role: 'Co-Founder & CTO', dates: 'Oct 2015 – Apr 2016',
+        summary: 'Took an idea from zero to a shipped product in 6 months — won a ₹5L cash prize from Sandbox Startups, with office space and Azure infrastructure granted separately.',
+        bullets: ['Core product architecture — PHP, Neo4j, Cassandra','JS instrumentation engine capturing user interactions and behavioral data','Data pipeline for large-volume user interaction storage'],
+        leadTitle: 'Leadership',
+        lead: ['Owned the product end-to-end — not a contributor, the builder','Hired ~3 engineers, mentored them, unblocked technical challenges','Conducted product demos for clients and stakeholders'],
+        metrics: m([['0→1','product shipped'],['₹5L','cash prize won']]),
+        more: 'View More', href: S + '/experience/uxgage' }
+    ].map(e => ({ ...e, short: e.bullets.slice(0, 3), hasNote: !!e.hasNote }));
+    const oss = [
+      { n: '01', lang: 'TypeScript', title: 'Plug', sub: 'Package manager for Claude Code skills', desc: 'Discover, install, and manage reusable Skills, Commands, and Agents from GitHub-hosted registries — through an interactive TUI or the CLI.', tags: ['TypeScript','Node.js','Ink','Claude Code'], href: S + '/opensource/plug', gh: 'https://github.com/dsiddharth2/plug' },
+      { n: '02', lang: 'Python', title: 'CodeHawk', sub: 'AI-powered pull request review pipeline', desc: 'Runs in CI, produces structured findings, scores code quality, and posts inline comments to Azure DevOps or GitHub.', tags: ['Python','OpenAI Agents','Docker','Azure DevOps','GitHub'], href: S + '/opensource/codehawk', gh: 'https://github.com/dsiddharth2/codehawk' },
+      { n: '03', lang: 'PHP', title: 'PHP ZXing', sub: 'PHP wrapper for the ZXing barcode library', desc: 'Composer package for reading barcodes and QR codes. 277K+ Packagist installs, 133 GitHub stars, and featured on the upstream ZXing repo.', tags: ['PHP','Composer','ZXing','Java'], href: S + '/opensource/php-zxing', gh: 'https://github.com/dsiddharth2/php-zxing' },
+      { n: '04', lang: 'JavaScript', title: 'MooPin', sub: 'Pinterest-style column grid for MooTools', desc: 'Small MooTools plugin that packs tiles into a Pinterest-style column grid — including infinite-scroll galleries. Inspired by Wookmark for jQuery.', tags: ['JavaScript','MooTools','Layout','Infinite scroll'], href: S + '/opensource/moo-pin', gh: 'https://github.com/dsiddharth2/moo-pin' }
+    ];
+    const products = [
+      ['GraphRAG Knowledge Engine','Enterprise knowledge graph pipeline','Full GraphRAG pipeline — ingests documents, builds knowledge graphs with entities, relationships, topics, and communities via vector similarity. 17 activity classes, 14 prompt templates.',['Python','Durable Functions','Cosmos DB','FAISS'],'graphrag'],
+      ['Multi-Agent Conversational AI','Supervisor-pattern agent orchestration','Supervisor pattern routing to 5 specialized agents — Reporting, Admin, System Setup, Knowledge, and Support Tickets — across ~30 registry-driven tools. Natural-language SQL with permission rewrite, seven-collection RAG, 100+ report types, SignalR streaming of the reasoning trace.',['Python','LangChain','LangGraph','SignalR'],'multi-agent'],
+      ['AI Code Review Pipeline','CI/CD-integrated automated reviews','Automatically reviews pull requests with inline comments and star ratings. 10+ languages, penalty-based scoring, fix verification mode.',['Python','Azure DevOps','GPT'],'code-review'],
+      ['Cloud Cost Intelligence Agent','Automated FinOps analysis','Nightly FinOps agent: 19 collectors across 3 phases, 13 anomaly detectors, 4-tier breach thresholds. 20+ standing questions answered deterministically; an LLM handles only the reasoning. Unused resources, query cost attribution, and rightsizing — 30% cost reduction.',['TypeScript','Azure Cost Mgmt','LLM'],'cloud-cost'],
+      ['Infrastructure Performance Agent','Health scoring & regression detection','Composite health score (0–100) per service. Rolling 30-day baselines for regression detection. Nightly collection of Azure Monitor metrics and SQL DMV telemetry sampled at 15-second intervals, 13 anomaly checks, 4-tier breach thresholds — surfacing degradation before impact.',['TypeScript','Azure Monitor','Service Bus'],'infra-perf'],
+      ['Search Index Sync Engine','Real-time & bulk search indexing','Synchronizing records into Azure AI Search. Bulk indexing via Durable Functions, real-time incremental sync via Service Bus.',['C# / .NET 8','Azure AI Search','Service Bus'],'search-sync'],
+      ['Secure Logistics ERP','PAN India logistics platform','End-to-end ERP — Finance, Operations, Booking, Hub Management, CRM, Route Planning. 2,500 daily users, 70K dockets/month.',['PHP','AWS','React','Node.js'],'logistics-erp'],
+      ['UXgage — Behavioral Analytics','Enterprise usability platform','Capturing clicks, mouse movements, text input, navigation and URL transitions to reconstruct actual user workflows. Built the entire stack from scratch.',['PHP','Neo4j','Cassandra','JavaScript'],'uxgage']
+    ].map(([title, sub, desc, tags, slug], i) => ({ n: String(i + 1).padStart(2, '0'), title, sub, desc, tags, href: S + '/projects/' + slug }));
+    return {
+      nav: pages.map(([k, label]) => ({ label, go: this.go(k), color: p === k ? '#EDEBE6' : '#9C988F', bg: p === k ? '#22211D' : 'transparent' })),
+      isHome: p === 'home', isAbout: p === 'about', isExperience: p === 'experience', isProjects: p === 'projects', isOss: p === 'oss', isResume: p === 'resume',
+      showContact: p !== 'resume',
+      goHome: this.go('home'), goProjects: this.go('projects'), goResume: this.go('resume'), goExperience: this.go('experience'), goOss: this.go('oss'),
+      printPdf: () => { const w = window.open(S + '/Siddharth_Deshpande.pdf'); if (w) w.addEventListener('load', () => w.print()); },
+      stats: m([['12+','years shipping'],['3','client engagements in parallel'],['5','production AI systems shipped'],['300+','US facilities live'],['30%','cloud spend reduced']]),
+      build: [
+        { n: '01', title: 'Enterprise AI', problem: 'People who need an answer cannot get it, because the answer lives behind SQL, five admin screens, or someone else’s calendar.', what: 'Production RAG, GraphRAG, agent orchestration, and LLM applications that run against live business data.', link: 'Multi-Agent Conversational AI', href: S + '/projects/multi-agent' },
+        { n: '02', title: 'Data & Knowledge Systems', problem: 'The knowledge exists, but it is spread across thousands of unstructured documents with no schema and no shared vocabulary.', what: 'Large-scale document processing, entity and relationship extraction, graph-based retrieval, and vector search.', link: 'GraphRAG Knowledge Engine', href: S + '/projects/graphrag' },
+        { n: '03', title: 'Production Systems', problem: 'A system the whole company runs on, all day, where an hour of downtime means shipments stop.', what: 'Cloud architecture, distributed systems, APIs, data pipelines, and the observability to know when they degrade.', link: 'Secure Logistics ERP', href: S + '/projects/logistics-erp' },
+        { n: '04', title: 'Secure AI', problem: 'An AI system that can read the database can read the wrong tenant’s data. The access model has to be part of the design.', what: 'Permission-aware generation, post-generation query rewriting, read-only validation, and enterprise access control.', link: 'Permission rewrite on generated SQL', href: S + '/projects/multi-agent' }
+      ],
+      cases: [
+        { cat: 'Enterprise AI', title: 'Multi-Agent Conversational AI', summary: 'Ask a building a question in plain English — five specialist agents over a 4 TB operations database, instead of five admin screens.', problem: '4 TB database with no usable natural-language interface', constraint: 'Generated SQL runs against live production data, so read-only validation and post-generation permission rewrite are non-negotiable', approach: 'Supervisor agent routes to 5 specialized agents — never answers itself', decision: 'Supervisor pattern, not a single monolithic agent', mv: '5', ml: 'specialized agents', href: S + '/projects/multi-agent' },
+        { cat: 'Data & Knowledge Systems', title: 'GraphRAG Knowledge Engine', summary: 'Turning 20K unstructured support tickets into an answerable knowledge base.', problem: 'Recurring tickets solved from scratch every time', constraint: 'No usable schema: free-text tickets with author-dependent vocabulary for the same concepts', approach: 'Two-stage ingest pipeline with graph extraction', decision: 'Two-stage pipeline: seconds-to-searchable, minutes-to-graph-enriched', mv: '20K', ml: 'support documents', href: S + '/projects/graphrag' },
+        { cat: 'Production Systems', title: 'Cloud Cost Intelligence Agent', summary: 'Finding out why the cloud bill moved — every night, before anyone has to ask. Identified 30% savings across the Azure estate.', problem: 'Cloud spend growing unchecked month over month', constraint: 'Attribution has to be defensible: a wrong cost claim sends an engineer down a multi-day dead end', approach: '19 collectors across 3 dependency phases — six Azure APIs, SQL DMVs, and the app database', decision: 'Deterministic answers first, LLM only where reasoning is required', mv: '30%', ml: 'cost reduction', href: S + '/projects/cloud-cost' }
+      ],
+      exp, oss, ossHome: oss.slice(0, 2), products,
+      earlier: [
+        { name: 'Firaa.me', meta: 'Side Project · Built at IdeaFlask · Sep 2014 – Sep 2015', desc: 'Built and shipped a travel blogging platform end-to-end. Reached 500+ organic users in 6 months with zero marketing spend.' },
+        { name: 'Samvit Learning', meta: 'Founder · Apr 2011 – Apr 2016', desc: 'Founded a software training institute during 2nd year of MCA. Trained 250+ students in web programming technologies. Managed 25+ innovative projects.' },
+        { name: 'dotCORD IT Solutions', meta: 'Web Developer Intern · 2010–2013', desc: 'Interned for 3 years at GIT Incubation Center. Learned software engineering before completing MCA. Built applications on PHP frameworks (CodeIgniter, Yii).' }
+      ],
+      whatIDo: [
+        { n: '01', title: 'System Architecture', text: 'End-to-end design of production systems — from database schema to API layer to deployment pipeline. I\'ve architected ERPs, AI platforms, analytics engines, and multi-agent systems that serve thousands of users daily.' },
+        { n: '02', title: 'AI & Data Systems', text: 'Building production AI — not prototypes. 7 AI agents shipped, 5 production AI systems. GraphRAG pipelines, multi-agent orchestration, automated code review, cloud cost optimization, infrastructure monitoring.' },
+        { n: '03', title: 'Team Building & Leadership', text: '20+ engineers hired and mentored, including campus hires. I\'ve grown with a company from 10 to 55 people, led campus hiring for 4 years, managed 3 clients simultaneously, and run 10 community meetups on Saturdays.' },
+        { n: '04', title: '0-to-1 Product Development', text: 'Taking ideas from a whiteboard to production. I\'ve co-founded a startup, built an ERP from scratch that became the backbone of an entire company, and shipped products that handle 100K hits per day.' }
+      ],
+      expertise: [
+        { title: 'Languages & Frameworks', items: ['Python · TypeScript · C# / .NET 8','PHP · React · Node.js','LangChain · LangGraph'] },
+        { title: 'AI & Data', items: ['GPT / LLM integration','FAISS · Vector search','GraphRAG · Multi-agent systems'] },
+        { title: 'Infrastructure', items: ['Azure (Durable Functions, Service Bus, Cosmos DB)','AWS · Azure AI Search','Neo4j · Cassandra'] },
+        { title: 'Practices', items: ['System design & architecture','CI/CD · DevOps · FinOps','Team hiring & mentorship'] }
+      ],
+      recognition: [{ t: 'Leadership Excellence', m: 'Apra Labs · Nov 2024' }, { t: 'Customer Appreciation', m: 'Apra Labs · Apr 2023' }, { t: 'Guiding Vision', m: 'Pravega X Fest' }]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Overpass:wght@400;600;800&family=Kalam:wght@400;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--desk:#CDB894;--grain:rgba(0,0,0,0.035);--paper:#FFFEF8;--ink:#15140F;--soft:#45423B;--muted:#6B675F;--acc:#94570A;--rule:#C8D8E8;--margin:#E8A0A0;--sh:rgba(40,25,5,0.25);--deskInk:#15140F;--deskMuted:#4A3E2C;--manila:#E9CF8F;--cat:#F3E9D2}
+:root[data-theme="dark"]{--desk:#231C15;--grain:rgba(255,255,255,0.025);--paper:#F2EDE0;--sh:rgba(0,0,0,0.55);--deskInk:#EDEBE6;--deskMuted:#B9A98E;--manila:#D9BD7A;--cat:#E8DDC4}
+html,body{margin:0;background:var(--desk);color:var(--ink);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:var(--acc);text-decoration:none}
+a:hover{color:#F5A623}
+::selection{background:#F5A623;color:#0F0F0E}
+</style>
+</helmet>
+<div style="min-height:100vh;background:var(--desk);background-image:repeating-linear-gradient(92deg,var(--grain) 0 3px,transparent 3px 14px),repeating-linear-gradient(88deg,var(--grain) 0 1px,transparent 1px 37px);font-family:'Overpass',sans-serif;font-size:16px;line-height:1.5;color:var(--ink);overflow-x:hidden">
+
+<header style="max-width:1280px;margin:0 auto;padding:22px clamp(16px,3vw,40px) 0;display:flex;align-items:center;gap:16px 24px;flex-wrap:wrap">
+  <a onClick="{{ go.home }}" style="cursor:pointer;display:flex;align-items:center;gap:12px;color:var(--deskInk)">
+    <span style="width:40px;height:40px;border-radius:50%;background:#F5A623;color:#0F0F0E;display:grid;place-items:center;font-weight:800;font-size:14px;box-shadow:0 4px 8px var(--sh)">SD</span>
+    <span style="display:flex;flex-direction:column;line-height:1.1"><span style="font-family:'Kalam',cursive;font-size:26px;font-weight:700">Siddharth Deshpande</span><span style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--deskMuted)">Associate Architect · Applied AI</span></span>
+  </a>
+  <nav style="flex:{{ navFlex }};order:{{ navOrder }};display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+    <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+      <a onClick="{{ n.go }}" style="cursor:pointer;padding:9px 16px 7px;background:{{ n.bg }};color:#15140F;font-family:'Kalam',cursive;font-size:19px;font-weight:700;line-height:1.1;box-shadow:0 4px 8px var(--sh);transform:rotate({{ n.r }})" style-hover="color:#15140F;transform:rotate(0deg) translateY(-2px)">{{ n.label }}</a>
+    </sc-for>
+    <a href="https://medium.com/@siddharthanantdeshpande" target="_blank" rel="noopener" style="padding:9px 16px 7px;background:var(--paper);color:#15140F;font-family:'Kalam',cursive;font-size:19px;font-weight:700;line-height:1.1;box-shadow:0 4px 8px var(--sh);transform:rotate(1.5deg)" style-hover="color:#15140F">Writing ↗</a>
+  </nav>
+  <div style="display:flex;align-items:center;gap:10px;margin-left:auto">
+    <button onClick="{{ toggleTheme }}" style="display:flex;align-items:center;gap:8px;padding:8px 14px 8px 9px;border-radius:999px;border:0;background:#15140F;color:#F5A623;font-family:'Overpass',sans-serif;font-weight:800;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 8px var(--sh)">
+      <span style="position:relative;width:30px;height:16px;border-radius:999px;background:#3A3832"><span style="position:absolute;top:3px;left:{{ knobLeft }};width:10px;height:10px;border-radius:50%;background:#F5A623;transition:left .2s"></span></span>{{ themeLabel }}
+    </button>
+    <a href="mailto:dsiddharth2@gmail.com" style="padding:10px 16px;background:#F5A623;color:#0F0F0E;font-weight:800;font-size:14px;box-shadow:0 4px 8px var(--sh);transform:rotate(-1deg)" style-hover="color:#0F0F0E;background:#FFC35A">Get in Touch</a>
+  </div>
+</header>
+
+<main style="max-width:1280px;margin:0 auto;padding:36px clamp(16px,3vw,40px) 0">
+
+<!-- ================= HOME ================= -->
+<sc-if value="{{ is.home }}" hint-placeholder-val="{{ true }}">
+  <section style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+    <div style="flex:0 1 320px;position:relative;padding:14px 14px 58px;background:#FFFFFF;box-shadow:0 14px 28px var(--sh);transform:rotate(-4deg);margin:10px auto 0">
+      <span style="position:absolute;top:-12px;left:50%;margin-left:-50px;width:100px;height:26px;background:rgba(245,232,190,0.75);transform:rotate(3deg)"></span>
+      <img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="display:block;width:100%;aspect-ratio:1;object-fit:cover;background:#DAD4C7">
+      <span style="position:absolute;left:0;right:0;bottom:14px;text-align:center;font-family:'Kalam',cursive;font-size:22px;color:#15140F">Siddharth, Associate Architect</span>
+    </div>
+    <div style="flex:1 1 520px;position:relative;padding:36px clamp(24px,3vw,44px) 32px;background:var(--paper);background-image:repeating-linear-gradient(transparent 0 35px,var(--rule) 35px 36px);box-shadow:0 12px 24px var(--sh);transform:rotate(0.6deg)">
+      <span style="position:absolute;left:clamp(40px,4vw,60px);top:0;bottom:0;width:2px;background:var(--margin)"></span>
+      <div style="padding-left:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:'Kalam',cursive;font-size:22px;color:var(--acc)">Mission —</span>
+        <h1 style="margin:0;font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(40px,5vw,68px);line-height:1;color:#15140F;text-wrap:balance">Production AI systems for complex, real-world problems.</h1>
+        <p style="margin:0;font-family:'Kalam',cursive;font-size:21px;line-height:1.7;color:#45423B;text-wrap:pretty">I work the full path from ambiguous problem to production: understanding the problem, designing the system, building it, deploying it, and iterating once people are using it.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:6px">
+          <a onClick="{{ go.projects }}" style="cursor:pointer;padding:12px 20px;background:#15140F;color:#F5A623;font-weight:800;transform:rotate(-1deg)" style-hover="color:#FFC35A">View my work →</a>
+          <a onClick="{{ go.resume }}" style="cursor:pointer;padding:12px 20px;border:2px solid #15140F;color:#15140F;font-weight:800;transform:rotate(1deg)" style-hover="color:#15140F;background:#FFF3A8">Resume</a>
+          <span style="display:flex;gap:14px;align-items:center;font-family:'Kalam',cursive;font-size:18px">
+            <a href="https://github.com/dsiddharth2" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://www.linkedin.com/in/dsiddharth2/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-wrap:wrap;gap:26px;justify-content:center;padding:56px 0 0">
+    <sc-for list="{{ stickies }}" as="s" hint-placeholder-count="5">
+      <div style="width:190px;min-height:170px;padding:18px;background:{{ s.bg }};box-shadow:0 10px 16px var(--sh);transform:rotate({{ s.r }});display:flex;flex-direction:column;justify-content:space-between;gap:12px;font-family:'Kalam',cursive;color:#15140F">
+        <span style="font-size:56px;line-height:0.9;font-weight:700">{{ s.v }}</span>
+        <span style="font-size:19px;line-height:1.15">{{ s.l }}</span>
+      </div>
+    </sc-for>
+  </section>
+
+  <h2 style="margin:88px 0 8px;font-family:'Kalam',cursive;font-weight:700;font-size:clamp(34px,4vw,48px);line-height:1.05;color:var(--deskInk)">What I Build ↓</h2>
+  <p style="margin:0 0 32px;font-family:'Kalam',cursive;font-size:21px;color:var(--deskMuted)">Four kinds of problem keep landing on my desk.</p>
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:28px">
+    <sc-for list="{{ build }}" as="b" hint-placeholder-count="4">
+      <div style="position:relative;background:#FFFFFF;background-image:linear-gradient(transparent 56px,#E8A0A0 56px 58px,transparent 58px),repeating-linear-gradient(transparent 0 27px,#DCE6F0 27px 28px);background-position:0 0,0 58px;box-shadow:0 10px 20px var(--sh);transform:rotate({{ b.r }});padding:18px 20px 22px;display:flex;flex-direction:column;gap:12px;color:#15140F">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;height:30px"><span style="font-family:'DM Serif Display',serif;font-size:24px">{{ b.title }}</span><span style="font-family:'Kalam',cursive;color:var(--acc);font-size:18px">#{{ b.n }}</span></div>
+        <p style="margin:6px 0 0;font-family:'Kalam',cursive;font-size:18px;line-height:28px">{{ b.problem }}</p>
+        <p style="margin:0;font-size:14px;line-height:28px;color:#45423B;flex:1">{{ b.what }}</p>
+        <a href="{{ b.href }}" style="font-family:'Kalam',cursive;font-size:18px;font-weight:700">→ {{ b.link }}</a>
+      </div>
+    </sc-for>
+  </section>
+
+  <div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin:96px 0 36px">
+    <div><h2 style="margin:0;font-family:'Kalam',cursive;font-weight:700;font-size:clamp(34px,4vw,48px);line-height:1.05;color:var(--deskInk)">Case Studies</h2><p style="margin:6px 0 0;font-family:'Kalam',cursive;font-size:21px;color:var(--deskMuted)">Systems I took from problem to production.</p></div>
+    <a onClick="{{ go.projects }}" style="cursor:pointer;font-family:'Kalam',cursive;font-size:20px;font-weight:700;color:var(--deskInk)">All case studies →</a>
+  </div>
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:44px 32px">
+    <sc-for list="{{ cases }}" as="c" hint-placeholder-count="3">
+      <article style="position:relative;margin-top:26px;transform:rotate({{ c.r }})">
+        <span style="position:absolute;top:-26px;left:0;padding:5px 18px 4px;background:var(--manila);border-radius:8px 8px 0 0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#4A3B17">{{ c.cat }}</span>
+        <div style="background:var(--manila);box-shadow:0 12px 22px var(--sh);padding:22px;display:flex;flex-direction:column;gap:14px;color:#15140F">
+          <div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:'DM Serif Display',serif;font-size:72px;line-height:0.85">{{ c.mv }}</span><span style="font-family:'Kalam',cursive;font-size:18px">{{ c.ml }}</span></div>
+          <h3 style="margin:0;font-family:'DM Serif Display',serif;font-weight:400;font-size:28px;line-height:1.05">{{ c.title }}</h3>
+          <p style="margin:0;font-size:15px;line-height:1.5">{{ c.summary }}</p>
+          <div style="position:relative;background:#FFFFFF;padding:16px 16px 14px;box-shadow:0 4px 8px rgba(0,0,0,0.15);transform:rotate(-1deg);display:flex;flex-direction:column;gap:10px;font-size:13px">
+            <span style="position:absolute;top:-10px;right:24px;width:14px;height:34px;border:3px solid #8A8A8A;border-radius:8px"></span>
+            <div><b style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6B675F">Problem</b><br>{{ c.problem }}</div>
+            <div><b style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6B675F">Hardest constraint</b><br>{{ c.constraint }}</div>
+            <div><b style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6B675F">Approach</b><br>{{ c.approach }}</div>
+          </div>
+          <div style="font-family:'Kalam',cursive;font-size:19px;line-height:1.3"><span style="background:linear-gradient(transparent 55%,#F5A623 55%)">Key decision: {{ c.decision }}</span></div>
+          <a href="{{ c.href }}" style="font-weight:800;font-size:14px;color:#15140F" style-hover="color:#94570A">Read the case study →</a>
+        </div>
+      </article>
+    </sc-for>
+  </section>
+
+  <div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin:96px 0 32px">
+    <div><h2 style="margin:0;font-family:'Kalam',cursive;font-weight:700;font-size:clamp(34px,4vw,48px);line-height:1.05;color:var(--deskInk)">Experience</h2><p style="margin:6px 0 0;font-family:'Kalam',cursive;font-size:21px;color:var(--deskMuted)">Where I've made an impact</p></div>
+    <a onClick="{{ go.experience }}" style="cursor:pointer;font-family:'Kalam',cursive;font-size:20px;font-weight:700;color:var(--deskInk)">Full work history →</a>
+  </div>
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:32px">
+    <sc-for list="{{ exp }}" as="e" hint-placeholder-count="3">
+      <div style="position:relative;background:var(--paper);box-shadow:0 10px 20px var(--sh);transform:rotate({{ e.r }});padding:26px 24px;display:flex;flex-direction:column;gap:12px;font-family:'Courier Prime',monospace;color:#15140F">
+        <span style="position:absolute;top:-12px;left:50%;margin-left:-45px;width:90px;height:24px;background:rgba(245,232,190,0.75);transform:rotate(-3deg)"></span>
+        <span style="font-size:13px;color:#94570A">{{ e.dates }}</span>
+        <span style="font-family:'DM Serif Display',serif;font-size:32px;line-height:1">{{ e.co }}</span>
+        <span style="font-size:13px;color:#6B675F">{{ e.role }}</span>
+        <p style="margin:0;font-size:15px;line-height:1.5">{{ e.summary }}</p>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-size:13px;color:#45423B"><sc-for list="{{ e.short }}" as="li" hint-placeholder-count="3"><li>— {{ li }}</li></sc-for></ul>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:6px"><sc-for list="{{ e.metrics }}" as="m" hint-placeholder-count="3"><span style="padding:4px 10px;border:2px solid #94570A;color:#94570A;font-weight:700;font-size:12px;transform:rotate(-2deg)">{{ m.v }} {{ m.l }}</span></sc-for></div>
+        <a href="{{ e.href }}" style="font-family:'Kalam',cursive;font-size:18px;font-weight:700">{{ e.more }} →</a>
+      </div>
+    </sc-for>
+  </section>
+
+  <div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin:96px 0 32px">
+    <div><h2 style="margin:0;font-family:'Kalam',cursive;font-weight:700;font-size:clamp(34px,4vw,48px);line-height:1.05;color:var(--deskInk)">Open Source</h2><p style="margin:6px 0 0;font-family:'Kalam',cursive;font-size:21px;color:var(--deskMuted)">Code other people run in production</p></div>
+    <a onClick="{{ go.oss }}" style="cursor:pointer;font-family:'Kalam',cursive;font-size:20px;font-weight:700;color:var(--deskInk)">All open source →</a>
+  </div>
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:32px">
+    <sc-for list="{{ ossHome }}" as="o" hint-placeholder-count="2">
+      <div style="position:relative;background:var(--cat);background-image:repeating-linear-gradient(transparent 0 29px,rgba(148,87,10,0.18) 29px 30px);box-shadow:0 10px 20px var(--sh);transform:rotate({{ o.r }});padding:22px 24px 40px;display:flex;flex-direction:column;gap:8px;font-family:'Courier Prime',monospace;color:#15140F">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#6B675F"><span>OSS-{{ o.n }}</span><span style="color:#94570A;font-weight:700">{{ o.lang }}</span></div>
+        <span style="font-family:'DM Serif Display',serif;font-size:40px;line-height:1">{{ o.title }}</span>
+        <span style="font-size:15px">{{ o.sub }}</span>
+        <span style="font-size:12px;color:#45423B">{{ o.tagline }}</span>
+        <div style="display:flex;gap:18px;font-family:'Kalam',cursive;font-size:18px;font-weight:700;margin-top:6px"><a href="{{ o.href }}">View More →</a><a href="{{ o.gh }}" target="_blank" rel="noopener">GitHub ↗</a></div>
+        <span style="position:absolute;bottom:12px;left:50%;margin-left:-8px;width:16px;height:16px;border-radius:50%;background:var(--desk);box-shadow:inset 0 2px 3px rgba(0,0,0,0.3)"></span>
+      </div>
+    </sc-for>
+  </section>
+</sc-if>
+
+<!-- ================= ABOUT ================= -->
+<sc-if value="{{ is.about }}" hint-placeholder-val="{{ false }}">
+  <section style="display:flex;flex-wrap:wrap;gap:44px;align-items:flex-start">
+    <div style="flex:0 1 360px;display:flex;flex-direction:column;gap:30px;margin:0 auto">
+      <div style="position:relative;padding:16px 16px 64px;background:#FFFFFF;box-shadow:0 14px 28px var(--sh);transform:rotate(-3deg)">
+        <span style="position:absolute;top:-12px;left:50%;margin-left:-50px;width:100px;height:26px;background:rgba(245,232,190,0.75);transform:rotate(-2deg)"></span>
+        <img src="https://siddharthdeshpande.com/images/profile.jpg" alt="Siddharth Deshpande" style="display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#DAD4C7">
+        <span style="position:absolute;left:0;right:0;bottom:16px;text-align:center;font-family:'Kalam',cursive;font-size:24px;color:#15140F">Siddharth Deshpande</span>
+      </div>
+      <div style="padding:18px;background:#F5A623;box-shadow:0 10px 16px var(--sh);transform:rotate(2deg);font-family:'Kalam',cursive;font-size:20px;line-height:1.3;color:#15140F">Associate Architect · Systems Builder · Engineering Leader</div>
+    </div>
+    <div style="flex:1 1 540px;position:relative;padding:40px clamp(24px,3vw,48px) 36px;background:var(--paper);background-image:repeating-linear-gradient(transparent 0 33px,var(--rule) 33px 34px);box-shadow:0 12px 24px var(--sh);transform:rotate(0.4deg)">
+      <span style="position:absolute;left:clamp(40px,4vw,60px);top:0;bottom:0;width:2px;background:var(--margin)"></span>
+      <div style="padding-left:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:16px;color:#15140F">
+        <span style="font-family:'Kalam',cursive;font-size:22px;color:var(--acc)">About —</span>
+        <h1 style="margin:0;font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(44px,5vw,72px);line-height:0.95">Siddharth Deshpande</h1>
+        <p style="margin:0;font-family:'Kalam',cursive;font-size:22px;line-height:1.55">12 years of turning ambiguous problems into production systems — ERPs, AI platforms, multi-agent pipelines — across startups and enterprise. I don't just write code; I own the outcome end to end.</p>
+        <span style="font-family:'Kalam',cursive;font-size:22px;color:var(--acc);margin-top:8px">Background —</span>
+        <div style="display:flex;flex-direction:column;gap:16px;font-size:16px;line-height:34px;color:#45423B">
+          <p style="margin:0">I've been building software products for over 12 years, starting as an intern at a college incubation center and growing into an Associate Architect role where I manage multiple clients and lead engineering teams. My career has followed a consistent pattern: find a problem nobody's solving, take full ownership, and ship a production system that people depend on every day.</p>
+          <p style="margin:0">At <b style="color:#15140F;background:linear-gradient(transparent 60%,#F5A623 60%)">Apra Labs</b>, I joined as a Senior Software Engineer and now serve as Associate Architect. I've built the AI and data platform layer for a unified facility management product serving 300+ US facilities. This includes a GraphRAG knowledge engine over 150K documents, a multi-agent conversational AI system querying a 4 TB database, an automated code review pipeline, a cloud cost intelligence agent that reduced Azure spend by 30%, and an infrastructure performance agent. I manage 3 clients simultaneously and mentor a team of 4 engineers.</p>
+          <p style="margin:0">Before that, I spent 3 years at <b style="color:#15140F;background:linear-gradient(transparent 60%,#F5A623 60%)">MildlyClassic</b>, where I built a mission-critical logistics ERP from scratch — Finance, Operations, Booking, Hub Management, CRM, Route Planning — that grew to 2,500 daily users handling 70,000 dockets per month for secure jewellery logistics across India. I hired 7 engineers and established the engineering process from the ground up.</p>
+          <p style="margin:0">Earlier, I co-founded <b style="color:#15140F;background:linear-gradient(transparent 60%,#F5A623 60%)">UXgage</b>, a behavioral analytics startup that won a ₹5L cash prize from Sandbox Startups in 6 months, with office space and Azure infrastructure granted separately. I also founded <b style="color:#15140F;background:linear-gradient(transparent 60%,#F5A623 60%)">Samvit Learning</b>, a software training institute during my MCA, where I trained 250+ students in web programming.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h2 style="margin:88px 0 32px;font-family:'Kalam',cursive;font-weight:700;font-size:clamp(34px,4vw,48px);line-height:1.05;color:var(--deskInk)">What I do</h2>
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:28px">
+    <sc-for list="{{ whatIDo }}" as="w" hint-placeholder-count="4">
+      <div style="background:#FFFFFF;background-image:linear-gradient(transparent 56px,#E8A0A0 56px 58px,transparent 58px),repeating-linear-gradient(transparent 0 27px,#DCE6F0 27px 28px);background-position:0 0,0 58px;box-shadow:0 10px 20px var(--sh);transform:rotate({{ w.r }});padding:18px 20px 22px;display:flex;flex-direction:column;gap:12px;color:#15140F">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;height:30px"><span style="font-family:'DM Serif Display',serif;font-size:22px;line-height:1.1">{{ w.title }}</span><span style="font-family:'Kalam',cursive;color:var(--acc);font-size:18px">#{{ w.n }}</span></div>
+        <p style="margin:6px 0 0;font-size:14px;line-height:28px;color:#45423B">{{ w.text }}</p>
+      </div>
+    </sc-for>
+  </section>
+
+  <section style="display:flex;flex-wrap:wrap;gap:40px;margin-top:88px;align-items:flex-start">
+    <div style="flex:2 1 520px;background:#FFFFFF;background-image:linear-gradient(#E3EAF2 1px,transparent 1px),linear-gradient(90deg,#E3EAF2 1px,transparent 1px);background-size:22px 22px;box-shadow:0 12px 22px var(--sh);transform:rotate(-0.6deg);padding:28px;display:flex;flex-direction:column;gap:18px;color:#15140F">
+      <h2 style="margin:0;font-family:'DM Serif Display',serif;font-weight:400;font-size:36px">Technical expertise</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:20px">
+        <sc-for list="{{ expertise }}" as="g" hint-placeholder-count="4">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#94570A">{{ g.title }}</span>
+            <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3"><span style="font-family:'Kalam',cursive;font-size:19px;line-height:1.3">☑ {{ it }}</span></sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:1 1 320px;display:flex;flex-direction:column;gap:30px">
+      <div style="position:relative;background:var(--paper);border:6px double #94570A;box-shadow:0 12px 22px var(--sh);transform:rotate(1.4deg);padding:26px;text-align:center;display:flex;flex-direction:column;gap:6px;color:#15140F">
+        <span style="font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#94570A">Education</span>
+        <span style="font-family:'DM Serif Display',serif;font-size:26px;line-height:1.1">Master of Computer Applications (MCA)</span>
+        <span style="font-family:'Kalam',cursive;font-size:18px;color:#45423B">Gogte Institute of Technology, Belgaum</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:'Kalam',cursive;font-weight:700;font-size:28px;color:var(--deskInk)">Recognition</span>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <sc-for list="{{ recognition }}" as="r" hint-placeholder-count="3">
+            <div style="width:150px;height:150px;border-radius:50%;background:#F5A623;border:4px dashed #15140F;box-shadow:0 8px 14px var(--sh);transform:rotate({{ r.r }});display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;color:#15140F">
+              <span style="font-family:'DM Serif Display',serif;font-size:18px;line-height:1.05">{{ r.t }}</span>
+              <span style="font-size:10px;font-weight:800;margin-top:6px;letter-spacing:0.04em">{{ r.m }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<!-- ================= EXPERIENCE ================= -->
+<sc-if value="{{ is.experience }}" hint-placeholder-val="{{ false }}">
+  <section style="display:flex;flex-wrap:wrap;gap:24px 40px;align-items:end;margin-bottom:48px">
+    <div style="flex:1 1 520px;display:flex;flex-direction:column;gap:10px">
+      <span style="font-family:'Kalam',cursive;font-size:22px;color:var(--deskMuted)">Experience —</span>
+      <h1 style="margin:0;font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(48px,6vw,88px);line-height:0.95;color:var(--deskInk)">Where I've made an impact</h1>
+    </div>
+    <div style="flex:0 1 340px;padding:18px 20px;background:#FFF3A8;box-shadow:0 10px 16px var(--sh);transform:rotate(2deg);font-family:'Kalam',cursive;font-size:19px;line-height:1.35;color:#15140F">12 years shipping production systems — from a training institute and 0-to-1 products through logistics ERP and an AI platform serving 300+ facilities.</div>
+  </section>
+  <section style="display:flex;flex-direction:column;gap:64px">
+    <sc-for list="{{ exp }}" as="e" hint-placeholder-count="3">
+      <article style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+        <div style="flex:2 1 560px;position:relative;margin-top:26px;transform:rotate({{ e.r }})">
+          <span style="position:absolute;top:-26px;left:24px;padding:5px 18px 4px;background:var(--manila);border-radius:8px 8px 0 0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#4A3B17">{{ e.dates }}</span>
+          <div style="background:var(--manila);box-shadow:0 12px 22px var(--sh);padding:18px">
+            <div style="background:var(--paper);padding:28px clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:14px;font-family:'Courier Prime',monospace;color:#15140F;box-shadow:0 2px 6px rgba(0,0,0,0.12)">
+              <div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap">
+                <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'DM Serif Display',serif;font-size:clamp(36px,4vw,52px);line-height:0.95">{{ e.co }}</span><span style="font-size:14px;color:#6B675F">{{ e.role }}</span></div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ e.metrics }}" as="m" hint-placeholder-count="3"><span style="padding:6px 10px;border:2px solid #94570A;color:#94570A;font-weight:700;font-size:12px;transform:rotate(-3deg);text-align:center;line-height:1.2"><b style="font-size:18px">{{ m.v }}</b><br>{{ m.l }}</span></sc-for></div>
+              </div>
+              <p style="margin:0;font-size:17px;line-height:1.5">{{ e.summary }}</p>
+              <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14px;color:#45423B"><sc-for list="{{ e.bullets }}" as="li" hint-placeholder-count="4"><li>— {{ li }}</li></sc-for></ul>
+              <a href="{{ e.href }}" style="font-family:'Kalam',cursive;font-size:19px;font-weight:700">View More →</a>
+            </div>
+          </div>
+        </div>
+        <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:28px;padding-top:20px">
+          <div style="padding:22px;background:#F5A623;box-shadow:0 10px 16px var(--sh);transform:rotate({{ e.r2 }});display:flex;flex-direction:column;gap:10px;color:#15140F">
+            <span style="font-family:'Kalam',cursive;font-weight:700;font-size:22px">{{ e.leadTitle }}</span>
+            <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-family:'Kalam',cursive;font-size:17px;line-height:1.3"><sc-for list="{{ e.lead }}" as="li" hint-placeholder-count="3"><li>• {{ li }}</li></sc-for></ul>
+          </div>
+          <sc-if value="{{ e.hasNote }}" hint-placeholder-val="{{ false }}">
+            <div style="position:relative;padding:20px;background:var(--paper);box-shadow:0 8px 14px var(--sh);transform:rotate(-2deg);display:flex;flex-direction:column;gap:8px;color:#15140F">
+              <span style="position:absolute;top:-12px;left:30px;width:80px;height:24px;background:rgba(245,232,190,0.75);transform:rotate(4deg)"></span>
+              <span style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#94570A">{{ e.noteTitle }}</span>
+              <p style="margin:0;font-family:'Kalam',cursive;font-size:17px;line-height:1.4">{{ e.note }}</p>
+            </div>
+          </sc-if>
+        </div>
+      </article>
+    </sc-for>
+    <article style="display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap"><h2 style="margin:0;font-family:'DM Serif Display',serif;font-weight:400;font-size:48px;color:var(--deskInk)">Earlier</h2><span style="font-family:'Kalam',cursive;font-size:22px;color:var(--deskMuted)">2010 – 2016</span></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:28px">
+        <sc-for list="{{ earlier }}" as="x" hint-placeholder-count="3">
+          <div style="background:#FFFFFF;background-image:linear-gradient(transparent 56px,#E8A0A0 56px 58px,transparent 58px),repeating-linear-gradient(transparent 0 27px,#DCE6F0 27px 28px);background-position:0 0,0 58px;box-shadow:0 10px 20px var(--sh);transform:rotate({{ x.r }});padding:18px 20px 22px;display:flex;flex-direction:column;gap:10px;color:#15140F">
+            <span style="font-family:'DM Serif Display',serif;font-size:26px;line-height:30px">{{ x.name }}</span>
+            <span style="font-size:12px;font-weight:700;color:#94570A;line-height:28px;margin-top:4px">{{ x.meta }}</span>
+            <p style="margin:0;font-size:14px;line-height:28px;color:#45423B">{{ x.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <a href="https://siddharthdeshpande.com/experience/earlier" style="font-family:'Kalam',cursive;font-size:20px;font-weight:700;color:var(--deskInk)">View More →</a>
+    </article>
+  </section>
+</sc-if>
+
+<!-- ================= CASE STUDIES / PRODUCTS ================= -->
+<sc-if value="{{ is.projects }}" hint-placeholder-val="{{ false }}">
+  <section style="display:flex;flex-wrap:wrap;gap:24px 40px;align-items:end;margin-bottom:48px">
+    <div style="flex:1 1 520px;display:flex;flex-direction:column;gap:10px">
+      <span style="font-family:'Kalam',cursive;font-size:22px;color:var(--deskMuted)">Products —</span>
+      <h1 style="margin:0;font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(48px,6vw,88px);line-height:0.95;color:var(--deskInk)">Systems I've architected and shipped</h1>
+    </div>
+    <div style="flex:0 1 340px;padding:18px 20px;background:#FFD6A0;box-shadow:0 10px 16px var(--sh);transform:rotate(-2deg);font-family:'Kalam',cursive;font-size:19px;line-height:1.35;color:#15140F">Production systems across knowledge graphs, multi-agent AI, FinOps, search, logistics, and analytics — from 0-to-1 through enterprise scale.</div>
+  </section>
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:34px 28px">
+    <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
+      <a href="{{ p.href }}" style="position:relative;background:#FFFFFF;background-image:linear-gradient(transparent 84px,#E8A0A0 84px 86px,transparent 86px),repeating-linear-gradient(transparent 0 27px,#DCE6F0 27px 28px);background-position:0 0,0 86px;box-shadow:0 10px 20px var(--sh);transform:rotate({{ p.r }});padding:18px 20px 22px;display:flex;flex-direction:column;gap:10px;color:#15140F" style-hover="color:#15140F;transform:rotate(0deg) translateY(-4px)">
+        <sc-if value="{{ p.isCase }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:14px;right:-8px;padding:4px 12px;border:3px solid #B23A1E;color:#B23A1E;font-weight:800;font-size:12px;letter-spacing:0.1em;transform:rotate(8deg);background:rgba(255,255,255,0.85)">CASE STUDY</span></sc-if>
+        <div style="height:56px;display:flex;flex-direction:column;justify-content:flex-end"><span style="font-family:'Kalam',cursive;font-size:16px;color:var(--acc)">#{{ p.n }}</span><span style="font-family:'DM Serif Display',serif;font-size:23px;line-height:1.05">{{ p.title }}</span></div>
+        <span style="font-size:12px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#6B675F;margin-top:12px">{{ p.sub }}</span>
+        <p style="margin:0;font-size:14px;line-height:28px;color:#45423B;flex:1">{{ p.desc }}</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="4"><span style="font-family:'Kalam',cursive;font-size:15px;padding:0 8px;background:#FFF3A8">{{ t }}</span></sc-for></div>
+        <span style="font-family:'Kalam',cursive;font-size:18px;font-weight:700;color:#94570A">View More →</span>
+      </a>
+    </sc-for>
+  </section>
+</sc-if>
+
+<!-- ================= OPEN SOURCE ================= -->
+<sc-if value="{{ is.oss }}" hint-placeholder-val="{{ false }}">
+  <section style="display:flex;flex-wrap:wrap;gap:24px 40px;align-items:end;margin-bottom:48px">
+    <div style="flex:1 1 520px;display:flex;flex-direction:column;gap:10px">
+      <span style="font-family:'Kalam',cursive;font-size:22px;color:var(--deskMuted)">Open Source —</span>
+      <h1 style="margin:0;font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(48px,6vw,88px);line-height:0.95;color:var(--deskInk)">Giving back to the community</h1>
+    </div>
+    <div style="flex:0 1 340px;padding:18px 20px;background:#FFF3A8;box-shadow:0 10px 16px var(--sh);transform:rotate(2deg);font-family:'Kalam',cursive;font-size:19px;line-height:1.35;color:#15140F">Tools I build in public — package managers, review pipelines, libraries, and UI plugins other engineers actually use.</div>
+  </section>
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:36px">
+    <sc-for list="{{ oss }}" as="o" hint-placeholder-count="4">
+      <div style="position:relative;background:var(--cat);background-image:repeating-linear-gradient(transparent 0 29px,rgba(148,87,10,0.18) 29px 30px);box-shadow:0 10px 20px var(--sh);transform:rotate({{ o.r }});padding:24px 26px 44px;display:flex;flex-direction:column;gap:10px;font-family:'Courier Prime',monospace;color:#15140F">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#6B675F"><span>OSS-{{ o.n }}</span><span style="color:#94570A;font-weight:700">{{ o.lang }}</span></div>
+        <span style="font-family:'DM Serif Display',serif;font-size:46px;line-height:1">{{ o.title }}</span>
+        <span style="font-size:16px;font-weight:700">{{ o.sub }}</span>
+        <p style="margin:0;font-size:14px;line-height:30px;color:#45423B">{{ o.desc }}</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ o.tags }}" as="t" hint-placeholder-count="4"><span style="font-family:'Kalam',cursive;font-size:15px;padding:0 8px;background:#FFFEF8">{{ t }}</span></sc-for></div>
+        <div style="display:flex;gap:18px;font-family:'Kalam',cursive;font-size:19px;font-weight:700;margin-top:4px"><a href="{{ o.href }}">View More →</a><a href="{{ o.gh }}" target="_blank" rel="noopener">GitHub ↗</a></div>
+        <span style="position:absolute;bottom:14px;left:50%;margin-left:-8px;width:16px;height:16px;border-radius:50%;background:var(--desk);box-shadow:inset 0 2px 3px rgba(0,0,0,0.3)"></span>
+      </div>
+    </sc-for>
+  </section>
+</sc-if>
+
+<!-- ================= RESUME ================= -->
+<sc-if value="{{ is.resume }}" hint-placeholder-val="{{ false }}">
+  <section style="position:relative;max-width:980px;margin:20px auto 64px;padding:70px 26px 26px;background:#8A6A44;border-radius:18px;box-shadow:0 16px 30px var(--sh)">
+    <span style="position:absolute;top:-18px;left:50%;margin-left:-90px;width:180px;height:56px;border-radius:12px;background:linear-gradient(#D9D9D9,#9A9A9A);box-shadow:0 4px 8px rgba(0,0,0,0.3)"></span>
+    <div style="position:absolute;top:18px;left:26px;right:26px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <span style="font-family:'Kalam',cursive;font-weight:700;font-size:26px;color:#FFF3E0">Resume</span>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="https://siddharthdeshpande.com/Siddharth_Deshpande.pdf" target="_blank" rel="noopener" style="padding:8px 14px;background:#F5A623;color:#0F0F0E;font-weight:800;font-size:13px" style-hover="color:#0F0F0E;background:#FFC35A">Download PDF</a>
+        <a onClick="{{ printPdf }}" style="cursor:pointer;padding:8px 14px;background:#FFFEF8;color:#15140F;font-weight:800;font-size:13px" style-hover="color:#15140F">Print</a>
+        <a onClick="{{ go.home }}" style="cursor:pointer;padding:8px 14px;background:#15140F;color:#FFFEF8;font-weight:800;font-size:13px" style-hover="color:#F5A623">Close</a>
+      </div>
+    </div>
+    <iframe src="https://siddharthdeshpande.com/Siddharth_Deshpande.pdf" title="Resume PDF" style="display:block;width:100%;height:calc(100vh - 220px);min-height:620px;border:0;background:#FFFEF8;margin-top:12px"></iframe>
+  </section>
+</sc-if>
+
+<!-- ================= CONTACT ================= -->
+<sc-if value="{{ showContact }}" hint-placeholder-val="{{ true }}">
+  <section style="display:flex;flex-wrap:wrap;gap:40px;align-items:center;justify-content:center;padding:120px 0 40px">
+    <div style="flex:1 1 560px;max-width:720px;position:relative;background:#F5A623;box-shadow:0 16px 30px var(--sh);transform:rotate(-1.2deg);padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:18px;color:#0F0F0E;overflow:hidden">
+      <span style="position:absolute;inset:0 0 auto 0;height:52%;background:linear-gradient(to bottom right,transparent 49.5%,rgba(15,15,14,0.12) 50%,transparent 50.5%),linear-gradient(to bottom left,transparent 49.5%,rgba(15,15,14,0.12) 50%,transparent 50.5%);pointer-events:none"></span>
+      <div style="display:flex;justify-content:space-between;align-items:start;gap:16px">
+        <span style="font-size:12px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase">Get in Touch</span>
+        <span style="width:70px;height:84px;border:3px dotted #0F0F0E;display:grid;place-items:center;font-family:'Kalam',cursive;font-size:13px;transform:rotate(4deg);text-align:center;line-height:1.1">₹ SD<br>2026</span>
+      </div>
+      <h2 style="position:relative;margin:0;font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(44px,6vw,80px);line-height:0.95">Let's build something great.</h2>
+      <p style="position:relative;margin:0;font-family:'Kalam',cursive;font-size:21px">Always open to interesting problems and collaborations.</p>
+      <div style="position:relative;display:flex;gap:10px;flex-wrap:wrap">
+        <a href="mailto:dsiddharth2@gmail.com" style="padding:13px 22px;background:#0F0F0E;color:#F5A623;font-weight:800" style-hover="color:#FFC35A">Let's Talk →</a>
+        <a onClick="{{ go.resume }}" style="cursor:pointer;padding:13px 22px;border:2px solid #0F0F0E;color:#0F0F0E;font-weight:800" style-hover="color:#0F0F0E;background:rgba(15,15,14,0.08)">View Resume</a>
+      </div>
+    </div>
+    <div style="flex:0 1 320px;background:#15140F;color:#EDEBE6;box-shadow:0 14px 26px var(--sh);transform:rotate(3deg);padding:26px;display:flex;flex-direction:column;gap:12px">
+      <span style="font-family:'DM Serif Display',serif;font-size:28px;line-height:1;color:#F5A623">Siddharth Deshpande</span>
+      <span style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#B9B5AC">AI Architect · Production Systems</span>
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:14px;padding-top:10px;border-top:1px solid #3A3832">
+        <a href="mailto:dsiddharth2@gmail.com" style="color:#EDEBE6" style-hover="color:#F5A623">dsiddharth2@gmail.com</a>
+        <a href="https://www.linkedin.com/in/dsiddharth2/" target="_blank" rel="noopener" style="color:#EDEBE6" style-hover="color:#F5A623">LinkedIn ↗</a>
+        <a href="https://github.com/dsiddharth2" target="_blank" rel="noopener" style="color:#EDEBE6" style-hover="color:#F5A623">GitHub ↗</a>
+        <a href="https://medium.com/@siddharthanantdeshpande" target="_blank" rel="noopener" style="color:#EDEBE6" style-hover="color:#F5A623">Medium ↗</a>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<footer style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:20px 0 32px;font-family:'Kalam',cursive;font-size:17px;color:var(--deskMuted)"><span>© Siddharth Deshpande</span><span>AI Architect · Production Systems</span></footer>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { page: 'home', theme: 'light' };
+  componentDidMount() {
+    let t = 'light';
+    try { t = localStorage.getItem('sd-desk-theme') || 'light'; } catch (e) {}
+    this.applyTheme(t);
+    this.onResize = () => this.setState({ vw: window.innerWidth });
+    window.addEventListener('resize', this.onResize); this.onResize();
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); }
+  applyTheme(t) { document.documentElement.setAttribute('data-theme', t); try { localStorage.setItem('sd-desk-theme', t); } catch (e) {} this.setState({ theme: t }); }
+  nav = (p) => () => { this.setState({ page: p }); window.scrollTo(0, 0); };
+
+  data() {
+    if (this._d) return this._d;
+    const S = 'https://siddharthdeshpande.com';
+    const m = (a) => a.map(([v, l]) => ({ v, l }));
+    const R = ['-2deg', '1.5deg', '-1deg', '2deg', '-1.5deg', '1deg', '-2.5deg', '1.8deg'];
+    const rot = (arr) => arr.map((x, i) => ({ ...x, r: R[i % R.length] }));
+    const casesMap = {
+      'multi-agent': { cat: 'Enterprise AI', summary: 'Ask a building a question in plain English — five specialist agents over a 4 TB operations database, instead of five admin screens.', problem: '4 TB database with no usable natural-language interface', constraint: 'Generated SQL runs against live production data, so read-only validation and post-generation permission rewrite are non-negotiable', approach: 'Supervisor agent routes to 5 specialized agents — never answers itself', decision: 'Supervisor pattern, not a single monolithic agent', mv: '5', ml: 'specialized agents' },
+      'graphrag': { cat: 'Data & Knowledge Systems', summary: 'Turning 20K unstructured support tickets into an answerable knowledge base.', problem: 'Recurring tickets solved from scratch every time', constraint: 'No usable schema: free-text tickets with author-dependent vocabulary for the same concepts', approach: 'Two-stage ingest pipeline with graph extraction', decision: 'Two-stage pipeline: seconds-to-searchable, minutes-to-graph-enriched', mv: '20K', ml: 'support documents' },
+      'cloud-cost': { cat: 'Production Systems', summary: 'Finding out why the cloud bill moved — every night, before anyone has to ask. Identified 30% savings across the Azure estate.', problem: 'Cloud spend growing unchecked month over month', constraint: 'Attribution has to be defensible: a wrong cost claim sends an engineer down a multi-day dead end', approach: '19 collectors across 3 dependency phases — six Azure APIs, SQL DMVs, and the app database', decision: 'Deterministic answers first, LLM only where reasoning is required', mv: '30%', ml: 'cost reduction' }
+    };
+    const cases = rot(['multi-agent', 'graphrag', 'cloud-cost'].map(k => ({ ...casesMap[k], title: { 'multi-agent': 'Multi-Agent Conversational AI', graphrag: 'GraphRAG Knowledge Engine', 'cloud-cost': 'Cloud Cost Intelligence Agent' }[k], href: S + '/projects/' + k })));
+    const products = rot([
+      ['graphrag','GraphRAG Knowledge Engine','Enterprise knowledge graph pipeline','Full GraphRAG pipeline — ingests documents, builds knowledge graphs with entities, relationships, topics, and communities via vector similarity. 17 activity classes, 14 prompt templates.',['Python','Durable Functions','Cosmos DB','FAISS']],
+      ['multi-agent','Multi-Agent Conversational AI','Supervisor-pattern agent orchestration','Supervisor pattern routing to 5 specialized agents — Reporting, Admin, System Setup, Knowledge, and Support Tickets — across ~30 registry-driven tools. Natural-language SQL with permission rewrite, seven-collection RAG, 100+ report types, SignalR streaming of the reasoning trace.',['Python','LangChain','LangGraph','SignalR']],
+      ['code-review','AI Code Review Pipeline','CI/CD-integrated automated reviews','Automatically reviews pull requests with inline comments and star ratings. 10+ languages, penalty-based scoring, fix verification mode.',['Python','Azure DevOps','GPT']],
+      ['cloud-cost','Cloud Cost Intelligence Agent','Automated FinOps analysis','Nightly FinOps agent: 19 collectors across 3 phases, 13 anomaly detectors, 4-tier breach thresholds. 20+ standing questions answered deterministically; an LLM handles only the reasoning. Unused resources, query cost attribution, and rightsizing — 30% cost reduction.',['TypeScript','Azure Cost Mgmt','LLM']],
+      ['infra-perf','Infrastructure Performance Agent','Health scoring & regression detection','Composite health score (0–100) per service. Rolling 30-day baselines for regression detection. Nightly collection of Azure Monitor metrics and SQL DMV telemetry sampled at 15-second intervals, 13 anomaly checks, 4-tier breach thresholds — surfacing degradation before impact.',['TypeScript','Azure Monitor','Service Bus']],
+      ['search-sync','Search Index Sync Engine','Real-time & bulk search indexing','Synchronizing records into Azure AI Search. Bulk indexing via Durable Functions, real-time incremental sync via Service Bus.',['C# / .NET 8','Azure AI Search','Service Bus']],
+      ['logistics-erp','Secure Logistics ERP','PAN India logistics platform','End-to-end ERP — Finance, Operations, Booking, Hub Management, CRM, Route Planning. 2,500 daily users, 70K dockets/month.',['PHP','AWS','React','Node.js']],
+      ['uxgage','UXgage — Behavioral Analytics','Enterprise usability platform','Capturing clicks, mouse movements, text input, navigation and URL transitions to reconstruct actual user workflows. Built the entire stack from scratch.',['PHP','Neo4j','Cassandra','JavaScript']]
+    ].map(([slug, title, sub, desc, tags], i) => ({ n: String(i + 1).padStart(2, '0'), title, sub, desc, tags, href: S + '/projects/' + slug, isCase: !!casesMap[slug] })));
+    const exp = [
+      { co: 'Apra Labs', role: 'Associate Architect · previously Senior Software Engineer', dates: 'Aug 2019 – Present',
+        summary: 'Built the AI and data platform layer for a unified facility management product serving 300+ US facilities.',
+        bullets: ['Virtual Credentials — facility entry/exit across 300+ US buildings','Reporting platform — 1000s of reports per hour across 300+ tenants','Analytics platform from scratch — facility operations monitoring','GraphRAG pipeline — 150K support case documents, accurate answers','Interactive chat system over 4 TB database','Cloud Cost Agent — real-time Azure analysis, 30% cost reduction','Infrastructure Performance Agent — health scoring and regression detection'],
+        leadTitle: 'Leadership & Impact',
+        lead: ['Managing 3 clients with technical expertise, helping the team build and ship products','Leading a team of 4 as technical mentor across multiple projects','Architected all systems end-to-end','Led 10 community meetups on Saturdays','Campus hiring lead for 4 years — IIIT Dharwad & GIT Belgaum','Grew with the company from 10 engineers to 55 people'],
+        metrics: m([['300+','facilities served'],['30%','cloud costs reduced'],['10→55','team growth']]),
+        more: '4 more, and the leadership work', href: S + '/experience/apra-labs' },
+      { co: 'MildlyClassic', role: 'Engineering Team Lead', dates: 'May 2016 – May 2019',
+        summary: 'Built and scaled a mission-critical logistics ERP from scratch to 2,500 daily users handling 70K dockets/month.',
+        bullets: ['End-to-end ERP — Finance, Ops, Booking, Hub Management, CRM, Route Planning for PAN India secure logistics','Clients: large jewellery manufacturers shipping daily from manufacturing to retail','Bulk docket creation via upload, 70K dockets/month','Scaled from 100s to 2,500 daily users with zero downtime','Migrated DigitalOcean → AWS in 3 months after security incident'],
+        leadTitle: 'Leadership & Process',
+        lead: ['Hired 7 engineers, led the team through the full product lifecycle','Direct client interface — requirements to modules','Established 4-week release cycle — build, test, deploy monthly','System served entire company (Ops + Finance) all day, every day'],
+        hasNote: true, noteTitle: 'Meanwhile — Sister Company · Wifi Dabba → YC W17',
+        note: 'Pre-Jio era — built byte-counting and usage sync software on Wi-Fi hardware for Wifi Dabba, selling data at ₹2/100 MB. Built the Google NBU analytics platform for Hubballi. Hired 4-5 members post-funding.',
+        metrics: m([['70K','dockets/month'],['2.5K','daily users'],['7','engineers hired']]),
+        more: '2 more, and the leadership work', href: S + '/experience/mildlyclassic' },
+      { co: 'UXgage', role: 'Co-Founder & CTO', dates: 'Oct 2015 – Apr 2016',
+        summary: 'Took an idea from zero to a shipped product in 6 months — won a ₹5L cash prize from Sandbox Startups, with office space and Azure infrastructure granted separately.',
+        bullets: ['Core product architecture — PHP, Neo4j, Cassandra','JS instrumentation engine capturing user interactions and behavioral data','Data pipeline for large-volume user interaction storage'],
+        leadTitle: 'Leadership',
+        lead: ['Owned the product end-to-end — not a contributor, the builder','Hired ~3 engineers, mentored them, unblocked technical challenges','Conducted product demos for clients and stakeholders'],
+        metrics: m([['0→1','product shipped'],['₹5L','cash prize won']]),
+        more: 'View More', href: S + '/experience/uxgage' }
+    ].map((e, i) => ({ ...e, hasNote: !!e.hasNote, short: e.bullets.slice(0, 3), r: ['-0.8deg', '0.6deg', '-0.4deg'][i], r2: ['2deg', '-2deg', '1.5deg'][i] }));
+    const oss = rot([
+      { n: '01', lang: 'TypeScript', title: 'Plug', sub: 'Package manager for Claude Code skills', desc: 'Discover, install, and manage reusable Skills, Commands, and Agents from GitHub-hosted registries — through an interactive TUI or the CLI.', tags: ['TypeScript','Node.js','Ink','Claude Code'], href: S + '/opensource/plug', gh: 'https://github.com/dsiddharth2/plug' },
+      { n: '02', lang: 'Python', title: 'CodeHawk', sub: 'AI-powered pull request review pipeline', desc: 'Runs in CI, produces structured findings, scores code quality, and posts inline comments to Azure DevOps or GitHub.', tags: ['Python','OpenAI Agents','Docker','Azure DevOps','GitHub'], href: S + '/opensource/codehawk', gh: 'https://github.com/dsiddharth2/codehawk' },
+      { n: '03', lang: 'PHP', title: 'PHP ZXing', sub: 'PHP wrapper for the ZXing barcode library', desc: 'Composer package for reading barcodes and QR codes. 277K+ Packagist installs, 133 GitHub stars, and featured on the upstream ZXing repo.', tags: ['PHP','Composer','ZXing','Java'], href: S + '/opensource/php-zxing', gh: 'https://github.com/dsiddharth2/php-zxing' },
+      { n: '04', lang: 'JavaScript', title: 'MooPin', sub: 'Pinterest-style column grid for MooTools', desc: 'Small MooTools plugin that packs tiles into a Pinterest-style column grid — including infinite-scroll galleries. Inspired by Wookmark for jQuery.', tags: ['JavaScript','MooTools','Layout','Infinite scroll'], href: S + '/opensource/moo-pin', gh: 'https://github.com/dsiddharth2/moo-pin' }
+    ].map(o => ({ ...o, tagline: o.tags.join(' · ') })));
+    this._d = {
+      S, cases, products, exp, oss,
+      stickies: [['12+','years shipping','#F5A623','-3deg'],['3','client engagements in parallel','#FFF3A8','2deg'],['5','production AI systems shipped','#FFD6A0','-1.5deg'],['300+','US facilities live','#FFF3A8','3deg'],['30%','cloud spend reduced','#F5A623','-2deg']].map(([v, l, bg, r]) => ({ v, l, bg, r })),
+      build: rot([
+        ['Enterprise AI','People who need an answer cannot get it, because the answer lives behind SQL, five admin screens, or someone else’s calendar.','Production RAG, GraphRAG, agent orchestration, and LLM applications that run against live business data.','Multi-Agent Conversational AI','/projects/multi-agent'],
+        ['Data & Knowledge Systems','The knowledge exists, but it is spread across thousands of unstructured documents with no schema and no shared vocabulary.','Large-scale document processing, entity and relationship extraction, graph-based retrieval, and vector search.','GraphRAG Knowledge Engine','/projects/graphrag'],
+        ['Production Systems','A system the whole company runs on, all day, where an hour of downtime means shipments stop.','Cloud architecture, distributed systems, APIs, data pipelines, and the observability to know when they degrade.','Secure Logistics ERP','/projects/logistics-erp'],
+        ['Secure AI','An AI system that can read the database can read the wrong tenant’s data. The access model has to be part of the design.','Permission-aware generation, post-generation query rewriting, read-only validation, and enterprise access control.','Permission rewrite on generated SQL','/projects/multi-agent']
+      ].map(([title, problem, what, link, h], i) => ({ n: '0' + (i + 1), title, problem, what, link, href: S + h }))),
+      whatIDo: rot([
+        ['System Architecture','End-to-end design of production systems — from database schema to API layer to deployment pipeline. I\'ve architected ERPs, AI platforms, analytics engines, and multi-agent systems that serve thousands of users daily.'],
+        ['AI & Data Systems','Building production AI — not prototypes. 7 AI agents shipped, 5 production AI systems. GraphRAG pipelines, multi-agent orchestration, automated code review, cloud cost optimization, infrastructure monitoring.'],
+        ['Team Building & Leadership','20+ engineers hired and mentored, including campus hires. I\'ve grown with a company from 10 to 55 people, led campus hiring for 4 years, managed 3 clients simultaneously, and run 10 community meetups on Saturdays.'],
+        ['0-to-1 Product Development','Taking ideas from a whiteboard to production. I\'ve co-founded a startup, built an ERP from scratch that became the backbone of an entire company, and shipped products that handle 100K hits per day.']
+      ].map(([title, text], i) => ({ n: '0' + (i + 1), title, text }))),
+      expertise: [
+        { title: 'Languages & Frameworks', items: ['Python · TypeScript · C# / .NET 8','PHP · React · Node.js','LangChain · LangGraph'] },
+        { title: 'AI & Data', items: ['GPT / LLM integration','FAISS · Vector search','GraphRAG · Multi-agent systems'] },
+        { title: 'Infrastructure', items: ['Azure (Durable Functions, Service Bus, Cosmos DB)','AWS · Azure AI Search','Neo4j · Cassandra'] },
+        { title: 'Practices', items: ['System design & architecture','CI/CD · DevOps · FinOps','Team hiring & mentorship'] }
+      ],
+      recognition: rot([{ t: 'Leadership Excellence', m: 'Apra Labs · Nov 2024' }, { t: 'Customer Appreciation', m: 'Apra Labs · Apr 2023' }, { t: 'Guiding Vision', m: 'Pravega X Fest' }]),
+      earlier: rot([
+        { name: 'Firaa.me', meta: 'Side Project · Built at IdeaFlask · Sep 2014 – Sep 2015', desc: 'Built and shipped a travel blogging platform end-to-end. Reached 500+ organic users in 6 months with zero marketing spend.' },
+        { name: 'Samvit Learning', meta: 'Founder · Apr 2011 – Apr 2016', desc: 'Founded a software training institute during 2nd year of MCA. Trained 250+ students in web programming technologies. Managed 25+ innovative projects.' },
+        { name: 'dotCORD IT Solutions', meta: 'Web Developer Intern · 2010–2013', desc: 'Interned for 3 years at GIT Incubation Center. Learned software engineering before completing MCA. Built applications on PHP frameworks (CodeIgniter, Yii).' }
+      ])
+    };
+    return this._d;
+  }
+
+  renderVals() {
+    const D = this.data(), p = this.state.page, dark = this.state.theme === 'dark';
+    const pages = [['home','Home'],['about','About'],['experience','Experience'],['projects','Case Studies'],['oss','Open Source'],['resume','Resume']];
+    const rots = ['-2deg', '1.5deg', '-1deg', '2deg', '-1.5deg', '1deg'];
+    const go = {}; pages.forEach(([k]) => { go[k] = this.nav(k); });
+    const is = {}; pages.forEach(([k]) => { is[k] = p === k; });
+    return {
+      nav: pages.map(([k, label], i) => ({ label, go: go[k], r: rots[i], bg: p === k ? '#F5A623' : (i % 2 ? '#FFF3A8' : '#FFFEF8') })),
+      go, is, showContact: p !== 'resume',
+      navFlex: (this.state.vw || 1400) < 1240 ? '1 1 100%' : '1', navOrder: (this.state.vw || 1400) < 1240 ? 3 : 0,
+      toggleTheme: () => this.applyTheme(dark ? 'light' : 'dark'),
+      themeLabel: dark ? 'Lamp off' : 'Lamp on', knobLeft: dark ? '17px' : '3px',
+      stickies: D.stickies, build: D.build, cases: D.cases, exp: D.exp, oss: D.oss, ossHome: D.oss.slice(0, 2),
+      products: D.products, whatIDo: D.whatIDo, expertise: D.expertise, recognition: D.recognition, earlier: D.earlier,
+      printPdf: () => { const w = window.open(D.S + '/Siddharth_Deshpande.pdf'); if (w) w.addEventListener('load', () => w.print()); }
+    };
+  }
+}
+</script>
+</body>
+</html>
